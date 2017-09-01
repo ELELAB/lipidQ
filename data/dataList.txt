@@ -1,0 +1,3 @@
+/data/user/andre/lipidomics/lipidQuan/data/test/mE494_POS_LP-out.csv
+/data/user/andre/lipidomics/lipidQuan/data/test/mE494_POS_Chol-out.csv 
+/data/user/andre/lipidomics/lipidQuan/data/test/mE494_NEG_LP-out.csv
