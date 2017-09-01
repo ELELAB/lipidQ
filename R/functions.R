@@ -822,7 +822,8 @@ mergeTableauDataSets <- function(dataList){
 
   return(mergedTableau)
 }
-
+#' Lipidomics Analysis Tool
+#' @author André Vidas Olsen
 #' @export
 runLipidQuan <- function(){
   shiny::runApp("R/Main.R", launch.browser=TRUE)

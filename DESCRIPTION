@@ -1,11 +1,11 @@
 Package: lipidQuan
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Lipidomics Analysis Tool
 Version: 0.1
 Date: 2017-08-31
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
+Author: André Vidas Olsen
+Maintainer: <aols@cancer.dk>
+Description: Coming soon ..
 License: What license is it under?
 LazyData: TRUE
 RoxygenNote: 6.0.1
