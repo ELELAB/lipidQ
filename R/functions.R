@@ -830,7 +830,7 @@ mergeTableauDataSets <- function(dataList){
 #' @import shiny
 runLipidQuan <- function(){
   #shinyApp(ui = ui, server = server)
-  runApp("shiny/")
+  runApp("R/shiny/")
 }
 
 
