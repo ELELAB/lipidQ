@@ -1,8 +1,7 @@
-
-
+#' @import shiny
 ui <- fluidPage(
   titlePanel("LipidQuan"),
-  
+
   navbarPage("CHOOSE OPERATION: ",
              tabPanel("Data Analysis",
                       sidebarLayout(
@@ -23,30 +22,30 @@ ui <- fluidPage(
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
                           numericInput("multiplyPREC_value", "Set multiply factor:", 2, min = 1, max = 100),
-                          
+
                           br(),
                           br(),
                           br(),
-                          
+
                           numericInput("spikeVar", "Spike Variable:", 2, min = 1, max = 100),
                           numericInput("zeroThresh", "Threshold for rounding down to zero for mol% species:", 0.25, min = 0, max = 10),
-                          
+
                           br(),
-                          
-                          textInput("dir", "Paste the filepath for the output files to be saved.", "results/"),
-                          
+
+                          textInput("dir", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/lipidQuan/results/"),
+
                           br(),
                           br(),
                           br(),
-                          
+
                           actionButton("runAnalysis", "Run Analysis"),
-                          
+
                           br(),
                           br(),
                           textOutput("analysisDone")
-                          
+
                         ),
-                        
+
                         mainPanel()
                       )
              ),
@@ -57,11 +56,11 @@ ui <- fluidPage(
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
                           textInput("dirTableau", "Paste the filepath for the output files to be saved.", "results/"),
-                          
+
                           br(),
-                          
+
                           actionButton("runTableauMerging", "Merge Tableau Data Sets"),
-                          
+
                           br(),
                           br(),
                           textOutput("tableauMergingDone")
