@@ -1,11 +1,12 @@
-source("R/functions.R")
-
-
+source("R/mergeDataSets.R")
+source("R/sort_is.R")
+source("R/filterDataSet.R")
+source("R/pmolCalc.R")
+source("R/mergeTableauDataSets.R")
 
 ################################################################################################################
 # save new version of mergeDataSets validation dataset
 ################################################################################################################
-source("R/functions.R")
 dataPathTest <- read.table("data/dataList.txt", stringsAsFactors = FALSE)[,1]
 database <- read.table("data/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 t <- mergeDataSets(dataPathTest, database)
@@ -15,7 +16,6 @@ t <- mergeDataSets(dataPathTest, database)
 ################################################################################################################
 # save new version of mergeDataSets validation dataset with multiply = 2
 ################################################################################################################
-source("R/functions.R")
 list <- read.table("data/test/Correction_List.csv", stringsAsFactors = FALSE, header = FALSE, sep = ",")$V1
 dataPathTest <- read.table("data/dataList.txt", stringsAsFactors = FALSE)[,1]
 database <- read.table("data/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
@@ -26,7 +26,6 @@ t <- mergeDataSets(dataPathTest, database, multiply = 2, list = list)
 ################################################################################################################
 # save new version of mergeDataSets validation dataset with user specified colnames
 ################################################################################################################
-source("R/functions.R")
 list <- read.table("data/test/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 dataPathTest <- read.table("data/dataList.txt", stringsAsFactors = FALSE)[,1]
 database <- read.table("data/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
@@ -39,7 +38,6 @@ t <- mergeDataSets(dataPathTest, database, userSpecifiedColnames = list)
 ################################################################################################################
 # save new version of sort_is validation dataset
 ################################################################################################################
-source("R/functions.R")
 dataPathTest <- read.table("data/dataList.txt", stringsAsFactors = FALSE)[,1]
 database <- read.table("data/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 t <- mergeDataSets(dataPathTest, database)
@@ -51,7 +49,6 @@ t <- sort_is(t)
 ################################################################################################################
 # save new version of filterDataSet validation dataset
 ################################################################################################################
-source("R/functions.R")
 dataPathTest <- read.table("data/dataList.txt", stringsAsFactors = FALSE)[,1]
 database <- read.table("data/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 t <- mergeDataSets(dataPathTest, database)
@@ -64,7 +61,6 @@ t <- filterDataSet(t,database)
 ################################################################################################################
 # save new version of pmolCalc validation dataset
 ################################################################################################################
-source("R/functions.R")
 dataPathTest <- read.table("data/dataList.txt", stringsAsFactors = FALSE)[,1]
 database <- read.table("data/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 t <- mergeDataSets(dataPathTest, database)
@@ -80,7 +76,6 @@ t <- pmolCalc(t,database, 2, 0.25)
 ################################################################################################################
 # save new version of tableauOutput validation data set
 ################################################################################################################
-source("R/functions.R")
 dataPathTest <- read.table("data/tableauList.txt", stringsAsFactors = FALSE)[,1]
 mergedTableauDataSets <- mergeTableauDataSets(dataPathTest)
 #write.csv(mergedTableauDataSets,"data/validation/mergedTableauDataSets.csv", quote = FALSE, row.names = FALSE)
