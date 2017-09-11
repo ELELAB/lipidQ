@@ -7,7 +7,8 @@
 compactOutput_pmolCalc(data)
 }
 \description{
-Make Compact Output Containing Pico Mol Calculations
+compactOutput_pmolCalc saves a data.frame with only
+NAME, CLASS_PMOL_SUBT_PMOL_PREC*, and MOL_PCT_CLASS_SUBT_PMOL_PREC* OMSKRIV!!!
 }
 \author{
 André Vidas Olsen

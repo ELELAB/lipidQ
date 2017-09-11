@@ -2,12 +2,14 @@
 % Please edit documentation in R/runLipidQuan.R
 \name{runLipidQuan}
 \alias{runLipidQuan}
-\title{Lipidomics Analysis Tool}
+\title{Lipidomics Analysis Tool Graphical User Interface}
 \usage{
 runLipidQuan()
 }
 \description{
-Lipidomics Analysis Tool
+runLipidQuan starts the graphical user interface (GUI) of Lipidomics Analysis Tool.
+From this GUI, the user can specify different types of procedures, input data, different parameter
+as well as the output directory.
 }
 \author{
 André Vidas Olsen

@@ -1,8 +1,16 @@
 rm(list = ls())
 setwd("/data/user/andre/lipidomics/lipidQuan/R")
 library('RUnit')
-source('functions.R')
-
+source('compactOutput_pmolCalc.R')
+source('filterDataSet.R')
+source('makeTableauOutput.R')
+source('mergeDataSets.R')
+source('mergeTableauDataSets.R')
+source('pmolCalc.R')
+source('readFile.R')
+source('rmSpaceInBeginning.R')
+source('sort_is.R')
+source("setColnames.R")
 
 test.suite <- defineTestSuite("auxFunctions",
                               dirs = file.path("../tests/testFiles"),

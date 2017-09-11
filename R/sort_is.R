@@ -1,8 +1,9 @@
+#' @title Sort Internal Standards
+#' @author André Vidas Olsen
+#' @description This function orders all internal standards (is) in a given data set so that they appear as the last rows
+#' (after the normal species). The purpose for this is mainly to get a better overview of the data types when manually inspecting the data.
+#' @export
 sort_is<-function(data){
-  #
-  # This function moves all internal standards (is) in a given data set so that they appear after all
-  # normal species.
-  #
 
 
   # save all is-rows

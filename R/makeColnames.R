@@ -1,40 +1,40 @@
 # load default colnames
 #defaultColnames <- colnames(read.csv("data/test/Temporary_DataBase_V3.csv", header = TRUE))
 #defaultColnames_ <- colnames(read.csv("results/mergedDataSets.csv", header = TRUE))
-defaultColnames <- c("ERROR", "CLASS", "LENGTH", "DB", "NAME", "SPECIE", "MASS", "OH", "isLP", "PRECx", "FRAGx", "FAxINTENS", "NLS", "FAOINTENS", "QUAN_MODE", "QUAN", "DECONVULOTION_MODE", "DECONVULOTION_FRAGx", "DECONVULOTION_FAx", "MASSNLS", "MASSFA", "MASSFRAG", "MODE")
+defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "NAME", "SPECIE", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "MS2x", "FAxINTENS", "NLS", "FAOINTENS", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_FRAGx", "DECONVOLUTION_FAx", "MASSNLS", "MASSFA", "MASSFRAG", "MODE","numberOfSamples", "numberOfReplicates")
 
 # create data.frame for user specified colnames
-userSpecifiedColnames <- matrix(ncol = length(defaultColnames), nrow = 2)
+userSpecifiedColnames <- matrix(ncol = length(defaultColnames), nrow = 1)
 colnames(userSpecifiedColnames) <- defaultColnames
 userSpecifiedColnames <- as.data.frame(userSpecifiedColnames)
 
 # set user specified names and the amount of each names to be used
 # ANTALLET AF HVER KOLONNE ER MULIGVIS OVERFLØDIGT, DA DER I mergeDataSets.R BURDE VÆRE NOGET KODE DER FINDER UD AF HVOR MANGE PREC'S, FRAG'S OSV DER ER DER.
-userSpecifiedColnames$ERROR <- c("ERROR", 1)
-userSpecifiedColnames$CLASS <- c("CLASS", 1)
-userSpecifiedColnames$LENGTH <- c("LENGTH", 1)
-userSpecifiedColnames$DB <- c("DB", 1)
-userSpecifiedColnames$NAME <- c("NAME", 1)
-userSpecifiedColnames$SPECIE <- c("SPECIE", 1)
-userSpecifiedColnames$MASS <- c("MASS", 1)
-userSpecifiedColnames$OH <- c("OH", 1)
-userSpecifiedColnames$isLP <- c("isLP", 1)
-userSpecifiedColnames$PRECx <- c("PREC", 8)
-userSpecifiedColnames$FRAGx <- c("FRAG", 8)
-userSpecifiedColnames$FAxINTENS <- c("FAxINTES", 8)
-userSpecifiedColnames$NLS <- c("NLS", 1)
-userSpecifiedColnames$FAOINTENS <- c("FAOINTENS", 1)
-userSpecifiedColnames$QUAN_MODE <- c("QUAN_MODE", 1)
-userSpecifiedColnames$QUAN <- c("QUAN", 1)
-userSpecifiedColnames$DECONVULOTION_MODE <- c("DECONVULOTION_MODE", 1)
-userSpecifiedColnames$DECONVULOTION_FRAGx <- c("DECONVULOTION_FRAG", 8)
-userSpecifiedColnames$DECONVULOTION_FAx <- c("DECONVULOTION_FA", 8)
-userSpecifiedColnames$MASSNLS <- c("MASSNLS", 1)
-userSpecifiedColnames$MASSFA <- c("MASSFA", 1)
-userSpecifiedColnames$MASSFRAG <- c("MASSFRAG", 1)
-userSpecifiedColnames$MODE <- c("MODE", 1)
-
-
+userSpecifiedColnames$PPM <- c("ERROR")
+userSpecifiedColnames$CLASS <- c("CLASS")
+userSpecifiedColnames$C_CHAIN <- c("LENGTH")
+userSpecifiedColnames$DOUBLE_BOND <- c("DB")
+userSpecifiedColnames$NAME <- c("NAME")
+userSpecifiedColnames$SPECIE <- c("SPECIE")
+userSpecifiedColnames$MASS_TO_CHARGE <- c("MASS")
+userSpecifiedColnames$OH_GROUP <- c("OH")
+userSpecifiedColnames$ISTD <- c("isLP")
+userSpecifiedColnames$MS1x <- c("PREC")
+userSpecifiedColnames$MS2x <- c("FRAG")
+userSpecifiedColnames$FAxINTENS <- c("FAxINTES")
+userSpecifiedColnames$NLS <- c("NLS")
+userSpecifiedColnames$FAOINTENS <- c("FAOINTENS")
+userSpecifiedColnames$QUAN_MODE <- c("QUAN_MODE")
+userSpecifiedColnames$QUAN_SCAN <- c("QUAN_SCAN")
+userSpecifiedColnames$DECONVOLUTION_MODE <- c("DECONVOLUTION_MODE")
+userSpecifiedColnames$DECONVOLUTION_FRAGx <- c("DECONVOLUTION_FRAG")
+userSpecifiedColnames$DECONVOLUTION_FAx <- c("DECONVOLUTION_FA")
+userSpecifiedColnames$MASSNLS <- c("MASSNLS")
+userSpecifiedColnames$MASSFA <- c("MASSFA")
+userSpecifiedColnames$MASSFRAG <- c("MASSFRAG")
+userSpecifiedColnames$MODE <- c("MODE")
+userSpecifiedColnames$numberOfSamples <- c("3")
+userSpecifiedColnames$numberOfReplicates <- c("3")
 
 
 #userSpecifiedColnames$ERROR <- c("ERROR", 1)
@@ -65,4 +65,4 @@ userSpecifiedColnames$MODE <- c("MODE", 1)
 write.csv(userSpecifiedColnames, "data/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE)
 
 test <- read.csv("data/test/userSpecifiedColnames.csv", header = TRUE)
-
+colnames(test)

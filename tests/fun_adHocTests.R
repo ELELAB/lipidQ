@@ -3,6 +3,9 @@ source("R/sort_is.R")
 source("R/filterDataSet.R")
 source("R/pmolCalc.R")
 source("R/mergeTableauDataSets.R")
+source("R/readFile.R")
+source("R/rmSpaceInBeginning.R")
+source("R/setColnames.R")
 
 ################################################################################################################
 # save new version of mergeDataSets validation dataset

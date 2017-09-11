@@ -1,8 +1,9 @@
+#' @title Filter Data set
+#' @author André Vidas Olsen
+#' @description filterDataSet selects relevants columns from a data set and remove species
+#' if the name does not exist in the global database.
+#' @export
 filterDataSet<-function(data, database){
-  #
-  # This function selects relevants columns from a data set remove species if the name does not exit
-  # in the global ref. list.
-  #
 
 
   # if a row in the NAME or SPECIE column in the database starts with a [SPACE], remove this row

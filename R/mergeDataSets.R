@@ -1,63 +1,12 @@
+#' @title Merge Data Sets
+#' @author André Vidas Olsen
+#' @description This function merges multiple data sets together. The data sets are listed in the dataList parameter.
+#' @export
 mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, multiply = NULL, list = NULL){
-  #
-  # this function merges multiple data sets together. The data sets are listed in
-  # the dataList parameter.
-  #
 
   #### set colnames for data:
   # if user has specified colnames (userSpecifiedColnames)
-  if(!is.null(userSpecifiedColnames)){
-    ERROR <- userSpecifiedColnames$ERROR[1]
-    CLASS <- userSpecifiedColnames$CLASS[1]
-    LENGTH <- userSpecifiedColnames$LENGTH[1]
-    DB <- userSpecifiedColnames$DB[1]
-    NAME <- userSpecifiedColnames$NAME[1]
-    SPECIE <- userSpecifiedColnames$SPECIE[1]
-    MASS <- userSpecifiedColnames$MASS[1]
-    OH <- userSpecifiedColnames$OH[1]
-    isLP <- userSpecifiedColnames$isLP[1]
-    PRECx <- userSpecifiedColnames$PRECx[1]
-    FRAGx <- userSpecifiedColnames$FRAGx[1]
-    #FAxINTES <-
-    NLS <- userSpecifiedColnames$NLS[1]
-    FA0INTENS <- userSpecifiedColnames$FAOINTENS[1]
-    QUAN_MODE <- userSpecifiedColnames$QUAN_MODE[1]
-    QUAN <- userSpecifiedColnames$QUAN[1]
-    DECONVULOTION_MODE <- userSpecifiedColnames$DECONVULOTION_MODE[1]
-    DECONVULOTION_FRAGx <- userSpecifiedColnames$DECONVULOTION_FRAGx[1]
-    DECONVULOTION_FAx <- userSpecifiedColnames$DECONVULOTION_FAx[1]
-    MASSNLS <- userSpecifiedColnames$MASSNLS[1]
-    MASSFA <- userSpecifiedColnames$MASSFA[1]
-    MASSFRAG <- userSpecifiedColnames$MASSFRAG[1]
-    MODE <- userSpecifiedColnames$MODE[1]
-  }
-  # Default colnames
-  else{
-    ERROR <- "ERROR"
-    CLASS <- "CLASS"
-    LENGTH <- "LENGTH"
-    DB <- "DB"
-    NAME <- "NAME"
-    SPECIE <- "SPECIE"
-    MASS <- "MASS"
-    OH <- "OH"
-    isLP <- "isLP"
-    PRECx <- "PREC"
-    FRAGx <- "FRAG"
-    #FAxINTES <- "FAxINTENS"
-    NLS <- "NLS"
-    FA0INTENS <- "FAOINTENS"
-    QUAN_MODE <- "QUAN_MODE"
-    QUAN <- "QUAN"
-    DECONVULOTION_MODE <- "DECONVULOTION_MODE"
-    DECONVULOTION_FRAGx <- "DECONVULOTION_FRAG"
-    DECONVULOTION_FAx <- "DECONVULOTION_FA"
-    MASSNLS <- "MASSNLS"
-    MASSFA <- "MASSFA"
-    MASSFRAG <- "MASSFRAG"
-    MODE <- "MODE"
-  }
-
+  dataColnames <- setColnames(userSpecifiedColnames)
 
   # Find all unique columns for all data sets
   tryCatch(
@@ -84,6 +33,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
 
 
+
   # take all *FA* columns except SUMFA columns
   FA_cols <- uniqueCols[grep("FA",uniqueCols)]
   # remove SUMFA columns
@@ -93,12 +43,12 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
   # take all *FRAG* columns
   #FRAG_cols <- uniqueCols[grep("FRAG",uniqueCols)]
-  FRAG_cols <- uniqueCols[grep(FRAGx,uniqueCols)]
+  FRAG_cols <- uniqueCols[grep(dataColnames$MS2x,uniqueCols)]
 
 
   # take all *NLS* columns
   #NLS_cols <- uniqueCols[grep("NLS",uniqueCols)]
-  NLS_cols <- uniqueCols[grep(NLS,uniqueCols)]
+  NLS_cols <- uniqueCols[grep(dataColnames$NLS,uniqueCols)]
 
 
 
@@ -121,14 +71,14 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
     # if a row in the NAME or SPECIE column starts with a [SPACE], remove this [SPACE]
     data <- rmSpaceInBeginning(data)
 
-
-
     # select specific columns for a given data set (columns that are always present in each dataset).
     #selectedCols <- subset(data, select = c("ERROR", "CLASS", "LENGTH", "DB", "NAME", "SPECIE", "MASS"))
     #selectedCols <- subset(data, select = c(ERROR, CLASS, LENGTH, DB, NAME, SPECIE, MASS))
     selectedCols <- tryCatch(
       {
-        subset(data, select = c(ERROR, CLASS, LENGTH, DB, NAME, SPECIE, MASS)) # return statement
+
+        subset(data, select = c(dataColnames$PPM, dataColnames$CLASS, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$NAME, dataColnames$SPECIE, dataColnames$MASS_TO_CHARGE)) # return statement
+
       },
       error=function(cond){
         message("ERROR: PROBLEMS WITH COLUMN NAMES! Please check that all colnames are correctly named, both in the dataset and in the userSpecifiedList, if it's used.")
@@ -146,17 +96,15 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
 
     # Insert values from OH col to selectedCols, if present in the data set or set value to NA.
-    #if("OH" %in% colnames(data)){
-    if(OH %in% colnames(data)){
-      selectedCols$OH <- data$OH
+    if(dataColnames$OH_GROUP %in% colnames(data)){
+      selectedCols$OH_GROUP <- data[,which(dataColnames$OH_GROUP == colnames(data))]
     }else{
-      selectedCols$OH <- NA
+      selectedCols$OH_GROUP <- NA
     }
 
 
-
     # change long PREC* name to PREC_xx, where xx is a number
-    PREC_tmp <- data[,c(colnames(data)[grep(paste0("^",PRECx),colnames(data))])]
+    PREC_tmp <- data[,c(colnames(data)[grep(paste0("^",dataColnames$MS1x),colnames(data))])]
     colnames(PREC_tmp) <- gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",colnames(PREC_tmp))
 
     # insert new PREC_xx col names to selectedCols
@@ -194,10 +142,8 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
     }
 
 
-
     # remove all rows where NAME == ""
     selectedCols <- selectedCols[selectedCols$NAME != "",]
-
 
 
     # merge all data sets into one data set (mergedDataSet).
@@ -218,6 +164,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
   if(!is.null(multiply) && !is.null(list)){
     for(PREC in colnames(PREC_tmp)){
       mergedDataSet[,PREC] <- ifelse(mergedDataSet[,"NAME"] %in% list, mergedDataSet[,PREC]*multiply, mergedDataSet[,PREC])
+
     }
   }
 
@@ -256,6 +203,8 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
         }else{
           selectedColRows <- subset(mergedDataSet, NAME == className, select = paste0(selectedColNames, "_",k))
         }
+
+
 
         if(nrow(selectedColRows) > 0){ # only check condition on column-row values if selectedColRows actually contains rows
           for(i in 1:nrow(selectedColRows)){

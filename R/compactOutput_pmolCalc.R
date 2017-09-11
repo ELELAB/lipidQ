@@ -1,10 +1,9 @@
-#' Make Compact Output Containing Pico Mol Calculations
+#' @title Make Compact Output Containing Pico Mol Calculations
 #' @author André Vidas Olsen
+#' @description compactOutput_pmolCalc saves a data.frame with only
+#' NAME, CLASS_PMOL_SUBT_PMOL_PREC*, and MOL_PCT_CLASS_SUBT_PMOL_PREC* OMSKRIV!!!
 #' @export
 compactOutput_pmolCalc <- function(data){
-  #
-  # This function saves a data.frame with only NAME, CLASS_PMOL_SUBT_PMOL_PREC*, and MOL_PCT_CLASS_SUBT_PMOL_PREC*
-  #
 
   # create the new data set with NAME
   classPmol_molPctClass <- subset(data, select = c(NAME))
