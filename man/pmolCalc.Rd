@@ -9,3 +9,6 @@ pmolCalc(data, database, spikeVariable, zeroThresh)
 \description{
 This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard
 }
+\author{
+André Vidas Olsen
+}
