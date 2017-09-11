@@ -1,7 +1,8 @@
+#' @title Merge Tableau Data Sets
+#' @author André Vidas Olsen
+#' @description This function merges tableau output files into one data file
+#' @export
 mergeTableauDataSets <- function(dataList){
-  #
-  # This function merges tableau output files into one data file
-  #
 
 
   # Find all unique "mol." values for all data sets

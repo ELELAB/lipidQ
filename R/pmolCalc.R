@@ -1,4 +1,5 @@
 #' @title Pico mol Calculation
+#' @author André Vidas Olsen
 #' @description This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard
 #' @export
 pmolCalc <- function(data, database, spikeVariable, zeroThresh){

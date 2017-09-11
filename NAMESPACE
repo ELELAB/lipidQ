@@ -2,7 +2,9 @@
 
 export(compactOutput_pmolCalc)
 export(filterDataSet)
+export(makeTableauOutput)
 export(mergeDataSets)
+export(mergeTableauDataSets)
 export(pmolCalc)
 export(runLipidQuan)
 export(sort_is)

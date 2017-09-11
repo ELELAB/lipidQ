@@ -1,7 +1,8 @@
+#' @title Make Tableau Output
+#' @author André Vidas Olsen
+#' @description This function creates an output file of the results in a format that can be used by Tableau.
+#' @export
 makeTableauOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet){
-  #
-  # This function creates an output file of the results in a format that can be used by Tableau.
-  #
 
   # take all lipid species (NAME col) from pmolCalculatedDataSet without using the is-rows and their respective
   lipidSpecies <- pmolCalculatedDataSet[,c(1,grep("^FILTERED*", colnames(pmolCalculatedDataSet)))]
