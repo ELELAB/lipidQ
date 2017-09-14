@@ -31,9 +31,6 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
 
 
-
-
-
   # take all *FA* columns except SUMFA columns
   FA_cols <- uniqueCols[grep("FA",uniqueCols)]
   # remove SUMFA columns

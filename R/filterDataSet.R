@@ -11,7 +11,7 @@ filterDataSet<-function(data, database){
 
 
   #### select relevant columns
-  data_tmp <- subset(data, select = c("NAME","ERROR", "MASS","SPECIE","MODE"))
+  data_tmp <- subset(data, select = c("NAME","ERROR", "MASS","SPECIE","MODE", "LENGTH", "DB", "OH_GROUP"))
   PREC_tmp <- data[,c(colnames(data)[grep("^PREC",colnames(data))])]
   NLS_tmp <- data[,c(colnames(data)[grep("^NLS",colnames(data))])]
 
