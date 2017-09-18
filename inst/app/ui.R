@@ -3,7 +3,7 @@ ui <- fluidPage(
   titlePanel("LipidQuan"),
 
   navbarPage("CHOOSE OPERATION: ",
-             tabPanel("Data Analysis",
+             tabPanel("Quantification",
                       sidebarLayout(
                         sidebarPanel(
                           fileInput(inputId = "dataList", multiple = TRUE, label = "Choose the input data sets (.csv-files):",

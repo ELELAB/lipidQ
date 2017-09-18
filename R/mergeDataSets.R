@@ -4,9 +4,8 @@
 #' @export
 mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, multiply = NULL, list = NULL){
 
-  #### set colnames for data:
-  # if user has specified colnames (userSpecifiedColnames)
-  dataColnames <- setColnames(userSpecifiedColnames)
+  # get colnames for data:
+  dataColnames <- getColnames(userSpecifiedColnames)
 
   # Find all unique columns for all data sets
   tryCatch(
@@ -278,3 +277,6 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
   return(mergedDataSet)
 }
+
+
+

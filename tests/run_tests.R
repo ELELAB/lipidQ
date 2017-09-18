@@ -10,7 +10,7 @@ source('pmolCalc.R')
 source('readFile.R')
 source('rmSpaceInBeginning.R')
 source('sort_is.R')
-source("setColnames.R")
+source("getColnames.R")
 
 test.suite <- defineTestSuite("auxFunctions",
                               dirs = file.path("../tests/testFiles"),

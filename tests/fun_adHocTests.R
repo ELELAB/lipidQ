@@ -5,7 +5,7 @@ source("R/pmolCalc.R")
 source("R/mergeTableauDataSets.R")
 source("R/readFile.R")
 source("R/rmSpaceInBeginning.R")
-source("R/setColnames.R")
+source("R/getColnames.R")
 
 ################################################################################################################
 # save new version of mergeDataSets validation dataset
