@@ -47,7 +47,7 @@ filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
 
 
   #### create SPECIE.ALL col: consists of all species within specie name seperated by "|", e.g. DAG 16:1-16:1|DAG 18:1-14:1
-  data$SPECIE.ALL <- NA
+  data[,paste0(dataColnames$SPECIE,".ALL")] <- NA
   nameList <- unique(data[,dataColnames$NAME])
   for(name in nameList){ # for each specie name, find all species and insert them into SPECIE.ALL seperated by "|"
     specie_tmp <- subset(data, NAME == name)$SPECIE
