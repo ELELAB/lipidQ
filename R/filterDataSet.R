@@ -53,7 +53,7 @@ filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
     specie_tmp <- subset(data, NAME == name)$SPECIE
     #specie_tmp <- specie_tmp[!duplicated(specie_tmp)]
     specie_tmp <- paste(specie_tmp, collapse = '|')
-    data[which(data$NAME == name),"SPECIE.ALL"]<-specie_tmp
+    data[which(data[,dataColnames$NAME] == name),"SPECIE.ALL"] <- specie_tmp
   }
 
 
