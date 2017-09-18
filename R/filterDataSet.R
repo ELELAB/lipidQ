@@ -3,17 +3,20 @@
 #' @description filterDataSet selects relevants columns from a data set and remove species
 #' if the name does not exist in the global database.
 #' @export
-filterDataSet<-function(data, database){
+filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
 
 
   # if a row in the NAME or SPECIE column in the database starts with a [SPACE], remove this row
   database <- rmSpaceInBeginning(database)
 
+  # get colnames for data
+  dataColnames <- getColnames(userSpecifiedColnames)
+
 
   #### select relevant columns
-  data_tmp <- subset(data, select = c("NAME","ERROR", "MASS","SPECIE","MODE", "LENGTH", "DB", "OH_GROUP"))
-  PREC_tmp <- data[,c(colnames(data)[grep("^PREC",colnames(data))])]
-  NLS_tmp <- data[,c(colnames(data)[grep("^NLS",colnames(data))])]
+  data_tmp <- subset(data, select = c(dataColnames$NAME, dataColnames$PPM, dataColnames$MASS_TO_CHARGE, dataColnames$SPECIE, dataColnames$MODE, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$OH_GROUP))
+  PREC_tmp <- data[,c(colnames(data)[grep(paste0("^", dataColnames$MS1x),colnames(data))])]
+  NLS_tmp <- data[,c(colnames(data)[grep("^NLS",colnames(data))])] # INVESTIGATE WITH MESUT WHAT NLS SHOULD BE (MS2X SOMETHING)..
 
   FRAG_tmp <- data[,c(colnames(data)[grep("^FRAG",colnames(data))])]
 
@@ -31,21 +34,21 @@ filterDataSet<-function(data, database){
 
 
   # create QUAN column to data consisting of the QUAN column in database.
-  data$QUAN <- database$QUAN[match(data$NAME, database$NAME)]
+  data$QUAN <- database$QUAN[match(data[,dataColnames$NAME], database[,"NAME"])] # FIND OUT WHETHER IT IS QUAN_SCAN OR QUAN_MODE
 
 
   # create SPECIE.GLOBAL column to data consisting of the SPECIE column in database.
-  data$SPECIE.GLOBAL <- database$SPECIE[match(data$NAME, database$NAME)]
+  data$SPECIE.GLOBAL <- database$SPECIE[match(data[,dataColnames$NAME], database[,"NAME"])]
 
 
   # remove specie names that are not included in database
-  GLOBAL.NAME.CHECK <- database$NAME[match(data$NAME, database$NAME)] # transfer NAME col from database to data
+  GLOBAL.NAME.CHECK <- database$NAME[match(data[,dataColnames$NAME], database[,"NAME"])] # transfer NAME col from database to data
   data <- data[!is.na(GLOBAL.NAME.CHECK),] # remove all rows whose names were not found in database
 
 
   #### create SPECIE.ALL col: consists of all species within specie name seperated by "|", e.g. DAG 16:1-16:1|DAG 18:1-14:1
   data$SPECIE.ALL <- NA
-  nameList <- unique(data$NAME)
+  nameList <- unique(data[,dataColnames$NAME])
   for(name in nameList){ # for each specie name, find all species and insert them into SPECIE.ALL seperated by "|"
     specie_tmp <- subset(data, NAME == name)$SPECIE
     #specie_tmp <- specie_tmp[!duplicated(specie_tmp)]
@@ -57,21 +60,18 @@ filterDataSet<-function(data, database){
   #### remove duplicates
 
   # find potential value > 0 for each NAME in each PREC.* column and set this value as the default for this class name (if it exists), so that they appear after removal of duplicates. (PREC.* always have the same value > 0)
-  classNames <- unique(data[,"NAME"])
+  classNames <- unique(data[,dataColnames$NAME])
   for(PREC in colnames(PREC_tmp)){
     for(className in classNames){
-      data[data$NAME == className, PREC] <- max(data[data$NAME == className, PREC])
+      data[data[,dataColnames$NAME] == className, PREC] <- max(data[data[,dataColnames$NAME] == className, PREC])
     }
   }
 
   # remove all duplicates of NAME.
-  data <- data[!duplicated(data$NAME),]
+  data <- data[!duplicated(data[,dataColnames$NAME]),]
 
 
 
-
-  # (MAYBE DEPRECATED NOW THAT IT IS DONE IN THE mergeDataSet FUNCTION. CHECK SOON WITH RUnit) replace all "Keine" and "None" with the corresponding row value from the NAME column
-  data$SPECIE <- ifelse(data$SPECIE == "Keine" | data$SPECIE == "None", data$NAME, data$SPECIE)
 
 
   # replace NA and "" with "none" in SPECIE.GLOBAL
