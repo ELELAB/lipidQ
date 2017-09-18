@@ -69,7 +69,7 @@ database <- read.table("data/test/Temporary_DataBase_V3.csv", stringsAsFactors =
 t <- mergeDataSets(dataPathTest, database)
 t <- sort_is(t)
 t <- filterDataSet(t,database)
-t <- pmolCalc(t,database, 2, 0.25)
+t <- pmolCalc(t,database, NULL, 2, 0.25)
 #write.csv(t,"data/validation/pmolCalc.csv", quote = FALSE, row.names = FALSE)
 
 
