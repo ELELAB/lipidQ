@@ -2,11 +2,15 @@
 #' @author André Vidas Olsen
 #' @description This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard
 #' @export
-pmolCalc <- function(data, database, spikeVariable, zeroThresh){
+pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable, zeroThresh){
 
 
   #### if a row in the NAME or SPECIE column in database starts with a [SPACE], remove this row
   database <- rmSpaceInBeginning(database)
+
+
+  # get colnames for data
+  dataColnames <- getColnames(userSpecifiedColnames)
 
 
   #  # find all unique elements in the QUAN column
@@ -29,14 +33,14 @@ pmolCalc <- function(data, database, spikeVariable, zeroThresh){
   #  }
 
 
-  # define PREC columns and BLNK column (last PREC column)
-  PREC_names <- colnames(data)[grep("PREC",colnames(data))] # names of all PREC.* columns
-  BLNK <- PREC_names[length(PREC_names)] # name of BLNK column (last PREC.* column)
-  PREC_names <- PREC_names[-length(PREC_names)] # remove last column from PREC_names since this is BLNK
+  # define MS1x columns and BLNK column (last MS1x column)
+  MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
+  BLNK <- MS1x_names[length(MS1x_names)] # name of BLNK column (last MS1x.* column)
+  MS1x_names <- MS1x_names[-length(MS1x_names)] # remove last column from PREC_names since this is BLNK
 
   #### zero adapter: check value >= 0. if not, value <- 0.
-  for(PREC in PREC_names){ # for PREC columns
-    data[,PREC] <- ifelse(data[,PREC] < 0, 0, data[,PREC])
+  for(MS1x in MS1x_names){ # for PREC columns
+    data[,MS1x] <- ifelse(data[,MS1x] < 0, 0, data[,MS1x])
   }
   # for BLNK column (equal to last PREC column)
   data[,BLNK] <- ifelse(data[,BLNK] < 0, 0, data[,BLNK])
@@ -45,28 +49,28 @@ pmolCalc <- function(data, database, spikeVariable, zeroThresh){
 
 
   # split data set into exData (all experimental classes) and isData (all internal classes)
-  exData <- data[-grep("^is",data$NAME),]
-  isData <- data[grep("^is",data$NAME),]
+  exData <- data[-grep("^is",data[,dataColnames$NAME]),]
+  isData <- data[grep("^is",data[,dataColnames$NAME]),]
 
   # find all class names (without number) in exData
-  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",exData[,"NAME"])
+  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",exData[,dataColnames$NAME])
 
-  #### pmol calculation ( PREC*(NAME)/PREC*(isNAME)   x   pmol(isSpecie) )
-  for(PREC in PREC_names){
+  #### pmol calculation ( MS1x*(NAME)/MS1x*(isNAME)   x   pmol(isSpecie) )
+  for(MS1x in MS1x_names){
 
     for(i in 1:nrow(exData)){
       # find corresponding internal standard for the current class name.
-      is <- isData[grep(paste0("is",classNames[i]," "),isData$NAME),]
+      is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$NAME]),]
 
 
       # pmol_isSpecie = spikeVariabel(uL) x [isLP]
-      pmol_isSpecie <- spikeVariable * subset(database, NAME == is[,"NAME"])$isLP
+      pmol_isSpecie <- spikeVariable * subset(database, NAME == is[,dataColnames$NAME])$isLP
 
-      # pmol calculation ( PREC*(NAME)/PREC*(isNAME) x pmol(isSpecie) )
-      #pmol_calc <- exData[i,PREC] / is[,PREC] * pmol_isSpecie
+      # pmol calculation ( MS1x*(NAME)/MS1x*(isNAME) x pmol(isSpecie) )
+      #pmol_calc <- exData[i,MS1x] / is[,MS1x] * pmol_isSpecie
       pmol_calc <- tryCatch(
         {
-          exData[i,PREC] / is[,PREC] * pmol_isSpecie # return statement
+          exData[i,MS1x] / is[,MS1x] * pmol_isSpecie # return statement
         },
         error=function(cond){
           message("ERROR: PROBLEMS WITH VALUES IN INTENSITY COLUMNS! Please check that all intensity columns only contain numbers and not text-based values like NA, Inf etc.")
@@ -77,7 +81,7 @@ pmolCalc <- function(data, database, spikeVariable, zeroThresh){
           message(cond)
         })
 
-      data[i,paste0("PMOL_",PREC)] <- pmol_calc
+      data[i,paste0("PMOL_",MS1x)] <- pmol_calc
     }
   }
 
@@ -86,17 +90,17 @@ pmolCalc <- function(data, database, spikeVariable, zeroThresh){
   #### pmol BLNK calculation ( BLNK(NAME)/BLNK(isNAME)   x   pmol(isSpecie) )
   for(i in 1:nrow(exData)){
     # find corresponding internal standard.
-    is <- isData[grep(paste0("is",classNames[i]," "),isData$NAME),]
+    is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$NAME]),]
 
     # pmol_isSpecie <- spikeVariabel(uL) x [isLP]
-    pmol_isSpecie <- spikeVariable * subset(database, NAME == is[,"NAME"])$isLP
+    pmol_isSpecie <- spikeVariable * subset(database, NAME == is[,dataColnames$NAME])$isLP
 
-    # pmol calculation ( PREC:*(NAME)/PREC:*(isNAME) x pmol(isSpecie) )
+    # pmol calculation ( MS1x:*(NAME)/MS1x:*(isNAME) x pmol(isSpecie) )
     pmol_calc <- exData[i,BLNK] / is[,BLNK] * pmol_isSpecie
     data[i,paste0("PMOL_BLNK_",BLNK)] <- pmol_calc
   }
 
-  #### subtract pmol BLNK from pmol PREC*
+  #### subtract pmol BLNK from pmol MS1x*
   PMOL_PREC_names <- colnames(data)[grep("^PMOL_PREC",colnames(data))]
   PMOL_BLNK <- colnames(data)[grep("^PMOL_BLNK",colnames(data))]
 
@@ -114,10 +118,10 @@ pmolCalc <- function(data, database, spikeVariable, zeroThresh){
 
 
   # remove a given row if all PREC* (except last BLNK PREC) values contains zeros.
-  data <- data[apply(data[PREC_names],1,function(value) any(value != 0)),]
+  data <- data[apply(data[MS1x_names],1,function(value) any(value != 0)),]
   # update exData and isData with the newly created columns, and removed rows
-  exData <- data[-grep("is",data$NAME),]
-  isData <- data[grep("is",data$NAME),]
+  exData <- data[-grep("is",data[,dataColnames$NAME]),]
+  isData <- data[grep("is",data[,dataColnames$NAME]),]
 
 
 
@@ -153,7 +157,7 @@ pmolCalc <- function(data, database, spikeVariable, zeroThresh){
 
   #### sum pmol values for each classes in each PREC* after BLNK subtraction
   # find all unique class names (without numbers)
-  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",data[1:nrow(exData),"NAME"])
+  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",data[1:nrow(exData),dataColnames$NAME])
   classNames <-unique(classNames)
 
 
@@ -162,11 +166,11 @@ pmolCalc <- function(data, database, spikeVariable, zeroThresh){
 
     for(j in 1:length(SUBT_PMOL_PREC_names)){
       # sum values for each class
-      sumClassValue <- sum(data[grep(paste0("^",classNames[i]," "),data$NAME),SUBT_PMOL_PREC_names[j]],na.rm = TRUE)
+      sumClassValue <- sum(data[grep(paste0("^",classNames[i]," "),data[,dataColnames$NAME]),SUBT_PMOL_PREC_names[j]],na.rm = TRUE)
       sumClassValueList[i,j] <- sumClassValue
 
       # add sum value to all species with the same class
-      data[grep(paste0("^",classNames[i]," "),data$NAME),paste0("CLASS_PMOL_",SUBT_PMOL_PREC_names[j])] <- sumClassValue
+      data[grep(paste0("^",classNames[i]," "),data[,dataColnames$NAME]),paste0("CLASS_PMOL_",SUBT_PMOL_PREC_names[j])] <- sumClassValue
     }
   }
 
@@ -181,7 +185,7 @@ pmolCalc <- function(data, database, spikeVariable, zeroThresh){
       mol_pct_class<-100/totalSumClassValueList * sumClassValueList[i,j]
 
       # insert mol% class calculation into the respective class in data
-      data[grep(paste0("^",classNames[i]," "),data$NAME),paste0("MOL_PCT_CLASS_",SUBT_PMOL_PREC_names[j])]<-mol_pct_class
+      data[grep(paste0("^",classNames[i]," "),data[,dataColnames$NAME]),paste0("MOL_PCT_CLASS_",SUBT_PMOL_PREC_names[j])]<-mol_pct_class
 
     }
   }
