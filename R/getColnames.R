@@ -1,6 +1,6 @@
-#' @title Set Column Names
+#' @title Get Column Names
 #' @author André Vidas Olsen
-#' @description Auxiliary function to set colnames for the input data set. If no user specified column names is provided as an argument, default column names will be used
+#' @description Auxiliary function to get colnames for the input data set. If no user specified column names is provided as an argument, default column names will be returned.
 getColnames <- function(userSpecifiedColnames = NULL){
   # user specified colnames
   if(!is.null(userSpecifiedColnames)){
