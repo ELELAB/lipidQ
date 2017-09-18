@@ -80,7 +80,7 @@ server <- function(input, output, session){
     write.csv(mergedDataSets, file = paste0(input$dir,"/mergedDataSets.csv"), quote = FALSE, row.names = F)
     progress$set(value = 2)
 
-    filteredDataSet <- lipidQuan:::filterDataSet(mergedDataSets, database)
+    filteredDataSet <- lipidQuan:::filterDataSet(mergedDataSets, database, userSpecifiedColnames = userSpecifiedColnames)
     write.csv(filteredDataSet, file = paste0(input$dir,"/filteredDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 3)
 
@@ -97,7 +97,7 @@ server <- function(input, output, session){
     progress$set(value = 6)
 
     output$analysisDone <- renderText({
-      paste("Analysis done!")
+      paste("Quantification done!")
     })
   })
 
