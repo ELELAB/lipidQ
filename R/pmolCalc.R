@@ -64,7 +64,8 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
 
 
       # pmol_isSpecie = spikeVariabel(uL) x [isLP]
-      pmol_isSpecie <- spikeVariable * subset(database, NAME == is[,dataColnames$NAME])$isLP
+      pmol_isSpecie <- spikeVariable * database[database[,dataColnames$NAME] == is[,dataColnames$NAME], "isLP"]
+
 
       # pmol calculation ( MS1x*(NAME)/MS1x*(isNAME) x pmol(isSpecie) )
       #pmol_calc <- exData[i,MS1x] / is[,MS1x] * pmol_isSpecie
@@ -93,7 +94,7 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
     is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$NAME]),]
 
     # pmol_isSpecie <- spikeVariabel(uL) x [isLP]
-    pmol_isSpecie <- spikeVariable * subset(database, NAME == is[,dataColnames$NAME])$isLP
+    pmol_isSpecie <- spikeVariable * database[database[,dataColnames$NAME] == is[,dataColnames$NAME], "isLP"]
 
     # pmol calculation ( MS1x:*(NAME)/MS1x:*(isNAME) x pmol(isSpecie) )
     pmol_calc <- exData[i,BLNK] / is[,BLNK] * pmol_isSpecie
