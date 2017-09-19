@@ -34,15 +34,15 @@ filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
 
 
   # create QUAN column to data consisting of the QUAN column in database.
-  data$QUAN <- database$QUAN[match(data[,dataColnames$NAME], database[,"NAME"])] # FIND OUT WHETHER IT IS QUAN_SCAN OR QUAN_MODE
+  data$QUAN <- database$QUAN[match(data[,dataColnames$NAME], database[,dataColnames$NAME])] # FIND OUT WHETHER IT IS QUAN_SCAN OR QUAN_MODE
 
 
   # create SPECIE.GLOBAL column to data consisting of the SPECIE column in database.
-  data$SPECIE.GLOBAL <- database$SPECIE[match(data[,dataColnames$NAME], database[,"NAME"])]
+  data$SPECIE.GLOBAL <- database$SPECIE[match(data[,dataColnames$NAME], database[,dataColnames$NAME])]
 
 
   # remove specie names that are not included in database
-  GLOBAL.NAME.CHECK <- database$NAME[match(data[,dataColnames$NAME], database[,"NAME"])] # transfer NAME col from database to data
+  GLOBAL.NAME.CHECK <- database$NAME[match(data[,dataColnames$NAME], database[,dataColnames$NAME])] # transfer NAME col from database to data
   data <- data[!is.na(GLOBAL.NAME.CHECK),] # remove all rows whose names were not found in database
 
 
