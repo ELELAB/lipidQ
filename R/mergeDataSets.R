@@ -64,16 +64,13 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
     # load data from dataList
     data <- readFile(dataPath)
 
-    # if a row in the NAME or SPECIE column starts with a [SPACE], remove this [SPACE]
+    # if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION_COMPOSITION column starts with a [SPACE], remove this [SPACE]
     data <- rmSpaceInBeginning(data)
 
-    # select specific columns for a given data set (columns that are always present in each dataset).
-    #selectedCols <- subset(data, select = c("ERROR", "CLASS", "LENGTH", "DB", "NAME", "SPECIE", "MASS"))
-    #selectedCols <- subset(data, select = c(ERROR, CLASS, LENGTH, DB, NAME, SPECIE, MASS))
     selectedCols <- tryCatch(
       {
 
-        subset(data, select = c(dataColnames$PPM, dataColnames$CLASS, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$NAME, dataColnames$SPECIE, dataColnames$MASS_TO_CHARGE)) # return statement
+        subset(data, select = c(dataColnames$PPM, dataColnames$CLASS, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MASS_TO_CHARGE)) # return statement
 
       },
       error=function(cond){
@@ -138,8 +135,8 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
     }
 
 
-    # remove all rows where NAME == ""
-    selectedCols <- selectedCols[selectedCols[,dataColnames$NAME] != "",]
+    # remove all rows where SUM_COMPOSITION == ""
+    selectedCols <- selectedCols[selectedCols[,dataColnames$SUM_COMPOSITION] != "",]
 
 
     # merge all data sets into one data set (mergedDataSet).
@@ -159,7 +156,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
   # multiply PREC* values if multiply is set to a value
   if(!is.null(multiply) && !is.null(list)){
     for(PREC in colnames(PREC_tmp)){
-      mergedDataSet[,PREC] <- ifelse(mergedDataSet[,dataColnames$NAME] %in% list, mergedDataSet[,PREC]*multiply, mergedDataSet[,PREC])
+      mergedDataSet[,PREC] <- ifelse(mergedDataSet[,dataColnames$SUM_COMPOSITION] %in% list, mergedDataSet[,PREC]*multiply, mergedDataSet[,PREC])
 
     }
   }
@@ -178,13 +175,13 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
   #### Filtering based on 1/0 columns in database
 
   # find all class names in database
-  classNames <- unique(database[,dataColnames$NAME])
+  classNames <- unique(database[,dataColnames$SUM_COMPOSITION])
 
   # for each class in database, chose all species in mergedData
   for(className in classNames){
     #print(className)
     # select relevant columns (based on the 1/0's in the database)
-    col_index <- (database[database[,dataColnames$NAME] == className, FRAG_FA_NLS_database] == 1)[1,] # the [1,] ensures that only the first row of columns is chosen (if there are multiple rows with the same className in the NAME column)
+    col_index <- (database[database[,dataColnames$SUM_COMPOSITION] == className, FRAG_FA_NLS_database] == 1)[1,] # the [1,] ensures that only the first row of columns is chosen (if there are multiple rows with the same className in the SUM_COMPOSITION column)
 
     selectedColNames <- FRAG_FA_NLS_database[col_index]
 
@@ -195,10 +192,10 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
       for(k in 1:(ncol(PREC_tmp))){
 
         if(k <= 9){
-          selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$NAME] == className, select = paste0(selectedColNames, "_0",k))
+          selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_0",k))
 
         }else{
-          selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$NAME] == className, select = paste0(selectedColNames, "_",k))
+          selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_",k))
         }
 
 
@@ -212,7 +209,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
           }
           # set PREC.* to 0 if all rows for the 1. columns has values <= 0. (The remaining columns are not neccesary to check, since checks and modifications of all columns for each row have been made).
           if(all(selectedColRows[,1] <= "0")){
-            mergedDataSet[mergedDataSet[,dataColnames$NAME] == className, colnames(PREC_tmp)[k]] <- 0
+            mergedDataSet[mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, colnames(PREC_tmp)[k]] <- 0
           }
         }
 

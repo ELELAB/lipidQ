@@ -1,7 +1,7 @@
 setwd("/data/user/andre/lipidomics/lipidQuan/R")
 
 test.rmSpaceInBeginning <- function() {
-  DEACTIVATED('This function does not work at the moment...')
+  #DEACTIVATED('This function does not work at the moment...')
 
   # input: data.frame
   dataFrameTest <- data.frame(NAME = c(" hej", "med ", "dig"), SPECIE = c(" din", "smu kke", "  dukke"),stringsAsFactors = FALSE)
@@ -11,7 +11,7 @@ test.rmSpaceInBeginning <- function() {
 
 
 test.mergeDataSets <- function(){
-  DEACTIVATED('This function does not work at the moment...')
+  #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
   dataPathTest <- read.table("../data/dataList.txt", stringsAsFactors = FALSE)[,1]
@@ -29,7 +29,7 @@ test.mergeDataSets <- function(){
 
 
 test.mergeDataSets_multiply_2 <- function(){
-  DEACTIVATED('This function does not work at the moment...')
+  #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
   list <- read.table("../data/test/Correction_List.csv", stringsAsFactors = FALSE, header = FALSE, sep = ",")$V1
@@ -48,7 +48,7 @@ test.mergeDataSets_multiply_2 <- function(){
 
 
 test.mergeDataSets_userSpecifiedColnames <- function(){
-  DEACTIVATED('This function does not work at the moment...')
+  #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
   list <- read.table("../data/test/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
@@ -69,7 +69,7 @@ test.mergeDataSets_userSpecifiedColnames <- function(){
 
 
 test.sort_is <- function(){
-  DEACTIVATED('This function does not work at the moment...')
+  #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
   dataPathTest <- read.table("../data/dataList.txt", stringsAsFactors = FALSE)[,1]
@@ -87,7 +87,7 @@ test.sort_is <- function(){
 
 
 test.filterDataSet <- function() {
-  DEACTIVATED('This function does not work at the moment...')
+  #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
   dataPathTest <- read.table("../data/dataList.txt", stringsAsFactors = FALSE)[,1]

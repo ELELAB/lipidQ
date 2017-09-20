@@ -5,7 +5,7 @@
 pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable, zeroThresh){
 
 
-  #### if a row in the NAME or SPECIE column in database starts with a [SPACE], remove this row
+  #### if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in database starts with a [SPACE], remove this row
   database <- rmSpaceInBeginning(database)
 
 
@@ -49,25 +49,25 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
 
 
   # split data set into exData (all experimental classes) and isData (all internal classes)
-  exData <- data[-grep("^is",data[,dataColnames$NAME]),]
-  isData <- data[grep("^is",data[,dataColnames$NAME]),]
+  exData <- data[-grep("^is",data[,dataColnames$SUM_COMPOSITION]),]
+  isData <- data[grep("^is",data[,dataColnames$SUM_COMPOSITION]),]
 
   # find all class names (without number) in exData
-  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",exData[,dataColnames$NAME])
+  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",exData[,dataColnames$SUM_COMPOSITION])
 
-  #### pmol calculation ( MS1x*(NAME)/MS1x*(isNAME)   x   pmol(isSpecie) )
+  #### pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION)   x   pmol(isSpecie) )
   for(MS1x in MS1x_names){
 
     for(i in 1:nrow(exData)){
       # find corresponding internal standard for the current class name.
-      is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$NAME]),]
+      is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
 
       # pmol_isSpecie = spikeVariabel(uL) x [isLP]
-      pmol_isSpecie <- spikeVariable * database[database[,dataColnames$NAME] == is[,dataColnames$NAME], "isLP"]
+      pmol_isSpecie <- spikeVariable * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
 
 
-      # pmol calculation ( MS1x*(NAME)/MS1x*(isNAME) x pmol(isSpecie) )
+      # pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION) x pmol(isSpecie) )
       #pmol_calc <- exData[i,MS1x] / is[,MS1x] * pmol_isSpecie
       pmol_calc <- tryCatch(
         {
@@ -88,15 +88,15 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
 
 
 
-  #### pmol BLNK calculation ( BLNK(NAME)/BLNK(isNAME)   x   pmol(isSpecie) )
+  #### pmol BLNK calculation ( BLNK(SUM_COMPOSITION)/BLNK(isSUM_COMPOSITION)   x   pmol(isSpecie) )
   for(i in 1:nrow(exData)){
     # find corresponding internal standard.
-    is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$NAME]),]
+    is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
     # pmol_isSpecie <- spikeVariabel(uL) x [isLP]
-    pmol_isSpecie <- spikeVariable * database[database[,dataColnames$NAME] == is[,dataColnames$NAME], "isLP"]
+    pmol_isSpecie <- spikeVariable * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
 
-    # pmol calculation ( MS1x:*(NAME)/MS1x:*(isNAME) x pmol(isSpecie) )
+    # pmol calculation ( MS1x:*(SUM_COMPOSITION)/MS1x:*(isSUM_COMPOSITION) x pmol(isSpecie) )
     pmol_calc <- exData[i,BLNK] / is[,BLNK] * pmol_isSpecie
     data[i,paste0("PMOL_BLNK_",BLNK)] <- pmol_calc
   }
@@ -121,8 +121,8 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
   # remove a given row if all MS1x* (except last BLNK MS1x) values contains zeros.
   data <- data[apply(data[MS1x_names],1,function(value) any(value != 0)),]
   # update exData and isData with the newly created columns, and removed rows
-  exData <- data[-grep("is",data[,dataColnames$NAME]),]
-  isData <- data[grep("is",data[,dataColnames$NAME]),]
+  exData <- data[-grep("is",data[,dataColnames$SUM_COMPOSITION]),]
+  isData <- data[grep("is",data[,dataColnames$SUM_COMPOSITION]),]
 
 
 
@@ -133,32 +133,32 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
 
     # calculate mol% species for each specie
     sumSpecies <- sum(data[1:nrow(exData),SUBT_PMOL_MS1x],na.rm = TRUE)
-    data[1:nrow(exData),paste0("MOL_PCT_SPECIES_",SUBT_PMOL_MS1x)] <- 100/sumSpecies*exData[1:nrow(exData),SUBT_PMOL_MS1x]
+    data[1:nrow(exData),paste0("MOL_PCT_",dataColnames$SPECIE_COMPOSITION,"S_",SUBT_PMOL_MS1x)] <- 100/sumSpecies*exData[1:nrow(exData),SUBT_PMOL_MS1x]
 
   }
 
 
   #### zero adapter: check value >= zeroThresh. if not, value <- 0.
-  MOL_PCT_SPECIES_SUBT_PMOL_MS1x_names <- colnames(data)[grep(paste0("^MOL_PCT_SPECIES_SUBT_PMOL_", dataColnames$MS1x, "_"),colnames(data))]
+  MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x_names <- colnames(data)[grep(paste0("^MOL_PCT_",dataColnames$SPECIE_COMPOSITION,"S_SUBT_PMOL_", dataColnames$MS1x, "_"),colnames(data))]
 
   # set all values that are under an user defined threshold (zeroThresh) to 0 for mol% species in exData.
-  for(MOL_PCT_SPECIES_SUBT_PMOL_MS1x in MOL_PCT_SPECIES_SUBT_PMOL_MS1x_names){ # for MS1x columns
+  for(MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x in MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x_names){ # for MS1x columns
 
-    data[1:nrow(exData),MOL_PCT_SPECIES_SUBT_PMOL_MS1x] <- ifelse(data[1:nrow(exData),MOL_PCT_SPECIES_SUBT_PMOL_MS1x] < zeroThresh, 0, data[1:nrow(exData),MOL_PCT_SPECIES_SUBT_PMOL_MS1x])
+    data[1:nrow(exData),MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x] <- ifelse(data[1:nrow(exData),MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x] < zeroThresh, 0, data[1:nrow(exData),MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x])
   }
 
 
 
   # re-calculation of the mol% specie after removal of rows below an user defined threshold (zeroThresh)
-  for(MOL_PCT_SPECIES_SUBT_PMOL_MS1x_re in MOL_PCT_SPECIES_SUBT_PMOL_MS1x_names){
-    sumSpecies<-sum(data[1:nrow(exData),MOL_PCT_SPECIES_SUBT_PMOL_MS1x_re], na.rm = TRUE)
-    data[1:nrow(exData),paste0("FILTERED_",MOL_PCT_SPECIES_SUBT_PMOL_MS1x_re)] <- 100/sumSpecies*data[1:nrow(exData),MOL_PCT_SPECIES_SUBT_PMOL_MS1x_re]
+  for(MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x_re in MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x_names){
+    sumSpecies<-sum(data[1:nrow(exData),MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x_re], na.rm = TRUE)
+    data[1:nrow(exData),paste0("FILTERED_",MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x_re)] <- 100/sumSpecies*data[1:nrow(exData),MOL_PCT_SPECIE_COMPOSITIONS_SUBT_PMOL_MS1x_re]
   }
 
 
   #### sum pmol values for each classes in each MS1x* after BLNK subtraction
   # find all unique class names (without numbers)
-  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",data[1:nrow(exData),dataColnames$NAME])
+  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",data[1:nrow(exData),dataColnames$SUM_COMPOSITION])
   classNames <-unique(classNames)
 
 
@@ -167,11 +167,11 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
 
     for(j in 1:length(SUBT_PMOL_MS1x_names)){
       # sum values for each class
-      sumClassValue <- sum(data[grep(paste0("^",classNames[i]," "),data[,dataColnames$NAME]),SUBT_PMOL_MS1x_names[j]],na.rm = TRUE)
+      sumClassValue <- sum(data[grep(paste0("^",classNames[i]," "),data[,dataColnames$SUM_COMPOSITION]),SUBT_PMOL_MS1x_names[j]],na.rm = TRUE)
       sumClassValueList[i,j] <- sumClassValue
 
       # add sum value to all species with the same class
-      data[grep(paste0("^",classNames[i]," "),data[,dataColnames$NAME]),paste0("CLASS_PMOL_",SUBT_PMOL_MS1x_names[j])] <- sumClassValue
+      data[grep(paste0("^",classNames[i]," "),data[,dataColnames$SUM_COMPOSITION]),paste0("CLASS_PMOL_",SUBT_PMOL_MS1x_names[j])] <- sumClassValue
     }
   }
 
@@ -186,7 +186,7 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
       mol_pct_class<-100/totalSumClassValueList * sumClassValueList[i,j]
 
       # insert mol% class calculation into the respective class in data
-      data[grep(paste0("^",classNames[i]," "),data[,dataColnames$NAME]),paste0("MOL_PCT_CLASS_",SUBT_PMOL_MS1x_names[j])] <- mol_pct_class
+      data[grep(paste0("^",classNames[i]," "),data[,dataColnames$SUM_COMPOSITION]),paste0("MOL_PCT_CLASS_",SUBT_PMOL_MS1x_names[j])] <- mol_pct_class
 
     }
   }

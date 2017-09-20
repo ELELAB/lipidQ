@@ -1,7 +1,7 @@
 # load default colnames
 #defaultColnames <- colnames(read.csv("data/test/Temporary_DataBase_V3.csv", header = TRUE))
 #defaultColnames_ <- colnames(read.csv("results/mergedDataSets.csv", header = TRUE))
-defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "NAME", "SPECIE", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "MS2x", "FAxINTENS", "NLS", "FAOINTENS", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_FRAGx", "DECONVOLUTION_FAx", "MASSNLS", "MASSFA", "MASSFRAG", "MODE","numberOfSamples", "numberOfReplicates")
+defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "MS2x", "FAxINTENS", "NLS", "FAOINTENS", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_FRAGx", "DECONVOLUTION_FAx", "MASSNLS", "MASSFA", "MASSFRAG", "MODE","numberOfSamples", "numberOfReplicates")
 
 # create data.frame for user specified colnames
 userSpecifiedColnames <- matrix(ncol = length(defaultColnames), nrow = 1)
@@ -14,8 +14,8 @@ userSpecifiedColnames$PPM <- c("ERROR")
 userSpecifiedColnames$CLASS <- c("CLASS")
 userSpecifiedColnames$C_CHAIN <- c("LENGTH")
 userSpecifiedColnames$DOUBLE_BOND <- c("DB")
-userSpecifiedColnames$NAME <- c("NAME")
-userSpecifiedColnames$SPECIE <- c("SPECIE")
+userSpecifiedColnames$SUM_COMPOSITION <- c("NAME")
+userSpecifiedColnames$SPECIE_COMPOSITION <- c("SPECIE")
 userSpecifiedColnames$MASS_TO_CHARGE <- c("MASS")
 userSpecifiedColnames$OH_GROUP <- c("OH_GROUP")
 userSpecifiedColnames$ISTD <- c("isLP")
