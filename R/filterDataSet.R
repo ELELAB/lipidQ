@@ -33,8 +33,8 @@ filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
 
 
 
-  # create QUAN column to data consisting of the QUAN column in database.
-  data$QUAN <- database$QUAN[match(data[,dataColnames$SUM_COMPOSITION], database[,dataColnames$SUM_COMPOSITION])] # FIND OUT WHETHER IT IS QUAN_SCAN OR QUAN_MODE
+  # create QUAN_SCAN column to data consisting of the QUAN_SCAN column in database.
+  data$QUAN_SCAN <- database$QUAN_SCAN[match(data[,dataColnames$SUM_COMPOSITION], database[,dataColnames$SUM_COMPOSITION])]
 
 
   # create SPECIE_COMPOSITION.GLOBAL column to data consisting of the SPECIE_COMPOSITION column in database.
