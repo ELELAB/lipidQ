@@ -139,7 +139,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
 
     # remove all rows where NAME == ""
-    selectedCols <- selectedCols[selectedCols$NAME != "",]
+    selectedCols <- selectedCols[selectedCols[,dataColnames$NAME] != "",]
 
 
     # merge all data sets into one data set (mergedDataSet).
@@ -159,7 +159,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
   # multiply PREC* values if multiply is set to a value
   if(!is.null(multiply) && !is.null(list)){
     for(PREC in colnames(PREC_tmp)){
-      mergedDataSet[,PREC] <- ifelse(mergedDataSet[,"NAME"] %in% list, mergedDataSet[,PREC]*multiply, mergedDataSet[,PREC])
+      mergedDataSet[,PREC] <- ifelse(mergedDataSet[,dataColnames$NAME] %in% list, mergedDataSet[,PREC]*multiply, mergedDataSet[,PREC])
 
     }
   }
@@ -178,13 +178,13 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
   #### Filtering based on 1/0 columns in database
 
   # find all class names in database
-  classNames <- unique(database[,"NAME"])
+  classNames <- unique(database[,dataColnames$NAME])
 
   # for each class in database, chose all species in mergedData
   for(className in classNames){
     #print(className)
     # select relevant columns (based on the 1/0's in the database)
-    col_index <- (database[database$NAME == className, FRAG_FA_NLS_database] == 1)[1,] # the [1,] ensures that only the first row of columns is chosen (if there are multiple rows with the same className in the NAME column)
+    col_index <- (database[database[,dataColnames$NAME] == className, FRAG_FA_NLS_database] == 1)[1,] # the [1,] ensures that only the first row of columns is chosen (if there are multiple rows with the same className in the NAME column)
 
     selectedColNames <- FRAG_FA_NLS_database[col_index]
 
@@ -195,9 +195,10 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
       for(k in 1:(ncol(PREC_tmp))){
 
         if(k <= 9){
-          selectedColRows <- subset(mergedDataSet, NAME == className, select = paste0(selectedColNames, "_0",k))
+          selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$NAME] == className, select = paste0(selectedColNames, "_0",k))
+
         }else{
-          selectedColRows <- subset(mergedDataSet, NAME == className, select = paste0(selectedColNames, "_",k))
+          selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$NAME] == className, select = paste0(selectedColNames, "_",k))
         }
 
 
@@ -211,7 +212,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
           }
           # set PREC.* to 0 if all rows for the 1. columns has values <= 0. (The remaining columns are not neccesary to check, since checks and modifications of all columns for each row have been made).
           if(all(selectedColRows[,1] <= "0")){
-            mergedDataSet[mergedDataSet$NAME == className, colnames(PREC_tmp)[k]] <- 0
+            mergedDataSet[mergedDataSet[,dataColnames$NAME] == className, colnames(PREC_tmp)[k]] <- 0
           }
         }
 
@@ -240,7 +241,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
     #  # OPTIMIZATION: LOOK FOR EACH CLASS (WITHOUT NUMBERS) IN THE DATABASE, SINCE THEY ALWAYS HAVE THE SAME COMBINATION OF 1/0'S.
     #
     #  # find all class names (without number) in database (NEW: )
-    #  #classNames <- unique(gsub("^(\\w+.)[[:space:]].*", "\\1",database[,"NAME"]))
+    #  #classNames <- unique(gsub("^(\\w+.)[[:space:]].*", "\\1",database[,"NAME"])) # ADAPT TO userSpecifiedColnames
     #
     #
     #  for(i in 1:length(database$NAME)){

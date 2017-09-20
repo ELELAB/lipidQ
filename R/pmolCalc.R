@@ -186,7 +186,7 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
       mol_pct_class<-100/totalSumClassValueList * sumClassValueList[i,j]
 
       # insert mol% class calculation into the respective class in data
-      data[grep(paste0("^",classNames[i]," "),data[,dataColnames$NAME]),paste0("MOL_PCT_CLASS_",SUBT_PMOL_MS1x_names[j])]<-mol_pct_class
+      data[grep(paste0("^",classNames[i]," "),data[,dataColnames$NAME]),paste0("MOL_PCT_CLASS_",SUBT_PMOL_MS1x_names[j])] <- mol_pct_class
 
     }
   }

@@ -50,8 +50,7 @@ filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
   data[,paste0(dataColnames$SPECIE,".ALL")] <- NA
   nameList <- unique(data[,dataColnames$NAME])
   for(name in nameList){ # for each specie name, find all species and insert them into SPECIE.ALL seperated by "|"
-    specie_tmp <- subset(data, NAME == name)$SPECIE
-    #specie_tmp <- specie_tmp[!duplicated(specie_tmp)]
+    specie_tmp <- subset(data, data[,dataColnames$NAME] == name)[,dataColnames$SPECIE]
     specie_tmp <- paste(specie_tmp, collapse = '|')
     data[which(data[,dataColnames$NAME] == name),"SPECIE.ALL"] <- specie_tmp
   }
