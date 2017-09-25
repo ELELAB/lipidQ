@@ -39,7 +39,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
   # take all *FRAG* columns
   #FRAG_cols <- uniqueCols[grep("FRAG",uniqueCols)]
-  FRAG_cols <- uniqueCols[grep(dataColnames$MS2x,uniqueCols)]
+  FRAG_cols <- uniqueCols[grep(dataColnames$MS2ax,uniqueCols)]
 
 
   # take all *NLS* columns
@@ -51,11 +51,14 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
   # merge *FA* *FRAG* and *NLS* together
   FA_FRAG_NLS_cols <- c(FA_cols, FRAG_cols, NLS_cols)
 
+
+
+
   # change long FAxxINTENS* name to FAxxINTENS_xx, where xx is a number for all the different column types (FA, FRAG and NLS)
   FA_FRAG_NLS_cols <- gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",FA_FRAG_NLS_cols)
   FA_FRAG_NLS_cols <- unique(FA_FRAG_NLS_cols)
 
-
+  print(FA_FRAG_NLS_cols)
 
   #### merge data sets together ####
   firstRun <- TRUE

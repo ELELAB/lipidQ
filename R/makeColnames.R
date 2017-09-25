@@ -1,15 +1,14 @@
 # load default colnames
 #defaultColnames <- colnames(read.csv("data/test/Temporary_DataBase_V3.csv", header = TRUE))
 #defaultColnames_ <- colnames(read.csv("results/mergedDataSets.csv", header = TRUE))
-defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "MS2x", "FAxINTENS", "NLS", "FAOINTENS", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_FRAGx", "DECONVOLUTION_FAx", "MASSNLS", "MASSFA", "MASSFRAG", "MODE","numberOfSamples", "numberOfReplicates")
+defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "MS2ax", "FAx", "NLS", "FAO", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_FRAGx", "DECONVOLUTION_FAx", "MASSNLS", "MASSFA", "MASSFRAG", "MODE","numberOfSamples", "numberOfReplicates")
 
 # create data.frame for user specified colnames
 userSpecifiedColnames <- matrix(ncol = length(defaultColnames), nrow = 1)
 colnames(userSpecifiedColnames) <- defaultColnames
 userSpecifiedColnames <- as.data.frame(userSpecifiedColnames)
 
-# set user specified names and the amount of each names to be used
-# ANTALLET AF HVER KOLONNE ER MULIGVIS OVERFLØDIGT, DA DER I mergeDataSets.R BURDE VÆRE NOGET KODE DER FINDER UD AF HVOR MANGE PREC'S, FRAG'S OSV DER ER DER.
+# set user specified names to be used
 userSpecifiedColnames$PPM <- c("ERROR")
 userSpecifiedColnames$CLASS <- c("CLASS")
 userSpecifiedColnames$C_CHAIN <- c("LENGTH")
@@ -20,10 +19,10 @@ userSpecifiedColnames$MASS_TO_CHARGE <- c("MASS")
 userSpecifiedColnames$OH_GROUP <- c("OH_GROUP")
 userSpecifiedColnames$ISTD <- c("isLP")
 userSpecifiedColnames$MS1x <- c("PREC")
-userSpecifiedColnames$MS2x <- c("FRAG")
-userSpecifiedColnames$FAxINTENS <- c("FAxINTES")
+userSpecifiedColnames$MS2ax <- c("FRAG")
+userSpecifiedColnames$FAx <- c("FAx")
 userSpecifiedColnames$NLS <- c("NLS")
-userSpecifiedColnames$FAOINTENS <- c("FAOINTENS")
+userSpecifiedColnames$FAO <- c("FAO")
 userSpecifiedColnames$QUAN_MODE <- c("QUAN_MODE")
 userSpecifiedColnames$QUAN_SCAN <- c("QUAN_SCAN")
 userSpecifiedColnames$DECONVOLUTION_MODE <- c("DECONVOLUTION_MODE")
@@ -66,3 +65,28 @@ write.csv(userSpecifiedColnames, "data/test/userSpecifiedColnames.csv", quote = 
 
 test <- read.csv("data/test/userSpecifiedColnames.csv", header = TRUE)
 colnames(test)
+
+
+
+
+test <- read.csv("data/test/userSpecifiedColnames.csv", header = TRUE, stringsAsFactors = FALSE)
+colnames(test)
+
+
+
+
+### TEST AF: Make MS2x -> MS2xa, MS2xb, MS2xc, MS2xd.
+
+#head(test)
+
+#MS2x_test <- test[,grep("^MS2x",colnames(test))]
+#colnames(MS2x_test) <- MS2x_test[1,]
+#colnames(MS2x_test)
+#class(MS2x_test)
+
+#tdf <- data.frame(FRAG = 1:10, FAxINTENS = 11:20, NLS = 1:10, FAOINTENS = 11:20)
+
+#tdf_ <- data.frame(a = 1:10, b = 11:20, c = 1:10, d = 11:20)
+#colnames(tdf_) <- MS2x_test[1,]
+
+#tdf[,MS2x_test[1,]]
