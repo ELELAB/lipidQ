@@ -28,10 +28,6 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
     }
   )
 
-  # TO BE CONTINUED ...
-  # LAV FOR LOOP MED ANTALLET AF MS2ix.
-  # FOR HVER ITERATION FIND: KOLONNENAVN FOR MS2ax, MS2bx, MS2cx etc SAMT KOLONNENAVN FOR MASSMS2ax. GØR DET SÅDAN FOR AT UNDGÅ
-  # AT ET TILFÆLDIGT BRUGERDEFINERET KOLONNENAVN CLASHER MED ET EKSISTERENDE KOLONNENAVN.
 
   # find user specified columns of MS2ix column names -> MS2ix_userCols
   MS2ix_cols <- dataColnames[grep("MS2",colnames(dataColnames))]
@@ -53,45 +49,6 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
     MS2ix_userCols_database <- append(MS2ix_userCols_database, colnames(database)[grep(userCol,colnames(database))])
   }
 
-
-  ##### OLD STUFF START #####
-
-  # take all *FA* columns except SUMFA columns
-  #FA_cols <- uniqueCols[grep("FA",uniqueCols)]
-  # remove SUMFA columns
-  #FA_cols <- FA_cols[-grep("^SUM",FA_cols)]
-
-
-
-  # take all *FRAG* columns
-  #FRAG_cols <- uniqueCols[grep("FRAG",uniqueCols)]
-  #FRAG_cols <- uniqueCols[grep(dataColnames$MS2ax,uniqueCols)]
-
-
-  # take all *NLS* columns
-  #NLS_cols <- uniqueCols[grep("NLS",uniqueCols)]
-  #NLS_cols <- uniqueCols[grep(dataColnames$MS2cx,uniqueCols)]
-
-
-
-  # merge *FA* *FRAG* and *NLS* together
-  #FA_FRAG_NLS_cols <- c(FA_cols, FRAG_cols, NLS_cols)
-
-  #print("FA_FRAG_NLS_cols")
-  #print(FA_FRAG_NLS_cols)
-  #print("MS2ix_cols")
-  #print(MS2ix_cols)
-
-
-
-
-
-
-  # change long FAxxINTENS* name to FAxxINTENS_xx, where xx is a number for all the different column types (FA, FRAG and NLS)
-  #FA_FRAG_NLS_cols <- gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",FA_FRAG_NLS_cols)
-  #FA_FRAG_NLS_cols <- unique(FA_FRAG_NLS_cols)
-
-  ##### OLD STUFF END #####
 
 
 
@@ -201,14 +158,6 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
 
 
-  # select columns from database
-  #FRAG_database <- colnames(database)[grep("^FRAG",colnames(database))]
-  #FA_database <- colnames(database)[grep("^FA",colnames(database))]
-  #NLS_database <- colnames(database)[grep("^NLS",colnames(database))]
-  #FRAG_FA_NLS_database <- c(FRAG_database, FA_database, NLS_database)
-
-
-
 
   #### Filtering based on 1/0 columns in database
 
@@ -217,7 +166,6 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
   # for each class in database, chose all species in mergedData
   for(className in classNames){
-    #print(className)
     # select relevant columns (based on the 1/0's in the database)
     col_index <- (database[database[,dataColnames$SUM_COMPOSITION] == className, MS2ix_userCols_database] == 1)[1,] # the [1,] ensures that only the first row of columns is chosen (if there are multiple rows with the same className in the SUM_COMPOSITION column)
 
@@ -250,68 +198,9 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
             mergedDataSet[mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, colnames(PREC_tmp)[k]] <- 0
           }
         }
-
-
-
-        # set PREC.* to 0 if all rows for at least 1 columns has values <= 0
-        #        for(i in 1:(length(selectedColNames))){
-
-
-
-        #print((selectedColRows[,i]))
-
-        #          if(nrow(selectedColRows) > 0){ # only check condition on column-row values if selectedColRows actually contains rows
-        #            if(all(selectedColRows[,i] <= "0")){
-        #              mergedDataSet[mergedDataSet$NAME == className, colnames(PREC_tmp)[k]] <- 0
-        #              break
-        #            }
-        #
-        #
-        #          }
-        #        }
       }
     }
-
-    #  #### set PREC* to 0, if at least one of the selected columns has the value = 0. (THIS PART IS SLOW AND MIGHT BE OPTIMIZED IN THE FUTURE)
-    #  # OPTIMIZATION: LOOK FOR EACH CLASS (WITHOUT NUMBERS) IN THE DATABASE, SINCE THEY ALWAYS HAVE THE SAME COMBINATION OF 1/0'S.
-    #
-    #  # find all class names (without number) in database (NEW: )
-    #  #classNames <- unique(gsub("^(\\w+.)[[:space:]].*", "\\1",database[,"NAME"])) # ADAPT TO userSpecifiedColnames
-    #
-    #
-    #  for(i in 1:length(database$NAME)){
-    #  #for(i in 1:length(classNames)){
-    #    # select relevant columns (based on the 1/0's in the database)
-    #
-    #
-    #
-    #    col_index <- (database[i, MS2ix_userCols_database] == 1)
-    #    #col_index <- (database[grep(paste0("^",classNames[i]," *"), database$NAME),MS2ix_userCols_database][1,] == 1)
-    #
-    #    selectedColNames <- MS2ix_userCols_database[col_index]
-    #
-    #    # use selectedColNames to select all relevant columns for each sample in mergedDataSet
-    #    for(k in 1:(ncol(PREC_tmp))){
-    #
-    #      if(length(selectedColNames) > 0){ # avoid error by ensuring that there exists some selected columns.
-    #
-    #        selectedColAndRow <- subset(mergedDataSet, NAME == database[i,"NAME"], select = paste0(selectedColNames, "_0",k))
-    #        #selectedColAndRow <- mergedDataSet[grep(paste0("^",classNames[i]," *"), database$NAME), paste0(selectedColNames, "_0",k)]
-    #
-    #
-    #        if(nrow(selectedColAndRow) > 0){ # avoid error by ensuring that the selected cols. and rows contain values.
-    #        #if(nrow(selectedColAndRow) > 0 || length(selectedColAndRow) > 0){ # avoid error by ensuring that the selected cols. and rows contain values.
-    #            if(any(selectedColAndRow == "0.0") || any(selectedColAndRow == "0") || any(selectedColAndRow == "none") || any(selectedColAndRow == " none") || any(selectedColAndRow == "None") || any(selectedColAndRow == " None") || any(selectedColAndRow == "Keine") || any(is.na(selectedColAndRow))){
-    #
-    #            mergedDataSet[mergedDataSet$NAME == database[i,"NAME"], colnames(PREC_tmp)[k]] <- 0
-    #
-    #          }
-    #        }
-    #      }
-    #    }
   }
-  #mergedDataSet <- mergedDataSet[, c("ERROR", "CLASS", "LENGTH", "DB", "NAME", "SPECIE", "MASS", "OH_GROUP", "PREC_01", "PREC_02", "PREC_03", "MODE", "FA1", "MASSFA1", "FA1_01", "FA1_02", "FA1_03", "FA2", "MASSFA2", "FA2_01", "FA2_02", "FA2_03", "FA3", "MASSFA3", "FA3_01", "FA3_02", "FA3_03", "MASSFRAG1", "FRAG1_01", "FRAG1_02", "FRAG1_03", "MASSFRAG2", "FRAG2_01", "FRAG2_02", "FRAG2_03", "MASSNLS", "NLS_01", "NLS_02", "NLS_03")]
-  #print(colnames(mergedDataSet))
   return(mergedDataSet)
 }
 
