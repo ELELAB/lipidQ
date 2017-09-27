@@ -4,15 +4,15 @@
 #' @export
 mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, multiply = NULL, list = NULL){
 
-  # get colnames for data:
+  # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
 
-  # Find all unique columns for all data sets
+  # find all unique columns for all data sets
   tryCatch(
     {
       uniqueCols <- vector("list", length(dataList))
       for(i in 1:length(dataList)){
-        data<-readFile(dataList[i])
+        data <- readFile(dataList[i])
         uniqueCols[[i]] <- colnames(data)
       }
       uniqueCols <- unique(unlist(uniqueCols))
@@ -28,7 +28,25 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
     }
   )
 
+  # TO BE CONTINUED ...
+  # LAV FOR LOOP MED ANTALLET AF MS2ix.
+  # FOR HVER ITERATION FIND: KOLONNENAVN FOR MS2ax, MS2bx, MS2cx etc SAMT KOLONNENAVN FOR MASSMS2ax. GØR DET SÅDAN FOR AT UNDGÅ
+  # AT ET TILFÆLDIGT BRUGERDEFINERET KOLONNENAVN CLASHER MED ET EKSISTERENDE KOLONNENAVN.
 
+  # find user specified columns of MS2ix column names -> MS2ix_userCols
+  MS2ix_cols <- dataColnames[grep("MS2",colnames(dataColnames))]
+
+  MS2ix_userCols <- c()
+  for(userCol in as.character(MS2ix_cols)){
+    MS2ix_userCols <- append(MS2ix_userCols, uniqueCols[grep(userCol,uniqueCols)])
+  }
+  MS2ix_userCols <- gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",MS2ix_userCols)
+  MS2ix_userCols <- unique(MS2ix_userCols)
+
+  print(MS2ix_userCols)
+
+
+  ##### OLD STUFF START #####
 
   # take all *FA* columns except SUMFA columns
   FA_cols <- uniqueCols[grep("FA",uniqueCols)]
@@ -44,13 +62,20 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
   # take all *NLS* columns
   #NLS_cols <- uniqueCols[grep("NLS",uniqueCols)]
-  NLS_cols <- uniqueCols[grep(dataColnames$NLS,uniqueCols)]
+  NLS_cols <- uniqueCols[grep(dataColnames$MS2cx,uniqueCols)]
 
 
 
   # merge *FA* *FRAG* and *NLS* together
   FA_FRAG_NLS_cols <- c(FA_cols, FRAG_cols, NLS_cols)
 
+  #print("FA_FRAG_NLS_cols")
+  #print(FA_FRAG_NLS_cols)
+  #print("MS2ix_cols")
+  #print(MS2ix_cols)
+
+
+  ##### OLD STUFF END #####
 
 
 
@@ -58,7 +83,9 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
   FA_FRAG_NLS_cols <- gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",FA_FRAG_NLS_cols)
   FA_FRAG_NLS_cols <- unique(FA_FRAG_NLS_cols)
 
-  print(FA_FRAG_NLS_cols)
+
+
+
 
   #### merge data sets together ####
   firstRun <- TRUE

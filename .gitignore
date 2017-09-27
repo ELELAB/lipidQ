@@ -2,4 +2,5 @@
 .Rhistory
 .RData
 R/old
+tests/fun_adHocTests.R
 data/validation/old/august31_2017/

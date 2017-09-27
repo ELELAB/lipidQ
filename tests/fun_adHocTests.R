@@ -1,3 +1,4 @@
+setwd("/data/user/andre/lipidomics/lipidQuan")
 source("R/mergeDataSets.R")
 source("R/sort_is.R")
 source("R/filterDataSet.R")

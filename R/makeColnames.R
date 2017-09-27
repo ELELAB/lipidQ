@@ -1,7 +1,8 @@
 # load default colnames
 #defaultColnames <- colnames(read.csv("data/test/Temporary_DataBase_V3.csv", header = TRUE))
 #defaultColnames_ <- colnames(read.csv("results/mergedDataSets.csv", header = TRUE))
-defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "MS2ax", "FAx", "NLS", "FAO", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_FRAGx", "DECONVOLUTION_FAx", "MASSNLS", "MASSFA", "MASSFRAG", "MODE","numberOfSamples", "numberOfReplicates")
+setwd("/data/user/andre/lipidomics/lipidQuan")
+defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "MS2ax", "MS2bx", "MS2cx", "FAO", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_MS2ax", "DECONVOLUTION_MS2bx", "MASS_MS2ax", "MASS_MS2bx", "MASS_MS2cx", "MODE","numberOfSamples", "numberOfReplicates")
 
 # create data.frame for user specified colnames
 userSpecifiedColnames <- matrix(ncol = length(defaultColnames), nrow = 1)
@@ -20,17 +21,17 @@ userSpecifiedColnames$OH_GROUP <- c("OH_GROUP")
 userSpecifiedColnames$ISTD <- c("isLP")
 userSpecifiedColnames$MS1x <- c("PREC")
 userSpecifiedColnames$MS2ax <- c("FRAG")
-userSpecifiedColnames$FAx <- c("FAx")
-userSpecifiedColnames$NLS <- c("NLS")
+userSpecifiedColnames$MS2bx <- c("FA")
+userSpecifiedColnames$MS2cx <- c("NLS")
 userSpecifiedColnames$FAO <- c("FAO")
 userSpecifiedColnames$QUAN_MODE <- c("QUAN_MODE")
 userSpecifiedColnames$QUAN_SCAN <- c("QUAN_SCAN")
 userSpecifiedColnames$DECONVOLUTION_MODE <- c("DECONVOLUTION_MODE")
-userSpecifiedColnames$DECONVOLUTION_FRAGx <- c("DECONVOLUTION_FRAG")
-userSpecifiedColnames$DECONVOLUTION_FAx <- c("DECONVOLUTION_FA")
-userSpecifiedColnames$MASSNLS <- c("MASSNLS")
-userSpecifiedColnames$MASSFA <- c("MASSFA")
-userSpecifiedColnames$MASSFRAG <- c("MASSFRAG")
+userSpecifiedColnames$DECONVOLUTION_MS2ax <- c("DECONVOLUTION_FRAG")
+userSpecifiedColnames$DECONVOLUTION_MS2bx <- c("DECONVOLUTION_FA")
+userSpecifiedColnames$MASS_MS2ax <- c("MASSFRAG")
+userSpecifiedColnames$MASS_MS2bx <- c("MASSFA")
+userSpecifiedColnames$MASS_MS2cx <- c("MASSNLS")
 userSpecifiedColnames$MODE <- c("MODE")
 userSpecifiedColnames$numberOfSamples <- c("3")
 userSpecifiedColnames$numberOfReplicates <- c("3")
@@ -77,9 +78,9 @@ colnames(test)
 
 ### TEST AF: Make MS2x -> MS2xa, MS2xb, MS2xc, MS2xd.
 
-#head(test)
+head(test)
 
-#MS2x_test <- test[,grep("^MS2x",colnames(test))]
+#MS2x_test <- test[,grep("^MS2ax",colnames(test))]
 #colnames(MS2x_test) <- MS2x_test[1,]
 #colnames(MS2x_test)
 #class(MS2x_test)
