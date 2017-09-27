@@ -81,3 +81,30 @@ t <- pmolCalc(t,database, NULL, 2, 0.25)
 dataPathTest <- read.table("data/tableauList.txt", stringsAsFactors = FALSE)[,1]
 mergedTableauDataSets <- mergeTableauDataSets(dataPathTest)
 #write.csv(mergedTableauDataSets,"data/validation/mergedTableauDataSets.csv", quote = FALSE, row.names = FALSE)
+
+
+
+
+
+
+
+
+## Remove SUMFA from data set
+#t <- read.table("../data/test/mE494_NEG_LP-out.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#head(t)
+#drops <- c("SUMFA.mE494_NEG_01.raw","SUMFA.mE494_NEG_02.raw", "SUMFA.mE494_NEG_03.raw")
+#t <- t[ , !(names(t) %in% drops)]
+#write.csv(t, file = "../data/test/mE494_NEG_LP-out.csv", quote = FALSE, row.names = F)
+
+
+#t <- read.table("../data/test/mE494_POS_LP-out.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#head(t)
+#drops <- c("SUMFA.mE494_POS_01.raw","SUMFA.mE494_POS_02.raw", "SUMFA.mE494_POS_03.raw")
+#t <- t[ , !(names(t) %in% drops)]
+#write.csv(t, file = "../data/test/mE494_POS_LP-out.csv", quote = FALSE, row.names = F)
+
+#t <- read.table("../data/test/mE494_POS_Chol-out.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#head(t)
+#drops <- c("SUMFA.mE494_POS_01.raw","SUMFA.mE494_POS_02.raw", "SUMFA.mE494_POS_03.raw")
+#t <- t[ , !(names(t) %in% drops)]
+#write.csv(t, file = "../data/test/mE494_POS_Chol-out.csv", quote = FALSE, row.names = F)
