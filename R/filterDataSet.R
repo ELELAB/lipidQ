@@ -14,22 +14,21 @@ filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
 
 
   #### select relevant columns
+
   data_tmp <- subset(data, select = c(dataColnames$SUM_COMPOSITION, dataColnames$PPM, dataColnames$MASS_TO_CHARGE, dataColnames$SPECIE_COMPOSITION, dataColnames$MODE, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$OH_GROUP))
   PREC_tmp <- data[,c(colnames(data)[grep(paste0("^", dataColnames$MS1x),colnames(data))])]
-  NLS_tmp <- data[,c(colnames(data)[grep("^NLS",colnames(data))])] # INVESTIGATE WITH MESUT WHAT NLS SHOULD BE (MS2X SOMETHING)..
 
-  FRAG_tmp <- data[,c(colnames(data)[grep("^FRAG",colnames(data))])]
+  # find user specified columns of MS2ix column names -> MS2ix_userCols
+  MS2ix_cols <- dataColnames[grep("MS2",colnames(dataColnames))]
 
-  FA_tmp <- data[,c(colnames(data)[grep("^FA",colnames(data))])]
-  FA_tmp <- FA_tmp[,-grep("^FA[0-9]$",colnames(FA_tmp))] # remove FA1, FA2, etc...
-
-  # remove FAO in the FA_tmp cols if it's present
-  if(length(FA_tmp[,grep("^FAO$",colnames(FA_tmp))]) > 0 ){
-    FA_tmp <- FA_tmp[,-grep("^FAO$",colnames(FA_tmp))]
+  MS2ix_userCols <- c()
+  for(userCol in as.character(MS2ix_cols)){
+    MS2ix_userCols <- append(MS2ix_userCols, c(colnames(data)[grep(userCol,colnames(data))]))
   }
+  MS2ix_userCols <- unique(MS2ix_userCols)
 
-
-  data <- cbind(data_tmp,PREC_tmp, NLS_tmp)
+  MS2ix_tmp <- data[,MS2ix_userCols]
+  data <- cbind(data_tmp,PREC_tmp, MS2ix_tmp)
 
 
 
@@ -76,7 +75,6 @@ filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
 
   # replace NA and "" with "none" in SPECIE_COMPOSITION.GLOBAL
   data[, paste0(dataColnames$SPECIE_COMPOSITION, ".GLOBAL")] <- ifelse(is.na(data[, paste0(dataColnames$SPECIE_COMPOSITION, ".GLOBAL")]) | data[, paste0(dataColnames$SPECIE_COMPOSITION, ".GLOBAL")] == "", "none", data[, paste0(dataColnames$SPECIE_COMPOSITION, ".GLOBAL")])
-
 
 
   return(data)
