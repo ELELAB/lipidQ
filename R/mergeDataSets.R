@@ -31,7 +31,6 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
 
   # find user specified columns of MS2ix column names -> MS2ix_userCols
   MS2ix_cols <- dataColnames[grep("MS2",colnames(dataColnames))]
-
   MS2ix_userCols <- c()
   for(userCol in as.character(MS2ix_cols)){
     MS2ix_userCols <- append(MS2ix_userCols, uniqueCols[grep(userCol,uniqueCols)])
