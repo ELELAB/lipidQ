@@ -2,9 +2,10 @@
 % Please edit documentation in R/pmolCalc.R
 \name{pmolCalc}
 \alias{pmolCalc}
-\title{Pico mol Calculation}
+\title{picomol Calculation}
 \usage{
-pmolCalc(data, database, spikeVariable, zeroThresh)
+pmolCalc(data, database, userSpecifiedColnames = NULL, spikeVariable,
+  zeroThresh)
 }
 \description{
 This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard

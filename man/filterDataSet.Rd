@@ -4,7 +4,7 @@
 \alias{filterDataSet}
 \title{Filter Data set}
 \usage{
-filterDataSet(data, database)
+filterDataSet(data, database, userSpecifiedColnames = NULL)
 }
 \description{
 filterDataSet selects relevants columns from a data set and remove species

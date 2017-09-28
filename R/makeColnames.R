@@ -62,15 +62,15 @@ userSpecifiedColnames$numberOfReplicates <- c("3")
 #userSpecifiedColnames$DB <- c("MODE", 1)
 
 # save file
-write.csv(userSpecifiedColnames, "data/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE)
+write.csv(userSpecifiedColnames, "inst/extdata/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE)
 
-test <- read.csv("data/test/userSpecifiedColnames.csv", header = TRUE)
+test <- read.csv("inst/extdata/test/userSpecifiedColnames.csv", header = TRUE)
 colnames(test)
 
 
 
 
-test <- read.csv("data/test/userSpecifiedColnames.csv", header = TRUE, stringsAsFactors = FALSE)
+test <- read.csv("inst/extdata/test/userSpecifiedColnames.csv", header = TRUE, stringsAsFactors = FALSE)
 colnames(test)
 
 
