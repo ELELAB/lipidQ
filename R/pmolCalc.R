@@ -38,13 +38,30 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
   BLNK <- MS1x_names[length(MS1x_names)] # name of BLNK column (last MS1x.* column)
   MS1x_names <- MS1x_names[-length(MS1x_names)] # remove last column from MS1x_names since this is BLNK
 
-  #### zero adapter: check value >= 0. if not, value <- 0.
+  #### zero adapter for MS1x: check value >= 0. if not, value <- 0.
   for(MS1x in MS1x_names){ # for MS1x columns
     data[,MS1x] <- ifelse(data[,MS1x] < 0, 0, data[,MS1x])
   }
   # for BLNK column (equal to last MS1x column)
   data[,BLNK] <- ifelse(data[,BLNK] < 0, 0, data[,BLNK])
 
+
+
+  # define MS2x user specified columns
+  MS2ix_cols <- dataColnames[grep("MS2",colnames(dataColnames))]
+
+  MS2ix_userCols <- c()
+  for(userCol in as.character(MS2ix_cols)){
+    MS2ix_userCols <- append(MS2ix_userCols, c(colnames(data)[grep(userCol,colnames(data))]))
+  }
+  MS2ix_userCols <- unique(MS2ix_userCols)
+
+
+
+  #### zero adapter forMS2ix: check value >= 0. if not, value <- 0.
+  for(MS2ix in MS2ix_userCols){ # for MS1x columns
+    data[,MS2ix] <- ifelse(data[,MS2ix] < 0, 0, data[,MS2ix])
+  }
 
 
 

@@ -119,8 +119,6 @@ mergedTableauDataSets <- mergeTableauDataSets(dataPathTest)
 #te1$FRAG1_01
 #te2 <- read.table("inst/extdata/test/results/filteredDataSet.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #subset(te2, PREC_02 < 0)
-
-
 #te3 <- read.table("inst/extdata/test/results/pmolCalc.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #subset(te3, FRAG1_01 < 0)
 
