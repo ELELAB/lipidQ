@@ -1,2 +1,2 @@
-/data/user/andre/lipidomics/lipidQuan/data/test/tableauOutput1.csv
-/data/user/andre/lipidomics/lipidQuan/data/test/tableauOutput2.csv
+/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/tableauOutput1.csv
+/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/tableauOutput2.csv
