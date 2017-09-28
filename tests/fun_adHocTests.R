@@ -108,3 +108,19 @@ mergedTableauDataSets <- mergeTableauDataSets(dataPathTest)
 #drops <- c("SUMFA.mE494_POS_01.raw","SUMFA.mE494_POS_02.raw", "SUMFA.mE494_POS_03.raw")
 #t <- t[ , !(names(t) %in% drops)]
 #write.csv(t, file = "../data/test/mE494_POS_Chol-out.csv", quote = FALSE, row.names = F)
+
+
+
+
+
+# find negative values
+#te1 <- read.table("data/test/results/mergedDataSets.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#subset(te1, FRAG1_01 < 0)
+#te1$FRAG1_01
+#te2 <- read.table("data/test/results/filteredDataSet.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#subset(te2, PREC_02 < 0)
+
+
+#te3 <- read.table("data/test/results/pmolCalc.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#subset(te3, FRAG1_01 < 0)
+
