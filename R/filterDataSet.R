@@ -14,7 +14,6 @@ filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
 
 
   #### select relevant columns
-
   data_tmp <- subset(data, select = c(dataColnames$SUM_COMPOSITION, dataColnames$PPM, dataColnames$MASS_TO_CHARGE, dataColnames$SPECIE_COMPOSITION, dataColnames$MODE, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$OH_GROUP))
   PREC_tmp <- data[,c(colnames(data)[grep(paste0("^", dataColnames$MS1x),colnames(data))])]
 
