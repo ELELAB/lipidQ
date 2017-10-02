@@ -4,14 +4,16 @@
 #' (after the normal species). The purpose for this is mainly to get a better overview of the data types when manually inspecting the data.
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @export
-sort_is<-function(data){
+sort_is<-function(data, userSpecifiedColnames = NULL){
 
+  # get colnames for data
+  dataColnames <- getColnames(userSpecifiedColnames)
 
   # save all is-rows
-  isTmp <- data[grep("^is",data$NAME),]
+  isTmp <- data[grep("^is",data[,dataColnames$SUM_COMPOSITION]),]
 
   # remove all is-rows from data
-  data <- data[-grep("^is",data$NAME),]
+  data <- data[-grep("^is",data[,dataColnames$SUM_COMPOSITION]),]
 
   # rbind all saved is-rows at the buttom of data
   data <- rbind(data,isTmp)

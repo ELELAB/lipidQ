@@ -65,7 +65,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, mult
     data <- readFile(dataPath)
 
     # if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION_COMPOSITION column starts with a [SPACE], remove this [SPACE]
-    data <- rmSpaceInBeginning(data)
+    data <- rmSpaceInBeginning(data, userSpecifiedColnames)
 
     selectedCols <- tryCatch(
       {

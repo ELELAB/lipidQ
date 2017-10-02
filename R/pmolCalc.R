@@ -11,7 +11,7 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
 
 
   #### if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in database starts with a [SPACE], remove this row
-  database <- rmSpaceInBeginning(database)
+  database <- rmSpaceInBeginning(database, userSpecifiedColnames)
 
 
   # get colnames for data
@@ -126,6 +126,7 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
   #### subtract pmol BLNK from pmol MS1x*
   PMOL_MS1x_names <- colnames(data)[grep(paste0("^PMOL_", dataColnames$MS1x),colnames(data))]
   PMOL_BLNK <- colnames(data)[grep("^PMOL_BLNK",colnames(data))]
+
 
   for(PMOL_MS1x in PMOL_MS1x_names){
     data[,paste0("SUBT_",PMOL_MS1x)] <- data[,PMOL_MS1x] - data[,PMOL_BLNK]

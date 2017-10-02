@@ -10,7 +10,7 @@ filterDataSet <- function(data, database, userSpecifiedColnames = NULL){
 
 
   # if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in the database starts with a [SPACE], remove this row
-  database <- rmSpaceInBeginning(database)
+  database <- rmSpaceInBeginning(database, userSpecifiedColnames)
 
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
