@@ -6,6 +6,6 @@
 #' @export
 #' @import shiny
 runLipidQuan <- function(){
-  runApp("inst/app/") # for test purposes
-  #suppressMessages(shiny::runApp(system.file("app", package = "lipidQuan"),launch.browser=TRUE)) # for builds
+  #runApp("inst/app/") # for test purposes
+  suppressMessages(shiny::runApp(system.file("app", package = "lipidQuan"),launch.browser=TRUE)) # for builds
 }
