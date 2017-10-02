@@ -86,26 +86,26 @@ makeColnames <- function(numberOfMS2ix = 3){
 #userSpecifiedColnames$DB <- c("MODE", 1)
 
 
-userSpecifiedColnames <- makeColnames()
+#userSpecifiedColnames <- makeColnames()
 
 # save file
-write.csv(userSpecifiedColnames, "inst/extdata/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE)
+#write.csv(userSpecifiedColnames, "inst/extdata/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE)
 
-test <- read.csv("inst/extdata/test/userSpecifiedColnames.csv", header = TRUE)
-colnames(test)
-
-
+#test <- read.csv("inst/extdata/test/userSpecifiedColnames.csv", header = TRUE)
+#colnames(test)
 
 
-test <- read.csv("inst/extdata/test/userSpecifiedColnames.csv", header = TRUE, stringsAsFactors = FALSE)
-colnames(test)
+
+
+#test <- read.csv("inst/extdata/test/userSpecifiedColnames.csv", header = TRUE, stringsAsFactors = FALSE)
+#colnames(test)
 
 
 
 
 ### TEST AF: Make MS2x -> MS2xa, MS2xb, MS2xc, MS2xd.
 
-head(test)
+#head(test)
 
 #MS2x_test <- test[,grep("^MS2ax",colnames(test))]
 #colnames(MS2x_test) <- MS2x_test[1,]
