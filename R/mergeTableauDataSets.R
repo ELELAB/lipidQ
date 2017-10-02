@@ -1,6 +1,7 @@
 #' @title Merge Tableau Data Sets
 #' @author André Vidas Olsen
 #' @description This function merges tableau output files into one data file
+#' @param dataList a list of paths referring to input data
 #' @export
 mergeTableauDataSets <- function(dataList){
 

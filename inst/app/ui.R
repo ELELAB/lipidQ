@@ -1,3 +1,4 @@
+#' @author André Vidas Olsen
 #' @import shiny
 ui <- fluidPage(
   titlePanel("LipidQuan"),

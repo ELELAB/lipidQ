@@ -6,6 +6,13 @@
 \usage{
 filterDataSet(data, database, userSpecifiedColnames = NULL)
 }
+\arguments{
+\item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
+
+\item{database}{a database containing reference data for the input data, e.g. classes of interest, QUAN_MODE, QUAN_SCAN etc.}
+
+\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
+}
 \description{
 filterDataSet selects relevants columns from a data set and remove species
 if the name does not exist in the global database.

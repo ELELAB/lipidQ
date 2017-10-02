@@ -6,6 +6,9 @@
 \usage{
 makeIndex_OH_DB_C(data)
 }
+\arguments{
+\item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
+}
 \description{
 This function creates OH Index, DB Index and C-chain Index of data containing calculated %pmol values of samples.
 }

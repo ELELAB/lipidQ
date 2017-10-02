@@ -1,3 +1,4 @@
+#' @author André Vidas Olsen
 #' @import shiny
 server <- function(input, output, session){
 

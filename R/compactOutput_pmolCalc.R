@@ -2,6 +2,7 @@
 #' @author André Vidas Olsen
 #' @description compactOutput_pmolCalc saves a data.frame with only
 #' NAME, CLASS_PMOL_SUBT_PMOL_PREC*, and MOL_PCT_CLASS_SUBT_PMOL_PREC* OMSKRIV!!!
+#' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @export
 compactOutput_pmolCalc <- function(data){
 

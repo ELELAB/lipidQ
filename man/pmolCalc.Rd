@@ -7,6 +7,17 @@
 pmolCalc(data, database, userSpecifiedColnames = NULL, spikeVariable,
   zeroThresh)
 }
+\arguments{
+\item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
+
+\item{database}{a database containing reference data for the input data, e.g. classes of interest, QUAN_MODE, QUAN_SCAN etc.}
+
+\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
+
+\item{spikeVariable}{a variable used to multiply on the pico mol calculation FORKLAR MENINGEN.}
+
+\item{zeroThresh}{an optional threshold that determines if a given small value in mol pct. specie composition columns should be rounded down to zero. FORKLAR HVORFOR DET ER VIGTIGT.}
+}
 \description{
 This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard
 }

@@ -1,6 +1,8 @@
 #' @title Make Tableau Output
 #' @author André Vidas Olsen
 #' @description This function creates an output file of the results in a format that can be used by Tableau.
+#' @param classPmol_molPctClass BLA BLA
+#' @param pmolCalculatedDataSet BLA BLA
 #' @export
 makeTableauOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet){
 

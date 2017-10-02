@@ -7,6 +7,18 @@
 mergeDataSets(dataList, database, userSpecifiedColnames = NULL,
   multiply = NULL, list = NULL)
 }
+\arguments{
+\item{dataList}{a list of paths referring to input data}
+
+\item{database}{a database containing reference data for the input data, e.g. classes of interest, QUAN_MODE, QUAN_SCAN etc.}
+
+\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file
+is used to translate the user specified column names to the program, so that it uses the correct columns for the different analysis procedures.}
+
+\item{multiply}{a parameter used to multiply intensity values in the MS1 column values if the corresponding sum composition appear in a correction list file used as argument in the list parameter FORKLAR MENINGEN}
+
+\item{list}{a file containing a list of sum compositions to be multiplied for in the MS1 column values (intensity values)}
+}
 \description{
 This function merges multiple data sets together. The data sets are listed in the dataList parameter.
 }

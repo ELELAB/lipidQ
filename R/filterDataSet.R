@@ -2,8 +2,11 @@
 #' @author André Vidas Olsen
 #' @description filterDataSet selects relevants columns from a data set and remove species
 #' if the name does not exist in the global database.
+#' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
+#' @param database a database containing reference data for the input data, e.g. classes of interest, QUAN_MODE, QUAN_SCAN etc.
+#' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
 #' @export
-filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
+filterDataSet <- function(data, database, userSpecifiedColnames = NULL){
 
 
   # if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in the database starts with a [SPACE], remove this row
@@ -67,9 +70,6 @@ filterDataSet<-function(data, database, userSpecifiedColnames = NULL){
 
   # remove all duplicates of SUM_COMPOSITION.
   data <- data[!duplicated(data[,dataColnames$SUM_COMPOSITION]),]
-
-
-
 
 
   # replace NA and "" with "none" in SPECIE_COMPOSITION.GLOBAL

@@ -6,6 +6,9 @@
 \usage{
 makeColnames(numberOfMS2ix = 3)
 }
+\arguments{
+\item{numberOfMS2ix}{a parameter that specifies how many MS2 columns there is in the input data, since this number can vary depending on experiment setup.}
+}
 \description{
 This function generates a new template file for standard column names (in the header) and with default column names as first row of the data.frame. These default column names
 can be specified by the user. This function is useful if some error occur due to corruption of this file (for instance changes in the header section).

@@ -1,6 +1,7 @@
 #' @title Creation of OH Index, DB Index and C-chain Index
 #' @author André Vidas Olsen
 #' @description This function creates OH Index, DB Index and C-chain Index of data containing calculated %pmol values of samples.
+#' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 makeIndex_OH_DB_C <- function(data){
   # only use experimental data (exclude all internal standards)
   exData <- data[-grep("^is",data$NAME),]
@@ -99,5 +100,7 @@ makeIndex_OH_DB_C <- function(data){
 }
 
 
+#t <- read.table("inst/extdata/test/results/old/pmolCalc.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
-
+#test <- makeIndex_OH_DB_C(t)
+#head(test, n = 200)

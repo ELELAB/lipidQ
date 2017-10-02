@@ -6,6 +6,11 @@
 \usage{
 makeTableauOutput(classPmol_molPctClass, pmolCalculatedDataSet)
 }
+\arguments{
+\item{classPmol_molPctClass}{BLA BLA}
+
+\item{pmolCalculatedDataSet}{BLA BLA}
+}
 \description{
 This function creates an output file of the results in a format that can be used by Tableau.
 }
