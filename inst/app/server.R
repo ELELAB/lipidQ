@@ -125,13 +125,37 @@ server <- function(input, output, session){
 
     # Tableau merging start
     mergedTableauDataSets <- lipidQuan:::mergeTableauDataSets(tableauList)
-    write.csv(mergedTableauDataSets, file = paste0(input$dirTableau,"mergedTableauDataSets.csv"), quote = FALSE, row.names = F)
+    write.csv(mergedTableauDataSets, file = paste0(input$dirTableau,"/mergedTableauDataSets.csv"), quote = FALSE, row.names = F)
     progress$set(value = 1)
 
     output$tableauMergingDone <- renderText({
       paste("Merging done!")
     })
   })
+  observeEvent(input$resetColnamesTemplate, {
+    #
+    #
+    #
 
+    progress <- Progress$new(session, min=0, max=1)
+    on.exit(progress$close())
+
+    progress$set(message = 'Calculation in progress',
+                 detail = 'This may take a while...')
+
+
+
+
+    # reset column names template
+    newColnamesTemplate <- lipidQuan:::makeColnames(as.numeric(input$numberOfMS2ix))
+    #write.csv(mergedTableauDataSets, file = paste0(input$dirColnamesTemplate,"userSpecifiedColnames.csv"), quote = FALSE, row.names = F) # TO BE CONTINUED... FÅ DET HER TIL AT VIRKE
+    write.csv(newColnamesTemplate, file = paste0(input$dirColnamesTemplate,"/userSpecifiedColnames.csv"), quote = FALSE, row.names = F)
+    progress$set(value = 1)
+
+    output$resetColTemplateDone <- renderText({
+      paste("Reset of column name template done!")
+    })
+
+  })
 
 }

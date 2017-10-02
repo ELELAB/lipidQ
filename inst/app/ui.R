@@ -67,6 +67,25 @@ ui <- fluidPage(
                         ),
                         mainPanel()
                       )
+             ),
+             tabPanel("Global Options",
+                      sidebarLayout(
+                        sidebarPanel(
+
+
+                          actionButton("resetColnamesTemplate", "Reset column template file"),
+
+                          br(),
+                          textInput("numberOfMS2ix", "Write the number of MS2 columns in the input data", "3"),
+
+                          br(),
+                          textInput("dirColnamesTemplate", "Paste the filepath for the column template file to be saved.", "/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/"),
+
+                          br(),
+                          textOutput("resetColTemplateDone")
+                        ),
+                        mainPanel()
+                      )
              )
   )
 )
