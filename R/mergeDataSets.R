@@ -5,10 +5,10 @@
 #' @param database a database containing reference data for the input data, e.g. classes of interest, QUAN_MODE, QUAN_SCAN etc.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
 #' is used to translate the user specified column names to the program, so that it uses the correct columns for the different analysis procedures.
-#' @param list a file containing a list of sum compositions to be multiplied for in the MS1 column values (intensity values)
+#' @param correctionList a file containing a list of sum compositions to be multiplied for in the MS1 column values (intensity values)
 #' @param multiply a parameter used to multiply intensity values in the MS1 column values if the corresponding sum composition appear in a correction list file used as argument in the list parameter FORKLAR MENINGEN
 #' @export
-mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, list = NULL, multiply = NULL){
+mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, correctionList = NULL, multiply = NULL){
 
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
@@ -154,9 +154,9 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, list
 
 
   # multiply MS1x values if multiply is set to a value
-  if(!is.null(multiply) && !is.null(list)){
+  if(!is.null(multiply) && !is.null(correctionList)){
     for(MS1x in colnames(MS1x_tmp)){
-      mergedDataSet[,MS1x] <- ifelse(mergedDataSet[,dataColnames$SUM_COMPOSITION] %in% list, mergedDataSet[,MS1x]*multiply, mergedDataSet[,MS1x])
+      mergedDataSet[,MS1x] <- ifelse(mergedDataSet[,dataColnames$SUM_COMPOSITION] %in% correctionList, mergedDataSet[,MS1x]*multiply, mergedDataSet[,MS1x])
 
     }
   }

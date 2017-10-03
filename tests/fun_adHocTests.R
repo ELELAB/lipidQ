@@ -23,7 +23,7 @@ t <- mergeDataSets(dataPathTest, database)
 list <- read.table("inst/extdata/test/Correction_List.csv", stringsAsFactors = FALSE, header = FALSE, sep = ",")$V1
 dataPathTest <- read.table("inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
 database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-t <- mergeDataSets(dataPathTest, database, list = list, multiply = 2)
+t <- mergeDataSets(dataPathTest, database, correctionList = list, multiply = 2)
 #write.csv(t,"inst/extdata/validation/mergedDataSets_multiply_2.csv", quote = FALSE, row.names = FALSE)
 
 
