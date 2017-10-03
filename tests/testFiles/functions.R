@@ -35,7 +35,7 @@ test.mergeDataSets_multiply_2 <- function(){
   list <- read.table("../inst/extdata/test/Correction_List.csv", stringsAsFactors = FALSE, header = FALSE, sep = ",")$V1
   dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
   database <- read.table("../inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- mergeDataSets(dataPathTest, database, multiply = 2, list = list)
+  dataFrameTest <- mergeDataSets(dataPathTest, database, list = list, multiply = 2)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedDataSets_multiply_2.csv", quote = FALSE, row.names = F)
 
   # load test and validation data.frame

@@ -8,7 +8,7 @@
 #' @param list a file containing a list of sum compositions to be multiplied for in the MS1 column values (intensity values)
 #' @param multiply a parameter used to multiply intensity values in the MS1 column values if the corresponding sum composition appear in a correction list file used as argument in the list parameter FORKLAR MENINGEN
 #' @export
-mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, multiply = NULL, list = NULL){
+mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, list = NULL, multiply = NULL){
 
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)

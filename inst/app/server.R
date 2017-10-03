@@ -77,7 +77,7 @@ server <- function(input, output, session){
 
 
     # Analysis start
-    mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, database, userSpecifiedColnames = userSpecifiedColnames, multiply = input$multiplyPREC_value, list = list))
+    mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, database, userSpecifiedColnames = userSpecifiedColnames, list = list, multiply = input$multiplyPREC_value))
     write.csv(mergedDataSets, file = paste0(input$dir,"/mergedDataSets.csv"), quote = FALSE, row.names = F)
     progress$set(value = 2)
 
