@@ -1,4 +1,4 @@
-#setwd("/data/user/andre/lipidomics/lipidQuan")
+#setwd("/data/user/andre/lipidomics/lipidQuan") # for test purposes
 
 #' @title Make column names
 #' @author André Vidas Olsen
@@ -60,62 +60,7 @@ makeColnames <- function(numberOfMS2ix = 3){
 }
 
 
+# save file # for test purposes
+#write.csv(userSpecifiedColnames, "inst/extdata/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE) # for test purposes
 
 
-#userSpecifiedColnames$ERROR <- c("ERROR", 1)
-#userSpecifiedColnames$CLASS <- c("CLASS", 1)
-#userSpecifiedColnames$LENGTH <- c("LENGTH", 1)
-#userSpecifiedColnames$DB <- c("DB", 1) # herfra og opefter mangler ændring af navn
-#userSpecifiedColnames$NAME <- c("navn", 1)
-#userSpecifiedColnames$SPECIE <- c("art", 1)
-#userSpecifiedColnames$MASS <- c("MASS", 1) # mangler ændring af navn
-#userSpecifiedColnames$OH <- c("OH", 1) # mangler ændring af navn
-#userSpecifiedColnames$isLP <- c("internStandard", 1)
-#userSpecifiedColnames$PRECx <- c("CERP", 8)
-#userSpecifiedColnames$FRAGx <- c("GARF", 8)
-#userSpecifiedColnames$FAxINTENS <- c("AFxSENTNI", 8)
-#userSpecifiedColnames$NLS <- c("SLN", 1)
-#userSpecifiedColnames$FAOINTENS <- c("AF0SENTNI", 1)
-#userSpecifiedColnames$QUAN_MODE <- c("NAUQ_EDOM", 1)
-#userSpecifiedColnames$QUAN <- c("NAUQ", 1)
-#userSpecifiedColnames$DECONVULOTION_MODE <- c("dekonvulere_EDOM", 1)
-#userSpecifiedColnames$DECONVULOTION_FRAGx <- c("dekonvulere_GARF", 8)
-#userSpecifiedColnames$DECONVULOTION_FAx <- c("dekonvulere_AF", 8)
-#userSpecifiedColnames$DB <- c("MASSNLS", 1) # herfra mangler ændring af navn
-#userSpecifiedColnames$DB <- c("MASSFA", 1)
-#userSpecifiedColnames$DB <- c("MASSFRAG", 1)
-#userSpecifiedColnames$DB <- c("MODE", 1)
-
-
-#userSpecifiedColnames <- makeColnames()
-
-# save file
-#write.csv(userSpecifiedColnames, "inst/extdata/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE)
-
-#test <- read.csv("inst/extdata/test/userSpecifiedColnames.csv", header = TRUE)
-#colnames(test)
-
-
-
-
-#test <- read.csv("inst/extdata/test/userSpecifiedColnames.csv", header = TRUE, stringsAsFactors = FALSE)
-#colnames(test)
-
-
-
-
-### TEST AF: Make MS2x -> MS2xa, MS2xb, MS2xc, MS2xd.
-
-#head(test)
-
-#MS2x_test <- test[,grep("^MS2ax",colnames(test))]
-#colnames(MS2x_test) <- MS2x_test[1,]
-#colnames(MS2x_test)
-#class(MS2x_test)
-
-#tdf <- data.frame(FRAG = 1:10, FAxINTENS = 11:20, NLS = 1:10, FAOINTENS = 11:20)
-
-#tdf_ <- data.frame(a = 1:10, b = 11:20, c = 1:10, d = 11:20)
-#colnames(tdf_) <- MS2x_test[1,]
-
-#tdf[,MS2x_test[1,]]

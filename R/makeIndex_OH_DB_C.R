@@ -100,7 +100,7 @@ makeIndex_OH_DB_C <- function(data){
 }
 
 
-#t <- read.table("inst/extdata/test/results/old/pmolCalc.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#t <- read.table("inst/extdata/test/results/old/pmolCalc.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",") # for test purposes
 
-#test <- makeIndex_OH_DB_C(t)
-#head(test, n = 200)
+#test <- makeIndex_OH_DB_C(t) # for test purposes
+#head(test, n = 200) # for test purposes

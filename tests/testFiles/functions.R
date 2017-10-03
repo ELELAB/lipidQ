@@ -139,24 +139,3 @@ test.mergeTableauDataSets <- function() {
   # validate
   checkEquals(dataFrameTest, dataFrameVali)
 }
-
-
-#test.generic <- function() {
-
-# input: data.frame
-#dataFrameTest <- data.frame(NAME = c(" hej", "med ", "dig"), SPECIE = c(" din", "smu kke", "  dukke"),stringsAsFactors = FALSE)
-#dataFrameVali <- data.frame(NAME = c("hej", "med ", "dig"), SPECIE = c("din", "smu kke", " dukke"),stringsAsFactors = FALSE)
-#checkEquals(rmSpaceInBeginning(dataFrameTest), dataFrameVali)
-
-# input: decimal numbers
-#checkEqualsNumeric(divideBy(4.1, 1.2345), 3.321, tolerance=1.0e-4)
-
-# 0 as denominator, check for NA output
-#checkTrue(is.na(divideBy(4, 0)))
-
-# input: character, check for exception handling
-#checkException(divideBy("xx",2), silent = TRUE)
-#checkException(divideBy(2,"xx"), silent = TRUE)
-
-#DEACTIVATED('This function does not work at the moment...')
-#}

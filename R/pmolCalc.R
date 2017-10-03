@@ -18,26 +18,6 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
   dataColnames <- getColnames(userSpecifiedColnames)
 
 
-  #  # find all unique elements in the QUAN column
-  #  QUAN_elements <- unique(data$QUAN)
-  #  print(QUAN_elements)
-  #  # GENERALIZÉR
-  #  for(element in QUAN_elements){
-  #    # define MS1x columns and BLNK column (last MS1x column)
-  #    element_Colnames <- colnames(data)[grep(element,colnames(data))] # names of all element.* columns
-  #    BLNK <- element_Colnames[length(element_Colnames)] # name of BLNK column (last element.* column)
-  #    element_Colnames <- element_Colnames[-length(element_Colnames)] # remove last column from element_Colnames since this is BLNK
-  #    print(element_Colnames)
-  #
-  #    #### zero adapter: check value >= 0. if not, value <- 0.
-  #    for(elementCol in element_Colnames){ # for each element column
-  #      data[,elementCol] <- ifelse(data[,elementCol] < 0, 0, data[,elementCol])
-  #    }
-  #    # for BLNK column (equal to last MS1x column)
-  #    data[,BLNK] <- ifelse(data[,BLNK] < 0, 0, data[,BLNK])
-  #  }
-
-
   # define MS1x columns and BLNK column (last MS1x column)
   MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
   BLNK <- MS1x_names[length(MS1x_names)] # name of BLNK column (last MS1x.* column)

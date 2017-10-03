@@ -149,7 +149,6 @@ server <- function(input, output, session){
 
     # reset column names template
     newColnamesTemplate <- lipidQuan:::makeColnames(as.numeric(input$numberOfMS2ix))
-    #write.csv(mergedTableauDataSets, file = paste0(input$dirColnamesTemplate,"userSpecifiedColnames.csv"), quote = FALSE, row.names = F) # TO BE CONTINUED... FÅ DET HER TIL AT VIRKE
     write.csv(newColnamesTemplate, file = paste0(input$dirColnamesTemplate,"/userSpecifiedColnames.csv"), quote = FALSE, row.names = F)
     progress$set(value = 1)
 
