@@ -18,7 +18,7 @@ filterDataSet <- function(data, database, userSpecifiedColnames = NULL){
 
   #### select relevant columns
   data_tmp <- subset(data, select = c(dataColnames$SUM_COMPOSITION, dataColnames$PPM, dataColnames$MASS_TO_CHARGE, dataColnames$SPECIE_COMPOSITION, dataColnames$MODE, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$OH_GROUP))
-  PREC_tmp <- data[,c(colnames(data)[grep(paste0("^", dataColnames$MS1x),colnames(data))])]
+  MS1x_tmp <- data[,c(colnames(data)[grep(paste0("^", dataColnames$MS1x),colnames(data))])]
 
   # find user specified columns of MS2ix column names -> MS2ix_userCols
   MS2ix_cols <- dataColnames[grep("MS2",colnames(dataColnames))]
@@ -30,7 +30,7 @@ filterDataSet <- function(data, database, userSpecifiedColnames = NULL){
   MS2ix_userCols <- unique(MS2ix_userCols)
 
   MS2ix_tmp <- data[,MS2ix_userCols]
-  data <- cbind(data_tmp,PREC_tmp, MS2ix_tmp)
+  data <- cbind(data_tmp,MS1x_tmp, MS2ix_tmp)
 
 
 
@@ -60,11 +60,11 @@ filterDataSet <- function(data, database, userSpecifiedColnames = NULL){
 
   #### remove duplicates
 
-  # find potential value > 0 for each SUM_COMPOSITION in each PREC.* column and set this value as the default for this class name (if it exists), so that they appear after removal of duplicates. (PREC.* always have the same value > 0)
+  # find potential value > 0 for each SUM_COMPOSITION in each MS1x column and set this value as the default for this class name (if it exists), so that they appear after removal of duplicates. (MS1x always have the same value > 0)
   classNames <- unique(data[,dataColnames$SUM_COMPOSITION])
-  for(PREC in colnames(PREC_tmp)){
+  for(MS1x in colnames(MS1x_tmp)){
     for(className in classNames){
-      data[data[,dataColnames$SUM_COMPOSITION] == className, PREC] <- max(data[data[,dataColnames$SUM_COMPOSITION] == className, PREC])
+      data[data[,dataColnames$SUM_COMPOSITION] == className, MS1x] <- max(data[data[,dataColnames$SUM_COMPOSITION] == className, MS1x])
     }
   }
 
