@@ -4,7 +4,7 @@
 \alias{rmSpaceInBeginning}
 \title{Remove Space In Beginning of NAME and SPECIE Rows}
 \usage{
-rmSpaceInBeginning(data)
+rmSpaceInBeginning(data, userSpecifiedColnames = NULL)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
