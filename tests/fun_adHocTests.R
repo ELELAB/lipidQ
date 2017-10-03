@@ -9,7 +9,7 @@ source("R/rmSpaceInBeginning.R")
 source("R/getColnames.R")
 
 ################################################################################################################
-# save new version of mergeDataSets validation dataset
+# save new version of mergeDataSets validation dataset.
 ################################################################################################################
 dataPathTest <- read.table("inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
 database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
