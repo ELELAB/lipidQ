@@ -108,9 +108,9 @@ server <- function(input, output, session){
     })
   })
 
-  observeEvent(input$runTableauMerging, {
+  observeEvent(input$runFinalOutputMerging, {
     #
-    # This function runs when the "Merge Tableau Data Sets" button is triggered by the user
+    # This function runs when the "Merge Final Output Data Sets" button is triggered by the user
     #
 
     progress <- Progress$new(session, min=0, max=1)
@@ -120,22 +120,22 @@ server <- function(input, output, session){
                  detail = 'This may take a while...')
 
     # load input data files to a list of directories used by the mergedDataSets() function
-    tableauList <- character(nrow(input$tableauList))
-    for(i in 1:nrow(input$tableauList)){
-      tableauList[i] <- input$tableauList[[i, 'datapath']]
+    finalOutputList <- character(nrow(input$finalOutputList))
+    for(i in 1:nrow(input$finalOutputList)){
+      finalOutputList[i] <- input$finalOutputList[[i, 'datapath']]
     }
 
-    if (is.null(tableauList))
+    if (is.null(finalOutputList))
       return(NULL)
 
 
 
-    # Tableau merging start
-    mergedTableauDataSets <- lipidQuan:::mergeTableauDataSets(tableauList)
-    write.csv(mergedTableauDataSets, file = paste0(input$dirTableau,"/mergedTableauDataSets.csv"), quote = FALSE, row.names = F)
+    # final output merging start
+    mergedFinalOutputs <- lipidQuan:::mergeFinalOutputs(finalOutputList)
+    write.csv(mergedFinalOutputs, file = paste0(input$dirFinalOutputs,"/mergedFinalOutputs.csv"), quote = FALSE, row.names = F)
     progress$set(value = 1)
 
-    output$tableauMergingDone <- renderText({
+    output$finalOutputMergingDone <- renderText({
       paste("Merging done!")
     })
   })

@@ -123,18 +123,18 @@ test.pmolCalc <- function() {
 }
 
 
-test.mergeTableauDataSets <- function() {
+test.mergeFinalOutputs <- function() {
   #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
-  dataPathTest <- read.table("../inst/extdata/tableauList.txt", stringsAsFactors = FALSE)[,1]
-  dataFrameTest <- mergeTableauDataSets(dataPathTest)
-  write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedTableauDataSets.csv", quote = FALSE, row.names = F)
+  dataPathTest <- read.table("../inst/extdata/finalOutputList.txt", stringsAsFactors = FALSE)[,1]
+  dataFrameTest <- mergeFinalOutputs(dataPathTest)
+  write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedFinalOutputs.csv", quote = FALSE, row.names = F)
 
 
   # load test and validation data.frame
-  dataFrameTest <- read.table("../inst/extdata/test/results/mergedTableauDataSets.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameVali <- read.table("../inst/extdata/validation/mergedTableauDataSets.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest <- read.table("../inst/extdata/test/results/mergedFinalOutputs.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameVali <- read.table("../inst/extdata/validation/mergedFinalOutputs.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
   # validate
   checkEquals(dataFrameTest, dataFrameVali)

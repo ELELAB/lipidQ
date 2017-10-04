@@ -50,21 +50,21 @@ ui <- fluidPage(
                         mainPanel()
                       )
              ),
-             tabPanel("Merging of Tableau Data Sets",
+             tabPanel("Merging of Final Output Data Sets",
                       sidebarLayout(
                         sidebarPanel(
-                          fileInput(inputId = "tableauList", multiple = TRUE, label = "Choose the tableau output data sets (.csv-files):",
+                          fileInput(inputId = "finalOutputList", multiple = TRUE, label = "Choose the final output data sets (.csv-files):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
-                          textInput("dirTableau", "Paste the filepath for the output files to be saved.", "results/"),
+                          textInput("dirFinalOutputs", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/lipidQuan/results/"),
 
                           br(),
 
-                          actionButton("runTableauMerging", "Merge Tableau Data Sets"),
+                          actionButton("runFinalOutputMerging", "Merge Final Output Data Sets"),
 
                           br(),
                           br(),
-                          textOutput("tableauMergingDone")
+                          textOutput("finalOutputMergingDone")
                         ),
                         mainPanel()
                       )

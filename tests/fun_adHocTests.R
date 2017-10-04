@@ -3,7 +3,7 @@ source("R/mergeDataSets.R")
 source("R/sort_is.R")
 source("R/filterDataSet.R")
 source("R/pmolCalc.R")
-source("R/mergeTableauDataSets.R")
+source("R/mergeFinalOutputs.R")
 source("R/readFile.R")
 source("R/rmSpaceInBeginning.R")
 source("R/getColnames.R")
@@ -76,11 +76,11 @@ t <- pmolCalc(t,database, NULL, 2, 0.25)
 
 
 ################################################################################################################
-# save new version of tableauOutput validation data set
+# save new version of mergedFinalOutput validation data set
 ################################################################################################################
-dataPathTest <- read.table("inst/extdata/tableauList.txt", stringsAsFactors = FALSE)[,1]
-mergedTableauDataSets <- mergeTableauDataSets(dataPathTest)
-#write.csv(mergedTableauDataSets,"inst/extdata/validation/mergedTableauDataSets.csv", quote = FALSE, row.names = FALSE)
+dataPathTest <- read.table("inst/extdata/finalOutputList.txt", stringsAsFactors = FALSE)[,1]
+mergedFinalOutputs <- mergeFinalOutputs(dataPathTest)
+#write.csv(mergedFinalOutputs,"inst/extdata/validation/mergedFinalOutputs.csv", quote = FALSE, row.names = FALSE)
 
 
 
