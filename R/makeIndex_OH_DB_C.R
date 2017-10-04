@@ -2,6 +2,7 @@
 #' @author André Vidas Olsen
 #' @description This function creates OH Index, DB Index and C-chain Index of data containing calculated %pmol values of samples.
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
+#' @export
 makeIndex_OH_DB_C <- function(data){
   # only use experimental data (exclude all internal standards)
   exData <- data[-grep("^is",data$NAME),]
@@ -75,32 +76,17 @@ makeIndex_OH_DB_C <- function(data){
 
   }
 
-  # merge OHdata, DBdata and Cdata into one data set
-  OH_DB_C_data <- data.frame(CLASS = NULL, OH = NULL, DB = NULL, C = NULL)
-  for(i in 1:length(filterCols)){
-    OH_DB_C_data[,paste0("PMOL_PCT_",i)] <- NULL
-  }
+  # output OH DB and C as seperate data contained in a list.
+  indexData <- list(OHdata, DBdata, Cdata)
+  return(indexData)
 
-  OHdata$DB <- NA
-  OHdata$C <- NA
-
-  DBdata$OH <- NA
-  DBdata$C <- NA
-
-  Cdata$OH <- NA
-  Cdata$DB <- NA
-
-  OH_DB_C_data_ <- rbind(OHdata, DBdata, Cdata)
-
-  # reorder columns so that PML_PCT* are the last columns
-  OH_DB_C_data <- OH_DB_C_data_[c("CLASS", "OH", "DB", "C")]
-  OH_DB_C_data <- cbind(OH_DB_C_data, OH_DB_C_data_[grep("PMOL_PCT",colnames(OH_DB_C_data_))])
-
-  return(OH_DB_C_data)
 }
 
 
 #t <- read.table("inst/extdata/test/results/old/pmolCalc.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",") # for test purposes
 
 #test <- makeIndex_OH_DB_C(t) # for test purposes
+#test[1]
+#test[2]
+#test[3]
 #head(test, n = 200) # for test purposes

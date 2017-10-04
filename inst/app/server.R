@@ -9,7 +9,7 @@ server <- function(input, output, session){
     # This function runs when then "Start Analysis" button is triggered by the user
     #
 
-    progress <- Progress$new(session, min=0, max=6)
+    progress <- Progress$new(session, min=0, max=7)
     on.exit(progress$close())
 
     progress$set(message = 'Calculation in progress',
@@ -89,13 +89,19 @@ server <- function(input, output, session){
     write.csv(pmolCalculatedDataSet, file = paste0(input$dir,"/pmolCalculatedDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 4)
 
+    indexData <- lipidQuan::makeIndex_OH_DB_C(pmolCalculatedDataSet)
+    write.csv(indexData[1], file = paste0(input$dir,"/indexDataOH.csv"), quote = FALSE, row.names = F)
+    write.csv(indexData[2], file = paste0(input$dir,"/indexDataDB.csv"), quote = FALSE, row.names = F)
+    write.csv(indexData[3], file = paste0(input$dir,"/indexDataC.csv"), quote = FALSE, row.names = F)
+    progress$set(value = 5)
+
     classPmol_molPctClass <- lipidQuan:::compactOutput_pmolCalc(pmolCalculatedDataSet)
     write.csv(classPmol_molPctClass, file = paste0(input$dir,"/classPmol_molPctClass.csv"), quote=F, row.names = F)
-    progress$set(value = 5)
+    progress$set(value = 6)
 
     tableauOutput <- lipidQuan:::makeTableauOutput(classPmol_molPctClass, pmolCalculatedDataSet)
     write.csv(tableauOutput, file = paste0(input$dir,"/tableauOutput.csv"), quote = FALSE, row.names = FALSE)
-    progress$set(value = 6)
+    progress$set(value = 7)
 
     output$analysisDone <- renderText({
       paste("Quantification done!")
