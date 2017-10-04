@@ -19,7 +19,6 @@ makeColnames <- function(numberOfMS2ix = 3){
     MS2ix[i] <- paste0("MS2",letters[i], "x")
   }
 
-  #defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "MS2ax", "MS2bx", "MS2cx", "FAO", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_MS2ax", "DECONVOLUTION_MS2bx", "MASS_MS2ax", "MASS_MS2bx", "MASS_MS2cx", "MODE","numberOfSamples", "numberOfReplicates")
   defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", MS2ix, "FAO", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_MS2ax", "DECONVOLUTION_MS2bx", "MASS_MS2ax", "MASS_MS2bx", "MASS_MS2cx", "MODE","numberOfSamples", "numberOfReplicates")
 
 
