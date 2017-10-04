@@ -2,7 +2,8 @@
 
 export(filterDataSet)
 export(makeColnames)
-export(makeTableauOutput)
+export(makeFinalOutput)
+export(makeIndex_OH_DB_C)
 export(mergeDataSets)
 export(mergeTableauDataSets)
 export(pmolCalc)
