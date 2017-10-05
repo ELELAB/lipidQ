@@ -4,10 +4,10 @@
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @param database a database containing reference data for the input data, e.g. classes of interest, QUAN_MODE, QUAN_SCAN etc.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
-#' @param spikeVariable a variable used to multiply on the pico mol calculation FORKLAR MENINGEN.
-#' @param zeroThresh an optional threshold that determines if a given small value in mol pct. specie composition columns should be rounded down to zero. FORKLAR HVORFOR DET ER VIGTIGT.
+#' @param spikeISTD internal standard spike amount in uL
+#' @param zeroThresh an optional threshold that determines if a given small value in mol pct. specie composition columns should be rounded down to zero.
 #' @export
-pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable, zeroThresh){
+pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeISTD, zeroThresh){
 
 
   #### if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in database starts with a [SPACE], remove this row
@@ -65,8 +65,8 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
       is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
 
-      # pmol_isSpecie = spikeVariabel(uL) x [isLP]
-      pmol_isSpecie <- spikeVariable * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
+      # pmol_isSpecie = spikeISTD(uL) x [isLP]
+      pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
 
 
       # pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION) x pmol(isSpecie) )
@@ -95,8 +95,8 @@ pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeVariable
     # find corresponding internal standard.
     is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
-    # pmol_isSpecie <- spikeVariabel(uL) x [isLP]
-    pmol_isSpecie <- spikeVariable * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
+    # pmol_isSpecie <- spikeISTD(uL) x [isLP]
+    pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
 
     # pmol calculation ( MS1x:*(SUM_COMPOSITION)/MS1x:*(isSUM_COMPOSITION) x pmol(isSpecie) )
     pmol_calc <- exData[i,BLNK] / is[,BLNK] * pmol_isSpecie

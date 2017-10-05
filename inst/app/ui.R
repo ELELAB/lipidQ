@@ -28,7 +28,7 @@ ui <- fluidPage(
                           br(),
                           br(),
 
-                          numericInput("spikeVar", "Spike Variable:", 2, min = 1, max = 100),
+                          numericInput("spikeISTD", "spike ISTD (uL):", 2, min = 1, max = 100),
                           numericInput("zeroThresh", "Threshold for rounding down to zero for mol% species:", 0.25, min = 0, max = 10),
 
                           br(),
