@@ -7,13 +7,17 @@ source("R/mergeFinalOutputs.R")
 source("R/readFile.R")
 source("R/rmSpaceInBeginning.R")
 source("R/getColnames.R")
+source("R/merge_endo_and_ISTD_db.R")
 
 ################################################################################################################
 # save new version of mergeDataSets validation dataset.
 ################################################################################################################
 dataPathTest <- read.table("inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-t <- mergeDataSets(dataPathTest, database)
+#database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#t <- mergeDataSets(dataPathTest, database)
+endogene_lipid_db <- read.table("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
 #write.csv(t,"inst/extdata/validation/mergedDataSets.csv", quote = FALSE, row.names = FALSE)
 
 
@@ -54,10 +58,12 @@ t <- sort_is(t)
 # save new version of filterDataSet validation dataset
 ################################################################################################################
 dataPathTest <- read.table("inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-t <- mergeDataSets(dataPathTest, database)
+#database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+endogene_lipid_db <- read.table("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
 t <- sort_is(t)
-t <- filterDataSet(t,database)
+t <- filterDataSet(t, endogene_lipid_db, ISTD_lipid_db)
 #write.csv(t,"inst/extdata/validation/filteredDataSet.csv", quote = FALSE, row.names = FALSE)
 
 
@@ -66,11 +72,13 @@ t <- filterDataSet(t,database)
 # save new version of pmolCalc validation dataset
 ################################################################################################################
 dataPathTest <- read.table("inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-t <- mergeDataSets(dataPathTest, database)
+#database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+endogene_lipid_db <- read.table("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
 t <- sort_is(t)
-t <- filterDataSet(t,database)
-t <- pmolCalc(t,database, NULL, 2, 0.25)
+t <- filterDataSet(t, endogene_lipid_db, ISTD_lipid_db)
+t <- pmolCalc(t,endogene_lipid_db, ISTD_lipid_db, NULL, 2, 0.25)
 #write.csv(t,"inst/extdata/validation/pmolCalc.csv", quote = FALSE, row.names = FALSE)
 
 

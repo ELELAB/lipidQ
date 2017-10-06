@@ -2,12 +2,17 @@
 #' @author André Vidas Olsen
 #' @description This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
-#' @param database a database containing reference data for the input data, e.g. classes of interest, QUAN_MODE, QUAN_SCAN etc.
+#' @param endogene_lipid_db the endogene lipid database
+#' @param ISTD_lipid_db the ISTD lipid database
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
 #' @param spikeISTD internal standard spike amount in uL
 #' @param zeroThresh an optional threshold that determines if a given small value in mol pct. specie composition columns should be rounded down to zero.
 #' @export
-pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeISTD, zeroThresh){
+#pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeISTD, zeroThresh){
+pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, spikeISTD, zeroThresh){
+
+  # merge endogene_lipid_db and ISTD_lipid_db together
+  database <- merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
 
 
   #### if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in database starts with a [SPACE], remove this row

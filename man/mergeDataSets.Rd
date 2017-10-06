@@ -4,13 +4,15 @@
 \alias{mergeDataSets}
 \title{Merge Data Sets}
 \usage{
-mergeDataSets(dataList, database, userSpecifiedColnames = NULL,
-  correctionList = NULL, multiply = NULL)
+mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db,
+  userSpecifiedColnames = NULL, correctionList = NULL, multiply = NULL)
 }
 \arguments{
 \item{dataList}{a list of paths referring to input data}
 
-\item{database}{a database containing reference data for the input data, e.g. classes of interest, QUAN_MODE, QUAN_SCAN etc.}
+\item{endogene_lipid_db}{the endogene lipid database}
+
+\item{ISTD_lipid_db}{the ISTD lipid database}
 
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file
 is used to translate the user specified column names to the program, so that it uses the correct columns for the different analysis procedures.}

@@ -15,8 +15,9 @@ test.mergeDataSets <- function(){
 
   # make test data.frame and save
   dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  database <- read.table("../inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- mergeDataSets(dataPathTest, database)
+  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedDataSets.csv", quote = FALSE, row.names = F)
 
   # load test and validation data.frame
@@ -34,8 +35,9 @@ test.mergeDataSets_multiply_2 <- function(){
   # make test data.frame and save
   list <- read.table("../inst/extdata/test/Correction_List.csv", stringsAsFactors = FALSE, header = FALSE, sep = ",")$V1
   dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  database <- read.table("../inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- mergeDataSets(dataPathTest, database, correctionList = list, multiply = 2)
+  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db, correctionList = list, multiply = 2)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedDataSets_multiply_2.csv", quote = FALSE, row.names = F)
 
   # load test and validation data.frame
@@ -53,8 +55,9 @@ test.mergeDataSets_userSpecifiedColnames <- function(){
   # make test data.frame and save
   list <- read.table("../inst/extdata/test/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
   dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  database <- read.table("../inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- mergeDataSets(dataPathTest, database, userSpecifiedColnames = list)
+  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = list)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedDataSets_userSpecifiedColnames.csv", quote = FALSE, row.names = F)
 
 
@@ -73,8 +76,9 @@ test.sort_is <- function(){
 
   # make test data.frame and save
   dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  database <- read.table("../inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- sort_is(mergeDataSets(dataPathTest, database))
+  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest <- sort_is(mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db))
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/sort_is.csv", quote = FALSE, row.names = F)
 
   # load test and validation data.frame
@@ -91,8 +95,9 @@ test.filterDataSet <- function() {
 
   # make test data.frame and save
   dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  database <- read.table("../inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- filterDataSet(sort_is(mergeDataSets(dataPathTest, database)), database)
+  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest <- filterDataSet(sort_is(mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)), endogene_lipid_db, ISTD_lipid_db)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/filteredDataSet.csv", quote = FALSE, row.names = F)
 
   # load test and validation data.frame
@@ -109,8 +114,9 @@ test.pmolCalc <- function() {
 
   # make test data.frame and save
   dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  database <- read.table("../inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataPathTest, database)), database),database, userSpecifiedColnames = NULL, 2, 0.25)
+  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)), endogene_lipid_db, ISTD_lipid_db),endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, 2, 0.25)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/pmolCalc.csv", quote = FALSE, row.names = F)
 
 

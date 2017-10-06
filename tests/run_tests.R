@@ -11,6 +11,7 @@ source('readFile.R')
 source('rmSpaceInBeginning.R')
 source('sort_is.R')
 source("getColnames.R")
+source("merge_endo_and_ISTD_db.R")
 
 test.suite <- defineTestSuite("auxFunctions",
                               dirs = file.path("../tests/testFiles"),

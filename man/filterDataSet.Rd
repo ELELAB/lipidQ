@@ -4,12 +4,15 @@
 \alias{filterDataSet}
 \title{Filter Data set}
 \usage{
-filterDataSet(data, database, userSpecifiedColnames = NULL)
+filterDataSet(data, endogene_lipid_db, ISTD_lipid_db,
+  userSpecifiedColnames = NULL)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
 
-\item{database}{a database containing reference data for the input data, e.g. classes of interest, QUAN_MODE, QUAN_SCAN etc.}
+\item{endogene_lipid_db}{the endogene lipid database}
+
+\item{ISTD_lipid_db}{the ISTD lipid database}
 
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
 }

@@ -2,13 +2,19 @@
 #' @author André Vidas Olsen
 #' @description This function merges multiple data sets together. The data sets are listed in the dataList parameter.
 #' @param dataList a list of paths referring to input data
-#' @param database a database containing reference data for the input data, e.g. classes of interest, QUAN_MODE, QUAN_SCAN etc.
+#' @param endogene_lipid_db the endogene lipid database
+#' @param ISTD_lipid_db the ISTD lipid database
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
 #' is used to translate the user specified column names to the program, so that it uses the correct columns for the different analysis procedures.
 #' @param correctionList a file containing a list of sum compositions to be multiplied for in the MS1 column values (intensity values)
 #' @param multiply a parameter used to multiply intensity values in the MS1 column on selected sum compositions. The parameter is useful if lipidX is used to obtain the intensity data derived from overlapping MS scan ranges. The sum composition are selected by the user and should appear in a correction list file that is used as argument for the correctionList parameter.
 #' @export
-mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, correctionList = NULL, multiply = NULL){
+#mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, correctionList = NULL, multiply = NULL){
+mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, correctionList = NULL, multiply = NULL){
+
+  # merge endogene_lipid_db and ISTD_lipid_db together
+  database <- merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
+
 
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
@@ -168,6 +174,7 @@ mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, corr
 
   # find all class names in database
   classNames <- unique(database[,dataColnames$SUM_COMPOSITION])
+
 
   # for each class in database, chose all species in mergedData
   for(className in classNames){
