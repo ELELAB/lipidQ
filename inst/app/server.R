@@ -36,12 +36,12 @@ server <- function(input, output, session){
       }
     )
 
-    # load database used by the filterDataSet() and the pmolCalc() functions
-    database <- tryCatch(
+    # load the endogene lipid database used by the filterDataSet() and the pmolCalc() functions
+    endogene_lipid_db <- tryCatch(
       {
-        database <- input$database
-        database <- read.table(database$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
-        database # return statement
+        endogene_lipid_db <- input$endogene_lipid_db
+        endogene_lipid_db <- read.table(endogene_lipid_db$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+        endogene_lipid_db # return statement
       },
       error=function(cond){
         message("ERROR: NO DATABASE SELECTED! Please select a database to be used together with the input data")
@@ -52,6 +52,23 @@ server <- function(input, output, session){
         message(cond)
       }
     )
+    # load the ISTD lipid database used by the filterDataSet() and the pmolCalc() functions
+    ISTD_lipid_db <- tryCatch(
+      {
+        ISTD_lipid_db <- input$ISTD_lipid_db
+        ISTD_lipid_db <- read.table(ISTD_lipid_db$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+        ISTD_lipid_db # return statement
+      },
+      error=function(cond){
+        message("ERROR: NO DATABASE SELECTED! Please select a database to be used together with the input data")
+        message("")
+        message("")
+        message("")
+        message("Original R error message:")
+        message(cond)
+      }
+    )
+
 
 
 
@@ -77,15 +94,15 @@ server <- function(input, output, session){
 
 
     # Analysis start
-    mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, database, userSpecifiedColnames = userSpecifiedColnames, correctionList = list, multiply = input$multiplyPREC_value))
+    mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, correctionList = list, multiply = input$multiplyPREC_value))
     write.csv(mergedDataSets, file = paste0(input$dir,"/mergedDataSets.csv"), quote = FALSE, row.names = F)
     progress$set(value = 2)
 
-    filteredDataSet <- lipidQuan:::filterDataSet(mergedDataSets, database, userSpecifiedColnames = userSpecifiedColnames)
+    filteredDataSet <- lipidQuan:::filterDataSet(mergedDataSets, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames)
     write.csv(filteredDataSet, file = paste0(input$dir,"/filteredDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 3)
 
-    pmolCalculatedDataSet <- lipidQuan:::pmolCalc(filteredDataSet, database, userSpecifiedColnames = NULL, input$spikeISTD, input$zeroThresh)
+    pmolCalculatedDataSet <- lipidQuan:::pmolCalc(filteredDataSet, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, input$spikeISTD, input$zeroThresh)
     write.csv(pmolCalculatedDataSet, file = paste0(input$dir,"/pmolCalculatedDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 4)
 

@@ -10,7 +10,10 @@ ui <- fluidPage(
                           fileInput(inputId = "dataList", multiple = TRUE, label = "Choose the input data sets (.csv-files):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
-                          fileInput(inputId = "database", label = "Choose the database (.csv-file):",
+                          fileInput(inputId = "endogene_lipid_db", label = "Choose the endogene lipid database (.csv-file):",
+                                    accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
+                          ),
+                          fileInput(inputId = "ISTD_lipid_db", label = "Choose the ISTD lipid database (.csv-file):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
                           fileInput(inputId = "userSpecifiedColnames", label = "Choose list of colnames (.csv-file):",
