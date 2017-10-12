@@ -8,6 +8,8 @@ rmSpaceInBeginning(data, userSpecifiedColnames = NULL)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
+
+\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
 }
 \description{
 Auxiliary function that removes the first letter in NAME and SPECIE, if the word begins with a [SPACE]. It is used since, by experience, some rows begins with a space for these two columns which can results in errors.

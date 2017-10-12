@@ -8,6 +8,8 @@ sort_is(data, userSpecifiedColnames = NULL)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
+
+\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
 }
 \description{
 This function orders all internal standards (is) in a given data set so that they appear as the last rows
