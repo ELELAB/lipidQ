@@ -19,7 +19,7 @@ makeColnames <- function(numberOfMS2ix = 3){
     MS2ix[i] <- paste0("MS2",letters[i], "x")
   }
 
-  defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", MS2ix, "FAO", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_MS2ax", "DECONVOLUTION_MS2bx", "MASS_MS2ax", "MASS_MS2bx", "MASS_MS2cx", "MODE","numberOfSamples", "numberOfReplicates")
+  defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", MS2ix, "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_MS2ax", "DECONVOLUTION_MS2bx", "MASS_MS2ax", "MASS_MS2bx", "MASS_MS2cx", "MODE","numberOfSamples", "numberOfReplicates")
 
 
   # create data.frame for user specified colnames
@@ -41,7 +41,7 @@ makeColnames <- function(numberOfMS2ix = 3){
   userSpecifiedColnames$MS2ax <- c("FRAG")
   userSpecifiedColnames$MS2bx <- c("FA")
   userSpecifiedColnames$MS2cx <- c("NLS")
-  userSpecifiedColnames$FAO <- c("FAO")
+  #userSpecifiedColnames$FAO <- c("FAO")
   userSpecifiedColnames$QUAN_MODE <- c("QUAN_MODE")
   userSpecifiedColnames$QUAN_SCAN <- c("QUAN_SCAN")
   userSpecifiedColnames$DECONVOLUTION_MODE <- c("DECONVOLUTION_MODE")

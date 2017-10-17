@@ -7,7 +7,7 @@ getColnames <- function(userSpecifiedColnames = NULL){
   if(!is.null(userSpecifiedColnames)){
 
     # check that all column names in userSpecifiedColnames.csv have the correct reference names, else throw an error message
-    if(!isTRUE(all.equal(colnames(userSpecifiedColnames), c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "MS2ax", "MS2bx", "MS2cx", "FAO", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_MS2ax", "DECONVOLUTION_MS2bx", "MASS_MS2ax", "MASS_MS2bx", "MASS_MS2cx", "MODE","numberOfSamples", "numberOfReplicates")))){
+    if(!isTRUE(all.equal(colnames(userSpecifiedColnames), c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "MS2ax", "MS2bx", "MS2cx", "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_MS2ax", "DECONVOLUTION_MS2bx", "MASS_MS2ax", "MASS_MS2bx", "MASS_MS2cx", "MODE","numberOfSamples", "numberOfReplicates")))){
       stop("ERROR: The userSpecifiedColnames.csv does not have correctly written reference column names (First line of the file). Please create a new userSpecifiedColnames.csv template file, by pressing THIS BUTTON in the lipidQuan GUI.")
     }
 
@@ -21,7 +21,7 @@ getColnames <- function(userSpecifiedColnames = NULL){
 
   # default colnames
   else{
-    dataColnames <- data.frame(PPM = "ERROR", CLASS = "CLASS", C_CHAIN = "LENGTH", DOUBLE_BOND = "DB", SUM_COMPOSITION = "NAME", SPECIE_COMPOSITION = "SPECIE", MASS_TO_CHARGE = "MASS", OH_GROUP = "OH_GROUP", ISTD = "isLP", MS1x = "PREC", MS2ax = "FRAG", MS2bx = "FA", MS2cx = "NLS", FAO = "FAO", QUAN_MODE = "QUAN_MODE", QUAN_SCAN = "QUAN_SCAN", DECONVOLUTION_MODE = "DECONVOLUTION_MODE", DECONVULOTION_MS2ax = "DECONVOLUTION_FRAG", DECONVOLUTION_MS2bx = "DECONVOLUTION_FA", MASS_MS2ax = "MASSFRAG", MASS_MS2bx = "MASSFA", MASS_MS2cx = "MASSNLS", MODE = "MODE", numberOfSamples = "numberOfSamples", numberOfReplicates = "numberOfReplicates", stringsAsFactors = FALSE)
+    dataColnames <- data.frame(PPM = "ERROR", CLASS = "CLASS", C_CHAIN = "LENGTH", DOUBLE_BOND = "DB", SUM_COMPOSITION = "NAME", SPECIE_COMPOSITION = "SPECIE", MASS_TO_CHARGE = "MASS", OH_GROUP = "OH_GROUP", ISTD = "isLP", MS1x = "PREC", MS2ax = "FRAG", MS2bx = "FA", MS2cx = "NLS", QUAN_MODE = "QUAN_MODE", QUAN_SCAN = "QUAN_SCAN", DECONVOLUTION_MODE = "DECONVOLUTION_MODE", DECONVULOTION_MS2ax = "DECONVOLUTION_FRAG", DECONVOLUTION_MS2bx = "DECONVOLUTION_FA", MASS_MS2ax = "MASSFRAG", MASS_MS2bx = "MASSFA", MASS_MS2cx = "MASSNLS", MODE = "MODE", numberOfSamples = "numberOfSamples", numberOfReplicates = "numberOfReplicates", stringsAsFactors = FALSE)
   }
 
 

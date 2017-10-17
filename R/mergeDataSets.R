@@ -80,7 +80,7 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
       },
       error=function(cond){
-        message("ERROR: PROBLEMS WITH COLUMN NAMES! Please check that all colnames are correctly named, both in the dataset and in the userSpecifiedList, if it's used.")
+        message("ERROR: PROBLEMS WITH COLUMN NAMES! Please check that all colnames are correctly named, both in the data set and in the userSpecifiedList, if it's used.")
         message("")
         message("")
         message("")
