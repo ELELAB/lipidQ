@@ -41,7 +41,6 @@ makeColnames <- function(numberOfMS2ix = 3){
   userSpecifiedColnames$MS2ax <- c("FRAG")
   userSpecifiedColnames$MS2bx <- c("FA")
   userSpecifiedColnames$MS2cx <- c("NLS")
-  #userSpecifiedColnames$FAO <- c("FAO")
   userSpecifiedColnames$QUAN_MODE <- c("QUAN_MODE")
   userSpecifiedColnames$QUAN_SCAN <- c("QUAN_SCAN")
   userSpecifiedColnames$DECONVOLUTION_MODE <- c("DECONVOLUTION_MODE")
