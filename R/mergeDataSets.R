@@ -49,12 +49,11 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   }
   MS2ix_userCols <- gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",MS2ix_userCols)
   MS2ix_userCols <- unique(MS2ix_userCols)
-
+  print(MS2ix_userCols)
 
 
 
   # select user specified columns of MS2ix columns from database (To be used in the "#### Filtering based on 1/0 columns in database" in this function)
-
   MS2ix_userCols_database <- c()
   for(userCol in as.character(MS2ix_cols)){
     MS2ix_userCols_database <- append(MS2ix_userCols_database, colnames(database)[grep(userCol,colnames(database))])
