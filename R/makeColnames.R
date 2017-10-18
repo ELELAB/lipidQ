@@ -6,7 +6,7 @@
 #' can be specified by the user. This function is useful if some error occur due to corruption of this file (for instance changes in the header section).
 #' @param numberOfMS2ix a parameter that specifies how many MS2 columns there is in the input data, since this number can vary depending on experiment setup.
 #' @export
-makeColnames <- function(numberOfMS2ix = 3){
+makeColnames <- function(numberOfMS2ix = 7){
 
   # throw an error if numberOfMS2ix > 20.
   if(numberOfMS2ix > 20){
@@ -38,9 +38,13 @@ makeColnames <- function(numberOfMS2ix = 3){
   userSpecifiedColnames$OH_GROUP <- c("OH_GROUP")
   userSpecifiedColnames$ISTD <- c("isLP")
   userSpecifiedColnames$MS1x <- c("PREC")
-  userSpecifiedColnames$MS2ax <- c("FRAG")
-  userSpecifiedColnames$MS2bx <- c("FA")
-  userSpecifiedColnames$MS2cx <- c("NLS")
+  userSpecifiedColnames$MS2ax <- c("FRAG1")
+  userSpecifiedColnames$MS2bx <- c("FRAG2")
+  userSpecifiedColnames$MS2cx <- c("FRAG3")
+  userSpecifiedColnames$MS2dx <- c("FA1")
+  userSpecifiedColnames$MS2ex <- c("FA2")
+  userSpecifiedColnames$MS2fx <- c("FA3")
+  userSpecifiedColnames$MS2gx <- c("NLS")
   userSpecifiedColnames$QUAN_MODE <- c("QUAN_MODE")
   userSpecifiedColnames$QUAN_SCAN <- c("QUAN_SCAN")
   userSpecifiedColnames$DECONVOLUTION_MODE <- c("DECONVOLUTION_MODE")
@@ -59,6 +63,7 @@ makeColnames <- function(numberOfMS2ix = 3){
 
 
 # save file # for test purposes
-#write.csv(userSpecifiedColnames, "inst/extdata/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE) # for test purposes
+userSpecifiedColnames <- makeColnames()
+write.csv(userSpecifiedColnames, "inst/extdata/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE) # for test purposes
 
 
