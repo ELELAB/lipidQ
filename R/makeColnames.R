@@ -19,8 +19,8 @@ makeColnames <- function(numberOfMS2ix = 7){
     MS2ix[i] <- paste0("MS2",letters[i], "x")
   }
 
-  defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", MS2ix, "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_MS2ax", "DECONVOLUTION_MS2bx", "MASS_MS2ax", "MASS_MS2bx", "MASS_MS2cx", "MODE","numberOfSamples", "numberOfReplicates")
 
+  defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", MS2ix, "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_MS2ax", "DECONVOLUTION_MS2bx", "MODE","numberOfSamples", "numberOfReplicates")
 
   # create data.frame for user specified colnames
   userSpecifiedColnames <- matrix(ncol = length(defaultColnames), nrow = 1)
@@ -50,9 +50,6 @@ makeColnames <- function(numberOfMS2ix = 7){
   userSpecifiedColnames$DECONVOLUTION_MODE <- c("DECONVOLUTION_MODE")
   userSpecifiedColnames$DECONVOLUTION_MS2ax <- c("DECONVOLUTION_FRAG")
   userSpecifiedColnames$DECONVOLUTION_MS2bx <- c("DECONVOLUTION_FA")
-  userSpecifiedColnames$MASS_MS2ax <- c("MASSFRAG")
-  userSpecifiedColnames$MASS_MS2bx <- c("MASSFA")
-  userSpecifiedColnames$MASS_MS2cx <- c("MASSNLS")
   userSpecifiedColnames$MODE <- c("MODE")
   userSpecifiedColnames$numberOfSamples <- c("3")
   userSpecifiedColnames$numberOfReplicates <- c("3")

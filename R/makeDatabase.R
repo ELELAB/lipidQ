@@ -11,7 +11,6 @@ makeDatabase <- function(userSpecifiedColnames = NULL, typeOfDB){
   if(typeOfDB == "endo"){
     # extract relevant columns from userSpecifiedColnames to database
     colnames_DB <- dataColnames[, c(dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MS1x, dataColnames$MS2ax, dataColnames$MS2bx, dataColnames$MS2cx, dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, dataColnames$DECONVOLUTION_MODE, dataColnames$DECONVOLUTION_MS2ax, dataColnames$DECONVOLUTION_MS2bx)]
-    # TO BE CONTINUED ... MAKE SURE THAT ALL FRAG1..3 DECONVOLUTION_FRAG1..3 ETC. IS INCLUDED IN THE TWO CURRENT DATABASES BEFORE CONINUING. ALSO, MAKE SURE THAT getColnames.R IS CHANGED SO THAT FRAG1..3 ETC ARE SEPERATED INTO EACH UNIQUE MS2x.
   }
   if(typeOfDB == "ISTD"){
 
