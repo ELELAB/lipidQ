@@ -49,7 +49,7 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   }
   MS2ix_userCols <- gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",MS2ix_userCols)
   MS2ix_userCols <- unique(MS2ix_userCols)
-  print(MS2ix_userCols)
+
 
 
 
