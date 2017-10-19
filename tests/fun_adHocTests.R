@@ -36,8 +36,9 @@ t <- mergeDataSets(dataPathTest, database, correctionList = list, multiply = 2)
 ################################################################################################################
 list <- read.table("inst/extdata/test/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 dataPathTest <- read.table("inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-t <- mergeDataSets(dataPathTest, database, userSpecifiedColnames = list)
+endogene_lipid_db <- read.table("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = list)
 #write.csv(t,"inst/extdata/validation/mergedDataSets_userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE)
 
 

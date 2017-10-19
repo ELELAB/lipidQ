@@ -171,7 +171,7 @@ server <- function(input, output, session){
 
 
     # reset column names template
-    newColnamesTemplate <- lipidQuan:::makeColnames(as.numeric(input$numberOfMS2ix))
+    newColnamesTemplate <- lipidQuan:::makeColnames(as.numeric(input$numberOfMS2ix), as.numeric(input$numberOfDECONVOLUTION_x))
     write.csv(newColnamesTemplate, file = paste0(input$dirColnamesTemplate,"/userSpecifiedColnames.csv"), quote = FALSE, row.names = F)
     progress$set(value = 1)
 
@@ -179,6 +179,45 @@ server <- function(input, output, session){
       paste("Reset of column name template done!")
     })
 
+
   })
+  observeEvent(input$resetDatabase, {
+    #
+    #
+    #
+
+    progress <- Progress$new(session, min=0, max=1)
+    on.exit(progress$close())
+
+    progress$set(message = 'Calculation in progress',
+                 detail = 'This may take a while...')
+
+
+    # load userSpecifiedColnames.csv
+    if(!is.null(input$userSpecifiedColnamesReset)){
+      userSpecifiedColnames <- input$userSpecifiedColnamesReset
+      userSpecifiedColnames <- read.table(userSpecifiedColnames$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+    } else{
+      userSpecifiedColnames <- NULL
+    }
+
+    print(input$DB_type)
+    newDatabase <- lipidQuan::makeDatabase(userSpecifiedColnames, input$DB_type)
+    if(input$DB_type == "endo"){
+      write.csv(newDatabase, file = paste0(input$dirDatabase,"/endogene_lipid_db_TEST.csv"), quote = FALSE, row.names = F)
+    }
+    if(input$DB_type == "ISTD"){
+      write.csv(newDatabase, file = paste0(input$dirDatabase,"/ISTD_lipid_db_TEST.csv"), quote = FALSE, row.names = F)
+    }
+    progress$set(value = 1)
+
+
+    output$resetDatabaseDone <- renderText({
+      paste("Reset of chosen database done!")
+    })
+
+  })
+
+
 
 }

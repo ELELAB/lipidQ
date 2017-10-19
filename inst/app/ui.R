@@ -77,16 +77,36 @@ ui <- fluidPage(
                         sidebarPanel(
 
 
-                          actionButton("resetColnamesTemplate", "Reset column template file"),
+
+
+
+                          textInput("numberOfMS2ix", "Write the number of MS2 columns in the input data", "7"),
 
                           br(),
-                          textInput("numberOfMS2ix", "Write the number of MS2 columns in the input data", "3"),
+                          textInput("numberOfDECONVOLUTION_x", "Write the number of DECONVOLUTION columns in the input data", "4"),
 
                           br(),
                           textInput("dirColnamesTemplate", "Paste the filepath for the column template file to be saved.", "/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/"),
 
                           br(),
-                          textOutput("resetColTemplateDone")
+                          textOutput("resetColTemplateDone"),
+
+                          actionButton("resetColnamesTemplate", "Reset column template file"),
+
+
+
+                          # TO BE CONTINUED ... MAKE BETTER VISIBILITY.
+                          br(),
+                          textInput("dirDatabase", "Paste the filepath for the database file to be saved.", "/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/"),
+
+                          fileInput(inputId = "userSpecifiedColnamesReset", label = "Choose list of colnames (.csv-file):",
+                                    accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")),
+
+                          radioButtons("DB_type", "Database Type", c("endo"="endo", "ISTD"="ISTD")),
+
+                          actionButton("resetDatabase", "Reset chosen database"),
+
+                          textOutput("resetDatabaseDone")
                         ),
                         mainPanel()
                       )

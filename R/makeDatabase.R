@@ -1,42 +1,45 @@
 #' @title Make Database
 #' @author André Vidas Olsen
 #' @description This function creates a database based on the user specified column names template
-makeDatabase <- function(userSpecifiedColnames = NULL, typeOfDB){
+#' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
+#' @param DB_type a string describing which of the two databases that is should be reset. "endo" for the endogene_lipid_db.csv database and "ISTD" for the ISTD_lipid_db.csv database.
+#' @export
+makeDatabase <- function(userSpecifiedColnames = NULL, DB_type){
 
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
 
+  # find user specified columns of MS2ix column names -> MS2ix_userCols
+  MS2ix_cols <- dataColnames[grep("^MS2",colnames(dataColnames))]
 
 
-  if(typeOfDB == "endo"){
-    # extract relevant columns from userSpecifiedColnames to database
-    colnames_DB <- dataColnames[, c(dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MS1x, dataColnames$MS2ax, dataColnames$MS2bx, dataColnames$MS2cx, dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, dataColnames$DECONVOLUTION_MODE, dataColnames$DECONVOLUTION_MS2ax, dataColnames$DECONVOLUTION_MS2bx)]
+  DECONVOLUTION_cols <- dataColnames[grep("^DECONVOLUTION",colnames(dataColnames))]
+
+
+
+  if(DB_type == "endo"){
+    #### extract relevant column names from userSpecifiedColnames to database
+
+    colnames_DB <- c(dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols))
   }
-  if(typeOfDB == "ISTD"){
-
+  if(DB_type == "ISTD"){
+    colnames_DB <- c(dataColnames$SUM_COMPOSITION, "isLP", dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols))
   }
+
+
+  # make databae with extracted column names
+  database <- data.frame(matrix(ncol = length(colnames_DB), nrow = 0))
+  colnames(database) <- colnames_DB
+
+  return(database)
 }
 
+#userSpecifiedColnames <- read.csv("inst/extdata/test/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE)
+#t<-makeDatabase(userSpecifiedColnames, DB_type = "ISTD")
 
-endo_db <- read.csv("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE)
-head(endo_db)
+#endo_db <- read.csv("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE)
+#head(endo_db)
 
-userSpecifiedColnames$SUM_COMPOSITION <- c("NAME")
-userSpecifiedColnames$SPECIE_COMPOSITION <- c("SPECIE")
-userSpecifiedColnames$MS1x <- c("PREC")
-userSpecifiedColnames$MS2ax <- c("FRAG")
-userSpecifiedColnames$MS2bx <- c("FA")
-userSpecifiedColnames$MS2cx <- c("NLS")
-userSpecifiedColnames$QUAN_MODE <- c("QUAN_MODE")
-userSpecifiedColnames$QUAN_SCAN <- c("QUAN_SCAN")
-userSpecifiedColnames$DECONVOLUTION_MODE <- c("DECONVOLUTION_MODE")
-userSpecifiedColnames$DECONVOLUTION_MS2ax <- c("DECONVOLUTION_FRAG")
-userSpecifiedColnames$DECONVOLUTION_MS2bx <- c("DECONVOLUTION_FA")
-
-
-ISTD_db <- read.csv("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE)
-head(ISTD_db)
-
-
-
+#ISTD_db <- read.csv("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE)
+#head(ISTD_db)
 

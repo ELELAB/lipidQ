@@ -4,10 +4,12 @@
 \alias{makeColnames}
 \title{Make column names}
 \usage{
-makeColnames(numberOfMS2ix = 3)
+makeColnames(numberOfMS2ix = 7, numberOfDECONVOLUTION_x = 4)
 }
 \arguments{
 \item{numberOfMS2ix}{a parameter that specifies how many MS2 columns there is in the input data, since this number can vary depending on experiment setup.}
+
+\item{numberOfDECONVOLUTION_x}{a parameter that specifies how many DECONVOLUTION columns there is in the input data, since this number can vary depending on experiment setup.}
 }
 \description{
 This function generates a new template file for standard column names (in the header) and with default column names as first row of the data.frame. These default column names

@@ -2,6 +2,7 @@
 
 export(filterDataSet)
 export(makeColnames)
+export(makeDatabase)
 export(makeFinalOutput)
 export(makeIndex_OH_DB_C)
 export(mergeDataSets)

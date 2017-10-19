@@ -5,8 +5,9 @@
 #' @description This function generates a new template file for standard column names (in the header) and with default column names as first row of the data.frame. These default column names
 #' can be specified by the user. This function is useful if some error occur due to corruption of this file (for instance changes in the header section).
 #' @param numberOfMS2ix a parameter that specifies how many MS2 columns there is in the input data, since this number can vary depending on experiment setup.
+#' @param numberOfDECONVOLUTION_x a parameter that specifies how many DECONVOLUTION columns there is in the input data, since this number can vary depending on experiment setup.
 #' @export
-makeColnames <- function(numberOfMS2ix = 7){
+makeColnames <- function(numberOfMS2ix = 7, numberOfDECONVOLUTION_x = 4){
 
   # throw an error if numberOfMS2ix > 20.
   if(numberOfMS2ix > 20){
@@ -19,8 +20,14 @@ makeColnames <- function(numberOfMS2ix = 7){
     MS2ix[i] <- paste0("MS2",letters[i], "x")
   }
 
+  # create DECONVOLUTION_x columns. Number of DECONVOLUTION_x columns is specified by the numberOfDECONVOLUTION_x function argument
+  DECONVOLUTION_x <- character(numberOfDECONVOLUTION_x)
+  for(i in 1:numberOfDECONVOLUTION_x){
+    DECONVOLUTION_x[i] <- paste0("DECONVOLUTION_",i)
+  }
 
-  defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", MS2ix, "QUAN_MODE", "QUAN_SCAN", "DECONVOLUTION_MODE", "DECONVOLUTION_MS2ax", "DECONVOLUTION_MS2bx", "MODE","numberOfSamples", "numberOfReplicates")
+
+  defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", MS2ix, "QUAN_MODE", "QUAN_SCAN", DECONVOLUTION_x, "MODE","numberOfSamples", "numberOfReplicates")
 
   # create data.frame for user specified colnames
   userSpecifiedColnames <- matrix(ncol = length(defaultColnames), nrow = 1)
@@ -47,9 +54,10 @@ makeColnames <- function(numberOfMS2ix = 7){
   userSpecifiedColnames$MS2gx <- c("NLS")
   userSpecifiedColnames$QUAN_MODE <- c("QUAN_MODE")
   userSpecifiedColnames$QUAN_SCAN <- c("QUAN_SCAN")
-  userSpecifiedColnames$DECONVOLUTION_MODE <- c("DECONVOLUTION_MODE")
-  userSpecifiedColnames$DECONVOLUTION_MS2ax <- c("DECONVOLUTION_FRAG")
-  userSpecifiedColnames$DECONVOLUTION_MS2bx <- c("DECONVOLUTION_FA")
+  userSpecifiedColnames$DECONVOLUTION_1 <- c("DECONVOLUTION_MODE")
+  userSpecifiedColnames$DECONVOLUTION_2 <- c("DECONVOLUTION_FRAG1")
+  userSpecifiedColnames$DECONVOLUTION_3 <- c("DECONVOLUTION_FA1")
+  userSpecifiedColnames$DECONVOLUTION_4 <- c("DECONVOLUTION_FA2")
   userSpecifiedColnames$MODE <- c("MODE")
   userSpecifiedColnames$numberOfSamples <- c("3")
   userSpecifiedColnames$numberOfReplicates <- c("3")
@@ -60,7 +68,7 @@ makeColnames <- function(numberOfMS2ix = 7){
 
 
 # save file # for test purposes
-userSpecifiedColnames <- makeColnames()
-write.csv(userSpecifiedColnames, "inst/extdata/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE) # for test purposes
+#userSpecifiedColnames <- makeColnames()
+#write.csv(userSpecifiedColnames, "inst/extdata/test/userSpecifiedColnames.csv", quote = FALSE, row.names = FALSE) # for test purposes
 
 
