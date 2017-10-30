@@ -75,7 +75,7 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
     selectedCols <- tryCatch(
       {
 
-        subset(data, select = c(dataColnames$PPM, dataColnames$CLASS, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MASS_TO_CHARGE)) # return statement
+        data[, c(dataColnames$PPM, dataColnames$CLASS, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MASS_TO_CHARGE)] # return statement
 
       },
       error=function(cond){
@@ -167,8 +167,6 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   }
 
 
-
-
   #### Filtering based on 1/0 columns in database
 
   # find all class names in database
@@ -183,21 +181,28 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
     selectedColNames <- MS2ix_userCols_database[col_index]
 
 
+
     if(length(selectedColNames) > 0){ # avoid error by ensuring that there exists some selected columns.
 
       # use selectedColNames to select all relevant columns for each sample in mergedDataSet
       for(k in 1:(ncol(MS1x_tmp))){
 
-        if(k <= 9){
-          selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_0",k))
 
+        if(k <= 9){
+
+
+          selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_0",k))
+          #selectedColRows <- mergedDataSet[mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, paste0(selectedColNames, "_0",k)]
+          #print(paste0("nrow: ",nrow(selectedColRows)))
+          #print(paste0("data: ",selectedColRows))
         }else{
           selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_",k))
+
         }
 
 
-
         if(nrow(selectedColRows) > 0){ # only check condition on column-row values if selectedColRows actually contains rows
+        #if(!is.null(selectedColRows)){ # only check condition on column-row values if selectedColRows actually contains rows
           for(i in 1:nrow(selectedColRows)){
             # check that all relevant columns (selected by 1/0 in the database) has a value > 0 for a given row. If at least one has a value <= 0, then this row == 0 for all columns.
             if(any(selectedColRows[i,] <= 0)){

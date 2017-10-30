@@ -21,7 +21,7 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
 
 
   #### select relevant columns
-  data_tmp <- subset(data, select = c(dataColnames$SUM_COMPOSITION, dataColnames$PPM, dataColnames$MASS_TO_CHARGE, dataColnames$SPECIE_COMPOSITION, dataColnames$MODE, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$OH_GROUP))
+  data_tmp <- data[,c(dataColnames$SUM_COMPOSITION, dataColnames$PPM, dataColnames$MASS_TO_CHARGE, dataColnames$SPECIE_COMPOSITION, dataColnames$MODE, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$OH_GROUP)]
   MS1x_tmp <- data[,c(colnames(data)[grep(paste0("^", dataColnames$MS1x),colnames(data))])]
 
   # find user specified columns of MS2ix column names -> MS2ix_userCols
@@ -56,7 +56,7 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
   data[,paste0(dataColnames$SPECIE_COMPOSITION,".ALL")] <- NA
   nameList <- unique(data[,dataColnames$SUM_COMPOSITION])
   for(name in nameList){ # for each specie name, find all species and insert them into SPECIE_COMPOSITION.ALL seperated by "|"
-    specie_tmp <- subset(data, data[,dataColnames$SUM_COMPOSITION] == name)[,dataColnames$SPECIE_COMPOSITION]
+    specie_tmp <- data[data[,dataColnames$SUM_COMPOSITION] == name, dataColnames$SPECIE_COMPOSITION]
     specie_tmp <- paste(specie_tmp, collapse = '|')
     data[which(data[,dataColnames$SUM_COMPOSITION] == name),paste0(dataColnames$SPECIE_COMPOSITION, ".ALL")] <- specie_tmp
   }
