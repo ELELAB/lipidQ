@@ -70,6 +70,26 @@ test.mergeDataSets_userSpecifiedColnames <- function(){
 }
 
 
+test.mergeDataSets_replicateFiltering <- function(){
+  #DEACTIVATED('This function does not work at the moment...')
+
+  # make test data.frame and save
+  dataPathTest <- read.table("../inst/extdata/dataWithPrelicatesList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
+  dataFrameTest <- filterReplicates(dataFrameTest,numberOfReplicates = 4, blnkReplicates = TRUE, numberOfInstancesThreshold = 2, thresholdValue = 0.005)
+  write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedDataSets_replicateFiltering.csv", quote = FALSE, row.names = F)
+
+  # load test and validation data.frame
+  dataFrameTest <- read.table("../inst/extdata/test/results/mergedDataSets_replicateFiltering.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameVali <- read.table("../inst/extdata/validation/mergedDataSets_replicateFiltering.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  # validate
+  checkEquals(dataFrameTest, dataFrameVali)
+}
+
+
 
 test.sort_is <- function(){
   #DEACTIVATED('This function does not work at the moment...')

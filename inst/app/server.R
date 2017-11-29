@@ -96,7 +96,13 @@ server <- function(input, output, session){
     # Analysis start
     mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, correctionList = list, multiply = input$multiplyPREC_value))
     write.csv(mergedDataSets, file = paste0(input$dir,"/mergedDataSets.csv"), quote = FALSE, row.names = F)
+
+    if(input$numberOfReps > 1){
+      mergedDataSets <- lipidQuan:::filterReplicates(mergedDataSets, userSpecifiedColnames = userSpecifiedColnames, numberOfReplicates = input$numberOfReps, blnkReplicates = input$blnkReplicates, numberOfInstancesThreshold = input$numberOfInstancesT, thresholdValue = input$thresholdValue)
+      write.csv(mergedDataSets, file = paste0(input$dir,"/mergedDataSets.csv"), quote = FALSE, row.names = F)
+    }
     progress$set(value = 2)
+
 
     filteredDataSet <- lipidQuan:::filterDataSet(mergedDataSets, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames)
     write.csv(filteredDataSet, file = paste0(input$dir,"/filteredDataSet.csv"), quote = FALSE, row.names = F)
