@@ -14,7 +14,7 @@ mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db,
 
 \item{ISTD_lipid_db}{the ISTD lipid database}
 
-\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file
+\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.
 is used to translate the user specified column names to the program, so that it uses the correct columns for the different analysis procedures.}
 
 \item{correctionList}{a file containing a list of sum compositions to be multiplied for in the MS1 column values (intensity values)}

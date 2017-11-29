@@ -14,7 +14,7 @@ pmolCalc(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL,
 
 \item{ISTD_lipid_db}{the ISTD lipid database}
 
-\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
+\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
 
 \item{spikeISTD}{internal standard spike amount in uL}
 

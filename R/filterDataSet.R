@@ -5,7 +5,7 @@
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @param endogene_lipid_db the endogene lipid database
 #' @param ISTD_lipid_db the ISTD lipid database
-#' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
+#' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @export
 #filterDataSet <- function(data, database, userSpecifiedColnames = NULL){
 filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL){

@@ -4,11 +4,10 @@
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @param endogene_lipid_db the endogene lipid database
 #' @param ISTD_lipid_db the ISTD lipid database
-#' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
+#' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @param spikeISTD internal standard spike amount in uL
 #' @param zeroThresh an optional threshold that determines if a given small value in mol pct. specie composition columns should be rounded down to zero.
 #' @export
-#pmolCalc <- function(data, database, userSpecifiedColnames = NULL, spikeISTD, zeroThresh){
 pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, spikeISTD, zeroThresh){
 
   # merge endogene_lipid_db and ISTD_lipid_db together
@@ -124,6 +123,12 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
     data[,SUBT_PMOL_MS1x] <- ifelse(data[,SUBT_PMOL_MS1x] < 0, 0, data[,SUBT_PMOL_MS1x])
   }
 
+  # calculate LOQ if user has selected LOQ
+  if(TRUE){
+    for(SUBT_PMOL_MS1x in SUBT_PMOL_MS1x_names){ # for MS1x's
+      data[,paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[,SUBT_PMOL_MS1x]/100*(1/2.29) > 34, 1, 0)
+    }
+  }
 
 
   # remove a given row if all MS1x* (except last BLNK MS1x) values contains zeros.
