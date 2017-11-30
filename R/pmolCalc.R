@@ -8,7 +8,7 @@
 #' @param spikeISTD internal standard spike amount in uL
 #' @param zeroThresh an optional threshold that determines if a given small value in mol pct. specie composition columns should be rounded down to zero.
 #' @export
-pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, spikeISTD, zeroThresh){
+pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, spikeISTD, zeroThresh, LOQ = FALSE, fixedDeviation = 0){
 
   # merge endogene_lipid_db and ISTD_lipid_db together
   database <- merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
@@ -124,11 +124,28 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
   }
 
   # calculate LOQ if user has selected LOQ
-  if(TRUE){
+  if(LOQ){
     for(SUBT_PMOL_MS1x in SUBT_PMOL_MS1x_names){ # for MS1x's
-      data[,paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[,SUBT_PMOL_MS1x]/100*(1/2.29) > 34, 1, 0)
+      for(i in 1:nrow(exData)){
+        # find corresponding internal standard for the current class name.
+        is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
+        # make new column LOQ with 1/0 as values: 1 if SUBT_PMOL_MS1x value is above threshold, 0 if it is  equal or below.
+        #print(classNames[i])
+        #print(is[,"NAME"])
+        #print(database[, "NAME"])
+        #print(data[,"NAME"])
+        #print(database["NAME" == is[,"NAME"],])
+
+        data[,paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[,SUBT_PMOL_MS1x]/database[database$NAME == is[,"NAME"],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,"NAME"],"DF_INFUSION"]) > database[database$NAME == is[,"NAME"], "LOQ"], 1, 0)
+        #TO BE CONTINUED: PROBABLY THE REASON WHY I DOES NOT WORK IS THAT is HAS NOT COMPLETELY THE SAME NAME AS SPECIES. USE grep to find the species that has the same first name as is.
+      }
     }
   }
+  is <- isData[grep(paste0("is",classNames[2]," "),isData[,dataColnames$SUM_COMPOSITION]),]
+  print(data[2,SUBT_PMOL_MS1x]/database[database$NAME == is[,"NAME"],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,"NAME"],"DF_INFUSION"]))
+  print(paste0("LOQ: ",database[database$NAME == is[,"NAME"], "LOQ"]))
+  print(paste0("DF_INFUSION: ",database[database$NAME == is[,"NAME"], "DF_INFUSION"]))
+  print(paste0("DISSOLVED_AMOUNT: ",database[database$NAME == is[,"NAME"], "DISSOLVED_AMOUNT"]))
 
 
   # remove a given row if all MS1x* (except last BLNK MS1x) values contains zeros.
@@ -171,8 +188,10 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
   #### sum pmol values for each classes in each MS1x* after BLNK subtraction
   # find all unique class names (without numbers)
-  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",data[1:nrow(exData),dataColnames$SUM_COMPOSITION])
+  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",exData[,dataColnames$SUM_COMPOSITION])
   classNames <-unique(classNames)
+
+
 
 
   sumClassValueList <- matrix(numeric(), nrow = length(classNames), ncol = length(SUBT_PMOL_MS1x_names)) # store all sumClassValue to be used later in mol% class calculation

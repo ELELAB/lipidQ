@@ -99,19 +99,21 @@ t <- pmolCalc(t,endogene_lipid_db, ISTD_lipid_db, NULL, 2, 0.25)
 
 
 
+
+
 ################################################################################################################
-# save new version of pmolCalc validation dataset with replicate data
+# save new version of pmolCalc validation dataset with LOQ calculated
 ################################################################################################################
-dataPathTest <- read.table("inst/extdata/dataWithPrelicatesList.txt", stringsAsFactors = FALSE)[,1]
+dataPathTest <- read.table("inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
 #database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 endogene_lipid_db <- read.table("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-ISTD_lipid_db <- read.table("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#ISTD_lipid_db <- read.table("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table("inst/extdata/test/ISTD_lipids_DB_w_LOQ.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
 t <- sort_is(t)
 t <- filterDataSet(t, endogene_lipid_db, ISTD_lipid_db)
-t <- pmolCalc(t,endogene_lipid_db, ISTD_lipid_db, NULL, 2, 0.25)
-#write.csv(t,"inst/extdata/validation/pmolCalc.csv", quote = FALSE, row.names = FALSE)
-
+t <- pmolCalc(t,endogene_lipid_db, ISTD_lipid_db, NULL, 2, 0.25, LOQ = TRUE)
+#write.csv(t,"inst/extdata/validation/pmolCalc_w_LOQ_calculated.csv", quote = FALSE, row.names = FALSE)
 
 
 
