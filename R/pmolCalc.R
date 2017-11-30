@@ -129,23 +129,12 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
       for(i in 1:nrow(exData)){
         # find corresponding internal standard for the current class name.
         is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
-        # make new column LOQ with 1/0 as values: 1 if SUBT_PMOL_MS1x value is above threshold, 0 if it is  equal or below.
-        #print(classNames[i])
-        #print(is[,"NAME"])
-        #print(database[, "NAME"])
-        #print(data[,"NAME"])
-        #print(database["NAME" == is[,"NAME"],])
 
-        data[,paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[,SUBT_PMOL_MS1x]/database[database$NAME == is[,"NAME"],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,"NAME"],"DF_INFUSION"]) > database[database$NAME == is[,"NAME"], "LOQ"], 1, 0)
-        #TO BE CONTINUED: PROBABLY THE REASON WHY I DOES NOT WORK IS THAT is HAS NOT COMPLETELY THE SAME NAME AS SPECIES. USE grep to find the species that has the same first name as is.
+        data[,paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[,SUBT_PMOL_MS1x]/database[database$NAME == is[,"NAME"],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,"NAME"],"DF_INFUSION"]) > ( database[database$NAME == is[,"NAME"], "LOQ"] + fixedDeviation ), 1, 0)
       }
     }
   }
-  is <- isData[grep(paste0("is",classNames[2]," "),isData[,dataColnames$SUM_COMPOSITION]),]
-  print(data[2,SUBT_PMOL_MS1x]/database[database$NAME == is[,"NAME"],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,"NAME"],"DF_INFUSION"]))
-  print(paste0("LOQ: ",database[database$NAME == is[,"NAME"], "LOQ"]))
-  print(paste0("DF_INFUSION: ",database[database$NAME == is[,"NAME"], "DF_INFUSION"]))
-  print(paste0("DISSOLVED_AMOUNT: ",database[database$NAME == is[,"NAME"], "DISSOLVED_AMOUNT"]))
+
 
 
   # remove a given row if all MS1x* (except last BLNK MS1x) values contains zeros.
@@ -160,11 +149,13 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
   #### mol% specie calucated from MS1x* values after BLNK subtraction
   for(SUBT_PMOL_MS1x in SUBT_PMOL_MS1x_names){
-
-    # calculate mol% species for each specie
-    sumSpecies <- sum(data[1:nrow(exData),SUBT_PMOL_MS1x],na.rm = TRUE)
-    data[1:nrow(exData),paste0("MOL_PCT_",dataColnames$SPECIE_COMPOSITION,"S_",SUBT_PMOL_MS1x)] <- 100/sumSpecies*exData[1:nrow(exData),SUBT_PMOL_MS1x]
-
+    if(paste0("LOQ_",SUBT_PMOL_MS1x) == 1){
+      # calculate mol% species for each specie
+      sumSpecies <- sum(data[1:nrow(exData),SUBT_PMOL_MS1x],na.rm = TRUE)
+      data[1:nrow(exData),paste0("MOL_PCT_",dataColnames$SPECIE_COMPOSITION,"S_",SUBT_PMOL_MS1x)] <- 100/sumSpecies*exData[1:nrow(exData),SUBT_PMOL_MS1x]
+    }else{
+      data[1:nrow(exData),paste0("MOL_PCT_",dataColnames$SPECIE_COMPOSITION,"S_",SUBT_PMOL_MS1x)] <- 0
+    }
   }
 
 

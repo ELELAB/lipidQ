@@ -5,7 +5,7 @@
 \title{picomol Calculation}
 \usage{
 pmolCalc(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL,
-  spikeISTD, zeroThresh)
+  spikeISTD, zeroThresh, LOQ = FALSE, fixedDeviation = 0)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}

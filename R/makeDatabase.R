@@ -23,7 +23,7 @@ makeDatabase <- function(userSpecifiedColnames = NULL, DB_type){
     colnames_DB <- c(dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols))
   }
   if(DB_type == "ISTD"){
-    colnames_DB <- c(dataColnames$SUM_COMPOSITION, "isLP", dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols))
+    colnames_DB <- c(dataColnames$SUM_COMPOSITION, "isLP", dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols), "LOQ", "DISSOLVED_AMOUNT", "DF_INFUSION")
   }
 
 
