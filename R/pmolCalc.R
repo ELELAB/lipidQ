@@ -130,7 +130,7 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
         # find corresponding internal standard for the current class name.
         is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
-        data[,paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[,SUBT_PMOL_MS1x]/database[database$NAME == is[,"NAME"],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,"NAME"],"DF_INFUSION"]) > ( database[database$NAME == is[,"NAME"], "LOQ"] + fixedDeviation ), 1, 0)
+        data[,paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[,SUBT_PMOL_MS1x]/database[database$NAME == is[,"NAME"],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,"NAME"],"DF_INFUSION"])*1000 > ( database[database$NAME == is[,"NAME"], "LOQ"] + fixedDeviation ), 1, 0)
       }
     }
   }
