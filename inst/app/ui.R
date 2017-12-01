@@ -39,6 +39,14 @@ ui <- fluidPage(
                           br(),
                           br(),
 
+                          # LOQ
+                          checkboxInput("LOQ", "LOQ activated", FALSE),
+                          numericInput("fixedDeviation", "Fixed deviation (%):", 0, min = 0, max = 100),
+
+                          br(),
+                          br(),
+                          br(),
+
                           # multiply parameter
                           checkboxInput("multiplyPREC", "Multiply PREC columns by a factor (for LipidX users)", FALSE),
                           fileInput(inputId = "list", label = "Choose the list of classes to be multiplied (.csv-file):",

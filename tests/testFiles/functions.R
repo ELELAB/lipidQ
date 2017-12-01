@@ -149,6 +149,26 @@ test.pmolCalc <- function() {
 }
 
 
+test.pmolCalc_LOQ <- function() {
+  #DEACTIVATED('This function does not work at the moment...')
+
+  # make test data.frame and save
+  dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipids_DB_w_LOQ.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)), endogene_lipid_db, ISTD_lipid_db),endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, 2, 0.25, LOQ = TRUE, fixedDeviation = 0)
+  write.csv(dataFrameTest, file = "../inst/extdata/test/results/pmolCalc_LOQ.csv", quote = FALSE, row.names = F)
+
+
+  # load test and validation data.frame
+  dataFrameTest <- read.table("../inst/extdata/test/results/pmolCalc_LOQ.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameVali <- read.table("../inst/extdata/validation/pmolCalc_LOQ.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  # validate
+  checkEquals(dataFrameTest, dataFrameVali)
+}
+
+
 test.mergeFinalOutputs <- function() {
   #DEACTIVATED('This function does not work at the moment...')
 

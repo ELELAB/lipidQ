@@ -25,6 +25,3 @@ printTextProtocol(test.result)
 
 
 
-
-
-

@@ -108,7 +108,7 @@ server <- function(input, output, session){
     write.csv(filteredDataSet, file = paste0(input$dir,"/filteredDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 3)
 
-    pmolCalculatedDataSet <- lipidQuan:::pmolCalc(filteredDataSet, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, input$spikeISTD, input$zeroThresh)
+    pmolCalculatedDataSet <- lipidQuan:::pmolCalc(filteredDataSet, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, input$spikeISTD, input$zeroThresh, input$LOQ, input$fixedDeviation)
     write.csv(pmolCalculatedDataSet, file = paste0(input$dir,"/pmolCalculatedDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 4)
 
