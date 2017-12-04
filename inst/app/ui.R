@@ -118,8 +118,6 @@ ui <- fluidPage(
 
                           br(),
                           textInput("dirColnamesTemplate", "Paste the filepath for the column template file to be saved.", "/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/"),
-
-                          br(),
                           textOutput("resetColTemplateDone"),
 
                           actionButton("resetColnamesTemplate", "Reset column template file"),
@@ -127,6 +125,8 @@ ui <- fluidPage(
 
 
                           # TO BE CONTINUED ... MAKE BETTER VISIBILITY.
+                          br(),
+                          br(),
                           br(),
                           textInput("dirDatabase", "Paste the filepath for the database file to be saved.", "/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/"),
 

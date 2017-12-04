@@ -7,8 +7,14 @@
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @param spikeISTD internal standard spike amount in uL
 #' @param zeroThresh an optional threshold that determines if a given small value in mol pct. specie composition columns should be rounded down to zero.
+#' @param LOQ logical parameter to indicate whether or not limit of quantification (LOQ) threshold is activated.
+#' @param fixedDeviation the amount in percentages (-100 - 100) that values has to be above the LOQ threshold
+#' @param numberOfReplicates the number of replicates for each sample
+#' @param blnkReplicates logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.
+#' @param numberOfInstancesThreshold the number of replicates for a given sample that has to have values above the specified threshold value (thesholdValue)
+#' @param thresholdValue user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.
 #' @export
-pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, spikeISTD, zeroThresh, LOQ = FALSE, fixedDeviation = 0){
+pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, spikeISTD, zeroThresh, LOQ = FALSE, fixedDeviation = 0, numberOfReplicates = 1, blnkReplicates = FALSE, numberOfInstancesThreshold, thresholdValue){
 
   # merge endogene_lipid_db and ISTD_lipid_db together
   database <- merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
@@ -136,6 +142,10 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
   }
 
 
+  # filter values in replicates
+  if(numberOfReplicates > 1){
+    data <- filterReplicates(data, userSpecifiedColnames = userSpecifiedColnames, numberOfReplicates = numberOfReplicates, blnkReplicates = blnkReplicates, numberOfInstancesThreshold = numberOfInstancesThreshold, thresholdValue = thresholdValue)
+  }
 
   # remove a given row if all MS1x* (except last BLNK MS1x) values contains zeros.
   data <- data[apply(data[MS1x_names],1,function(value) any(value != 0)),]

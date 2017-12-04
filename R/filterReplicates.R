@@ -8,14 +8,13 @@
 #' @param numberOfInstancesThreshold the number of replicates for a given sample that has to have values above the specified threshold value (thesholdValue)
 #' @param thresholdValue user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.
 #' @export
-filterReplicates <- function(data, userSpecifiedColnames = NULL, numberOfReplicates = 1, blnkReplicates, numberOfInstancesThreshold, thresholdValue){
+filterReplicates <- function(data, userSpecifiedColnames = NULL, numberOfReplicates = 1, blnkReplicates = FALSE, numberOfInstancesThreshold, thresholdValue){
 
 
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
 
-  MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
-
+  MS1x_names <- colnames(data)[grep(paste0("^",dataColnames$MS1x),colnames(data))] # names of all MS1x.* columns
 
   # define MS1x columns and BLNK column (last MS1x column)
   if(!blnkReplicates){
@@ -23,9 +22,11 @@ filterReplicates <- function(data, userSpecifiedColnames = NULL, numberOfReplica
     MS1x_names <- MS1x_names[-length(MS1x_names)] # remove last column from MS1x_names since this is BLNK
   }
 
+
   # calculate number of samples (including blnk if that have replicates. FYI: If blnk does not have replicates, then blnk is excluded from MS1x_names a few lines above this)
   numberOfSamples <- length(MS1x_names) / numberOfReplicates
 
+  # check whether number of replicates is true or not
   if(!(numberOfSamples %% 1 == 0)){
     stop("Please check that the number of replicates is true and check whether blank contains replicates or not.")
   }

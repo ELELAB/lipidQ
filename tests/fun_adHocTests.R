@@ -47,13 +47,11 @@ t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db, userSpecified
 ################################################################################################################
 # save new version of mergeDataSets validation dataset with replicate filtering.
 ################################################################################################################
-dataPathTest <- read.table("inst/extdata/dataWithPrelicatesList.txt", stringsAsFactors = FALSE)[,1]
-#database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-#t <- mergeDataSets(dataPathTest, database)
-endogene_lipid_db <- read.table("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-ISTD_lipid_db <- read.table("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
-t <- filterReplicates(t,numberOfReplicates = 4, blnkReplicates = TRUE, numberOfInstancesThreshold = 2, thresholdValue = 0.005)
+#dataPathTest <- read.table("inst/extdata/dataWithPrelicatesList.txt", stringsAsFactors = FALSE)[,1]
+#endogene_lipid_db <- read.table("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#ISTD_lipid_db <- read.table("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
+#t <- filterReplicates(t,numberOfReplicates = 4, blnkReplicates = TRUE, numberOfInstancesThreshold = 2, thresholdValue = 0.005)
 #write.csv(t,"inst/extdata/validation/mergedDataSets_replicateFiltering.csv", quote = FALSE, row.names = FALSE)
 
 
@@ -114,6 +112,27 @@ t <- sort_is(t)
 t <- filterDataSet(t, endogene_lipid_db, ISTD_lipid_db)
 t <- pmolCalc(t,endogene_lipid_db, ISTD_lipid_db, NULL, 2, 0.25, LOQ = TRUE, fixedDeviation = 0)
 #write.csv(t,"inst/extdata/validation/pmolCalc_LOQ.csv", quote = FALSE, row.names = FALSE)
+
+
+
+
+
+################################################################################################################
+# save new version of pmolCalc validation dataset with replicate filtering
+################################################################################################################
+dataPathTest <- read.table("inst/extdata/dataWithPrelicatesList.txt", stringsAsFactors = FALSE)[,1]
+#database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#t <- mergeDataSets(dataPathTest, database)
+endogene_lipid_db <- read.table("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
+t <- sort_is(t)
+t <- filterDataSet(t, endogene_lipid_db, ISTD_lipid_db)
+t <- pmolCalc(t,endogene_lipid_db, ISTD_lipid_db, NULL, 2, 0.25, numberOfReplicates = 4, blnkReplicates = TRUE, numberOfInstancesThreshold = 2, thresholdValue = 0.005)
+#write.csv(t,"inst/extdata/validation/pmolCalc_replicateFiltering.csv", quote = FALSE, row.names = FALSE)
+
+
+
 
 
 ################################################################################################################

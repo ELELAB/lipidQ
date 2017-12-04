@@ -5,7 +5,7 @@
 \title{Filter Replicates}
 \usage{
 filterReplicates(data, userSpecifiedColnames = NULL, numberOfReplicates = 1,
-  blnkReplicates, numberOfInstancesThreshold, thresholdValue)
+  blnkReplicates = FALSE, numberOfInstancesThreshold, thresholdValue)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}

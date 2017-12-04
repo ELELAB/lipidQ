@@ -5,7 +5,9 @@
 \title{picomol Calculation}
 \usage{
 pmolCalc(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL,
-  spikeISTD, zeroThresh, LOQ = FALSE, fixedDeviation = 0)
+  spikeISTD, zeroThresh, LOQ = FALSE, fixedDeviation = 0,
+  numberOfReplicates = 1, blnkReplicates = FALSE,
+  numberOfInstancesThreshold, thresholdValue)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
@@ -19,6 +21,18 @@ pmolCalc(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL,
 \item{spikeISTD}{internal standard spike amount in uL}
 
 \item{zeroThresh}{an optional threshold that determines if a given small value in mol pct. specie composition columns should be rounded down to zero.}
+
+\item{LOQ}{logical parameter to indicate whether or not limit of quantification (LOQ) threshold is activated.}
+
+\item{fixedDeviation}{the amount in percentages (-100 - 100) that values has to be above the LOQ threshold}
+
+\item{numberOfReplicates}{the number of replicates for each sample}
+
+\item{blnkReplicates}{logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.}
+
+\item{numberOfInstancesThreshold}{the number of replicates for a given sample that has to have values above the specified threshold value (thesholdValue)}
+
+\item{thresholdValue}{user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.}
 }
 \description{
 This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard
