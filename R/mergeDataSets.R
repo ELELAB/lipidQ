@@ -95,9 +95,9 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
     # Insert values from OH col to selectedCols, if present in the data set or set value to NA.
     if(dataColnames$OH_GROUP %in% colnames(data)){
-      selectedCols$OH_GROUP <- data[,which(dataColnames$OH_GROUP == colnames(data))]
+      selectedCols[, dataColnames$OH_GROUP] <- data[,which(dataColnames$OH_GROUP == colnames(data))]
     }else{
-      selectedCols$OH_GROUP <- NA
+      selectedCols[, dataColnames$OH_GROUP] <- NA
     }
 
 
@@ -107,6 +107,7 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
     # insert new MS1_xx col names to selectedCols
     selectedCols <- cbind(selectedCols,MS1x_tmp)
+
 
 
 
@@ -217,6 +218,28 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
       }
     }
   }
+
+  #### Test whether all MS1x and MS2x > 0 for all internal standards
+  # merge MS1x and MS2x cols together
+  #MS1x_MS2x_cols <- c(colnames(MS1x_tmp), MS2ix_userCols)
+
+
+  # select rows with internal standards
+  #isData <- mergedDataSet[grep("^is",mergedDataSet[,dataColnames$SUM_COMPOSITION]),]
+  # remove all columns except from MS1x_MS2x_cols
+  #isData <- isData[, c("NAME",MS1x_MS2x_cols)]
+
+
+
+  #isData <- isData[, grep("_",colnames(isData))]
+
+
+  # check 0 in MS1x_MS2_cols for internal standards
+  #print(isData)
+  #print(isData != 0)
+
+
+
   return(mergedDataSet)
 }
 

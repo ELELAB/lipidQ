@@ -10,6 +10,22 @@ source("R/getColnames.R")
 source("R/merge_endo_and_ISTD_db.R")
 source("R/filterReplicates.R")
 
+
+################################################################################################################
+# save new version of mergeDataSets validation dataset NEW DATA SET WITH USERSPECIFIED COLNAMES.
+################################################################################################################
+dataPathTest <- read.table("inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+#database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#t <- mergeDataSets(dataPathTest, database)
+endogene_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+list <- read.table("inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = list)
+#write.csv(t,"inst/extdata/validation/mergedDataSets.csv", quote = FALSE, row.names = FALSE)
+
+
+
 ################################################################################################################
 # save new version of mergeDataSets validation dataset.
 ################################################################################################################
@@ -79,6 +95,38 @@ t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
 t <- sort_is(t)
 t <- filterDataSet(t, endogene_lipid_db, ISTD_lipid_db)
 #write.csv(t,"inst/extdata/validation/filteredDataSet.csv", quote = FALSE, row.names = FALSE)
+
+
+
+################################################################################################################
+# save new version of pmolCalc validation dataset NEW DATA SET WITH USERSPECIFIED COLNAMES.
+################################################################################################################
+setwd("/data/user/andre/lipidomics/lipidQuan")
+source("R/mergeDataSets.R")
+source("R/sort_is.R")
+source("R/filterDataSet.R")
+source("R/pmolCalc.R")
+source("R/mergeFinalOutputs.R")
+source("R/readFile.R")
+source("R/rmSpaceInBeginning.R")
+source("R/getColnames.R")
+source("R/merge_endo_and_ISTD_db.R")
+source("R/filterReplicates.R")
+
+dataPathTest <- read.table("inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+#database <- read.table("inst/extdata/test/Temporary_DataBase_V3.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#t <- mergeDataSets(dataPathTest, database)
+endogene_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+list <- read.table("inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = list)
+t <- sort_is(t)
+t <- filterDataSet(t, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = list)
+t <- pmolCalc(t,endogene_lipid_db, ISTD_lipid_db, NULL, 2, 0.25)
+#write.csv(t,"inst/extdata/validation/pmolCalc.R", quote = FALSE, row.names = FALSE)
+
+colnames(t)
 
 
 

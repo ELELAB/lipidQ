@@ -13,15 +13,22 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
   # merge endogene_lipid_db and ISTD_lipid_db together
   database <- merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
 
-  # if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in the database starts with a [SPACE], remove this row
-  database <- rmSpaceInBeginning(database, userSpecifiedColnames)
-
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
 
 
+  # if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in the database starts with a [SPACE], remove this row
+  #database <- rmSpaceInBeginning(database, userSpecifiedColnames)
+
+  # for each row, check if either the NAME or SPECIE column begins with a [SPACE] and remove this [SPACE] if true.
+  database[,dataColnames$SUM_COMPOSITION] <- ifelse(substring(database[, dataColnames$SUM_COMPOSITION],1,1) == " ", substring(database[, dataColnames$SUM_COMPOSITION], 2), database[, dataColnames$SUM_COMPOSITION])
+
+
+
+
   #### select relevant columns
   data_tmp <- data[,c(dataColnames$SUM_COMPOSITION, dataColnames$PPM, dataColnames$MASS_TO_CHARGE, dataColnames$SPECIE_COMPOSITION, dataColnames$MODE, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$OH_GROUP)]
+
   MS1x_tmp <- data[,c(colnames(data)[grep(paste0("^", dataColnames$MS1x),colnames(data))])]
 
   # find user specified columns of MS2ix column names -> MS2ix_userCols
@@ -74,7 +81,6 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
 
   # remove all duplicates of SUM_COMPOSITION.
   data <- data[!duplicated(data[,dataColnames$SUM_COMPOSITION]),]
-
 
   # replace NA and "" with "none" in SPECIE_COMPOSITION.GLOBAL
   data[, paste0(dataColnames$SPECIE_COMPOSITION, ".GLOBAL")] <- ifelse(is.na(data[, paste0(dataColnames$SPECIE_COMPOSITION, ".GLOBAL")]) | data[, paste0(dataColnames$SPECIE_COMPOSITION, ".GLOBAL")] == "", "none", data[, paste0(dataColnames$SPECIE_COMPOSITION, ".GLOBAL")])

@@ -8,6 +8,23 @@ rmSpaceInBeginning <- function(data, userSpecifiedColnames = NULL){
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
 
+  test_SUM_and_SPECIE_COMPOSITION_exists <- tryCatch(
+    {
+
+      data[,dataColnames$SUM_COMPOSITION]
+      data[,dataColnames$SPECIE_COMPOSITION]
+
+    },
+    error=function(cond){
+      message(paste0("ERROR: PROBLEMS WITH COLUMN NAMES! Please check that ", dataColnames$SUM_COMPOSITION, " and ", dataColnames$SPECIE_COMPOSITION, " exists in all input data sets"))
+      message("")
+      message("")
+      message("")
+      message("Original R error message:")
+      message(cond)
+    }
+  )
+
   # for each row, check if either the NAME or SPECIE column begins with a [SPACE] and remove this [SPACE] if true.
   data[,dataColnames$SUM_COMPOSITION] <- ifelse(substring(data[, dataColnames$SUM_COMPOSITION],1,1) == " ", substring(data[, dataColnames$SUM_COMPOSITION], 2), data[, dataColnames$SUM_COMPOSITION])
   data[, dataColnames$SPECIE_COMPOSITION] <- ifelse(substring(data[, dataColnames$SPECIE_COMPOSITION],1,1) == " ", substring(data[, dataColnames$SPECIE_COMPOSITION], 2), data[, dataColnames$SPECIE_COMPOSITION])

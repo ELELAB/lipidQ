@@ -136,11 +136,19 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
         # find corresponding internal standard for the current class name.
         is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
-        data[,paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[,SUBT_PMOL_MS1x]/database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,dataColnames$SUM_COMPOSITION],"DF_INFUSION"])*1000 > ( database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "LOQ"] + fixedDeviation ), 1, 0)
+        # insert LOQ column with 1/0 according to whether SUBT_PMOL_MS1x has values above LOQ threshold or not (1: above, 0: not above)
+        data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[1:nrow(exData),SUBT_PMOL_MS1x]/database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,dataColnames$SUM_COMPOSITION],"DF_INFUSION"])*1000 > ( database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "LOQ"] + fixedDeviation ), 1, 0)
+
+        # change SUBT_PMOL_MS1x to 0 if LOQ column == 0.
+        # TO BE CONTINUED ...
+        print(data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] == 0)
+        print(data[1:nrow(exData),SUBT_PMOL_MS1x])
+        data[data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] == 0 ,SUBT_PMOL_MS1x] <- 0
       }
     }
   }
 
+  #print(subset(data, select = c(paste0("LOQ_",SUBT_PMOL_MS1x, SUBT_PMOL_PREC_01))))
 
   # filter values in replicates
   if(numberOfReplicates > 1){
@@ -158,14 +166,22 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
 
   #### mol% specie calucated from MS1x* values after BLNK subtraction
+  #for(SUBT_PMOL_MS1x in SUBT_PMOL_MS1x_names){
+  #  if(paste0("LOQ_",SUBT_PMOL_MS1x) == 1){
+  #    # calculate mol% species for each specie
+  #    sumSpecies <- sum(data[1:nrow(exData),SUBT_PMOL_MS1x],na.rm = TRUE)
+  #    data[1:nrow(exData),paste0("MOL_PCT_",dataColnames$SPECIE_COMPOSITION,"S_",SUBT_PMOL_MS1x)] <- 100/sumSpecies*exData[1:nrow(exData),SUBT_PMOL_MS1x]
+  #  }else{
+  #    data[1:nrow(exData),paste0("MOL_PCT_",dataColnames$SPECIE_COMPOSITION,"S_",SUBT_PMOL_MS1x)] <- 0
+  #  }
+  #}
+  #### mol% specie calucated from MS1x* values after BLNK subtraction
   for(SUBT_PMOL_MS1x in SUBT_PMOL_MS1x_names){
-    if(paste0("LOQ_",SUBT_PMOL_MS1x) == 1){
-      # calculate mol% species for each specie
-      sumSpecies <- sum(data[1:nrow(exData),SUBT_PMOL_MS1x],na.rm = TRUE)
-      data[1:nrow(exData),paste0("MOL_PCT_",dataColnames$SPECIE_COMPOSITION,"S_",SUBT_PMOL_MS1x)] <- 100/sumSpecies*exData[1:nrow(exData),SUBT_PMOL_MS1x]
-    }else{
-      data[1:nrow(exData),paste0("MOL_PCT_",dataColnames$SPECIE_COMPOSITION,"S_",SUBT_PMOL_MS1x)] <- 0
-    }
+
+    # calculate mol% species for each specie
+    sumSpecies <- sum(data[1:nrow(exData),SUBT_PMOL_MS1x],na.rm = TRUE)
+    data[1:nrow(exData),paste0("MOL_PCT_",dataColnames$SPECIE_COMPOSITION,"S_",SUBT_PMOL_MS1x)] <- 100/sumSpecies*exData[1:nrow(exData),SUBT_PMOL_MS1x]
+
   }
 
 
