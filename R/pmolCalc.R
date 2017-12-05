@@ -53,7 +53,7 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
 
 
-  #### zero adapter forMS2ix: check value >= 0. if not, value <- 0.
+  #### zero adapter for MS2ix: check value >= 0. if not, value <- 0.
   for(MS2ix in MS2ix_userCols){ # for MS1x columns
     data[,MS2ix] <- ifelse(data[,MS2ix] < 0, 0, data[,MS2ix])
   }
@@ -136,7 +136,7 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
         # find corresponding internal standard for the current class name.
         is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
-        data[,paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[,SUBT_PMOL_MS1x]/database[database$NAME == is[,"NAME"],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,"NAME"],"DF_INFUSION"])*1000 > ( database[database$NAME == is[,"NAME"], "LOQ"] + fixedDeviation ), 1, 0)
+        data[,paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[,SUBT_PMOL_MS1x]/database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,dataColnames$SUM_COMPOSITION],"DF_INFUSION"])*1000 > ( database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "LOQ"] + fixedDeviation ), 1, 0)
       }
     }
   }
