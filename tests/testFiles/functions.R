@@ -14,10 +14,16 @@ test.mergeDataSets <- function(){
   #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
-  dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
+  #dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
+  #endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  #ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  dataPathTest <- read.table("../inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  list <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  dataFrameTest <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedDataSets.csv", quote = FALSE, row.names = F)
 
   # load test and validation data.frame
@@ -33,12 +39,20 @@ test.mergeDataSets_multiply_2 <- function(){
   #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
-  list <- read.table("../inst/extdata/test/Correction_List.csv", stringsAsFactors = FALSE, header = FALSE, sep = ",")$V1
-  dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db, correctionList = list, multiply = 2)
+  #list <- read.table("../inst/extdata/test/Correction_List.csv", stringsAsFactors = FALSE, header = FALSE, sep = ",")$V1
+  #dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
+  #endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  #ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  dataPathTest <- read.table("../inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  list <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  dataFrameTest <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, correctionList = list, multiply = 2)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedDataSets_multiply_2.csv", quote = FALSE, row.names = F)
+
+
 
   # load test and validation data.frame
   dataFrameTest <- read.table("../inst/extdata/test/results/mergedDataSets_multiply_2.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
@@ -50,14 +64,23 @@ test.mergeDataSets_multiply_2 <- function(){
 
 
 test.mergeDataSets_userSpecifiedColnames <- function(){
-  #DEACTIVATED('This function does not work at the moment...')
+  DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
-  list <- read.table("../inst/extdata/test/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = list)
+  #list <- read.table("../inst/extdata/test/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  #dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
+  #endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  #ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+  dataPathTest <- read.table("../inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  list <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+
+  dataFrameTest <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedDataSets_userSpecifiedColnames.csv", quote = FALSE, row.names = F)
 
 
@@ -75,10 +98,19 @@ test.sort_is <- function(){
   #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
-  dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- sort_is(mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db))
+  #dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
+  #endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  #ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+  dataPathTest <- read.table("../inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  list <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+
+  dataFrameTest <- sort_is(mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list))
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/sort_is.csv", quote = FALSE, row.names = F)
 
   # load test and validation data.frame
@@ -94,10 +126,18 @@ test.filterDataSet <- function() {
   #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
-  dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- filterDataSet(sort_is(mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)), endogene_lipid_db, ISTD_lipid_db)
+  #dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
+  #endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  #ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  dataPathTest <- read.table("../inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  list <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+
+  dataFrameTest <- filterDataSet(sort_is(mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/filteredDataSet.csv", quote = FALSE, row.names = F)
 
   # load test and validation data.frame
@@ -113,10 +153,18 @@ test.pmolCalc <- function() {
   #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
-  dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)), endogene_lipid_db, ISTD_lipid_db),endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, 2, 0.25)
+  #dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
+  #endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  #ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  dataPathTest <- read.table("../inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  list <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+
+  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list), endogene_lipid_db =  endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD =  2, zeroThresh = 0.25)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/pmolCalc.csv", quote = FALSE, row.names = F)
 
 
@@ -133,10 +181,18 @@ test.pmolCalc_LOQ <- function() {
   #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
-  dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipids_DB_w_LOQ.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)), endogene_lipid_db, ISTD_lipid_db),endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, 2, 0.25, LOQ = TRUE, fixedDeviation = 0)
+  #dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
+  #endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  #ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipids_DB_w_LOQ.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  dataPathTest <- read.table("../inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  list <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+
+  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25, LOQ = TRUE, fixedDeviation = 0)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/pmolCalc_LOQ.csv", quote = FALSE, row.names = F)
 
 
@@ -150,16 +206,20 @@ test.pmolCalc_LOQ <- function() {
 
 
 test.pmolCalc_replicateFiltering <- function(){
-  #DEACTIVATED('This function does not work at the moment...')
+  DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
-  dataPathTest <- read.table("../inst/extdata/dataWithPrelicatesList.txt", stringsAsFactors = FALSE)[,1]
-  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  #dataFrameTest <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)
-  #dataFrameTest <- filterReplicates(dataFrameTest,numberOfReplicates = 4, blnkReplicates = TRUE, numberOfInstancesThreshold = 2, thresholdValue = 0.005)
+  #dataPathTest <- read.table("../inst/extdata/dataWithPrelicatesList.txt", stringsAsFactors = FALSE)[,1]
+  #endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  #ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
-  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db)), endogene_lipid_db, ISTD_lipid_db),endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, 2, 0.25, numberOfReplicates = 4, blnkReplicates = TRUE, numberOfInstancesThreshold = 2, thresholdValue = 0.005)
+  dataPathTest <- read.table("../inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  list <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db)), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25, numberOfReplicates = 4, blnkReplicates = FALSE, numberOfInstancesThreshold = 2, thresholdValue = 0.005)
   write.csv(dataFrameTest, file = "../inst/extdata/test/results/pmolCalc_replicateFiltering.csv", quote = FALSE, row.names = F)
 
   # load test and validation data.frame
@@ -175,7 +235,7 @@ test.pmolCalc_replicateFiltering <- function(){
 
 
 test.mergeFinalOutputs <- function() {
-  #DEACTIVATED('This function does not work at the moment...')
+  DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
   dataPathTest <- read.table("../inst/extdata/finalOutputList.txt", stringsAsFactors = FALSE)[,1]
