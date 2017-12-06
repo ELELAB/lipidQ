@@ -140,9 +140,9 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
         data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[1:nrow(exData),SUBT_PMOL_MS1x]/database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,dataColnames$SUM_COMPOSITION],"DF_INFUSION"])*1000 > ( database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "LOQ"] + fixedDeviation ), 1, 0)
 
         # change SUBT_PMOL_MS1x to 0 if LOQ column == 0.
-        # TO BE CONTINUED ...
-        print(data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] == 0)
-        print(data[1:nrow(exData),SUBT_PMOL_MS1x])
+
+        #print(data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] == 0)
+        #print(data[1:nrow(exData),SUBT_PMOL_MS1x])
         data[data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] == 0 ,SUBT_PMOL_MS1x] <- 0
       }
     }
