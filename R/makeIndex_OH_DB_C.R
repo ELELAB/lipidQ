@@ -2,6 +2,7 @@
 #' @author André Vidas Olsen
 #' @description This function creates OH Index, DB Index and C-chain Index of data containing calculated %pmol values of samples.
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
+#' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @export
 makeIndex_OH_DB_C <- function(data, userSpecifiedColnames = NULL){
 

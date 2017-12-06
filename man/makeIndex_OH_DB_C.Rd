@@ -4,10 +4,12 @@
 \alias{makeIndex_OH_DB_C}
 \title{Creation of OH Index, DB Index and C-chain Index}
 \usage{
-makeIndex_OH_DB_C(data)
+makeIndex_OH_DB_C(data, userSpecifiedColnames = NULL)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
+
+\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
 }
 \description{
 This function creates OH Index, DB Index and C-chain Index of data containing calculated %pmol values of samples.
