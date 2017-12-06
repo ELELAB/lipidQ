@@ -113,7 +113,7 @@ server <- function(input, output, session){
     write.csv(pmolCalculatedDataSet, file = paste0(input$dir,"/pmolCalculatedDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 4)
 
-    indexData <- lipidQuan::makeIndex_OH_DB_C(pmolCalculatedDataSet)
+    indexData <- lipidQuan::makeIndex_OH_DB_C(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
     write.csv(indexData[1], file = paste0(input$dir,"/indexDataOH.csv"), quote = FALSE, row.names = F)
     write.csv(indexData[2], file = paste0(input$dir,"/indexDataDB.csv"), quote = FALSE, row.names = F)
     write.csv(indexData[3], file = paste0(input$dir,"/indexDataC.csv"), quote = FALSE, row.names = F)

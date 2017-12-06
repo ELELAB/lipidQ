@@ -3,7 +3,11 @@
 #' @description This function creates OH Index, DB Index and C-chain Index of data containing calculated %pmol values of samples.
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @export
-makeIndex_OH_DB_C <- function(data){
+makeIndex_OH_DB_C <- function(data, userSpecifiedColnames = NULL){
+
+  # get colnames for data
+  dataColnames <- getColnames(userSpecifiedColnames)
+
   # only use experimental data (exclude all internal standards)
   exData <- data[-grep("^is",data$NAME),]
 
@@ -31,7 +35,7 @@ makeIndex_OH_DB_C <- function(data){
 
 
     # make OH index
-    uniqueOHs <- unique(tmpSubset$OH_GROUP)
+    uniqueOHs <- unique(tmpSubset[, dataColnames$OH_GROUP])
     OHdata_tmp <- data.frame(CLASS = className, OH = uniqueOHs)
     for(i in 1:length(filterCols)){
       OHdata_tmp[,paste0("PMOL_PCT_",i)] <- NA
@@ -47,7 +51,7 @@ makeIndex_OH_DB_C <- function(data){
 
 
     # make DB index
-    uniqueDBs <- unique(tmpSubset$DB)
+    uniqueDBs <- unique(tmpSubset[, dataColnames$DOUBLE_BOND])
     DBdata_tmp <- data.frame(CLASS = className, DB = uniqueDBs)
     for(i in 1:length(filterCols)){
       DBdata_tmp[,paste0("PMOL_PCT_",i)] <- NA
@@ -61,7 +65,7 @@ makeIndex_OH_DB_C <- function(data){
 
 
     # make C index
-    uniqueCs <- unique(tmpSubset$LENGTH)
+    uniqueCs <- unique(tmpSubset[, dataColnames$C_CHAIN])
     Cdata_tmp <- data.frame(CLASS = className, C = uniqueCs)
     for(i in 1:length(filterCols)){
       Cdata_tmp[,paste0("PMOL_PCT_",i)] <- NA
