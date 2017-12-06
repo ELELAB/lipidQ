@@ -272,7 +272,7 @@ test.makeIndex_OH_DB_C <- function() {
 
 
 test.mergeFinalOutputs <- function() {
-  DEACTIVATED('This function does not work at the moment...')
+  #DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
   dataPathTest <- read.table("../inst/extdata/finalOutputList.txt", stringsAsFactors = FALSE)[,1]

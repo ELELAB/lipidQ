@@ -257,8 +257,8 @@ colnames(t)
 ################################################################################################################
 # save new version of mergedFinalOutput validation data set
 ################################################################################################################
-#dataPathTest <- read.table("inst/extdata/finalOutputList.txt", stringsAsFactors = FALSE)[,1]
-#mergedFinalOutputs <- mergeFinalOutputs(dataPathTest)
+dataPathTest <- read.table("inst/extdata/finalOutputList.txt", stringsAsFactors = FALSE)[,1]
+mergedFinalOutputs <- mergeFinalOutputs(dataPathTest)
 #write.csv(mergedFinalOutputs,"inst/extdata/validation/mergedFinalOutputs.csv", quote = FALSE, row.names = FALSE)
 
 
