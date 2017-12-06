@@ -179,9 +179,9 @@ t <- sort_is(t)
 t <- filterDataSet(data = t, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
 t <- pmolCalc(data = t,endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25)
 t <- makeIndex_OH_DB_C(t, userSpecifiedColnames = list)
-#write.csv(t[[1]],"inst/extdata/validation/IndexDataOH.csv", quote = FALSE, row.names = FALSE)
-#write.csv(t[[1]],"inst/extdata/validation/IndexDataDB.csv", quote = FALSE, row.names = FALSE)
-#write.csv(t[[1]],"inst/extdata/validation/IndexDataC.csv", quote = FALSE, row.names = FALSE)
+#write.csv(t[[1]],"inst/extdata/validation/indexDataOH.csv", quote = FALSE, row.names = FALSE)
+#write.csv(t[[2]],"inst/extdata/validation/indexDataDB.csv", quote = FALSE, row.names = FALSE)
+#write.csv(t[[3]],"inst/extdata/validation/indexDataC.csv", quote = FALSE, row.names = FALSE)
 
 
 

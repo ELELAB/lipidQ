@@ -13,6 +13,7 @@ source('sort_is.R')
 source("getColnames.R")
 source("merge_endo_and_ISTD_db.R")
 source("filterReplicates.R")
+source("makeIndex_OH_DB_C.R")
 
 test.suite <- defineTestSuite("auxFunctions",
                               dirs = file.path("../tests/testFiles"),

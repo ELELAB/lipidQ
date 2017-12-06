@@ -233,6 +233,43 @@ test.pmolCalc_replicateFiltering <- function(){
 
 
 
+test.makeIndex_OH_DB_C <- function() {
+  #DEACTIVATED('This function does not work at the moment...')
+
+  # make test data.frame and save
+  #dataPathTest <- read.table("../inst/extdata/finalOutputList.txt", stringsAsFactors = FALSE)[,1]
+  #dataFrameTest <- mergeFinalOutputs(dataPathTest)
+  #write.csv(dataFrameTest, file = "../inst/extdata/test/results/mergedFinalOutputs.csv", quote = FALSE, row.names = F)
+
+  dataPathTest <- read.table("../inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  list <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25)
+  dataFrameTest <- makeIndex_OH_DB_C(dataFrameTest, userSpecifiedColnames = list)
+  write.csv(dataFrameTest[[1]], file = "../inst/extdata/test/results/indexDataOH.csv", quote = FALSE, row.names = F)
+  write.csv(dataFrameTest[[2]], file = "../inst/extdata/test/results/indexDataDB.csv", quote = FALSE, row.names = F)
+  write.csv(dataFrameTest[[3]], file = "../inst/extdata/test/results/indexDataC.csv", quote = FALSE, row.names = F)
+
+
+  # load test and validation data.frame
+  dataFrameTest1 <- read.table("../inst/extdata/test/results/indexDataOH.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest2 <- read.table("../inst/extdata/test/results/indexDataDB.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest3 <- read.table("../inst/extdata/test/results/indexDataC.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  dataFrameVali1 <- read.table("../inst/extdata/validation/indexDataOH.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameVali2 <- read.table("../inst/extdata/validation/indexDataDB.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameVali3 <- read.table("../inst/extdata/validation/indexDataC.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  # validate
+  checkEquals(dataFrameTest1, dataFrameVali1)
+  checkEquals(dataFrameTest2, dataFrameVali2)
+  checkEquals(dataFrameTest3, dataFrameVali3)
+}
+
+
+
 
 test.mergeFinalOutputs <- function() {
   DEACTIVATED('This function does not work at the moment...')
