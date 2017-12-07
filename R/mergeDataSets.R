@@ -219,22 +219,25 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
     }
   }
 
+
+
   #### Test whether all MS1x and MS2x > 0 for all internal standards
   # merge MS1x and MS2x cols together
-  #MS1x_MS2x_cols <- c(colnames(MS1x_tmp), MS2ix_userCols)
-
+  #MS1x_MS2x_cols <- colnames(MS1x_tmp) # for only MS1 test purposes, until we get better data.
+  MS1x_MS2x_cols <- c(colnames(MS1x_tmp), MS2ix_userCols)
 
   # select rows with internal standards
-  #isData <- mergedDataSet[grep("^is",mergedDataSet[,dataColnames$SUM_COMPOSITION]),]
+  isData <- mergedDataSet[grep("^is",mergedDataSet[,dataColnames$SUM_COMPOSITION]),]
   # remove all columns except from MS1x_MS2x_cols
-  #isData <- isData[, c("NAME",MS1x_MS2x_cols)]
+  isData <- isData[, MS1x_MS2x_cols]
 
-
-
-  #isData <- isData[, grep("_",colnames(isData))]
-
+  # remove any non-MS1x and MS2ix columns
+  isData <- isData[, grep("_",colnames(isData))]
 
   # check 0 in MS1x_MS2_cols for internal standards
+  if(!all(isData != 0)){
+    stop("ERROR: One or more internal standards contain 0 in MS1/MS2 column(s)")
+  }
   #print(isData)
   #print(isData != 0)
 
