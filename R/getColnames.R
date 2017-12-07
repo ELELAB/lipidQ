@@ -17,16 +17,12 @@ getColnames <- function(userSpecifiedColnames = NULL){
 
 
     # check that all column names in userSpecifiedColnames.csv have the correct reference names else throw an error message
-    if(!all(c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", "QUAN_MODE", "QUAN_SCAN", "MODE", MS2ix) %in% colnames(userSpecifiedColnames))){
+    if(!all(c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "OH_GROUP", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "ISTD", "MS1x", MS2ix, "QUAN_MODE", "QUAN_SCAN", "MODE") %in% colnames(userSpecifiedColnames))){
 
       stop("ERROR: The userSpecifiedColnames.csv does not have correctly written reference column names (First line of the file). Please create a new userSpecifiedColnames.csv template file, by pressing THIS BUTTON in the lipidQuan GUI.")
     }
 
-
-
-
     dataColnames <- userSpecifiedColnames
-    #dataColnames <- data.frame(PPM = userSpecifiedColnames$PPM, CLASS = userSpecifiedColnames$CLASS, C_CHAIN = userSpecifiedColnames$C_CHAIN, DOUBLE_BOND = userSpecifiedColnames$DOUBLE_BOND, SUM_COMPOSITION = userSpecifiedColnames$SUM_COMPOSITION, SPECIE_COMPOSITION = userSpecifiedColnames$SPECIE_COMPOSITION, MASS_TO_CHARGE = userSpecifiedColnames$MASS_TO_CHARGE, OH_GROUP = userSpecifiedColnames$OH_GROUP, ISTD = userSpecifiedColnames$ISTD, MS1x = userSpecifiedColnames$MS1x, MS2ax = userSpecifiedColnames$MS2ax, MS2bx = userSpecifiedColnames$MS2bx, MS2cx = userSpecifiedColnames$MS2cx, MS2dx = userSpecifiedColnames$MS2dx, MS2ex = userSpecifiedColnames$MS2ex, MS2fx = userSpecifiedColnames$MS2fx, MS2gx = userSpecifiedColnames$MS2gx, QUAN_MODE = userSpecifiedColnames$QUAN_MODE, QUAN_SCAN = userSpecifiedColnames$QUAN_SCAN, DECONVOLUTION_1 = userSpecifiedColnames$DECONVOLUTION_1, DECONVOLUTION_2 = userSpecifiedColnames$DECONVOLUTION_2, DECONVOLUTION_3 = userSpecifiedColnames$DECONVOLUTION_3, DECONVOLUTION_4 = userSpecifiedColnames$DECONVOLUTION_4, MODE = userSpecifiedColnames$MODE, numberOfSamples = "numberOfSamples", numberOfReplicates = "numberOfReplicates", stringsAsFactors = FALSE)
 
     # check that all user specified column names does not violate reserved column names, else throw an error message
     if(any(c("FILTERED", "PMOL_", "SUBT_PMOL", "MOL_PCT", "CLASS_PMOL", "MOL_PCT_CLASS", "CLASS_FILTERED", "Sample_", "mol") %in% dataColnames[1,])){
