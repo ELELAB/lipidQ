@@ -230,12 +230,46 @@ colnames(t)
 #ISTD_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #list <- read.table("inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
+#data <- read.table("/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/LQ_Training/mE518_Data_20171204/LCB-CD3-out.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
-#t <- mergeDataSets(dataPathTest, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = list)
+
+
+
+#t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
 #t <- sort_is(t)
 #t <- filterDataSet(t, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = list)
 #t <- pmolCalc(t,endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25, numberOfReplicates = 4, blnkReplicates = FALSE, numberOfInstancesThreshold = 2, thresholdValue = 0.005)
 #write.csv(t,"inst/extdata/validation/pmolCalc_replicateFiltering.csv", quote = FALSE, row.names = FALSE)
+
+
+setwd("/data/user/andre/lipidomics/lipidQuan")
+source("R/mergeDataSets.R")
+source("R/sort_is.R")
+source("R/filterDataSet.R")
+source("R/pmolCalc.R")
+source("R/mergeFinalOutputs.R")
+source("R/readFile.R")
+source("R/rmSpaceInBeginning.R")
+source("R/getColnames.R")
+source("R/merge_endo_and_ISTD_db.R")
+source("R/filterReplicates.R")
+
+
+################################################################################################################
+# save new version of pmolCalc validation dataset with replicate filtering (blnk replicates) NEW DATA SET
+################################################################################################################
+dataPathTest <- read.table("inst/extdata/dataWithReplicatesBlnkReplicatesList.txt", stringsAsFactors = FALSE)[,1]
+endogene_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+list <- read.table("inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
+t <- sort_is(data = t)
+t <- filterDataSet(data = t, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
+t <- pmolCalc(t,endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25, numberOfReplicates = 3, blnkReplicates = TRUE, numberOfInstancesThreshold = 3, thresholdValue = 0.005)
+#write.csv(t,"inst/extdata/validation/pmolCalc_replicateFiltering.csv", quote = FALSE, row.names = FALSE)
+subset(t, select = c(SUBT_PMOL_PREC_07,SUBT_PMOL_PREC_08,SUBT_PMOL_PREC_09))
 
 
 ################################################################################################################

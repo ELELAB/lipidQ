@@ -27,18 +27,39 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
 
+  #### define MS1x columns and BLNK column (last MS1x column)
+  # single blnk
+  if(blnkReplicates == FALSE){
 
-  # define MS1x columns and BLNK column (last MS1x column)
-  MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
-  BLNK <- MS1x_names[length(MS1x_names)] # name of BLNK column (last MS1x.* column)
-  MS1x_names <- MS1x_names[-length(MS1x_names)] # remove last column from MS1x_names since this is BLNK
+    MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
+    BLNK <- MS1x_names[length(MS1x_names)] # name of BLNK column (last MS1x.* column)
+    MS1x_names <- MS1x_names[-length(MS1x_names)] # remove last column from MS1x_names since this is BLNK
+  }
+  #IMPLEMENT_REP
+  # blnk replicates
+  else{
+    MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
+    BLNK <- MS1x_names[(length(MS1x_names)-numberOfReplicates+1):length(MS1x_names)] # name of BLNK column (last MS1x.* column)
+    MS1x_names <- MS1x_names[-((length(MS1x_names)-numberOfReplicates+1):length(MS1x_names))] # remove last column from MS1x_names since this is BLNK
+  }
+
 
   #### zero adapter for MS1x: check value >= 0. if not, value <- 0.
   for(MS1x in MS1x_names){ # for MS1x columns
     data[,MS1x] <- ifelse(data[,MS1x] < 0, 0, data[,MS1x])
   }
-  # for BLNK column (equal to last MS1x column)
-  data[,BLNK] <- ifelse(data[,BLNK] < 0, 0, data[,BLNK])
+  # single blnk
+  if(blnkReplicates == FALSE){
+    data[,BLNK] <- ifelse(data[,BLNK] < 0, 0, data[,BLNK])
+  }
+  #IMPLEMENT_REP
+  # blnk replicates
+  else{
+    for(blnk_rep in BLNK){
+      data[,blnk_rep] <- ifelse(data[,blnk_rep] < 0, 0, data[,blnk_rep])
+    }
+  }
+
 
 
 
@@ -100,27 +121,65 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
 
 
-  #### pmol BLNK calculation ( BLNK(SUM_COMPOSITION)/BLNK(isSUM_COMPOSITION)   x   pmol(isSpecie) )
-  for(i in 1:nrow(exData)){
-    # find corresponding internal standard.
-    is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
+  #### pmol BLNK calculation ( BLNK(SUM_COMPOSITION)/BLNK(isSUM_COMPOSITION)   x   pmol(isSpecie) ) (AT THE MOMENT FOR SINGLE BLNK)
+  # single blnk
+  if(blnkReplicates == FALSE){
+    for(i in 1:nrow(exData)){
+      # find corresponding internal standard.
+      is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
-    # pmol_isSpecie <- spikeISTD(uL) x [isLP]
-    pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
+      # pmol_isSpecie <- spikeISTD(uL) x [isLP]
+      pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
 
-    # pmol calculation ( MS1x:*(SUM_COMPOSITION)/MS1x:*(isSUM_COMPOSITION) x pmol(isSpecie) )
-    pmol_calc <- exData[i,BLNK] / is[,BLNK] * pmol_isSpecie
-    data[i,paste0("PMOL_BLNK_",BLNK)] <- pmol_calc
+      # pmol calculation ( MS1x:*(SUM_COMPOSITION)/MS1x:*(isSUM_COMPOSITION) x pmol(isSpecie) )
+      pmol_calc <- exData[i,BLNK] / is[,BLNK] * pmol_isSpecie
+      data[i,paste0("PMOL_BLNK_",BLNK)] <- pmol_calc
+    }
   }
+  #IMPLEMENT_REP
+  # blnk replicates
+  else{
+    for(i in 1:nrow(exData)){
+      # find corresponding internal standard.
+      is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
+
+      # pmol_isSpecie <- spikeISTD(uL) x [isLP]
+      pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
+
+      # pmol calculation ( MS1x:*(SUM_COMPOSITION)/MS1x:*(isSUM_COMPOSITION) x pmol(isSpecie) )
+      for(blnk_rep in BLNK){
+        pmol_calc <- exData[i,blnk_rep] / is[,blnk_rep] * pmol_isSpecie
+        data[i,paste0("PMOL_BLNK_",blnk_rep)] <- pmol_calc
+      }
+    }
+  }
+
+
+  # TO BE CONTINUED ... LAV BLNK REPLICATE IMPLEMENT FAERDIG. # TJEK ALLE #IMPLEMENT_REP. SE OGSAA FILTERREPLICATES IGENNEM.
+  # replicate filtering on BLNK
+  if(blnkReplicates){
+    data[1:nrow(exData),paste0("PMOL_BLNK_",BLNK)] <- filterReplicates(data = data[1:nrow(exData),paste0("PMOL_BLNK_",BLNK)], userSpecifiedColnames = userSpecifiedColnames, numberOfReplicates = numberOfReplicates, numberOfInstancesThreshold = numberOfInstancesThreshold, thresholdValue = thresholdValue)
+  }
+
 
   #### subtract pmol BLNK from pmol MS1x*
   PMOL_MS1x_names <- colnames(data)[grep(paste0("^PMOL_", dataColnames$MS1x),colnames(data))]
   PMOL_BLNK <- colnames(data)[grep("^PMOL_BLNK",colnames(data))]
-
-
-  for(PMOL_MS1x in PMOL_MS1x_names){
-    data[,paste0("SUBT_",PMOL_MS1x)] <- data[,PMOL_MS1x] - data[,PMOL_BLNK]
+  # single blnk
+  if(blnkReplicates == FALSE){
+    for(PMOL_MS1x in PMOL_MS1x_names){
+      data[,paste0("SUBT_",PMOL_MS1x)] <- data[,PMOL_MS1x] - data[,PMOL_BLNK]
+    }
   }
+  #IMPLEMENT_REP
+  # blnk replicates
+  else{
+    PMOL_BLNK_max <- apply(data[,PMOL_BLNK], 1, FUN=max)
+    for(PMOL_MS1x in PMOL_MS1x_names){
+      data[,paste0("SUBT_",PMOL_MS1x)] <- data[,PMOL_MS1x] - PMOL_BLNK_max
+    }
+  }
+
 
 
   #### zero adapter: check value >= 0. if not, value <- 0.
@@ -140,9 +199,6 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
         data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[1:nrow(exData),SUBT_PMOL_MS1x]/database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,dataColnames$SUM_COMPOSITION],"DF_INFUSION"])*1000 > ( database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "LOQ"] + fixedDeviation ), 1, 0)
 
         # change SUBT_PMOL_MS1x to 0 if LOQ column == 0.
-
-        #print(data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] == 0)
-        #print(data[1:nrow(exData),SUBT_PMOL_MS1x])
         data[data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] == 0 ,SUBT_PMOL_MS1x] <- 0
       }
     }
@@ -150,11 +206,12 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
   #print(subset(data, select = c(paste0("LOQ_",SUBT_PMOL_MS1x, SUBT_PMOL_PREC_01))))
 
+  #IMPLEMENT_REP
   # filter values in replicates
   if(numberOfReplicates > 1){
-    data <- filterReplicates(data, userSpecifiedColnames = userSpecifiedColnames, numberOfReplicates = numberOfReplicates, blnkReplicates = blnkReplicates, numberOfInstancesThreshold = numberOfInstancesThreshold, thresholdValue = thresholdValue)
+    data[1:nrow(exData), SUBT_PMOL_MS1x_names] <- filterReplicates(data[1:nrow(exData), SUBT_PMOL_MS1x_names], userSpecifiedColnames = userSpecifiedColnames, numberOfReplicates = numberOfReplicates, numberOfInstancesThreshold = numberOfInstancesThreshold, thresholdValue = thresholdValue)
   }
-
+  print(data[MS1x_names])
   # remove a given row if all MS1x* (except last BLNK MS1x) values contains zeros.
   data <- data[apply(data[MS1x_names],1,function(value) any(value != 0)),]
   # update exData and isData with the newly created columns, and removed rows
