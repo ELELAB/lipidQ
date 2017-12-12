@@ -220,7 +220,6 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   }
 
 
-
   #### Test whether all MS1x and MS2x > 0 for all internal standards
   # merge MS1x and MS2x cols together
   #MS1x_MS2x_cols <- colnames(MS1x_tmp) # for only MS1 test purposes, until we get better data.
@@ -228,16 +227,67 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
   # select rows with internal standards
   isData <- mergedDataSet[grep("^is",mergedDataSet[,dataColnames$SUM_COMPOSITION]),]
-  # remove all columns except from MS1x_MS2x_cols
-  isData <- isData[, MS1x_MS2x_cols]
+  # remove all columns except from MS1x_MS2x_cols and NAME
+  isData <- isData[, c("NAME",MS1x_MS2x_cols)]
 
-  # remove any non-MS1x and MS2ix columns
-  isData <- isData[, grep("_",colnames(isData))]
+
+
+  # remove any non-MS1x and MS2ix columns (MASS columns) except from NAME, which is used for matching isData with ISTD_lipid_db
+  #isData <- isData[, c(which(colnames(isData) == "NAME"), grep("_",colnames(isData)))]
+  isData <- isData[, grep("^NAME|_",colnames(isData))]
+
+
+  # match isData with ISTD_lipid_db
+  ISTD_matched_w_isData <- ISTD_lipid_db[match(isData$NAME, ISTD_lipid_db$NAME),]
+
+  #print(as.character(dataColnames[, grep("^MS1|^MS2", colnames(dataColnames))]))
+  # remove all columns except MS1x and MS2ix
+  ISTD_matched_w_isData <- ISTD_matched_w_isData[, as.character(dataColnames[, grep("^MS1|^MS2", colnames(dataColnames))])]
+
+  #ISTD_matched_w_isData <- ISTD_matched_w_isData[, ]
+
+
+  #print(ISTD_matched_w_isData$NAME)
+  #print(isData$NAME)
+  #print(colnames(ISTD_matched_w_isData))
+  #print(colnames(isData))
+  for(col in colnames(ISTD_matched_w_isData)){
+    #print(col)
+    tmp_col <- ISTD_matched_w_isData[, grep(paste0("^",col),colnames(ISTD_matched_w_isData))]
+    if(sum(tmp_col) != 0){
+      #print(isData[tmp_col, grep(paste0("^", col), colnames(isData))])
+      if(!all(isData[tmp_col, grep(paste0("^", col), colnames(isData))] != 0)){
+        stop(paste0("ERROR: One or more internal standards in the ", col ," column contains 0 in MS1/MS2 column(s). Please ensure that this column contains the right 1/0 status for each internal standard in the ISTD lipid database."))
+      }
+    }
+
+    #print(isData[tmp_col, grep(paste0("^", col), colnames(isData))])
+
+
+    #if(isData[tmp_col, grep(paste0("^", col), colnames(isData))]){
+    #  stop("ERROR: fejl fe jlfe")
+
+    #}
+  }
+
+
+  #print(isData != 0)
 
   # check 0 in MS1x_MS2_cols for internal standards
-  if(!all(isData != 0)){
-    stop("ERROR: One or more internal standards contain 0 in MS1/MS2 column(s)")
-  }
+  #print(head(ISTD_lipid_db))
+
+  # Only check columns in isData that has status 1 in ISTD_lipid_db for the respective columns.
+
+
+
+  # match
+
+
+
+
+  #if(!all(isData != 0)){
+  #  stop("ERROR: One or more internal standards contain 0 in MS1/MS2 column(s)")
+  #}
   #print(isData)
   #print(isData != 0)
 
