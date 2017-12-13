@@ -96,8 +96,8 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
       is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
 
-      # pmol_isSpecie = spikeISTD(uL) x [isLP]
-      pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
+      # pmol_isSpecie = spikeISTD(uL) x ISTD_CONC
+      pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"]
 
 
       # pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION) x pmol(isSpecie) )
@@ -128,8 +128,8 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
       # find corresponding internal standard.
       is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
-      # pmol_isSpecie <- spikeISTD(uL) x [isLP]
-      pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
+      # pmol_isSpecie <- spikeISTD(uL) x [ISTD_CONC]
+      pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"]
 
       # pmol calculation ( MS1x:*(SUM_COMPOSITION)/MS1x:*(isSUM_COMPOSITION) x pmol(isSpecie) )
       pmol_calc <- exData[i,BLNK] / is[,BLNK] * pmol_isSpecie
@@ -143,8 +143,8 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
       # find corresponding internal standard.
       is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
-      # pmol_isSpecie <- spikeISTD(uL) x [isLP]
-      pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "isLP"]
+      # pmol_isSpecie <- spikeISTD(uL) x [ISTD_CONC]
+      pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"]
 
       # pmol calculation ( MS1x:*(SUM_COMPOSITION)/MS1x:*(isSUM_COMPOSITION) x pmol(isSpecie) )
       for(blnk_rep in BLNK){
@@ -211,7 +211,7 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
   if(numberOfReplicates > 1){
     data[1:nrow(exData), SUBT_PMOL_MS1x_names] <- filterReplicates(data[1:nrow(exData), SUBT_PMOL_MS1x_names], userSpecifiedColnames = userSpecifiedColnames, numberOfReplicates = numberOfReplicates, numberOfInstancesThreshold = numberOfInstancesThreshold, thresholdValue = thresholdValue)
   }
-  print(data[MS1x_names])
+  #print(data[MS1x_names])
   # remove a given row if all MS1x* (except last BLNK MS1x) values contains zeros.
   data <- data[apply(data[MS1x_names],1,function(value) any(value != 0)),]
   # update exData and isData with the newly created columns, and removed rows

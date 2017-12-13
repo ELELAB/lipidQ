@@ -13,17 +13,19 @@ makeDatabase <- function(userSpecifiedColnames = NULL, DB_type){
   MS2ix_cols <- dataColnames[grep("^MS2",colnames(dataColnames))]
 
 
-  DECONVOLUTION_cols <- dataColnames[grep("^DECONVOLUTION",colnames(dataColnames))]
+  #DECONVOLUTION_cols <- dataColnames[grep("^DECONVOLUTION",colnames(dataColnames))]
 
 
 
   if(DB_type == "endo"){
     #### extract relevant column names from userSpecifiedColnames to database
 
-    colnames_DB <- c(dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols))
+    #colnames_DB <- c(dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols))
+    colnames_DB <- c(dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MS1x, as.character(MS2ix_cols), "QUAN_MODE", "QUAN_SCAN")
   }
   if(DB_type == "ISTD"){
-    colnames_DB <- c(dataColnames$SUM_COMPOSITION, "isLP", dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols), "LOQ", "DISSOLVED_AMOUNT", "DF_INFUSION")
+    #colnames_DB <- c(dataColnames$SUM_COMPOSITION, "isLP", dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols), "LOQ", "DISSOLVED_AMOUNT", "DF_INFUSION")
+    colnames_DB <- c(dataColnames$SUM_COMPOSITION, "ISTD_CONC", dataColnames$MS1x, as.character(MS2ix_cols), "QUAN_MODE", "QUAN_SCAN", "LOQ", "DISSOLVED_AMOUNT", "DF_INFUSION")
   }
 
 

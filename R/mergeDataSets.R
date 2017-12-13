@@ -210,7 +210,7 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
               selectedColRows[i,] <- 0
             }
           }
-          # set MS1x to 0 if all rows for the 1. columns has values <= 0. (The remaining columns are not neccesary to check, since checks and modifications of all columns for each row have been made).
+          # set MS1x to 0 if all rows for the 1. columns in a given class has values <= 0. (The remaining columns are not neccesary to check, since checks and modifications of all columns for each row have been made).
           if(all(selectedColRows[,1] <= "0")){
             mergedDataSet[mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, colnames(MS1x_tmp)[k]] <- 0
           }
@@ -227,18 +227,18 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
   # select rows with internal standards
   isData <- mergedDataSet[grep("^is",mergedDataSet[,dataColnames$SUM_COMPOSITION]),]
-  # remove all columns except from MS1x_MS2x_cols and NAME
-  isData <- isData[, c("NAME",MS1x_MS2x_cols)]
+  # remove all columns except from MS1x_MS2x_cols and SUM_COMPOSITION
+  isData <- isData[, c(dataColnames$SUM_COMPOSITION,MS1x_MS2x_cols)]
 
 
 
-  # remove any non-MS1x and MS2ix columns (MASS columns) except from NAME, which is used for matching isData with ISTD_lipid_db
+  # remove any non-MS1x and MS2ix columns (MASS columns) except from SUM_COMPOSITION, which is used for matching isData with ISTD_lipid_db
   #isData <- isData[, c(which(colnames(isData) == "NAME"), grep("_",colnames(isData)))]
-  isData <- isData[, grep("^NAME|_",colnames(isData))]
+  isData <- isData[, grep(paste0("^", dataColnames$SUM_COMPOSITION ,"|_"),colnames(isData))]
 
 
   # match isData with ISTD_lipid_db
-  ISTD_matched_w_isData <- ISTD_lipid_db[match(isData$NAME, ISTD_lipid_db$NAME),]
+  ISTD_matched_w_isData <- ISTD_lipid_db[match(isData[, dataColnames$SUM_COMPOSITION], ISTD_lipid_db[, dataColnames$SUM_COMPOSITION]),]
 
   #print(as.character(dataColnames[, grep("^MS1|^MS2", colnames(dataColnames))]))
   # remove all columns except MS1x and MS2ix
@@ -247,8 +247,8 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   #ISTD_matched_w_isData <- ISTD_matched_w_isData[, ]
 
 
-  #print(ISTD_matched_w_isData$NAME)
-  #print(isData$NAME)
+  #print(ISTD_matched_w_isData[, dataColnames$SUM_COMPOSITION])
+  #print(isData[, dataColnames$SUM_COMPOSITION])
   #print(colnames(ISTD_matched_w_isData))
   #print(colnames(isData))
   for(col in colnames(ISTD_matched_w_isData)){
@@ -257,7 +257,7 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
     if(sum(tmp_col) != 0){
       #print(isData[tmp_col, grep(paste0("^", col), colnames(isData))])
       if(!all(isData[tmp_col, grep(paste0("^", col), colnames(isData))] != 0)){
-        stop(paste0("ERROR: One or more internal standards in the ", col ," column contains 0 in MS1/MS2 column(s). Please ensure that this column contains the right 1/0 status for each internal standard in the ISTD lipid database."))
+        #stop(paste0("ERROR: One or more internal standards in the ", col ," column contains 0 in MS1/MS2 column(s). Please ensure that this column contains the right 1/0 status for each internal standard in the ISTD lipid database."))
       }
     }
 
