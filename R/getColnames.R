@@ -17,7 +17,7 @@ getColnames <- function(userSpecifiedColnames = NULL){
 
 
     # check that all column names in userSpecifiedColnames.csv have the correct reference names else throw an error message
-    if(!all(c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "OH_GROUP", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "ISTD", "MS1x", MS2ix, "QUAN_MODE", "QUAN_SCAN", "MODE") %in% colnames(userSpecifiedColnames))){
+    if(!all(c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "OH_GROUP", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "ISTD", "MS1x", MS2ix, "QUAN_MODE", "QUAN_SCAN") %in% colnames(userSpecifiedColnames))){
 
       stop("ERROR: The userSpecifiedColnames.csv does not have correctly written reference column names (First line of the file). Please create a new userSpecifiedColnames.csv template file, by pressing THIS BUTTON in the lipidQuan GUI.")
     }
