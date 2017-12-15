@@ -5,7 +5,7 @@
 \title{Filter Replicates}
 \usage{
 filterReplicates(data, userSpecifiedColnames = NULL, numberOfReplicates = 1,
-  blnkReplicates = FALSE, numberOfInstancesThreshold, thresholdValue)
+  numberOfInstancesThreshold, thresholdValue)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
@@ -13,8 +13,6 @@ filterReplicates(data, userSpecifiedColnames = NULL, numberOfReplicates = 1,
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
 
 \item{numberOfReplicates}{the number of replicates for each sample}
-
-\item{blnkReplicates}{logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.}
 
 \item{numberOfInstancesThreshold}{the number of replicates for a given sample that has to have values above the specified threshold value (thesholdValue)}
 

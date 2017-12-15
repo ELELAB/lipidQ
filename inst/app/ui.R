@@ -48,7 +48,7 @@ ui <- fluidPage(
                           br(),
 
                           # multiply parameter
-                          checkboxInput("multiplyPREC", "Multiply PREC columns by a factor (for LipidX users)", FALSE),
+                          checkboxInput("multiplyMS1", "Multiply MS1 columns by a factor (for LipidX users)", FALSE),
                           fileInput(inputId = "list", label = "Choose the list of classes to be multiplied (.csv-file):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
@@ -109,35 +109,37 @@ ui <- fluidPage(
 
 
 
+                          h4("Create new user specified column names template"),
 
+                          textInput("numberOfMS2ix", "Number of MS2 columns in the input data", "7"),
 
-                          textInput("numberOfMS2ix", "Write the number of MS2 columns in the input data", "7"),
-
-                          br(),
-                          textInput("numberOfDECONVOLUTION_x", "Write the number of DECONVOLUTION columns in the input data", "4"),
+                          #br(),
+                          #textInput("numberOfDECONVOLUTION_x", "Write the number of DECONVOLUTION columns in the input data", "4"),
 
                           br(),
                           textInput("dirColnamesTemplate", "Paste the filepath for the column template file to be saved.", "/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/"),
-                          textOutput("resetColTemplateDone"),
+                          textOutput("createColTemplateDone"),
 
-                          actionButton("resetColnamesTemplate", "Reset column template file"),
+                          actionButton("createColnamesTemplate", "Create column template file"),
 
 
 
-                          # TO BE CONTINUED ... MAKE BETTER VISIBILITY.
                           br(),
                           br(),
                           br(),
-                          textInput("dirDatabase", "Paste the filepath for the database file to be saved.", "/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/"),
+                          h4("Create new database file"),
+                          radioButtons("DB_type", "Database Type", c("endogene"="endo", "ISTD"="ISTD")),
 
-                          fileInput(inputId = "userSpecifiedColnamesReset", label = "Choose list of colnames (.csv-file):",
+                          fileInput(inputId = "userSpecifiedColnamesCreateDatabase", label = "Choose list of colnames (.csv-file):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")),
 
-                          radioButtons("DB_type", "Database Type", c("endo"="endo", "ISTD"="ISTD")),
+                          textInput("dirDatabase", "Paste the filepath for the database file to be saved.", "/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/"),
 
-                          actionButton("resetDatabase", "Reset chosen database"),
 
-                          textOutput("resetDatabaseDone")
+
+                          actionButton("createDatabase", "Create database"),
+
+                          textOutput("createDatabaseDone")
                         ),
                         mainPanel()
                       )

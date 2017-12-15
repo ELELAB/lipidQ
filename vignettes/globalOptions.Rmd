@@ -1,0 +1,40 @@
+---
+title: "Global Options"
+author: "André Vidas Olsen"
+date: "`r Sys.Date()`"
+output: html_document
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+### Introduction
+The global options operation tab in the LipiqQuan GUI makes it possile to create both databases and user specified column names templates, when the user needs to have a new version. There can be several reasons why the user wishes to do so. Here are the two most common ones:
+
+1. If the file has been corrupted, e.g. by typing in errors in the templates, which makes them unusuable, the user can re-create a template and start over, if the source of the corruption can not be found by manual inspection.
+
+2. If the user has more than one project with different settings, the user can create a template for each project. Remember to save the files at different locations so that the template file is not overwritten. The best practice is to have a folder for each project. 
+
+### Reset Database templates
+In order to create/reset a user specified column names template file, the user simply needs to do the following four steps:
+1. Specify which database type to create (endogene database or ISTD database)
+2. Import the user specified column names file for the project, so that the new database will have these column names.
+3. Specify the path to where the template file should be saved
+4. Press 'Create column template file'
+
+
+### Reset column names template
+In order to create/reset a user specified column names template file, the user simply needs to do the following three steps:
+1. Specify the number of MS2 columns
+2. Specify the path to where the template file should be saved
+3. Press 'Create column template file'
+
+

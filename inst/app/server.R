@@ -81,9 +81,9 @@ server <- function(input, output, session){
     }
 
 
-    # load multiplyPREC list
+    # load multiplyMS1 list
     # MAYBE THE CHECKBOX FOR THIS FIELD IS NOT NECESSARY. IF THE BUTTON IS USED, THERE SHOULD AT LEAST BE IMPLEMENTED A WARNING, IF NO FILE IS CHOSEN, WHEN CHECKBOX = TRUE.
-    if(input$multiplyPREC == TRUE && !is.null(input$list)){
+    if(input$multiplyMS1 == TRUE && !is.null(input$list)){
       list <- input$list
       list <- read.table(list$datapath, stringsAsFactors = FALSE, header = FALSE, sep = ",")$V1
     }else{
@@ -163,7 +163,7 @@ server <- function(input, output, session){
       paste("Merging done!")
     })
   })
-  observeEvent(input$resetColnamesTemplate, {
+  observeEvent(input$createColnamesTemplate, {
     #
     #
     #
@@ -177,18 +177,19 @@ server <- function(input, output, session){
 
 
 
-    # reset column names template
-    newColnamesTemplate <- lipidQuan:::makeColnames(as.numeric(input$numberOfMS2ix), as.numeric(input$numberOfDECONVOLUTION_x))
+    # create column names template
+    #newColnamesTemplate <- lipidQuan:::makeColnames(as.numeric(input$numberOfMS2ix), as.numeric(input$numberOfDECONVOLUTION_x))
+    newColnamesTemplate <- lipidQuan:::makeColnames(as.numeric(input$numberOfMS2ix))
     write.csv(newColnamesTemplate, file = paste0(input$dirColnamesTemplate,"/userSpecifiedColnames.csv"), quote = FALSE, row.names = F)
     progress$set(value = 1)
 
-    output$resetColTemplateDone <- renderText({
-      paste("Reset of column name template done!")
+    output$createColTemplateDone <- renderText({
+      paste("Creation of column name template done!")
     })
 
 
   })
-  observeEvent(input$resetDatabase, {
+  observeEvent(input$createDatabase, {
     #
     #
     #
@@ -201,8 +202,8 @@ server <- function(input, output, session){
 
 
     # load userSpecifiedColnames.csv
-    if(!is.null(input$userSpecifiedColnamesReset)){
-      userSpecifiedColnames <- input$userSpecifiedColnamesReset
+    if(!is.null(input$userSpecifiedColnamesCreateDatabase)){
+      userSpecifiedColnames <- input$userSpecifiedColnamesCreateDatabase
       userSpecifiedColnames <- read.table(userSpecifiedColnames$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
     } else{
       userSpecifiedColnames <- NULL
@@ -219,8 +220,8 @@ server <- function(input, output, session){
     progress$set(value = 1)
 
 
-    output$resetDatabaseDone <- renderText({
-      paste("Reset of chosen database done!")
+    output$createDatabaseDone <- renderText({
+      paste("Creation of chosen database done!")
     })
 
   })

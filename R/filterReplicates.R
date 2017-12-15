@@ -4,7 +4,6 @@
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
 #' @param numberOfReplicates the number of replicates for each sample
-#' @param blnkReplicates logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.
 #' @param numberOfInstancesThreshold the number of replicates for a given sample that has to have values above the specified threshold value (thesholdValue)
 #' @param thresholdValue user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.
 #' @export
@@ -26,7 +25,7 @@ filterReplicates <- function(data, userSpecifiedColnames = NULL, numberOfReplica
   # calculate number of samples
   #numberOfSamples <- length(MS1x_names) / numberOfReplicates
   numberOfSamples <- length(colnames(data)) / numberOfReplicates
-  print(numberOfSamples)
+  #print(numberOfSamples)
 
 
   # check whether number of replicates is true or not

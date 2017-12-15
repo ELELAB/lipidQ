@@ -205,7 +205,7 @@ test.pmolCalc_LOQ <- function() {
 }
 
 
-test.pmolCalc_replicateFiltering <- function(){
+test.pmolCalc_replicateFilteringSingleBlnk <- function(){
   DEACTIVATED('This function does not work at the moment...')
 
   # make test data.frame and save
@@ -213,18 +213,18 @@ test.pmolCalc_replicateFiltering <- function(){
   #endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
   #ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
-  dataPathTest <- read.table("../inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
-  endogene_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  ISTD_lipid_db <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataPathTest <- read.table("../inst/extdata/dataWithReplicatesSingleBlnkList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
   list <- read.table("../inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 
-  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db)), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25, numberOfReplicates = 4, blnkReplicates = FALSE, numberOfInstancesThreshold = 2, thresholdValue = 0.005)
-  write.csv(dataFrameTest, file = "../inst/extdata/test/results/pmolCalc_replicateFiltering.csv", quote = FALSE, row.names = F)
+  dataFrameTest <- pmolCalc(filterDataSet(sort_is(mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list), endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25, numberOfReplicates = 4, blnkReplicates = FALSE, numberOfInstancesThreshold = 2, thresholdValue = 0.005)
+  write.csv(dataFrameTest, file = "../inst/extdata/test/results/pmolCalc_replicateFiltering_singleBlank.csv", quote = FALSE, row.names = F)
 
   # load test and validation data.frame
-  dataFrameTest <- read.table("../inst/extdata/test/results/pmolCalc_replicateFiltering.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-  dataFrameVali <- read.table("../inst/extdata/validation/pmolCalc_replicateFiltering.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest <- read.table("../inst/extdata/test/results/pmolCalc_replicateFiltering_singleBlank.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameVali <- read.table("../inst/extdata/validation/pmolCalc_replicateFiltering_singleBlank.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
   # validate
   checkEquals(dataFrameTest, dataFrameVali)

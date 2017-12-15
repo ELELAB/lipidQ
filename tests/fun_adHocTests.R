@@ -185,8 +185,6 @@ t <- makeIndex_OH_DB_C(t, userSpecifiedColnames = list)
 
 
 
-colnames(t)
-
 
 
 
