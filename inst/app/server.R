@@ -97,6 +97,11 @@ server <- function(input, output, session){
     mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, correctionList = list, multiply = input$multiplyPREC_value))
     write.csv(mergedDataSets, file = paste0(input$dir,"/mergedDataSets.csv"), quote = FALSE, row.names = F)
 
+    if(input$QC_plots){
+      dir.create(file.path(input$dir, "QC"))
+      lipidQuan::plotQC_ISTD(data = mergedDataSets, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC"), blnkReplicates = input$blnkReplicates, numberOfReplicates = input$numberOfReps)
+    }
+
     #if(input$numberOfReps > 1){
     #  mergedDataSets <- lipidQuan:::filterReplicates(mergedDataSets, userSpecifiedColnames = userSpecifiedColnames, numberOfReplicates = input$numberOfReps, blnkReplicates = input$blnkReplicates, numberOfInstancesThreshold = input$numberOfInstancesT, thresholdValue = input$thresholdValue)
     #  write.csv(mergedDataSets, file = paste0(input$dir,"/mergedDataSets.csv"), quote = FALSE, row.names = F)

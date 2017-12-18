@@ -77,6 +77,12 @@ ui <- fluidPage(
 
                           br(),
                           br(),
+                          checkboxInput("QC_plots", "Create QC plots of MS1 intensity data", FALSE),
+
+                          # Button
+                          #downloadButton("downloadData", "Download"), # TO BE CONTINUED
+                          br(),
+                          br(),
                           textOutput("analysisDone")
 
                         ),
