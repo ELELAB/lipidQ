@@ -3,5 +3,4 @@
 tests
 results
 R/old
-R/plotQC_ISTD.R
 R/compactOutput_pmolCalc.R
