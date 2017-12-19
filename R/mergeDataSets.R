@@ -168,6 +168,7 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   }
 
 
+if(FALSE){
   #### Filtering based on 1/0 columns in database
 
   # find all class names in database
@@ -218,7 +219,7 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
       }
     }
   }
-
+}
 
   #### Test whether all MS1x and MS2x > 0 for all internal standards
   # merge MS1x and MS2x cols together

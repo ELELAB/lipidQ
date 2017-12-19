@@ -43,6 +43,64 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
   MS2ix_tmp <- data[,MS2ix_userCols]
   data <- cbind(data_tmp,MS1x_tmp, MS2ix_tmp)
 
+if(TRUE){
+  #### Filtering based on 1/0 columns in database
+
+  # select user specified columns of MS2ix columns from database (To be used in the "#### Filtering based on 1/0 columns in database" in this function)
+  MS2ix_userCols_database <- c()
+  for(userCol in as.character(MS2ix_cols)){
+    MS2ix_userCols_database <- append(MS2ix_userCols_database, colnames(database)[grep(userCol,colnames(database))])
+  }
+
+  # find all class names in database
+  classNames <- unique(database[,dataColnames$SUM_COMPOSITION])
+
+
+  # for each class in database, chose all species in mergedData
+  for(className in classNames){
+    # select relevant columns (based on the 1/0's in the database)
+    col_index <- (database[database[,dataColnames$SUM_COMPOSITION] == className, MS2ix_userCols_database] == 1)[1,] # the [1,] ensures that only the first row of columns is chosen (if there are multiple rows with the same className in the SUM_COMPOSITION column)
+
+    selectedColNames <- MS2ix_userCols_database[col_index]
+
+
+
+    if(length(selectedColNames) > 0){ # avoid error by ensuring that there exists some selected columns.
+
+      # use selectedColNames to select all relevant columns for each sample in data
+      for(k in 1:(ncol(MS1x_tmp))){
+
+
+        if(k <= 9){
+
+
+          selectedColRows <- subset(data, data[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_0",k))
+          #selectedColRows <- data[data[,dataColnames$SUM_COMPOSITION] == className, paste0(selectedColNames, "_0",k)]
+          #print(paste0("nrow: ",nrow(selectedColRows)))
+          #print(paste0("data: ",selectedColRows))
+        }else{
+          selectedColRows <- subset(data, data[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_",k))
+
+        }
+
+
+        if(nrow(selectedColRows) > 0){ # only check condition on column-row values if selectedColRows actually contains rows
+          #if(!is.null(selectedColRows)){ # only check condition on column-row values if selectedColRows actually contains rows
+          for(i in 1:nrow(selectedColRows)){
+            # check that all relevant columns (selected by 1/0 in the database) has a value > 0 for a given row. If at least one has a value <= 0, then this row == 0 for all columns.
+            if(any(selectedColRows[i,] <= 0)){
+              selectedColRows[i,] <- 0
+            }
+          }
+          # set MS1x to 0 if all rows for the 1. columns in a given class has values <= 0. (The remaining columns are not neccesary to check, since checks and modifications of all columns for each row have been made).
+          if(all(selectedColRows[,1] <= "0")){
+            data[data[,dataColnames$SUM_COMPOSITION] == className, colnames(MS1x_tmp)[k]] <- 0
+          }
+        }
+      }
+    }
+  }
+}
 
 
   # create QUAN_SCAN column to data consisting of the QUAN_SCAN column in database.
