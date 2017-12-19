@@ -61,8 +61,6 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
   }
 
 
-
-
   # define MS2x user specified columns
   MS2ix_cols <- dataColnames[grep("MS2",colnames(dataColnames))]
 
@@ -91,7 +89,13 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
   #### pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION)   x   pmol(isSpecie) )
   for(MS1x in MS1x_names){
 
+
+
+
     for(i in 1:nrow(exData)){
+      # find and replace the MS1x part with the QUAN_SCAN character (e.g. MS1x = PREC_01, QUAN_SCAN = FRAG1: PREC_01 -> FRAG1_01)
+      MS1x <- gsub(unlist(strsplit(MS1x, "_"))[1], exData[i, "QUAN_SCAN"], MS1x)
+
       # find corresponding internal standard for the current class name.
       is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
@@ -104,7 +108,9 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
       #pmol_calc <- exData[i,MS1x] / is[,MS1x] * pmol_isSpecie
       pmol_calc <- tryCatch(
         {
-          exData[i,MS1x] / is[,MS1x] * pmol_isSpecie # return statement
+          #print(as.numeric(exData[i,MS1x]))
+          #exData[i,MS1x] / is[,MS1x] * pmol_isSpecie # return statement
+          as.numeric(exData[i,MS1x]) / as.numeric(is[,MS1x]) * as.numeric(pmol_isSpecie) # return statement
         },
         error=function(cond){
           message("ERROR: PROBLEMS WITH VALUES IN INTENSITY COLUMNS! Please check that all intensity columns only contain numbers and not text-based values like NA, Inf etc.")
@@ -115,9 +121,11 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
           message(cond)
         })
 
-      data[i,paste0("PMOL_",MS1x)] <- pmol_calc
+      data[i,paste0("PMOL_PREC_",unlist(strsplit(MS1x, "_"))[2])] <- pmol_calc
     }
   }
+
+
 
 
 
@@ -125,6 +133,9 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
   # single blnk
   if(blnkReplicates == FALSE){
     for(i in 1:nrow(exData)){
+      # find and replace the MS1x part with the QUAN_SCAN character (e.g. MS1x = PREC_01, QUAN_SCAN = FRAG1: PREC_01 -> FRAG1_01)
+      BLNK <- gsub(unlist(strsplit(BLNK, "_"))[1], exData[i, "QUAN_SCAN"], BLNK)
+
       # find corresponding internal standard.
       is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
@@ -132,14 +143,17 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
       pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"]
 
       # pmol calculation ( MS1x:*(SUM_COMPOSITION)/MS1x:*(isSUM_COMPOSITION) x pmol(isSpecie) )
-      pmol_calc <- exData[i,BLNK] / is[,BLNK] * pmol_isSpecie
-      data[i,paste0("PMOL_BLNK_",BLNK)] <- pmol_calc
+      pmol_calc <- as.numeric(exData[i,BLNK]) / as.numeric(is[,BLNK]) * as.numeric(pmol_isSpecie)
+      #data[i,paste0("PMOL_BLNK_",BLNK)] <- pmol_calc
+      data[i,paste0("PMOL_BLNK_PREC_",unlist(strsplit(BLNK, "_"))[2])] <- pmol_calc
     }
   }
   #IMPLEMENT_REP
   # blnk replicates
   else{
     for(i in 1:nrow(exData)){
+
+
       # find corresponding internal standard.
       is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
 
@@ -148,8 +162,12 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
       # pmol calculation ( MS1x:*(SUM_COMPOSITION)/MS1x:*(isSUM_COMPOSITION) x pmol(isSpecie) )
       for(blnk_rep in BLNK){
-        pmol_calc <- exData[i,blnk_rep] / is[,blnk_rep] * pmol_isSpecie
-        data[i,paste0("PMOL_BLNK_",blnk_rep)] <- pmol_calc
+
+        # find and replace the MS1x part with the QUAN_SCAN character (e.g. MS1x = PREC_01, QUAN_SCAN = FRAG1: PREC_01 -> FRAG1_01)
+        blnk_rep <- gsub(unlist(strsplit(blnk_rep, "_"))[1], exData[i, "QUAN_SCAN"], blnk_rep)
+
+        pmol_calc <- as.numeric(exData[i,blnk_rep]) / as.numeric(is[,blnk_rep]) * as.numeric(pmol_isSpecie)
+        data[i,paste0("PMOL_BLNK_PREC_",unlist(strsplit(blnk_rep, "_"))[2])] <- pmol_calc
       }
     }
   }
