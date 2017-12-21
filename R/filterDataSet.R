@@ -43,6 +43,7 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
   MS2ix_tmp <- data[,MS2ix_userCols]
   data <- cbind(data_tmp,MS1x_tmp, MS2ix_tmp)
 
+
 if(TRUE){
   #### Filtering based on 1/0 columns in database
 
@@ -115,6 +116,12 @@ if(TRUE){
   # remove specie names that are not included in database
   GLOBAL.SUM_COMPOSITION.CHECK <- database[match(data[,dataColnames$SUM_COMPOSITION], database[,dataColnames$SUM_COMPOSITION]), dataColnames$SUM_COMPOSITION] # transfer SUM_COMPOSITION col from database to data
   data <- data[!is.na(GLOBAL.SUM_COMPOSITION.CHECK),] # remove all rows whose names were not found in database
+
+
+  # only include rows that have been monitored with the specified MODE (POS/NEG) in the database column
+  #print(dim(data))
+  data <- data[data[,"MODE"] == database[match(data[, dataColnames$SUM_COMPOSITION], database[,dataColnames$SUM_COMPOSITION]), "QUAN_MODE"],]
+  #print(dim(data))
 
 
   #### create SPECIE_COMPOSITION.ALL col: consists of all species within specie name seperated by "|", e.g. DAG 16:1-16:1|DAG 18:1-14:1
