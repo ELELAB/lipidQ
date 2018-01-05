@@ -112,15 +112,26 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
 
     # insert mode column describing whether the measurements comes from POS or NEG measurements
-    if(grepl("POS", basename(dataPath))){
+    if("POS" %in% colnames(data)){
       mode <- "POS"
     }else{
-      if(grepl("NEG", basename(dataPath))){
+      if("NEG" %in% colnames(data)){
         mode <- "NEG"
       }else{
         mode <- NA
       }
     }
+
+
+    #if(grepl("POS", basename(dataPath))){
+    #  mode <- "POS"
+    #}else{
+    #  if(grepl("NEG", basename(dataPath))){
+    #    mode <- "NEG"
+    #  }else{
+    #    mode <- NA
+    #  }
+    #}
 
     # insert mode column into selectedCols
     selectedCols$MODE <- mode
