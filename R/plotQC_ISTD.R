@@ -5,6 +5,10 @@
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @param numberOfReplicates the number of replicates for each sample
 #' @param blnkReplicates logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.
+#' @param pathToOutput the directory path to save the plots
+#' @import ggplot2
+#' @import reshape2
+#' @importFrom stats sd
 #' @export
 plotQC_ISTD <- function(data, userSpecifiedColnames = NULL, pathToOutput, blnkReplicates = FALSE, numberOfReplicates){
   # get colnames for data
@@ -44,12 +48,12 @@ plotQC_ISTD <- function(data, userSpecifiedColnames = NULL, pathToOutput, blnkRe
   lower <- isData$PREC_median - isData$PREC_std
   upper <- isData$PREC_median + isData$PREC_std
   p <- ggplot()
-  p <- p + geom_bar(data = isData, aes(x = NAME, y = PREC_median), stat = "identity", position = position_dodge(width = 0.9)) +
-    geom_errorbar(data=isData, position = position_dodge(width = 0.9), mapping=aes(x=NAME, ymin=lower, ymax=upper, width=0.2)) +
+  p <- p + geom_bar(data = isData, aes_string(x = 'NAME', y = 'PREC_median'), stat = "identity", position = position_dodge(width = 0.9)) +
+    geom_errorbar(data=isData, position = position_dodge(width = 0.9), mapping=aes_string(x='NAME', ymin='lower', ymax='upper', width=0.2)) +
     theme(axis.text.x = element_text(angle = 90, hjust = 1), plot.title = element_text(hjust = 0.5)) + labs(x = "Classes", y = "Intensity") + scale_fill_discrete(guide = guide_legend(title = "Classes")) +
     ggtitle("Median sample intensity values for all ISTD")
 
-  ggsave(p, file=paste0(pathToOutput, "/medianSampleIntensityAllISTDs.png"), width = 14, height = 10, units = "cm")
+  ggsave(p, filename=paste0(pathToOutput, "/medianSampleIntensityAllISTDs.png"), width = 14, height = 10, units = "cm")
 
 
   #### plot all samples for a specific ISTD. Horizontal line = median of samples
@@ -61,11 +65,11 @@ plotQC_ISTD <- function(data, userSpecifiedColnames = NULL, pathToOutput, blnkRe
 
 
     g <- ggplot()
-    g <- g + geom_bar(data = data_pr_ISTD, aes(x = variable, y = value), stat="identity") +
+    g <- g + geom_bar(data = data_pr_ISTD, aes_string(x = 'variable', y = 'value'), stat="identity") +
       theme(axis.text.x = element_text(angle = 90, hjust = 1), plot.title = element_text(hjust = 0.5)) + labs(x = "Classes", y = "Intensity") + ggtitle(paste0("Sample intensity per ISTD\n(", name, ")")) +
       geom_hline(aes(yintercept = median))
 
-    ggsave(g, file=paste0(pathToOutput,"/", name,".png"), width = 14, height = 10, units = "cm")
+    ggsave(g, filename=paste0(pathToOutput,"/", name,".png"), width = 14, height = 10, units = "cm")
 
     count <- count + 1
   }
