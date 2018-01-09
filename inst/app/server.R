@@ -94,12 +94,14 @@ server <- function(input, output, session){
 
 
     # Analysis start
+    dir.create(file.path(input$dir, "dataTables"))
     mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, correctionList = list, multiply = input$multiplyPREC_value))
-    write.csv(mergedDataSets, file = paste0(input$dir,"/mergedDataSets.csv"), quote = FALSE, row.names = F)
+    write.csv(mergedDataSets, file = paste0(input$dir,"/dataTables/mergedDataSets.csv"), quote = FALSE, row.names = F)
 
     if(input$QC_plots){
       dir.create(file.path(input$dir, "QC"))
-      lipidQuan::plotQC_ISTD(data = mergedDataSets, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC"), blnkReplicates = input$blnkReplicates, numberOfReplicates = input$numberOfReps)
+      dir.create(file.path(input$dir, "QC/pre"))
+      lipidQuan:::plotQC_ISTD(data = mergedDataSets, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC/pre/"), blnkReplicates = input$blnkReplicates, numberOfReplicates = input$numberOfReps)
     }
 
     #if(input$numberOfReps > 1){
@@ -108,28 +110,28 @@ server <- function(input, output, session){
     #}
     progress$set(value = 2)
 
-
+    # script to change file name in Shiny tmp folder https://groups.google.com/forum/#!topic/shiny-discuss/hGO4lC7BEI4
     filteredDataSet <- lipidQuan:::filterDataSet(mergedDataSets, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames)
-    write.csv(filteredDataSet, file = paste0(input$dir,"/filteredDataSet.csv"), quote = FALSE, row.names = F)
+    write.csv(filteredDataSet, file = paste0(input$dir,"/dataTables/filteredDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 3)
 
 
     pmolCalculatedDataSet <- lipidQuan:::pmolCalc(filteredDataSet, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, input$spikeISTD, input$zeroThresh, input$LOQ, input$fixedDeviation,  numberOfReplicates = input$numberOfReps, blnkReplicates = input$blnkReplicates, numberOfInstancesThreshold = input$numberOfInstancesT, thresholdValue = input$thresholdValue)
-    write.csv(pmolCalculatedDataSet, file = paste0(input$dir,"/pmolCalculatedDataSet.csv"), quote = FALSE, row.names = F)
+    write.csv(pmolCalculatedDataSet, file = paste0(input$dir,"/dataTables/pmolCalculatedDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 4)
 
-    indexData <- lipidQuan::makeIndex_OH_DB_C(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
-    write.csv(indexData[1], file = paste0(input$dir,"/indexDataOH.csv"), quote = FALSE, row.names = F)
-    write.csv(indexData[2], file = paste0(input$dir,"/indexDataDB.csv"), quote = FALSE, row.names = F)
-    write.csv(indexData[3], file = paste0(input$dir,"/indexDataC.csv"), quote = FALSE, row.names = F)
+    indexData <- lipidQuan:::makeIndex_OH_DB_C(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+    write.csv(indexData[1], file = paste0(input$dir,"/dataTables/indexDataOH.csv"), quote = FALSE, row.names = F)
+    write.csv(indexData[2], file = paste0(input$dir,"/dataTables/indexDataDB.csv"), quote = FALSE, row.names = F)
+    write.csv(indexData[3], file = paste0(input$dir,"/dataTables/indexDataC.csv"), quote = FALSE, row.names = F)
     progress$set(value = 5)
 
     classPmol_molPctClass <- lipidQuan:::compactOutput_pmolCalc(pmolCalculatedDataSet)
-    write.csv(classPmol_molPctClass, file = paste0(input$dir,"/classPmol_molPctClass.csv"), quote=F, row.names = F)
+    write.csv(classPmol_molPctClass, file = paste0(input$dir,"/dataTables/classPmol_molPctClass.csv"), quote=F, row.names = F)
     progress$set(value = 6)
 
     finalOutput <- lipidQuan:::makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet)
-    write.csv(finalOutput, file = paste0(input$dir,"/finalOutput.csv"), quote = FALSE, row.names = FALSE)
+    write.csv(finalOutput, file = paste0(input$dir,"/dataTables/finalOutput.csv"), quote = FALSE, row.names = FALSE)
     progress$set(value = 7)
 
     output$analysisDone <- renderText({
