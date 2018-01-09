@@ -1,7 +1,7 @@
 #' @title Make Compact Output Containing Pico Mol Calculations
 #' @author André Vidas Olsen
 #' @description compactOutput_pmolCalc saves a data.frame with only
-#' NAME, CLASS_PMOL_SUBT_PMOL_PREC*, and MOL_PCT_CLASS_SUBT_PMOL_PREC* OMSKRIV!!!
+#' NAME, CLASS_PMOL_SUBT_PMOL_*, and MOL_PCT_CLASS_SUBT_PMOL_* and FILTERED
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @export
