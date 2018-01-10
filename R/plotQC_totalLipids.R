@@ -3,48 +3,46 @@
 #' @description This function creates QC plots of MS1 intensity data
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
-#' @param numberOfReplicates the number of replicates for each sample
-#' @param blnkReplicates logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.
 #' @param pathToOutput the directory path to save the plots
 #' @import ggplot2
 #' @import reshape2
 #' @importFrom stats sd
 #' @export
-plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL, pathToOutput, blnkReplicates = FALSE, numberOfReplicates){
+plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL, pathToOutput){
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames = userSpecifiedColnames)
 
   # find MS1x columns and BLNK column (last MS1x column)
-  #MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
-  #BLNK <- MS1x_names[length(MS1x_names)] # name of BLNK column (last MS1x.* column)
-  #MS1x_names <- MS1x_names[-length(MS1x_names)] # remove last column from MS1x_names since this is BLNK
+  #class_pmol_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
+  #BLNK <- class_pmol_names[length(class_pmol_names)] # name of BLNK column (last MS1x.* column)
+  #class_pmol_names <- class_pmol_names[-length(class_pmol_names)] # remove last column from class_pmol_names since this is BLNK
 
   # single blnk
-  if(blnkReplicates == FALSE){
+  if(TRUE){
     #grep("^CLASS_PMOL_SUBT_PMOL_",colnames(data))
-    MS1x_names <- colnames(data)[grep("^CLASS_PMOL_SUBT_PMOL_",colnames(data))] # names of all CLASS_PMOL_SUBT_PMOL.* columns
-    #MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
-    BLNK <- MS1x_names[length(MS1x_names)] # name of BLNK column (last MS1x.* column)
-    #MS1x_names <- MS1x_names[-length(MS1x_names)] # remove last column from MS1x_names since this is BLNK
+    class_pmol_names <- colnames(data)[grep("^CLASS_PMOL_SUBT_PMOL_",colnames(data))] # names of all CLASS_PMOL_SUBT_PMOL.* columns
+    #class_pmol_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
+    BLNK <- class_pmol_names[length(class_pmol_names)] # name of BLNK column (last MS1x.* column)
+    #class_pmol_names <- class_pmol_names[-length(class_pmol_names)] # remove last column from class_pmol_names since this is BLNK
 
   }
   # blnk replicates
-  else{
-    MS1x_names <- colnames(data)[grep("^CLASS_PMOL_SUBT_PMOL_",colnames(data))] # names of all CLASS_PMOL_SUBT_PMOL.* columns
-    #MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
-    BLNK <- MS1x_names[(length(MS1x_names)-numberOfReplicates+1):length(MS1x_names)] # name of BLNK column (last MS1x.* column)
-    MS1x_names <- MS1x_names[-((length(MS1x_names)-numberOfReplicates+1):length(MS1x_names))] # remove last column from MS1x_names since this is BLNK
-  }
+  #else{
+  #  class_pmol_names <- colnames(data)[grep("^CLASS_PMOL_SUBT_PMOL_",colnames(data))] # names of all CLASS_PMOL_SUBT_PMOL.* columns
+  #  #class_pmol_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
+  #  BLNK <- class_pmol_names[(length(class_pmol_names)-numberOfReplicates+1):length(class_pmol_names)] # name of BLNK column (last MS1x.* column)
+  #  class_pmol_names <- class_pmol_names[-((length(class_pmol_names)-numberOfReplicates+1):length(class_pmol_names))] # remove last column from class_pmol_names since this is BLNK
+  #}
 
 
   # find only species
-  isData <- data[-grep("^is",data[,dataColnames$SUM_COMPOSITION]),]
+  exData <- data[-grep("^is",data[,dataColnames$SUM_COMPOSITION]),]
 
 
 
-  isData_colSums <- colSums(isData[grep("^CLASS_PMOL_SUBT_PMOL_",colnames(isData))], na.rm = TRUE)
+  exData_colSums <- colSums(exData[grep("^CLASS_PMOL_SUBT_PMOL_",colnames(exData))], na.rm = TRUE)
 
-  data_pr_sample <- melt(isData_colSums)
+  data_pr_sample <- melt(exData_colSums)
   #print(data_pr_sample)
   #print(colnames(data_pr_sample))
 
@@ -60,16 +58,15 @@ plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL, pathToOutput,
   #### plot all samples for a specific ISTD. Horizontal line = median of samples
   #count <- 0
 
-  isData_SUM_C_and_CLASS <- cbind(isData[dataColnames$SUM_COMPOSITION], isData[grep("^CLASS_PMOL_SUBT_PMOL_",colnames(isData))])
-  #print(head(isData_SUM_C_and_CLASS))
+  exData_SUM_C_and_CLASS <- cbind(exData[dataColnames$SUM_COMPOSITION], exData[grep("^CLASS_PMOL_SUBT_PMOL_",colnames(exData))])
+  #print(head(exData_SUM_C_and_CLASS))
 
   count <- 0
-  for(name in isData_SUM_C_and_CLASS[,dataColnames$SUM_COMPOSITION]){
+  for(name in exData_SUM_C_and_CLASS[,dataColnames$SUM_COMPOSITION]){
     print(name)
-    data_pr_lipid <- melt(isData_SUM_C_and_CLASS[isData_SUM_C_and_CLASS[, dataColnames$SUM_COMPOSITION] == name, MS1x_names])
+    data_pr_lipid <- melt(exData_SUM_C_and_CLASS[exData_SUM_C_and_CLASS[, dataColnames$SUM_COMPOSITION] == name, class_pmol_names])
     median <- median(data_pr_lipid$value)
 
-    #print(data_pr_lipid)
 
 
     g <- ggplot()
