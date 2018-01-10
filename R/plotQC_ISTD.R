@@ -45,11 +45,11 @@ plotQC_ISTD <- function(data, userSpecifiedColnames = NULL, pathToOutput, blnkRe
 
   #### plot all ISTD's for averaged (median) sample intensities
   # ggplot2
-  lower <- isData$PREC_median - isData$PREC_std
-  upper <- isData$PREC_median + isData$PREC_std
+  lower <- isData[,paste0(dataColnames$MS1x,"_median")] - isData[,paste0(dataColnames$MS1x,"_std")]
+  upper <- isData[,paste0(dataColnames$MS1x,"_median")] + isData[,paste0(dataColnames$MS1x,"_std")]
   p <- ggplot()
-  p <- p + geom_bar(data = isData, aes_string(x = 'NAME', y = 'PREC_median'), stat = "identity", position = position_dodge(width = 0.9)) +
-    geom_errorbar(data=isData, position = position_dodge(width = 0.9), mapping=aes_string(x='NAME', ymin='lower', ymax='upper', width=0.2)) +
+  p <- p + geom_bar(data = isData, aes_string(x = dataColnames$SUM_COMPOSITION, y = paste0(dataColnames$MS1x,"_median")), stat = "identity", position = position_dodge(width = 0.9)) +
+    geom_errorbar(data=isData, position = position_dodge(width = 0.9), mapping=aes_string(x=dataColnames$SUM_COMPOSITION, ymin='lower', ymax='upper', width=0.2)) +
     theme(axis.text.x = element_text(angle = 90, hjust = 1), plot.title = element_text(hjust = 0.5)) + labs(x = "Classes", y = "Intensity") + scale_fill_discrete(guide = guide_legend(title = "Classes")) +
     ggtitle("Median sample intensity values for all ISTD")
 
@@ -59,8 +59,8 @@ plotQC_ISTD <- function(data, userSpecifiedColnames = NULL, pathToOutput, blnkRe
   #### plot all samples for a specific ISTD. Horizontal line = median of samples
   # ggplot2
   count <- 0
-  for(name in isData$NAME){
-    data_pr_ISTD <- melt(isData[isData$NAME == name, MS1x_names])
+  for(name in isData[, dataColnames$SUM_COMPOSITION]){
+    data_pr_ISTD <- melt(isData[isData[, dataColnames$SUM_COMPOSITION] == name, MS1x_names])
     median <- median(data_pr_ISTD$value)
 
 
@@ -82,9 +82,9 @@ plotQC_ISTD <- function(data, userSpecifiedColnames = NULL, pathToOutput, blnkRe
 
 
 
+data <- read.csv("results/dataTables/mergedDataSets.csv")
 
-
-#plotQC_ISTD(data, userSpecifiedColnames = NULL, pathToOutput = "results/QC/", blnkReplicates = TRUE, numberOfReplicates = 3)
+plotQC_ISTD(data, userSpecifiedColnames = NULL, pathToOutput = "results/QC/pre", blnkReplicates = TRUE, numberOfReplicates = 3)
 
 
 
