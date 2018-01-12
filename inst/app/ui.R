@@ -71,7 +71,8 @@ ui <- fluidPage(
 
                           br(),
                           br(),
-                          checkboxInput("QC_plots", "Create QC plots of MS1 intensity data", FALSE),
+                          checkboxInput("QC_plots_MS1", "Create QC plots of MS1 intensity data", FALSE),
+                          checkboxInput("QC_plots_pmol", "Create QC plots of class pmol data", FALSE),
 
                           br(),
                           br(),

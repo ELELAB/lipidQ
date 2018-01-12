@@ -98,7 +98,7 @@ server <- function(input, output, session){
     mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, correctionList = list, multiply = input$multiplyPREC_value))
     write.csv(mergedDataSets, file = paste0(input$dir,"/dataTables/mergedDataSets.csv"), quote = FALSE, row.names = F)
 
-    if(input$QC_plots){
+    if(input$QC_plots_MS1){
       dir.create(file.path(input$dir, "QC"))
       dir.create(file.path(input$dir, "QC/pre"))
       lipidQuan:::plotQC_ISTD(data = mergedDataSets, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC/pre/"), blnkReplicates = input$blnkReplicates, numberOfReplicates = input$numberOfReps)
@@ -131,7 +131,7 @@ server <- function(input, output, session){
     progress$set(value = 6)
 
 
-    if(input$QC_plots){
+    if(input$QC_plots_pmol){
       dir.create(file.path(input$dir, "QC"))
       dir.create(file.path(input$dir, "QC/post"))
       lipidQuan:::plotQC_totalLipids(data = classPmol_molPctClass, userSpecifiedColnames = list, pathToOutput = paste0(input$dir, "/QC/post/"))
