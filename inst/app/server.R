@@ -101,7 +101,7 @@ server <- function(input, output, session){
     if(input$QC_plots){
       dir.create(file.path(input$dir, "QC"))
       dir.create(file.path(input$dir, "QC/pre"))
-      lipidQuan:::plotQC_ISTD(data = mergedDataSets, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC/pre/"), blnkReplicates = input$blnkReplicates, numberOfReplicates = input$numberOfReps)
+      lipidQuan:::plotQC_ISTD(data = mergedDataSets, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC/pre/"), blnkReplicates = input$blnkReplicates, numberOfReplicates = input$numberOfReps)
     }
 
     #if(input$numberOfReps > 1){
@@ -129,6 +129,15 @@ server <- function(input, output, session){
     classPmol_molPctClass <- lipidQuan:::compactOutput_pmolCalc(pmolCalculatedDataSet)
     write.csv(classPmol_molPctClass, file = paste0(input$dir,"/dataTables/classPmol_molPctClass.csv"), quote=F, row.names = F)
     progress$set(value = 6)
+
+
+    if(input$QC_plots){
+      dir.create(file.path(input$dir, "QC"))
+      dir.create(file.path(input$dir, "QC/post"))
+      lipidQuan:::plotQC_totalLipids(data = classPmol_molPctClass, userSpecifiedColnames = list, pathToOutput = paste0(input$dir, "/QC/post/"))
+    }
+
+
 
     finalOutput <- lipidQuan:::makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet)
     write.csv(finalOutput, file = paste0(input$dir,"/dataTables/finalOutput.csv"), quote = FALSE, row.names = FALSE)
