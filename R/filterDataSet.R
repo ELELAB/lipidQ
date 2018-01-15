@@ -44,7 +44,8 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
   data <- cbind(data_tmp,MS1x_tmp, MS2ix_tmp)
 
 
-if(TRUE){
+
+if(FALSE){
   #### Filtering based on 1/0 columns in database
 
   # select user specified columns of MS2ix columns from database (To be used in the "#### Filtering based on 1/0 columns in database" in this function)
@@ -120,6 +121,9 @@ if(TRUE){
 
   # only include rows that have been monitored with the specified MODE (POS/NEG) in the database column
   #print(dim(data))
+
+  #print(database[match(data[, dataColnames$SUM_COMPOSITION], database[,dataColnames$SUM_COMPOSITION]),"QUAN_MODE"])
+  #print(data[,"MODE"])
   data <- data[data[,"MODE"] == database[match(data[, dataColnames$SUM_COMPOSITION], database[,dataColnames$SUM_COMPOSITION]), "QUAN_MODE"],]
   #print(dim(data))
 
