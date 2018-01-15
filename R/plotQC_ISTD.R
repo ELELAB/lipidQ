@@ -53,8 +53,8 @@ plotQC_ISTD <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedCol
 
     MS1x_names <- gsub(unlist(strsplit(MS1x_names, "_"))[1], isData[i, "QUAN_SCAN"], MS1x_names)
     #print(MS1x_names)
-    print(isData[i, dataColnames$SUM_COMPOSITION])
-    print(MS1x_names)
+    #print(isData[i, dataColnames$SUM_COMPOSITION])
+    #print(MS1x_names)
 
     # find median of MS1x values for each is class
     #isData[,paste0(dataColnames$MS1x,"_median")] <- apply(isData[, MS1x_names], 1, FUN = median)
@@ -122,25 +122,25 @@ plotQC_ISTD <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedCol
 
 
 
-source("R/mergeDataSets.R")
-source("R/sort_is.R")
-source("R/filterDataSet.R")
-source("R/pmolCalc.R")
-source("R/mergeFinalOutputs.R")
-source("R/readFile.R")
-source("R/rmSpaceInBeginning.R")
-source("R/getColnames.R")
-source("R/merge_endo_and_ISTD_db.R")
-source("R/filterReplicates.R")
-library(ggplot2)
-library(reshape2)
-dataPathTest <- read.table("inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
-endogene_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-ISTD_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-list <- read.table("inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#source("R/mergeDataSets.R")
+#source("R/sort_is.R")
+#source("R/filterDataSet.R")
+#source("R/pmolCalc.R")
+#source("R/mergeFinalOutputs.R")
+#source("R/readFile.R")
+#source("R/rmSpaceInBeginning.R")
+#source("R/getColnames.R")
+#source("R/merge_endo_and_ISTD_db.R")
+#source("R/filterReplicates.R")
+#library(ggplot2)
+#library(reshape2)
+#dataPathTest <- read.table("inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+#endogene_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#ISTD_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#list <- read.table("inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
-t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
-plotQC_ISTD(data = data, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = NULL, pathToOutput = "results/QC/pre", blnkReplicates = TRUE, numberOfReplicates = 3)
+#t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
+#plotQC_ISTD(data = data, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = NULL, pathToOutput = "results/QC/pre", blnkReplicates = TRUE, numberOfReplicates = 3)
 
 
 

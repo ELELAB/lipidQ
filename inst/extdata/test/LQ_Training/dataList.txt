@@ -1,6 +1,0 @@
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/LQ_Training/mE518_Data_20171204/LCB-CD3-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/LQ_Training/mE518_Data_20171204/mE518_NEG_HighMZ-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/LQ_Training/mE518_Data_20171204/mE518_NEG_LowMZ-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/LQ_Training/mE518_Data_20171204/mE518_POS_Chol-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/LQ_Training/mE518_Data_20171204/mE518_POS_HighMZ-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/LQ_Training/mE518_Data_20171204/mE518_POS_LowMZ-out.csv

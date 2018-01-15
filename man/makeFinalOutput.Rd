@@ -2,17 +2,17 @@
 % Please edit documentation in R/makeFinalOutput.R
 \name{makeFinalOutput}
 \alias{makeFinalOutput}
-\title{Make Tableau Output}
+\title{Make Final Output}
 \usage{
 makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet)
 }
 \arguments{
-\item{classPmol_molPctClass}{BLA BLA}
+\item{classPmol_molPctClass}{compact output file created by using the compactOutput_pmolCalc() script.}
 
-\item{pmolCalculatedDataSet}{BLA BLA}
+\item{pmolCalculatedDataSet}{data of pmol calculations made by using the pmolCalc() script.}
 }
 \description{
-This function creates an output file of the results in a format that can be used by Tableau.
+This function creates the final output file of the results which consists of both all filtered pmol% species and filtered pmol% classes.
 }
 \author{
 André Vidas Olsen

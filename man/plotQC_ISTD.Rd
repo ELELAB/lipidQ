@@ -4,13 +4,16 @@
 \alias{plotQC_ISTD}
 \title{picomol Calculation}
 \usage{
-plotQC_ISTD(data, userSpecifiedColnames = NULL, pathToOutput,
-  blnkReplicates = FALSE, numberOfReplicates)
+plotQC_ISTD(data, endogene_lipid_db, ISTD_lipid_db,
+  userSpecifiedColnames = NULL, pathToOutput, blnkReplicates = FALSE,
+  numberOfReplicates)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
 
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
+
+\item{pathToOutput}{the directory path to save the plots}
 
 \item{blnkReplicates}{logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.}
 

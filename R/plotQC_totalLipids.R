@@ -1,7 +1,7 @@
 #' @title picomol Calculation
 #' @author André Vidas Olsen
 #' @description This function creates QC plots of MS1 intensity data
-#' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
+#' @param data data formatted by the use of the compactOutput_pmolCalc function from LipidQuan.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @param pathToOutput the directory path to save the plots
 #' @import ggplot2
@@ -61,9 +61,9 @@ plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL, pathToOutput)
   exData_SUM_C_and_CLASS <- cbind(exData[dataColnames$SUM_COMPOSITION], exData[grep("^CLASS_PMOL_SUBT_PMOL_",colnames(exData))])
   #print(head(exData_SUM_C_and_CLASS))
 
-  count <- 0
+  count <- 0 # NECESSAY???
   for(name in exData_SUM_C_and_CLASS[,dataColnames$SUM_COMPOSITION]){
-    print(name)
+    #print(name)
     data_pr_lipid <- melt(exData_SUM_C_and_CLASS[exData_SUM_C_and_CLASS[, dataColnames$SUM_COMPOSITION] == name, class_pmol_names])
     median <- median(data_pr_lipid$value)
 
@@ -85,36 +85,36 @@ plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL, pathToOutput)
 
 
 # test
-setwd("/data/user/andre/lipidomics/lipidQuan")
-library(ggplot2)
-library(reshape2)
-source("R/mergeDataSets.R")
-source("R/sort_is.R")
-source("R/filterDataSet.R")
-source("R/pmolCalc.R")
-source("R/mergeFinalOutputs.R")
-source("R/readFile.R")
-source("R/rmSpaceInBeginning.R")
-source("R/getColnames.R")
-source("R/merge_endo_and_ISTD_db.R")
-source("R/filterReplicates.R")
-source("R/compactOutput_pmolCalc.R")
-source("R/makeFinalOutput.R")
+#setwd("/data/user/andre/lipidomics/lipidQuan")
+#library(ggplot2)
+#library(reshape2)
+#source("R/mergeDataSets.R")
+#source("R/sort_is.R")
+#source("R/filterDataSet.R")
+#source("R/pmolCalc.R")
+#source("R/mergeFinalOutputs.R")
+#source("R/readFile.R")
+#source("R/rmSpaceInBeginning.R")
+#source("R/getColnames.R")
+#source("R/merge_endo_and_ISTD_db.R")
+#source("R/filterReplicates.R")
+#source("R/compactOutput_pmolCalc.R")
+#source("R/makeFinalOutput.R")
 
-dataPathTest <- read.table("inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
-endogene_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-ISTD_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
-list <- read.table("inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#dataPathTest <- read.table("inst/extdata/test/LQ_Training/dataList.txt", stringsAsFactors = FALSE)[,1]
+#endogene_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#ISTD_lipid_db <- read.table("inst/extdata/test/LQ_Training/MS1_DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#list <- read.table("inst/extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
-t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
-t <- sort_is(t)
-t <- filterDataSet(data = t, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
-t <- pmolCalc(data = t,endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25)
-classPmol_molPctClass <- compactOutput_pmolCalc(data = t, list)
+#t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
+#t <- sort_is(t)
+#t <- filterDataSet(data = t, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
+#t <- pmolCalc(data = t,endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25)
+#classPmol_molPctClass <- compactOutput_pmolCalc(data = t, list)
 
 
 
 # run function
-plotQC_totalLipids(data = classPmol_molPctClass, userSpecifiedColnames = list, pathToOutput = "results/QC/post")
+#plotQC_totalLipids(data = classPmol_molPctClass, userSpecifiedColnames = list, pathToOutput = "results/QC/post")
 
 

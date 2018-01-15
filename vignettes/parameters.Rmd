@@ -55,7 +55,7 @@ Below the field of specifying the number of replicates, the user can also specif
 
 
 #### LOQ
-
+Limit of quantification (LOQ) is a threshold setting which specifies whether the quantification of a given lipid/species is high enough to be considered as measurable (see parameters vignette).
 
 
 

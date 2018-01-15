@@ -23,7 +23,7 @@ ui <- fluidPage(
                           ),
 
                           # userspecified colnames
-                          fileInput(inputId = "userSpecifiedColnames", label = "Choose list of colnames (.csv-file):",
+                          fileInput(inputId = "userSpecifiedColnames", label = "Choose user specified column names (.csv-file):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
                           br(),
@@ -52,7 +52,7 @@ ui <- fluidPage(
                           fileInput(inputId = "list", label = "Choose the list of classes to be multiplied (.csv-file):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
-                          numericInput("multiplyPREC_value", "Set multiply factor:", 2, min = 1, max = 100),
+                          numericInput("multiplyPREC_value", "Set multiplication factor:", 2, min = 1, max = 100),
 
                           br(),
                           br(),
@@ -65,14 +65,14 @@ ui <- fluidPage(
                           numericInput("zeroThresh", "Threshold for rounding down to zero for mol% species:", 0.25, min = 0, max = 10),
 
                           br(),
+                          checkboxInput("QC_plots_MS1", "Create QC plots of MS1 intensity data", FALSE),
+                          checkboxInput("QC_plots_pmol", "Create QC plots of class pmol data", FALSE),
 
+                          br(),
+                          br(),
                           # output folder
                           textInput("dir", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/lipidQuan/results/"),
 
-                          br(),
-                          br(),
-                          checkboxInput("QC_plots_MS1", "Create QC plots of MS1 intensity data", FALSE),
-                          checkboxInput("QC_plots_pmol", "Create QC plots of class pmol data", FALSE),
 
                           br(),
                           br(),

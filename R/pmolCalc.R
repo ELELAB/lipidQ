@@ -96,20 +96,23 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
       # find and replace the MS1x part with the QUAN_SCAN character (e.g. MS1x = PREC_01, QUAN_SCAN = FRAG1: PREC_01 -> FRAG1_01)
       MS1x <- gsub(unlist(strsplit(MS1x, "_"))[1], exData[i, "QUAN_SCAN"], MS1x)
 
+
       # find corresponding internal standard for the current class name.
       is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
-
+      #print(is[,dataColnames$SUM_COMPOSITION])
+      #print(classNames[i])
 
       # pmol_isSpecie = spikeISTD(uL) x ISTD_CONC
       pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"]
-
+      #print(database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"])
 
       # pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION) x pmol(isSpecie) )
       #pmol_calc <- exData[i,MS1x] / is[,MS1x] * pmol_isSpecie
       pmol_calc <- tryCatch(
         {
-          #print(as.numeric(exData[i,MS1x]))
+          #print((exData[i,MS1x]))
           #exData[i,MS1x] / is[,MS1x] * pmol_isSpecie # return statement
+          #print(as.numeric(pmol_isSpecie))
           as.numeric(exData[i,MS1x]) / as.numeric(is[,MS1x]) * as.numeric(pmol_isSpecie) # return statement
         },
         error=function(cond){

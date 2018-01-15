@@ -1,5 +1,0 @@
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/dataWithReplicates/MS1_replicates_and_single_blnk/NEGHighMZ-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/dataWithReplicates/MS1_replicates_and_single_blnk/NEGLowMZ-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/dataWithReplicates/MS1_replicates_and_single_blnk/POSChol-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/dataWithReplicates/MS1_replicates_and_single_blnk/POSHighMZ-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/dataWithReplicates/MS1_replicates_and_single_blnk/POSLowMZ-out.csv
