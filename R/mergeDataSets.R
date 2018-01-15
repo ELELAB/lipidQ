@@ -118,7 +118,7 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
       if("NEG" %in% colnames(data)){
         mode <- "NEG"
       }else{
-        mode <- NA
+        stop("ERROR: POS/NEG column is missing in the input data files. Please make sure that every input data file has a column describing the quan mode (POS or NEG).")
       }
     }
 
