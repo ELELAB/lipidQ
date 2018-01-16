@@ -140,7 +140,8 @@ server <- function(input, output, session){
 
 
     finalOutput <- lipidQuan:::makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet)
-    write.csv(finalOutput, file = paste0(input$dir,"/dataTables/finalOutput.csv"), quote = FALSE, row.names = FALSE)
+    write.csv(finalOutput[1], file = paste0(input$dir,"/dataTables/finalOutput_molPct.csv"), quote = FALSE, row.names = FALSE)
+    write.csv(finalOutput[2], file = paste0(input$dir,"/dataTables/finalOutput_pmol.csv"), quote = FALSE, row.names = FALSE)
     progress$set(value = 7)
 
     output$analysisDone <- renderText({
