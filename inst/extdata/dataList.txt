@@ -1,5 +1,4 @@
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/mE531_Data_LipidX_Out/mE531_NEG_HighMZ-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/mE531_Data_LipidX_Out/mE531_NEG_LowMZ-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/mE531_Data_LipidX_Out/mE531_POS_Chol-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/mE531_Data_LipidX_Out/mE531_POS_HighMZ-out.csv
-/data/user/andre/lipidomics/lipidQuan/inst/extdata/mE531_Data_LipidX_Out/mE531_POS_LowMZ-out.csv
+/data/user/andre/lipidomics/lipidQuan/inst/extdata/mE504_Data/mE504_NEG_High-out.csv
+/data/user/andre/lipidomics/lipidQuan/inst/extdata/mE504_Data/mE504_NEG_Low-out.csv
+/data/user/andre/lipidomics/lipidQuan/inst/extdata/mE504_Data/mE504_POS_High-out.csv
+/data/user/andre/lipidomics/lipidQuan/inst/extdata/mE504_Data/mE504_POS_Low-out.csv

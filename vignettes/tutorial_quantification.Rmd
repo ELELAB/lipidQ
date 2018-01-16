@@ -1,5 +1,5 @@
 ---
-title: "Tutorial"
+title: "Tutorial: Quantification"
 author: "André Vidas Olsen"
 date: "`r Sys.Date()`"
 output: html_document
@@ -17,10 +17,10 @@ knitr::opts_chunk$set(
 ```
 
 #Introduction
-The tutorial will cover all the basic steps involved in lipidQuan lipidomics analysis from loading the input data to interpreting the final analysis results.
+This tutorial will cover all the basic steps involved in lipidQuan lipidomics analysis from loading the input data to interpreting the final analysis results.
 
 #Data
-The data for the analysis will consist of the following files:
+The data for this tutorial will consist of the following files:
 
 1. Input data files
 2. Endgogene & ISTD databases
@@ -40,26 +40,24 @@ system.file("app/", package = "lipidQuan")
 
 
 #Step 2: load data into LipidQuan
-After opening LipidQuan, the operation tab will start at the Quantification tab. In this tab section, start by choosing the input file to be used by clicking on "Browse ..." under "Choose the input data sets (.csv-files)". For this tutorial we will be using the following files 
+After opening LipidQuan, the operation tab will start at the Quantification tab. In this tab section, start by choosing the input file to be used by clicking on the "Browse..." button below "Choose the input data sets (.csv-files)". For this tutorial we will be using the following files 
 
-mE531_NEG_HighMZ-out.csv
+mE504_NEG_High-out.csv
 
-mE531_POS_Chol-out.csv
+mE504_NEG_Low-out.csv
 
-mE531_POS_LowMZ-out.csv
+mE504_POS_High-out.csv
 
-mE531_NEG_LowMZ-out.csv
-
-mE531_POS_HighMZ-out.csv
+mE504_POS_Low-out.csv
 
 These files are located in the following folder:  
 ```{r, echo=FALSE}
-system.file("extdata/mE531_Data_LipidX_Out/", package = "lipidQuan")
+system.file("extdata/mE504_Data/", package = "lipidQuan")
 ```
-Go to this folder and select these 5 files and click "Open". As the folder name indicates, in this case these input data files are generated from LipidX.
+Go to this folder and select these 5 files and click "Open".
 
 
-Next, the endogene and ISTD databases has to be chosen for the project. Click on the "Browse ..." buttons below "Choose the endogene lipid database (.csv-file)" and "Choose ISTD lipid database (.csv-file)" to do so. The database files are located in the following folder:
+Next, the endogene and ISTD databases has to be chosen for the project. Click on the "Browse..." buttons below "Choose the endogene lipid database (.csv-file)" and "Choose ISTD lipid database (.csv-file)" to do so. The database files are located in the following folder:
 ```{r, echo=FALSE}
 system.file("extdata/LipidQ_DataBase", package = "lipidQuan")
 ```
@@ -67,7 +65,7 @@ system.file("extdata/LipidQ_DataBase", package = "lipidQuan")
 The endogene database is called LP_DB_MS1_v1.csv and the ISTD database is called ISTD_LP_DB_MS1_v1.csv.
 
 
-Lastly, the user specified column names file called userSpecifiedColnames.csv also has to be chosen, by the clicking "Browse ..." button below "Choose user specified column names (.csv-file)". The user specified column names file is located in the same folder as the two database files.
+Lastly, the user specified column names file called userSpecifiedColnames.csv also has to be chosen, by the clicking "Browse..." button below "Choose user specified column names (.csv-file)". The user specified column names file is located in the same folder as the two database files.
 
 
 #Step 3: set parameters
@@ -81,12 +79,12 @@ The next section deals with the limit of quantification threshold, which are def
 
 
 ###Multiplication of MS1 columns
-In some cases, it is values to have a multiplication factor for some of the lipids if the data is preprocessed by LipidX (MESUT). If this is the case, then the "Multiply MS1 columns by a factor (for LipidX users)" checkbox should be marked. A file containing every classes which intensity values needs to be multiplied should be included by using the "Browse ..." button below "Choose the list of classes to be multiplied (.csv-file)" and selecting the file. Finally a multiplication factor should be selected in the "Set multiplication factor" field, which specify the number to multiply each classes with. With our data set, we don't need this field, so we'll leave the "Multiply MS1 columns by a factor (for LipidX users)" checkbox unmarked.
+In some cases, it is necessary to have a multiplication factor for some of the lipids if the data is preprocessed by LipidX (MESUT). If this is the case, then the "Multiply MS1 columns by a factor (for LipidX users)" checkbox should be marked. A file containing every classes which intensity values needs to be multiplied should be included by using the "Browse..." button below "Choose the list of classes to be multiplied (.csv-file)" and selecting the file. Finally a multiplication factor should be selected in the "Set multiplication factor" field, which specify the number to multiply each classes with. With our data set, we don't need this field, so we'll leave the "Multiply MS1 columns by a factor (for LipidX users)" checkbox unmarked.
 
 ###Spike ISTD
 In the next section, we'll specify parameters for spike ISTD, which are defined in the two databases (see the parameter vignette for more info). We'll set the value to 2 (default).
 
-### zero threshold
+###Zero threshold
 The last parameter is a threshold for rounding to zero for mol% species (see the parameter vignette for more info). We'll set that to 0.25 (default)
 
 
@@ -118,7 +116,7 @@ indexDataOH.csv (MESUT)
 
 
 
-###plots
+###Plots
 The plots are saved into two folders: one called "pre" which contains intensity QC plots and one called "post" which contains quantification QC plots. (MAYBE CALL IN intensity_QC AND quantification_QC).
 
 
