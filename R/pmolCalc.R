@@ -104,6 +104,9 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
       # pmol_isSpecie = spikeISTD(uL) x ISTD_CONC
       pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"]
+      if(length(pmol_isSpecie) > 1){
+        stop("ERROR: Check that no duplicates of lipids/ISTD's exists in both the endogene and ISTD database.")
+      }
       #print(database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"])
 
       # pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION) x pmol(isSpecie) )
@@ -123,7 +126,6 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
           message("Original R error message:")
           message(cond)
         })
-
       #data[i,paste0("PMOL_PREC_",unlist(strsplit(MS1x, "_"))[2])] <- pmol_calc
       data[i,paste0("PMOL_SAMPLE_",unlist(strsplit(MS1x, "_"))[2])] <- pmol_calc
     }
