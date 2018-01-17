@@ -9,7 +9,6 @@
 #' @param correctionList a file containing a list of sum compositions to be multiplied for in the MS1 column values (intensity values)
 #' @param multiply a parameter used to multiply intensity values in the MS1 column on selected sum compositions. The parameter is useful if lipidX is used to obtain the intensity data derived from overlapping MS scan ranges. The sum composition are selected by the user and should appear in a correction list file that is used as argument for the correctionList parameter.
 #' @export
-#mergeDataSets <- function(dataList, database, userSpecifiedColnames = NULL, correctionList = NULL, multiply = NULL){
 mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, correctionList = NULL, multiply = NULL){
 
   # merge endogene_lipid_db and ISTD_lipid_db together
@@ -53,7 +52,7 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
 
 
-  # select user specified columns of MS2ix columns from database (To be used in the "#### Filtering based on 1/0 columns in database" in this function)
+  # select user specified columns of MS2ix columns from database
   MS2ix_userCols_database <- c()
   for(userCol in as.character(MS2ix_cols)){
     MS2ix_userCols_database <- append(MS2ix_userCols_database, colnames(database)[grep(userCol,colnames(database))])
@@ -122,17 +121,6 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
       }
     }
 
-
-    #if(grepl("POS", basename(dataPath))){
-    #  mode <- "POS"
-    #}else{
-    #  if(grepl("NEG", basename(dataPath))){
-    #    mode <- "NEG"
-    #  }else{
-    #    mode <- NA
-    #  }
-    #}
-
     # insert mode column into selectedCols
     selectedCols$MODE <- mode
 
@@ -179,62 +167,9 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   }
 
 
-if(FALSE){
-  #### Filtering based on 1/0 columns in database
-
-  # find all class names in database
-  classNames <- unique(database[,dataColnames$SUM_COMPOSITION])
-
-
-  # for each class in database, chose all species in mergedData
-  for(className in classNames){
-    # select relevant columns (based on the 1/0's in the database)
-    col_index <- (database[database[,dataColnames$SUM_COMPOSITION] == className, MS2ix_userCols_database] == 1)[1,] # the [1,] ensures that only the first row of columns is chosen (if there are multiple rows with the same className in the SUM_COMPOSITION column)
-
-    selectedColNames <- MS2ix_userCols_database[col_index]
-
-
-
-    if(length(selectedColNames) > 0){ # avoid error by ensuring that there exists some selected columns.
-
-      # use selectedColNames to select all relevant columns for each sample in mergedDataSet
-      for(k in 1:(ncol(MS1x_tmp))){
-
-
-        if(k <= 9){
-
-
-          selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_0",k))
-          #selectedColRows <- mergedDataSet[mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, paste0(selectedColNames, "_0",k)]
-          #print(paste0("nrow: ",nrow(selectedColRows)))
-          #print(paste0("data: ",selectedColRows))
-        }else{
-          selectedColRows <- subset(mergedDataSet, mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_",k))
-
-        }
-
-
-        if(nrow(selectedColRows) > 0){ # only check condition on column-row values if selectedColRows actually contains rows
-        #if(!is.null(selectedColRows)){ # only check condition on column-row values if selectedColRows actually contains rows
-          for(i in 1:nrow(selectedColRows)){
-            # check that all relevant columns (selected by 1/0 in the database) has a value > 0 for a given row. If at least one has a value <= 0, then this row == 0 for all columns.
-            if(any(selectedColRows[i,] <= 0)){
-              selectedColRows[i,] <- 0
-            }
-          }
-          # set MS1x to 0 if all rows for the 1. columns in a given class has values <= 0. (The remaining columns are not neccesary to check, since checks and modifications of all columns for each row have been made).
-          if(all(selectedColRows[,1] <= "0")){
-            mergedDataSet[mergedDataSet[,dataColnames$SUM_COMPOSITION] == className, colnames(MS1x_tmp)[k]] <- 0
-          }
-        }
-      }
-    }
-  }
-}
-
   #### Test whether all MS1x and MS2x > 0 for all internal standards
+
   # merge MS1x and MS2x cols together
-  #MS1x_MS2x_cols <- colnames(MS1x_tmp) # for only MS1 test purposes, until we get better data.
   MS1x_MS2x_cols <- c(colnames(MS1x_tmp), MS2ix_userCols)
 
   # select rows with internal standards
@@ -245,64 +180,24 @@ if(FALSE){
 
 
   # remove any non-MS1x and MS2ix columns (MASS columns) except from SUM_COMPOSITION, which is used for matching isData with ISTD_lipid_db
-  #isData <- isData[, c(which(colnames(isData) == "NAME"), grep("_",colnames(isData)))]
   isData <- isData[, grep(paste0("^", dataColnames$SUM_COMPOSITION ,"|_"),colnames(isData))]
 
 
   # match isData with ISTD_lipid_db
   ISTD_matched_w_isData <- ISTD_lipid_db[match(isData[, dataColnames$SUM_COMPOSITION], ISTD_lipid_db[, dataColnames$SUM_COMPOSITION]),]
 
-  #print(as.character(dataColnames[, grep("^MS1|^MS2", colnames(dataColnames))]))
   # remove all columns except MS1x and MS2ix
   ISTD_matched_w_isData <- ISTD_matched_w_isData[, as.character(dataColnames[, grep("^MS1|^MS2", colnames(dataColnames))])]
 
-  #ISTD_matched_w_isData <- ISTD_matched_w_isData[, ]
 
-
-  #print(ISTD_matched_w_isData[, dataColnames$SUM_COMPOSITION])
-  #print(isData[, dataColnames$SUM_COMPOSITION])
-  #print(colnames(ISTD_matched_w_isData))
-  #print(colnames(isData))
   for(col in colnames(ISTD_matched_w_isData)){
-    #print(col)
     tmp_col <- ISTD_matched_w_isData[, grep(paste0("^",col),colnames(ISTD_matched_w_isData))]
     if(sum(tmp_col) != 0){
-      #print(isData[tmp_col, grep(paste0("^", col), colnames(isData))])
       if(!all(isData[tmp_col, grep(paste0("^", col), colnames(isData))] != 0)){
-        #stop(paste0("ERROR: One or more internal standards in the ", col ," column contains 0 in MS1/MS2 column(s). Please ensure that this column contains the right 1/0 status for each internal standard in the ISTD lipid database."))
+        stop(paste0("ERROR: One or more internal standards in the ", col ," column contains 0 in MS1/MS2 column(s). Please ensure that this column contains the right 1/0 status for each internal standard in the ISTD lipid database."))
       }
     }
-
-    #print(isData[tmp_col, grep(paste0("^", col), colnames(isData))])
-
-
-    #if(isData[tmp_col, grep(paste0("^", col), colnames(isData))]){
-    #  stop("ERROR: fejl fe jlfe")
-
-    #}
   }
-
-
-  #print(isData != 0)
-
-  # check 0 in MS1x_MS2_cols for internal standards
-  #print(head(ISTD_lipid_db))
-
-  # Only check columns in isData that has status 1 in ISTD_lipid_db for the respective columns.
-
-
-
-  # match
-
-
-
-
-  #if(!all(isData != 0)){
-  #  stop("ERROR: One or more internal standards contain 0 in MS1/MS2 column(s)")
-  #}
-  #print(isData)
-  #print(isData != 0)
-
 
 
   return(mergedDataSet)

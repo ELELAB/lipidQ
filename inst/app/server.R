@@ -95,7 +95,7 @@ server <- function(input, output, session){
 
     # Analysis start
     dir.create(file.path(input$dir, "dataTables"))
-    mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, correctionList = list, multiply = input$multiplyPREC_value))
+    mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, correctionList = list, multiply = input$multiplyPREC_value), userSpecifiedColnames = userSpecifiedColnames)
     write.csv(mergedDataSets, file = paste0(input$dir,"/dataTables/mergedDataSets.csv"), quote = FALSE, row.names = F)
 
     if(input$QC_plots_MS1){
@@ -126,7 +126,7 @@ server <- function(input, output, session){
     write.csv(indexData[3], file = paste0(input$dir,"/dataTables/indexDataC.csv"), quote = FALSE, row.names = F)
     progress$set(value = 5)
 
-    classPmol_molPctClass <- lipidQuan:::compactOutput_pmolCalc(pmolCalculatedDataSet)
+    classPmol_molPctClass <- lipidQuan:::compactOutput_pmolCalc(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
     write.csv(classPmol_molPctClass, file = paste0(input$dir,"/dataTables/classPmol_molPctClass.csv"), quote=F, row.names = F)
     progress$set(value = 6)
 

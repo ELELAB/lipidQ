@@ -13,19 +13,9 @@ filterReplicates <- function(data, userSpecifiedColnames = NULL, numberOfReplica
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
 
-  #MS1x_names <- colnames(data)[grep(paste0("^",dataColnames$MS1x),colnames(data))] # names of all MS1x.* columns
-
-  # define MS1x columns and BLNK column (last MS1x column)
-  #if(!blnkReplicates){
-  #  BLNK <- MS1x_names[length(MS1x_names)] # name of BLNK column (last MS1x.* column)
-  #  MS1x_names <- MS1x_names[-length(MS1x_names)] # remove last column from MS1x_names since this is BLNK
-  #}
-
 
   # calculate number of samples
-  #numberOfSamples <- length(MS1x_names) / numberOfReplicates
   numberOfSamples <- length(colnames(data)) / numberOfReplicates
-  #print(numberOfSamples)
 
 
   # check whether number of replicates is true or not
@@ -36,13 +26,8 @@ filterReplicates <- function(data, userSpecifiedColnames = NULL, numberOfReplica
 
   # Check if instances are above threshold (numberOfInstancesThreshold) for all replicates for all samples
   for(i in 1:numberOfSamples){
-    #reps <- data[,MS1x_names[(i*numberOfReplicates-numberOfReplicates+1):(i*numberOfReplicates)]]
     reps <- data[,(i*numberOfReplicates-numberOfReplicates+1):(i*numberOfReplicates)]
-    # repsValid: if number of reps with values is valid; repsValid -> 1, else repsValid <- 0
     repsValid <- ifelse(rowSums(ifelse(reps >= thresholdValue, 1, 0)) >= numberOfInstancesThreshold, 1, 0)
-    #print(repsValid)
-    # insert zeros into data where the replicates of a given sample were not above the threshold (numberOfInstancesThreshold)
-    #data[repsValid == 0,MS1x_names[(i*numberOfReplicates-numberOfReplicates+1):(i*numberOfReplicates)]] <- 0
     data[repsValid == 0,(i*numberOfReplicates-numberOfReplicates+1):(i*numberOfReplicates)] <- 0
 
 

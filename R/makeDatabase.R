@@ -12,36 +12,23 @@ makeDatabase <- function(userSpecifiedColnames = NULL, DB_type){
   # find user specified columns of MS2ix column names -> MS2ix_userCols
   MS2ix_cols <- dataColnames[grep("^MS2",colnames(dataColnames))]
 
-
+  # TO BE CONTINUED ... SHOULD THIS BE IMPLEMENTED FOR THE FIRST VERSION???
   #DECONVOLUTION_cols <- dataColnames[grep("^DECONVOLUTION",colnames(dataColnames))]
 
 
 
   if(DB_type == "endo"){
     #### extract relevant column names from userSpecifiedColnames to database
-
-    #colnames_DB <- c(dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols))
     colnames_DB <- c(dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MS1x, as.character(MS2ix_cols), "QUAN_MODE", "QUAN_SCAN")
   }
   if(DB_type == "ISTD"){
-    #colnames_DB <- c(dataColnames$SUM_COMPOSITION, "isLP", dataColnames$MS1x, as.character(MS2ix_cols), dataColnames$QUAN_MODE, dataColnames$QUAN_SCAN, as.character(DECONVOLUTION_cols), "LOQ", "DISSOLVED_AMOUNT", "DF_INFUSION")
     colnames_DB <- c(dataColnames$SUM_COMPOSITION, "ISTD_CONC", dataColnames$MS1x, as.character(MS2ix_cols), "QUAN_MODE", "QUAN_SCAN", "LOQ", "DISSOLVED_AMOUNT", "DF_INFUSION")
   }
 
 
-  # make databae with extracted column names
+  # make database with extracted column names
   database <- data.frame(matrix(ncol = length(colnames_DB), nrow = 0))
   colnames(database) <- colnames_DB
 
   return(database)
 }
-
-#userSpecifiedColnames <- read.csv("inst/extdata/test/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE)
-#t<-makeDatabase(userSpecifiedColnames, DB_type = "ISTD")
-
-#endo_db <- read.csv("inst/extdata/test/endogene_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE)
-#head(endo_db)
-
-#ISTD_db <- read.csv("inst/extdata/test/ISTD_lipid_db.csv", stringsAsFactors = FALSE, header = TRUE)
-#head(ISTD_db)
-

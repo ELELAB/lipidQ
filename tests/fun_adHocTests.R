@@ -360,7 +360,7 @@ ISTD_lipid_db <- read.table("../testData/DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFac
 list <- read.table("../extdata/test/LQ_Training/MS1_DB/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
-t <- sort_is(t)
+t <- sort_is(t, userSpecifiedColnames = list)
 t <- filterDataSet(data = t, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
 t <- pmolCalc(data = t,endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25)
 
@@ -398,7 +398,7 @@ ISTD_lipid_db <- read.table("inst/extdata/LipidQ_DataBase/ISTD_LP_DB_MS1_v1.csv"
 list <- read.table("inst/extdata/LipidQ_DataBase/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
-t <- sort_is(t)
+t <- sort_is(t, userSpecifiedColnames = list)
 t <- filterDataSet(data = t, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
 t <- pmolCalc(data = t,endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25)
 

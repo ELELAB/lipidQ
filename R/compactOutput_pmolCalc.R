@@ -11,15 +11,13 @@ compactOutput_pmolCalc <- function(data, userSpecifiedColnames = NULL){
   dataColnames <- getColnames(userSpecifiedColnames)
 
 
-  # create the new data set with SUM_COMPOSITION
-  #classPmol_molPctClass <- subset(data, select = c(dataColnames$SUM_COMPOSITION))
+  # create the new data set initialized with SUM_COMPOSITION
   classPmol_molPctClass <- data.frame(x = data[,dataColnames$SUM_COMPOSITION], stringsAsFactors = FALSE)
-
   colnames(classPmol_molPctClass) <- dataColnames$SUM_COMPOSITION[1]
+
 
   # remove numbers in the SUM_COMPOSITION column, so only the class name is used for SUM_COMPOSITION.
   for(i in 1:nrow(data)){
-    #classPmol_molPctClass$NAME[i] <- unlist(strsplit(classPmol_molPctClass$NAME[i], " "))[[1]]
     classPmol_molPctClass[i, dataColnames$SUM_COMPOSITION] <- unlist(strsplit(classPmol_molPctClass[i,dataColnames$SUM_COMPOSITION], " "))[[1]]
   }
 
@@ -30,9 +28,9 @@ compactOutput_pmolCalc <- function(data, userSpecifiedColnames = NULL){
 
 
   #### sum filtered values for each classes for each sample after BLNK subtraction
+
   # find all unique class names (without numbers)
   exData <- data[-grep("is",data[,dataColnames$SUM_COMPOSITION]),]
-
   classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",data[1:nrow(exData),dataColnames$SUM_COMPOSITION])
   classNames <-unique(classNames)
 
@@ -52,10 +50,10 @@ compactOutput_pmolCalc <- function(data, userSpecifiedColnames = NULL){
   }
 
 
-
+  # Combine ^CLASS_PMOL_SUBT_PMOL_ , ^MOL_PCT_CLASS_SUBT_PMOL_ & ^CLASS_FILTERED together
   classPmol_molPctClass <- cbind( classPmol_molPctClass, data[,c(colnames(data)[grep("^CLASS_FILTERED",colnames(data))])] )
 
-  # remove duplicates of SUM_COMPOSITION
+  # remove rows containing duplicates of SUM_COMPOSITION
   classPmol_molPctClass <- classPmol_molPctClass[!duplicated(classPmol_molPctClass[,dataColnames$SUM_COMPOSITION]),]
 
 

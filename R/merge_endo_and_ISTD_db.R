@@ -4,7 +4,9 @@
 #' @param endogene_lipid_db the endogene lipid database
 #' @param ISTD_lipid_db the ISTD lipid database
 merge_endo_and_ISTD_db <- function(endogene_lipid_db, ISTD_lipid_db){
+
   #### merge endogene_lipid_db and ISTD_lipid_db together
+
   # create database for merging containing all unique colnames from endogene & ISTD db
   database <- unique(colnames(endogene_lipid_db),colnames(ISTD_lipid_db))
 

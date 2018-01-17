@@ -9,7 +9,6 @@ makeIndex_OH_DB_C <- function(data, userSpecifiedColnames = NULL){
   # get colnames for data
   dataColnames <- getColnames(userSpecifiedColnames)
 
-  #print(dataColnames)
   # only use experimental data (exclude all internal standards)
   exData <- data[-grep("^is",data[,dataColnames$SUM_COMPOSITION]),]
 
@@ -87,11 +86,3 @@ makeIndex_OH_DB_C <- function(data, userSpecifiedColnames = NULL){
 
 }
 
-
-#t <- read.table("inst/extdata/test/results/old/pmolCalc.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",") # for test purposes
-
-#test <- makeIndex_OH_DB_C(t) # for test purposes
-#test[1]
-#test[2]
-#test[3]
-#head(test, n = 200) # for test purposes

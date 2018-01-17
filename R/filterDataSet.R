@@ -7,7 +7,6 @@
 #' @param ISTD_lipid_db the ISTD lipid database
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @export
-#filterDataSet <- function(data, database, userSpecifiedColnames = NULL){
 filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL){
 
   # merge endogene_lipid_db and ISTD_lipid_db together
@@ -17,10 +16,7 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
   dataColnames <- getColnames(userSpecifiedColnames)
 
 
-  # if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in the database starts with a [SPACE], remove this row
-  #database <- rmSpaceInBeginning(database, userSpecifiedColnames)
-
-  # for each row, check if either the NAME or SPECIE column begins with a [SPACE] and remove this [SPACE] if true.
+  # for each row, check if either the NAME or SPECIE column begins with a [SPACE] and remove this [SPACE] if true. (TO BE CONTINUED ... Nodvendigt?)
   database[,dataColnames$SUM_COMPOSITION] <- ifelse(substring(database[, dataColnames$SUM_COMPOSITION],1,1) == " ", substring(database[, dataColnames$SUM_COMPOSITION], 2), database[, dataColnames$SUM_COMPOSITION])
 
 
@@ -28,7 +24,6 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
 
   #### select relevant columns
   data_tmp <- data[,c(dataColnames$SUM_COMPOSITION, dataColnames$PPM, dataColnames$MASS_TO_CHARGE, dataColnames$SPECIE_COMPOSITION, "MODE", dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$OH_GROUP)]
-
   MS1x_tmp <- data[,c(colnames(data)[grep(paste0("^", dataColnames$MS1x),colnames(data))])]
 
   # find user specified columns of MS2ix column names -> MS2ix_userCols
@@ -45,10 +40,10 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
 
 
 
-if(FALSE){
+if(TRUE){ # TO BE CONTINUED ... IF FUTURE ERRORS OCCUR, THIS COULD BE A CAUSE, SINCE IT HAS VERY RECENTLY BEEN ACTIVATED.
   #### Filtering based on 1/0 columns in database
 
-  # select user specified columns of MS2ix columns from database (To be used in the "#### Filtering based on 1/0 columns in database" in this function)
+  # select user specified columns of MS2ix columns from database
   MS2ix_userCols_database <- c()
   for(userCol in as.character(MS2ix_cols)){
     MS2ix_userCols_database <- append(MS2ix_userCols_database, colnames(database)[grep(userCol,colnames(database))])
@@ -58,7 +53,7 @@ if(FALSE){
   classNames <- unique(database[,dataColnames$SUM_COMPOSITION])
 
 
-  # for each class in database, chose all species in mergedData
+  # for each class in database, choose all species in data
   for(className in classNames){
     # select relevant columns (based on the 1/0's in the database)
     col_index <- (database[database[,dataColnames$SUM_COMPOSITION] == className, MS2ix_userCols_database] == 1)[1,] # the [1,] ensures that only the first row of columns is chosen (if there are multiple rows with the same className in the SUM_COMPOSITION column)
@@ -77,9 +72,6 @@ if(FALSE){
 
 
           selectedColRows <- subset(data, data[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_0",k))
-          #selectedColRows <- data[data[,dataColnames$SUM_COMPOSITION] == className, paste0(selectedColNames, "_0",k)]
-          #print(paste0("nrow: ",nrow(selectedColRows)))
-          #print(paste0("data: ",selectedColRows))
         }else{
           selectedColRows <- subset(data, data[,dataColnames$SUM_COMPOSITION] == className, select = paste0(selectedColNames, "_",k))
 
@@ -87,7 +79,6 @@ if(FALSE){
 
 
         if(nrow(selectedColRows) > 0){ # only check condition on column-row values if selectedColRows actually contains rows
-          #if(!is.null(selectedColRows)){ # only check condition on column-row values if selectedColRows actually contains rows
           for(i in 1:nrow(selectedColRows)){
             # check that all relevant columns (selected by 1/0 in the database) has a value > 0 for a given row. If at least one has a value <= 0, then this row == 0 for all columns.
             if(any(selectedColRows[i,] <= 0)){
@@ -113,19 +104,13 @@ if(FALSE){
   data[, paste0(dataColnames$SPECIE_COMPOSITION, ".GLOBAL")] <- database[match(data[,dataColnames$SUM_COMPOSITION], database[,dataColnames$SUM_COMPOSITION]), dataColnames$SPECIE_COMPOSITION]
 
 
-
   # remove specie names that are not included in database
   GLOBAL.SUM_COMPOSITION.CHECK <- database[match(data[,dataColnames$SUM_COMPOSITION], database[,dataColnames$SUM_COMPOSITION]), dataColnames$SUM_COMPOSITION] # transfer SUM_COMPOSITION col from database to data
   data <- data[!is.na(GLOBAL.SUM_COMPOSITION.CHECK),] # remove all rows whose names were not found in database
 
 
   # only include rows that have been monitored with the specified MODE (POS/NEG) in the database column
-  #print(dim(data))
-
-  #print(database[match(data[, dataColnames$SUM_COMPOSITION], database[,dataColnames$SUM_COMPOSITION]),"QUAN_MODE"])
-  #print(data[,"MODE"])
   data <- data[data[,"MODE"] == database[match(data[, dataColnames$SUM_COMPOSITION], database[,dataColnames$SUM_COMPOSITION]), "QUAN_MODE"],]
-  #print(dim(data))
 
 
   #### create SPECIE_COMPOSITION.ALL col: consists of all species within specie name seperated by "|", e.g. DAG 16:1-16:1|DAG 18:1-14:1

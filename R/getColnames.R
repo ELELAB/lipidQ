@@ -30,13 +30,6 @@ getColnames <- function(userSpecifiedColnames = NULL){
     }
   }
 
-  # default colnames
-  else{
-    dataColnames <- data.frame(PPM = "ERROR", CLASS = "CLASS", C_CHAIN = "LENGTH", DOUBLE_BOND = "DB", SUM_COMPOSITION = "NAME", SPECIE_COMPOSITION = "SPECIE", MASS_TO_CHARGE = "MASS", OH_GROUP = "OH_GROUP", ISTD = "isLP", MS1x = "PREC", MS2ax = "FRAG1", MS2bx = "FRAG2", MS2cx = "FRAG3", MS2dx = "FA1", MS2ex = "FA2", MS2fx = "FA3", MS2gx = "NLS", QUAN_MODE = "QUAN_MODE", QUAN_SCAN = "QUAN_SCAN", DECONVOLUTION_1 = "DECONVOLUTION_MODE", DECONVULOTION_2 = "DECONVOLUTION_FRAG1", DECONVOLUTION_3 = "DECONVOLUTION_FA1", DECONVOLUTION_4 = "DECONVOLUTION_FA2", MODE = "MODE", numberOfSamples = "numberOfSamples", numberOfReplicates = "numberOfReplicates", stringsAsFactors = FALSE)
-  }
-
-
-
 
   return(dataColnames)
 }

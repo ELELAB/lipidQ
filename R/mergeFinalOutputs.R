@@ -18,7 +18,6 @@ mergeFinalOutputs <- function(dataList){
   mergedOutput <- data.frame("mol." = uniqueRows)
 
 
-  #firstRun <- TRUE
   for(i in 1:length(dataList)){
     data <- readFile(dataList[i])
 
