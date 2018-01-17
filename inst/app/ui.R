@@ -86,7 +86,7 @@ ui <- fluidPage(
                           #downloadButton("downloadData", "Download"), # TO BE CONTINUED
                           br(),
                           br(),
-                          textOutput("validateFields"),
+                          textOutput("validateFields_quant"),
                           textOutput("analysisDone")
 
                         ),
@@ -108,6 +108,7 @@ ui <- fluidPage(
 
                           br(),
                           br(),
+                          textOutput("validateFields_merging"),
                           textOutput("finalOutputMergingDone")
                         ),
                         mainPanel()
@@ -131,7 +132,9 @@ ui <- fluidPage(
 
 
                           actionButton("createColnamesTemplate", "Create column template file"),
+                          textOutput("validateFields_globalOptions_userSpec"),
                           textOutput("createColTemplateDone"),
+
 
 
 
@@ -149,7 +152,7 @@ ui <- fluidPage(
 
 
                           actionButton("createDatabase", "Create database"),
-                          textOutput("noUserSpecifiedColnames"),
+                          textOutput("validateFields_globalOptions_db"),
                           textOutput("createDatabaseDone")
                         ),
                         mainPanel()

@@ -2,16 +2,45 @@
 #' @import shiny
 server <- function(input, output, session){
 
+  #### Check that all required fields are specified
 
-  output$validateFields <- renderText({
+  # quantification
+  output$validateFields_quant <- renderText({
     validate(
+
       need(!is.null(input$dataList), "Please select input data set"),
       need(!is.null(input$endogene_lipid_db), "Please select endogene database"),
       need(!is.null(input$ISTD_lipid_db), "Please select ISTD database"),
-      need(!is.null(input$userSpecifiedColnames), "Please select user specified column names file")
+      need(!is.null(input$userSpecifiedColnames), "Please select user specified column names file"),
+      need(input$userSpecifiedColnames != "", "Please select filepath for output folder")
     )
   })
 
+  # merging of final outputs
+  output$validateFields_merging <- renderText({
+    validate(
+      need(!is.null(input$finalOutputList), "Please select the input data to be merged"),
+      need(input$dirFinalOutputs != "", "Please select filepath for output folder")
+    )
+  })
+
+
+  # global options
+  output$validateFields_globalOptions_userSpec <- renderText({
+    validate(
+      need(input$numberOfMS2ix != "", "Please select number of MS2 columns (<= 20)"),
+      need(as.numeric(input$numberOfMS2ix) <= 20 | input$numberOfMS2ix == "", "The number of MS2 columns can not exceed 20"),
+      need(input$dirColnamesTemplate != "", "Please select filepath for output folder")
+    )
+  })
+
+  # global options
+  output$validateFields_globalOptions_db <- renderText({
+    validate(
+      need(!is.null(input$userSpecifiedColnamesCreateDatabase), "Please select user specified column names file"),
+      need(input$dirDatabase != "", "Please select filepath for output folder")
+    )
+  })
 
 
 
@@ -175,6 +204,8 @@ server <- function(input, output, session){
     # This function runs when the "Merge Final Output Data Sets" button is triggered by the user
     #
 
+    if(!is.null(input$finalOutputList) & input$dirFinalOutputs != ""){
+
     progress <- Progress$new(session, min=0, max=1)
     on.exit(progress$close())
 
@@ -200,12 +231,15 @@ server <- function(input, output, session){
     output$finalOutputMergingDone <- renderText({
       paste("Merging done!")
     })
+    }
   })
+
+
   observeEvent(input$createColnamesTemplate, {
     #
     #
     #
-
+    if(input$numberOfMS2ix != "" & input$dirColnamesTemplate != ""){
     progress <- Progress$new(session, min=0, max=1)
     on.exit(progress$close())
 
@@ -225,13 +259,17 @@ server <- function(input, output, session){
       paste("Creation of column name template done!")
     })
 
+    }
+
 
   })
+
   observeEvent(input$createDatabase, {
     #
     #
     #
 
+    if(!is.null(input$userSpecifiedColnamesCreateDatabase) & input$dirDatabase != ""){
     progress <- Progress$new(session, min=0, max=1)
     on.exit(progress$close())
 
@@ -265,6 +303,7 @@ server <- function(input, output, session){
       })
     }
 
+    }
 
   })
 
