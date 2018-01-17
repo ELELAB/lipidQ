@@ -86,6 +86,7 @@ ui <- fluidPage(
                           #downloadButton("downloadData", "Download"), # TO BE CONTINUED
                           br(),
                           br(),
+                          textOutput("validateFields"),
                           textOutput("analysisDone")
 
                         ),
@@ -126,10 +127,11 @@ ui <- fluidPage(
                           #textInput("numberOfDECONVOLUTION_x", "Write the number of DECONVOLUTION columns in the input data", "4"),
 
                           br(),
-                          textInput("dirColnamesTemplate", "Paste the filepath for the column template file to be saved.", "/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/"),
-                          textOutput("createColTemplateDone"),
+                          textInput("dirColnamesTemplate", "Paste the filepath for the column template file to be saved.", "/data/user/andre/lipidomics/lipidQuan/"),
+
 
                           actionButton("createColnamesTemplate", "Create column template file"),
+                          textOutput("createColTemplateDone"),
 
 
 
@@ -142,12 +144,12 @@ ui <- fluidPage(
                           fileInput(inputId = "userSpecifiedColnamesCreateDatabase", label = "Choose list of colnames (.csv-file):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")),
 
-                          textInput("dirDatabase", "Paste the filepath for the database file to be saved.", "/data/user/andre/lipidomics/lipidQuan/inst/extdata/test/"),
+                          textInput("dirDatabase", "Paste the filepath for the database file to be saved.", "/data/user/andre/lipidomics/lipidQuan/"),
 
 
 
                           actionButton("createDatabase", "Create database"),
-
+                          textOutput("noUserSpecifiedColnames"),
                           textOutput("createDatabaseDone")
                         ),
                         mainPanel()

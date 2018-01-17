@@ -3,11 +3,27 @@
 server <- function(input, output, session){
 
 
+  output$validateFields <- renderText({
+    validate(
+      need(!is.null(input$dataList), "Please select input data set"),
+      need(!is.null(input$endogene_lipid_db), "Please select endogene database"),
+      need(!is.null(input$ISTD_lipid_db), "Please select ISTD database"),
+      need(!is.null(input$userSpecifiedColnames), "Please select user specified column names file")
+    )
+  })
+
+
+
+
 
   observeEvent(input$runAnalysis, {
     #
     # This function runs when then "Start Analysis" button is triggered by the user
     #
+
+    if(!is.null(input$dataList) & !is.null(input$endogene_lipid_db) & !is.null(input$ISTD_lipid_db) & !is.null(input$userSpecifiedColnames)){
+
+
 
     progress <- Progress$new(session, min=0, max=7)
     on.exit(progress$close())
@@ -18,6 +34,9 @@ server <- function(input, output, session){
 
 
     # load list of file paths representing input data used by the mergedDataSets() function
+
+
+
     dataList <- tryCatch(
       {
         dataList <- character(nrow(input$dataList))
@@ -76,13 +95,11 @@ server <- function(input, output, session){
     if(!is.null(input$userSpecifiedColnames)){
       userSpecifiedColnames <- input$userSpecifiedColnames
       userSpecifiedColnames <- read.table(userSpecifiedColnames$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
-    } else{
-      userSpecifiedColnames <- NULL
     }
 
 
     # load multiplyMS1 list
-    # MAYBE THE CHECKBOX FOR THIS FIELD IS NOT NECESSARY. IF THE BUTTON IS USED, THERE SHOULD AT LEAST BE IMPLEMENTED A WARNING, IF NO FILE IS CHOSEN, WHEN CHECKBOX = TRUE.
+    # TO BE CONTINUED ... MAYBE THE CHECKBOX FOR THIS FIELD IS NOT NECESSARY. IF THE BUTTON IS USED, THERE SHOULD AT LEAST BE IMPLEMENTED A WARNING, IF NO FILE IS CHOSEN, WHEN CHECKBOX = TRUE.
     if(input$multiplyMS1 == TRUE && !is.null(input$list)){
       list <- input$list
       list <- read.table(list$datapath, stringsAsFactors = FALSE, header = FALSE, sep = ",")$V1
@@ -147,7 +164,11 @@ server <- function(input, output, session){
     output$analysisDone <- renderText({
       paste("Quantification done!")
     })
+
+    }
+
   })
+
 
   observeEvent(input$runFinalOutputMerging, {
     #
@@ -222,24 +243,28 @@ server <- function(input, output, session){
     if(!is.null(input$userSpecifiedColnamesCreateDatabase)){
       userSpecifiedColnames <- input$userSpecifiedColnamesCreateDatabase
       userSpecifiedColnames <- read.table(userSpecifiedColnames$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+      print(input$DB_type)
+      newDatabase <- lipidQuan::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = input$DB_type)
+      if(input$DB_type == "endo"){
+        write.csv(newDatabase, file = paste0(input$dirDatabase,"/endogene_lipid_db.csv"), quote = FALSE, row.names = F)
+      }
+      if(input$DB_type == "ISTD"){
+        write.csv(newDatabase, file = paste0(input$dirDatabase,"/ISTD_lipid_db.csv"), quote = FALSE, row.names = F)
+      }
+      progress$set(value = 1)
+
+      output$createDatabaseDone <- renderText({
+        paste("Creation of chosen database done!")
+      })
+
     } else{
-      userSpecifiedColnames <- NULL
+      output$noUserSpecifiedColnames <- renderText({
+        paste("Please select a user specified column names file!")
+      })
     }
 
-    print(input$DB_type)
-    newDatabase <- lipidQuan::makeDatabase(userSpecifiedColnames, input$DB_type)
-    if(input$DB_type == "endo"){
-      write.csv(newDatabase, file = paste0(input$dirDatabase,"/endogene_lipid_db_TEST.csv"), quote = FALSE, row.names = F)
-    }
-    if(input$DB_type == "ISTD"){
-      write.csv(newDatabase, file = paste0(input$dirDatabase,"/ISTD_lipid_db_TEST.csv"), quote = FALSE, row.names = F)
-    }
-    progress$set(value = 1)
-
-
-    output$createDatabaseDone <- renderText({
-      paste("Creation of chosen database done!")
-    })
 
   })
 
