@@ -353,7 +353,6 @@ source("R/merge_endo_and_ISTD_db.R")
 source("R/filterReplicates.R")
 
 
-
 dataPathTest <- read.table("../testData/dataList.txt", stringsAsFactors = FALSE)[,1]
 endogene_lipid_db <- read.table("../testData/DB/LP_DB_MS1_DAGMS2-TAG_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
 ISTD_lipid_db <- read.table("../testData/DB/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
@@ -363,6 +362,8 @@ t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_d
 t <- sort_is(t, userSpecifiedColnames = list)
 t <- filterDataSet(data = t, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
 t <- pmolCalc(data = t,endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25)
+
+
 
 ISTD_lipid_db$ISTD_CONC
 ISTD_lipid_db$NAME
@@ -387,7 +388,9 @@ source("R/rmSpaceInBeginning.R")
 source("R/getColnames.R")
 source("R/merge_endo_and_ISTD_db.R")
 source("R/filterReplicates.R")
-
+source("R/makeIndex_OH_DB_C.R")
+source("R/compactOutput_pmolCalc.R")
+source("R/makeFinalOutput.R")
 
 
 
@@ -408,4 +411,6 @@ t_makeIndex <- makeIndex_OH_DB_C(t, userSpecifiedColnames = list)
 #write.csv(t[[2]],"../extdata/validation/indexDataDB.csv", quote = FALSE, row.names = FALSE)
 #write.csv(t[[3]],"../extdata/validation/indexDataC.csv", quote = FALSE, row.names = FALSE)
 
+classPmol_molPctClass <- compactOutput_pmolCalc(data = t, list)
+t <- makeFinalOutput(classPmol_molPctClass, t)
 

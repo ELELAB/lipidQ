@@ -12,6 +12,7 @@ makeIndex_OH_DB_C <- function(data, userSpecifiedColnames = NULL){
   # only use experimental data (exclude all internal standards)
   exData <- data[-grep("^is",data[,dataColnames$SUM_COMPOSITION]),]
 
+
   # find all filter columns (same amount as the amount of samples), which contains the values to be summed
   filterCols <- colnames(exData)[grep("FILTERED",colnames(exData))]
 
