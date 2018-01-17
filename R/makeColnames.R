@@ -25,7 +25,7 @@ makeColnames <- function(numberOfMS2ix = 7, numberOfDECONVOLUTION_x = 4){
   #}
 
 
-  defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "ISTD", "MS1x", MS2ix, "MODE")
+  defaultColnames <- c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "OH_GROUP", "MS1x", MS2ix)
 
   # create data.frame for user specified colnames
   userSpecifiedColnames <- matrix(ncol = length(defaultColnames), nrow = 1)
