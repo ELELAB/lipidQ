@@ -59,10 +59,10 @@ ui <- fluidPage(
                           br(),
 
                           # spikeISTD
-                          numericInput("spikeISTD", "Spike ISTD (uL):", 2, min = 1, max = 100),
+                          numericInput("spikeISTD", "Spike ISTD (uL):", NULL, min = 1, max = 100),
 
                           # Threshold for rounding down to zero for mol% species
-                          numericInput("zeroThresh", "Threshold for rounding down to zero for mol% species:", 0.25, min = 0, max = 10),
+                          numericInput("zeroThresh", "Threshold for rounding down to zero for mol% species:", 0.001, min = 0, max = 10),
 
                           br(),
                           checkboxInput("QC_plots_MS1", "Create QC plots of MS1 intensity data", FALSE),
@@ -142,7 +142,9 @@ ui <- fluidPage(
                           br(),
                           br(),
                           h4("Create new database file"),
-                          radioButtons("DB_type", "Database Type", c("endogene"="endo", "ISTD"="ISTD")),
+                          #radioButtons("DB_type", "Database Type", c("endogene"="endo", "ISTD"="ISTD")),
+                          checkboxInput("DB_type_endo", "Create QC plots of MS1 intensity data", FALSE),
+                          checkboxInput("DB_type_ISTD", "Create QC plots of class pmol data", FALSE),
 
                           fileInput(inputId = "userSpecifiedColnamesCreateDatabase", label = "Choose list of colnames (.csv-file):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")),

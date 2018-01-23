@@ -12,7 +12,10 @@ server <- function(input, output, session){
       need(!is.null(input$endogene_lipid_db), "Please select endogene database"),
       need(!is.null(input$ISTD_lipid_db), "Please select ISTD database"),
       need(!is.null(input$userSpecifiedColnames), "Please select user specified column names file"),
-      need(input$userSpecifiedColnames != "", "Please select filepath for output folder")
+      need(input$spikeISTD != "", "Please specify spike ISTD"),
+      need(as.numeric(input$spikeISTD) >= 1 & input$spikeISTD != "", "Spike ISTD has to greater than 0"),
+      # TO BE CONTINUED ... GIVER BEGGE MEDDELSER, SKAL KUN VAERE EN AD GANGEN. NAAR DET VIRKER, LAV DET SAA OGSAA VED OBSERVE_EVENT, SAA DEN KAN BLOKKE FOR START.
+      need(input$dir != "", "Please select filepath for output folder")
     )
   })
 
@@ -50,7 +53,7 @@ server <- function(input, output, session){
     # This function runs when then "Start Analysis" button is triggered by the user
     #
 
-    if(!is.null(input$dataList) & !is.null(input$endogene_lipid_db) & !is.null(input$ISTD_lipid_db) & !is.null(input$userSpecifiedColnames)){
+    if(!is.null(input$dataList) & !is.null(input$endogene_lipid_db) & !is.null(input$ISTD_lipid_db) & !is.null(input$userSpecifiedColnames) & input$dir != ""){
 
 
 
@@ -180,7 +183,7 @@ server <- function(input, output, session){
     if(input$QC_plots_pmol){
       dir.create(file.path(input$dir, "QC"))
       dir.create(file.path(input$dir, "QC/post"))
-      lipidQuan:::plotQC_totalLipids(data = classPmol_molPctClass, userSpecifiedColnames = list, pathToOutput = paste0(input$dir, "/QC/post/"))
+      lipidQuan:::plotQC_totalLipids(data = classPmol_molPctClass, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC/post/"))
     }
 
 
@@ -239,7 +242,7 @@ server <- function(input, output, session){
     #
     #
     #
-    if(input$numberOfMS2ix != "" & input$dirColnamesTemplate != ""){
+    if(input$numberOfMS2ix != "" & as.numeric(input$numberOfMS2ix) <= 20 & input$dirColnamesTemplate != ""){
     progress <- Progress$new(session, min=0, max=1)
     on.exit(progress$close())
 
@@ -283,13 +286,17 @@ server <- function(input, output, session){
       userSpecifiedColnames <- read.table(userSpecifiedColnames$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 
-      print(input$DB_type)
-      newDatabase <- lipidQuan::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = input$DB_type)
-      if(input$DB_type == "endo"){
-        write.csv(newDatabase, file = paste0(input$dirDatabase,"/endogene_lipid_db.csv"), quote = FALSE, row.names = F)
+      #print(input$DB_type)
+      #newDatabase <- lipidQuan::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = input$DB_type)
+      #if(input$DB_type == "endo"){
+      if(input$DB_type_endo){
+        newDatabase_endo <- lipidQuan::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = "endo")
+        write.csv(newDatabase_endo, file = paste0(input$dirDatabase,"/endogene_lipid_db.csv"), quote = FALSE, row.names = F)
       }
-      if(input$DB_type == "ISTD"){
-        write.csv(newDatabase, file = paste0(input$dirDatabase,"/ISTD_lipid_db.csv"), quote = FALSE, row.names = F)
+      #if(input$DB_type == "ISTD"){
+      if(input$DB_type_ISTD){
+        newDatabase_ISTD <- lipidQuan::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = "ISTD")
+        write.csv(newDatabase_ISTD, file = paste0(input$dirDatabase,"/ISTD_lipid_db.csv"), quote = FALSE, row.names = F)
       }
       progress$set(value = 1)
 
