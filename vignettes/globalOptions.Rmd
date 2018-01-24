@@ -25,16 +25,33 @@ The global options operation tab in the LipiqQuan GUI makes it possile to create
 
 ### Reset Database templates
 In order to create/reset a user specified column names template file, the user simply needs to do the following four steps:
+
 1. Specify which database type to create (endogene database or ISTD database)
+
 2. Import the user specified column names file for the project, so that the new database will have these column names.
+
 3. Specify the path to where the template file should be saved
+
 4. Press 'Create column template file'
 
 
 ### Reset column names template
 In order to create/reset a user specified column names template file, the user simply needs to do the following three steps:
-1. Specify the number of MS2 columns
-2. Specify the path to where the template file should be saved
-3. Press 'Create column template file'
+
+#####1. Specify the number of MS2 columns
+The number written in this field will only represent the different types of MS2 columns and therefore columns related to a specific MS2 will not be included in this number. For instance, for the following columns:
+
+"MASSFRAG1", "FRAG1.mE504_POS_01.raw", "FRAG1.mE504_POS_02.raw", "FRAG1.mE504_POS_03.raw", "FRAG1.mE504_POS_04.raw", "FRAG1.mE504_POS_05.raw"
+"MASSFRAG2", "FRAG2.mE504_POS_01.raw", "FRAG2.mE504_POS_02.raw", "FRAG2.mE504_POS_03.raw", "FRAG2.mE504_POS_04.raw", "FRAG2.mE504_POS_05.raw"
+"MASSFA1", "FA1.mE504_POS_01.raw", "FA1.mE504_POS_02.raw", "FA1.mE504_POS_03.raw", "FA1.mE504_POS_04.raw", "FA1.mE504_POS_05.raw"
+"MASSFA2", "FA2.mE504_POS_01.raw", "FA2.mE504_POS_02.raw", "FA2.mE504_POS_03.raw", "FA2.mE504_POS_04.raw", "FA2.mE504_POS_05.raw" 
+
+, the number of MS2 columns is 4, since columns such as MASSFRAG1, FRAG1.mE504_POS_01.raw, FRAG1.mE504_POS_02.raw etc. belongs to FRAG1, columns such as MASSFRAG2, FRAG2.mE504_POS_01.raw, FRAG2.mE504_POS_02.raw etc. belongs to FRAG2 and so on.
+
+
+The maximum numbers of MS2 columns defined in this way can not exceed 20. 
+
+#####2. Specify the path to where the template file should be saved
+#####3. Press 'Create column template file'
 
 

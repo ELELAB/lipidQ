@@ -40,7 +40,7 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
 
 
 
-if(TRUE){ # TO BE CONTINUED ... IF FUTURE ERRORS OCCUR, THIS COULD BE A CAUSE, SINCE IT HAS VERY RECENTLY BEEN ACTIVATED.
+  #if(TRUE){ # TO BE CONTINUED ... IF FUTURE ERRORS OCCUR, THIS COULD BE A CAUSE, SINCE IT HAS VERY RECENTLY BEEN ACTIVATED.
   #### Filtering based on 1/0 columns in database
 
   # select user specified columns of MS2ix columns from database
@@ -93,7 +93,7 @@ if(TRUE){ # TO BE CONTINUED ... IF FUTURE ERRORS OCCUR, THIS COULD BE A CAUSE, S
       }
     }
   }
-}
+  #}
 
 
   # create QUAN_SCAN column to data consisting of the QUAN_SCAN column in database.

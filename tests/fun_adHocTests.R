@@ -392,8 +392,8 @@ source("R/makeIndex_OH_DB_C.R")
 source("R/compactOutput_pmolCalc.R")
 source("R/makeFinalOutput.R")
 
-
-
+data <- read.csv(system.file("extdata/LipidQ_DataBase/userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+data[1,] <- "TYPE_NAME_HERE"
 
 dataPathTest <- read.table("inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
 endogene_lipid_db <- read.table("inst/extdata/LipidQ_DataBase/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
@@ -403,8 +403,13 @@ list <- read.table("inst/extdata/LipidQ_DataBase/userSpecifiedColnames.csv", str
 t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
 t <- sort_is(t, userSpecifiedColnames = list)
 t <- filterDataSet(data = t, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
-t <- pmolCalc(data = t,endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25)
+t <- pmolCalc(data = t,endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25, LOQ = TRUE)
 
+t[t$NAME == "PC 38:6","SUBT_PMOL_SAMPLE_04" ]
+
+write.csv(t, file = "test_results.csv")
+
+head(t, n = 50)
 
 t_makeIndex <- makeIndex_OH_DB_C(t, userSpecifiedColnames = list)
 #write.csv(t[[1]],"../extdata/validation/indexDataOH.csv", quote = FALSE, row.names = FALSE)

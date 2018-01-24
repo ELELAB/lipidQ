@@ -13,6 +13,12 @@ plotHeatmap(data, controlStart, caseStart, filter = FALSE, threshold_logFC,
 \item{controlStart}{bla bla}
 
 \item{caseStart}{bla bla}
+
+\item{filter}{safda}
+
+\item{threshold_logFC}{adsfsafd}
+
+\item{threshold_amountOfInsignificantLogFC}{asfdasf}
 }
 \description{
 This function plots heatmaps of the data

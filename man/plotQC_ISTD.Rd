@@ -11,6 +11,10 @@ plotQC_ISTD(data, endogene_lipid_db, ISTD_lipid_db,
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
 
+\item{endogene_lipid_db}{the endogene lipid database}
+
+\item{ISTD_lipid_db}{the ISTD lipid database}
+
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
 
 \item{pathToOutput}{the directory path to save the plots}

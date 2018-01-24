@@ -11,7 +11,7 @@
 
 <meta name="author" content="André Vidas Olsen" />
 
-<meta name="date" content="2017-12-18" />
+<meta name="date" content="2018-01-23" />
 
 <title>Global Options</title>
 
@@ -121,7 +121,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Global Options</h1>
 <h4 class="author"><em>André Vidas Olsen</em></h4>
-<h4 class="date"><em>2017-12-18</em></h4>
+<h4 class="date"><em>2018-01-23</em></h4>
 
 </div>
 
@@ -136,11 +136,30 @@ $(document).ready(function () {
 </div>
 <div id="reset-database-templates" class="section level3">
 <h3>Reset Database templates</h3>
-<p>In order to create/reset a user specified column names template file, the user simply needs to do the following four steps: 1. Specify which database type to create (endogene database or ISTD database) 2. Import the user specified column names file for the project, so that the new database will have these column names. 3. Specify the path to where the template file should be saved 4. Press ‘Create column template file’</p>
+<p>In order to create/reset a user specified column names template file, the user simply needs to do the following four steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Specify which database type to create (endogene database or ISTD database)</p></li>
+<li><p>Import the user specified column names file for the project, so that the new database will have these column names.</p></li>
+<li><p>Specify the path to where the template file should be saved</p></li>
+<li><p>Press ‘Create column template file’</p></li>
+</ol>
 </div>
 <div id="reset-column-names-template" class="section level3">
 <h3>Reset column names template</h3>
-<p>In order to create/reset a user specified column names template file, the user simply needs to do the following three steps: 1. Specify the number of MS2 columns 2. Specify the path to where the template file should be saved 3. Press ‘Create column template file’</p>
+<p>In order to create/reset a user specified column names template file, the user simply needs to do the following three steps:</p>
+<div id="specify-the-number-of-ms2-columns" class="section level5">
+<h5>1. Specify the number of MS2 columns</h5>
+<p>The number written in this field will only represent the different types of MS2 columns and therefore columns related to a specific MS2 will not be included in this number. For instance, for the following columns:</p>
+<p>“MASSFRAG1”, “FRAG1.mE504_POS_01.raw”, “FRAG1.mE504_POS_02.raw”, “FRAG1.mE504_POS_03.raw”, “FRAG1.mE504_POS_04.raw”, “FRAG1.mE504_POS_05.raw” “MASSFRAG2”, “FRAG2.mE504_POS_01.raw”, “FRAG2.mE504_POS_02.raw”, “FRAG2.mE504_POS_03.raw”, “FRAG2.mE504_POS_04.raw”, “FRAG2.mE504_POS_05.raw” “MASSFA1”, “FA1.mE504_POS_01.raw”, “FA1.mE504_POS_02.raw”, “FA1.mE504_POS_03.raw”, “FA1.mE504_POS_04.raw”, “FA1.mE504_POS_05.raw” “MASSFA2”, “FA2.mE504_POS_01.raw”, “FA2.mE504_POS_02.raw”, “FA2.mE504_POS_03.raw”, “FA2.mE504_POS_04.raw”, “FA2.mE504_POS_05.raw”</p>
+<p>, the number of MS2 columns is 4, since columns such as MASSFRAG1, FRAG1.mE504_POS_01.raw, FRAG1.mE504_POS_02.raw etc. belongs to FRAG1, columns such as MASSFRAG2, FRAG2.mE504_POS_01.raw, FRAG2.mE504_POS_02.raw etc. belongs to FRAG2 and so on.</p>
+<p>The maximum numbers of MS2 columns defined in this way can not exceed 20.</p>
+</div>
+<div id="specify-the-path-to-where-the-template-file-should-be-saved" class="section level5">
+<h5>2. Specify the path to where the template file should be saved</h5>
+</div>
+<div id="press-create-column-template-file" class="section level5">
+<h5>3. Press ‘Create column template file’</h5>
+</div>
 </div>
 
 

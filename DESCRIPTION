@@ -1,14 +1,14 @@
 Package: lipidQuan
 Type: Package
 Title: Lipidomics Analysis Tool
-Version: 0.1
+Version: 0.99.0
 Depends: R (>= 3.4.1)
-Imports: shiny (>= 1.0.5), ggplot2, reshape2, stats
+Imports: shiny (>= 1.0.5), ggplot2, reshape2, stats, utils, ComplexHeatmap, circlize
 Date: 2017-08-31
 Author: André Vidas Olsen
-Maintainer: <aols@cancer.dk>
+Maintainer: André Vidas Olsen <aols@cancer.dk>
 Description: Coming soon ..
-License: General Public License (GPLv3)
+License: GPL (>=3)
 LazyData: TRUE
 RoxygenNote: 6.0.1
 NeedsCompilation: no

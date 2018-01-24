@@ -2,6 +2,8 @@
 #' @author André Vidas Olsen
 #' @description This function creates QC plots of MS1 intensity data
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
+#' @param endogene_lipid_db the endogene lipid database
+#' @param ISTD_lipid_db the ISTD lipid database
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @param numberOfReplicates the number of replicates for each sample
 #' @param blnkReplicates logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.

@@ -16,6 +16,12 @@
 #' @param data bla bla
 #' @param controlStart bla bla
 #' @param caseStart bla bla
+#' @param filter safda
+#' @param threshold_logFC adsfsafd
+#' @param threshold_amountOfInsignificantLogFC asfdasf
+#' @importFrom stats cor
+#' @importFrom ComplexHeatmap Heatmap HeatmapAnnotation
+#' @importFrom circlize colorRamp2
 plotHeatmap <- function(data, controlStart, caseStart, filter = FALSE, threshold_logFC, threshold_amountOfInsignificantLogFC) {
 
   # implement dataGroups for defining groups on the sample columns.

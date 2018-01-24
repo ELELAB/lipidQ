@@ -11,7 +11,7 @@
 
 <meta name="author" content="André Vidas Olsen" />
 
-<meta name="date" content="2018-01-16" />
+<meta name="date" content="2018-01-23" />
 
 <title>Tutorial: Quantification</title>
 
@@ -121,14 +121,14 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Tutorial: Quantification</h1>
 <h4 class="author"><em>André Vidas Olsen</em></h4>
-<h4 class="date"><em>2018-01-16</em></h4>
+<h4 class="date"><em>2018-01-23</em></h4>
 
 </div>
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>This tutorial will cover all the basic steps involved in lipidQuan lipidomics analysis from loading the input data to interpreting the final analysis results.</p>
+<p>This tutorial will cover all the basic steps involved in lipidQuan quantification analysis of lipidomics data from loading the input data to interpreting the final analysis results.</p>
 </div>
 <div id="data" class="section level1">
 <h1>Data</h1>
@@ -138,10 +138,16 @@ $(document).ready(function () {
 <li>Endgogene &amp; ISTD databases</li>
 <li>User specified column names file</li>
 </ol>
+<p>For convenience in tutorial, all these files are already made and ready to use. However, when a new project needs to be analysed, the user has to create both user specified column names files as well as endogene &amp; ISTD databases. See the Global Options tutorial to get a detailed description of how to create these files.</p>
 </div>
 <div id="step-1-open-lipidquan" class="section level1">
 <h1>Step 1: open LipidQuan</h1>
-<p>Start by open up LipidQuan. This can be done by doing these 3 steps: 1. Open Rstudio 2. Write “library(lipiqQuan)” 3. Write “runLipidQuan()”</p>
+<p>Start by open up LipidQuan. This can be done by doing these 3 steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Open Rstudio</p></li>
+<li><p>Write “library(lipiqQuan)”</p></li>
+<li><p>Write “runLipidQuan()”</p></li>
+</ol>
 <p>If the web browser encounters problems doing any of the steps in the tutorial, LipidQuan can also be open by going to:</p>
 <pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQuan/inst/app&quot;</code></pre>
 <p>, open either ui.R or server.R and hit the Run button at the right top corner of Rstudio.</p>
@@ -155,7 +161,7 @@ $(document).ready(function () {
 <p>mE504_POS_Low-out.csv</p>
 <p>These files are located in the following folder:</p>
 <pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQuan/inst/extdata/mE504_Data&quot;</code></pre>
-<p>Go to this folder and select these 5 files and click “Open”.</p>
+<p>Go to this folder and select these 4 files and click “Open”.</p>
 <p>Next, the endogene and ISTD databases has to be chosen for the project. Click on the “Browse…” buttons below “Choose the endogene lipid database (.csv-file)” and “Choose ISTD lipid database (.csv-file)” to do so. The database files are located in the following folder:</p>
 <pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQuan/inst/extdata/LipidQ_DataBase&quot;</code></pre>
 <p>The endogene database is called LP_DB_MS1_v1.csv and the ISTD database is called ISTD_LP_DB_MS1_v1.csv.</p>
@@ -163,9 +169,10 @@ $(document).ready(function () {
 </div>
 <div id="step-3-set-parameters" class="section level1">
 <h1>Step 3: set parameters</h1>
-<div id="replicates" class="section level2">
-<h2>Replicates</h2>
+<div id="replicates" class="section level3">
+<h3>Replicates</h3>
 <p>The next step in the analysis is to set the parameters properly to the data. The first thing that we have to define is the number of replicates in the data. For this data, there is only one extract per sample, hence one replicate, which is the sample itself. Therefore we set the value to 1 (default). In this section we can also specify whether the blanks contains replicates under the “Blank contains replicate” box. We’ll leave the box unchecked since the blank does not contain replicates. Since we don’t have replicates, the last two fields in the replicate section (“Number of instances threshold” and “Threshold of instance”) will not affect the calculation, so we’ll leave these unchanged as well.</p>
+</div>
 <div id="loq" class="section level3">
 <h3>LOQ</h3>
 <p>The next section deals with the limit of quantification threshold, which are defined in the two databases. The field consists of a checkbox defining if we want LOQ to filter the data quantification results, and field for specifiyng if we want to have a fixed deviation on the defined LOQ which should be the new threshold. In this case we simply want LOQ without the fixed deviation, so we check the “LOQ activated” checkbox.</p>
@@ -176,12 +183,11 @@ $(document).ready(function () {
 </div>
 <div id="spike-istd" class="section level3">
 <h3>Spike ISTD</h3>
-<p>In the next section, we’ll specify parameters for spike ISTD, which are defined in the two databases (see the parameter vignette for more info). We’ll set the value to 2 (default).</p>
+<p>In the next section, we’ll specify parameters for spike ISTD. We’ll set the value to 10.</p>
 </div>
 <div id="zero-threshold" class="section level3">
 <h3>Zero threshold</h3>
-<p>The last parameter is a threshold for rounding to zero for mol% species (see the parameter vignette for more info). We’ll set that to 0.25 (default)</p>
-</div>
+<p>The last parameter is a threshold for rounding to zero for mol% species (see the parameter vignette for more info). We’ll set that to 0.001 (default)</p>
 </div>
 </div>
 <div id="qc-plots" class="section level1">

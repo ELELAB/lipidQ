@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 #Introduction
-This tutorial will cover all the basic steps involved in lipidQuan lipidomics analysis from loading the input data to interpreting the final analysis results.
+This tutorial will cover all the basic steps involved in lipidQuan quantification analysis of lipidomics data from loading the input data to interpreting the final analysis results.
 
 #Data
 The data for this tutorial will consist of the following files:
@@ -26,10 +26,15 @@ The data for this tutorial will consist of the following files:
 2. Endgogene & ISTD databases
 3. User specified column names file
 
+For convenience in tutorial, all these files are already made and ready to use. However, when a new project needs to be analysed, the user has to create both user specified column names files as well as endogene & ISTD databases. See the Global Options tutorial to get a detailed description of how to create these files. 
+
 #Step 1: open LipidQuan
 Start by open up LipidQuan. This can be done by doing these 3 steps:
+
 1. Open Rstudio
+
 2. Write "library(lipiqQuan)"
+
 3. Write "runLipidQuan()"
 
 If the web browser encounters problems doing any of the steps in the tutorial, LipidQuan can also be open by going to:
@@ -54,7 +59,7 @@ These files are located in the following folder:
 ```{r, echo=FALSE}
 system.file("extdata/mE504_Data/", package = "lipidQuan")
 ```
-Go to this folder and select these 5 files and click "Open".
+Go to this folder and select these 4 files and click "Open".
 
 
 Next, the endogene and ISTD databases has to be chosen for the project. Click on the "Browse..." buttons below "Choose the endogene lipid database (.csv-file)" and "Choose ISTD lipid database (.csv-file)" to do so. The database files are located in the following folder:
@@ -69,7 +74,7 @@ Lastly, the user specified column names file called userSpecifiedColnames.csv al
 
 
 #Step 3: set parameters
-##Replicates
+###Replicates
 The next step in the analysis is to set the parameters properly to the data. The first thing that we have to define is the number of replicates in the data. For this data, there is only one extract per sample, hence one replicate, which is the sample itself. Therefore we set the value to 1 (default). In this section we can also specify whether the blanks contains replicates under the "Blank contains replicate" box. We'll leave the box unchecked since the blank does not contain replicates. Since we don't have replicates, the last two fields in the replicate section ("Number of instances threshold" and "Threshold of instance") will not affect the calculation, so we'll leave these unchanged as well.
 
 
@@ -82,10 +87,10 @@ The next section deals with the limit of quantification threshold, which are def
 In some cases, it is necessary to have a multiplication factor for some of the lipids if the data is preprocessed by LipidX (MESUT). If this is the case, then the "Multiply MS1 columns by a factor (for LipidX users)" checkbox should be marked. A file containing every classes which intensity values needs to be multiplied should be included by using the "Browse..." button below "Choose the list of classes to be multiplied (.csv-file)" and selecting the file. Finally a multiplication factor should be selected in the "Set multiplication factor" field, which specify the number to multiply each classes with. With our data set, we don't need this field, so we'll leave the "Multiply MS1 columns by a factor (for LipidX users)" checkbox unmarked.
 
 ###Spike ISTD
-In the next section, we'll specify parameters for spike ISTD, which are defined in the two databases (see the parameter vignette for more info). We'll set the value to 2 (default).
+In the next section, we'll specify parameters for spike ISTD. We'll set the value to 10.
 
 ###Zero threshold
-The last parameter is a threshold for rounding to zero for mol% species (see the parameter vignette for more info). We'll set that to 0.25 (default)
+The last parameter is a threshold for rounding to zero for mol% species (see the parameter vignette for more info). We'll set that to 0.001 (default)
 
 
 #QC plots

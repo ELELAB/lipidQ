@@ -143,8 +143,8 @@ ui <- fluidPage(
                           br(),
                           h4("Create new database file"),
                           #radioButtons("DB_type", "Database Type", c("endogene"="endo", "ISTD"="ISTD")),
-                          checkboxInput("DB_type_endo", "Create QC plots of MS1 intensity data", FALSE),
-                          checkboxInput("DB_type_ISTD", "Create QC plots of class pmol data", FALSE),
+                          checkboxInput("DB_type_endo", "endogene database", FALSE),
+                          checkboxInput("DB_type_ISTD", "ISTD database", FALSE),
 
                           fileInput(inputId = "userSpecifiedColnamesCreateDatabase", label = "Choose list of colnames (.csv-file):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")),

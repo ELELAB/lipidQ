@@ -23,13 +23,16 @@ This tutorial will cover how to merge multiple final output files into one file.
 #Data
 The data for this tutorial will consist of the following files:
 
-1. Final output files generated from multiple LipiqQuan quantification runs (see tutorial on how to process quantification with lipiqQuan).
+* The final output files generated from multiple LipiqQuan quantification runs (see quantification tutorial for info on how to use the quantification procedure in the LipidQuan GUI).
 
 
 #Step 1: open LipidQuan
 Start by open up LipidQuan. This can be done by doing these 3 steps:
+
 1. Open Rstudio
+
 2. Write "library(lipiqQuan)"
+
 3. Write "runLipidQuan()"
 
 If the web browser encounters problems doing any of the steps in the tutorial, LipidQuan can also be open by going to:
