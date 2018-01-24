@@ -214,39 +214,19 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
       for(i in 1:nrow(exData)){
         # find corresponding internal standard for the current class name.
         is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
-        #print(SUBT_PMOL_MS1x)
-        #print(colnames(data))
-        #print(data[i,SUBT_PMOL_MS1x])
-        #print(database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION],"DISSOLVED_AMOUNT"])
-        #print((1/database[database$NAME == is[,dataColnames$SUM_COMPOSITION],"DF_INFUSION"])*1000)
-        #print(( database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "LOQ"] + fixedDeviation ))
 
-        # insert LOQ column with 1/0 according to whether SUBT_PMOL_MS1x has values above LOQ threshold or not (1: above, 0: not above)
-        #data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] <- ifelse(data[1:nrow(exData),SUBT_PMOL_MS1x]/database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,dataColnames$SUM_COMPOSITION],"DF_INFUSION"])*1000 > ( database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "LOQ"] + fixedDeviation ), 1, 0)
-        #print(data[i, dataColnames$SUM_COMPOSITION])
-        #print(is[,dataColnames$SUM_COMPOSITION])
-        #print(paste0("Beregning: ",data[i,SUBT_PMOL_MS1x]/database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,dataColnames$SUM_COMPOSITION],"DF_INFUSION"])*1000))
-        #print(paste0("Threshold: ", ( database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "LOQ"] + fixedDeviation )))
+
         if(data[i,SUBT_PMOL_MS1x]/database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,dataColnames$SUM_COMPOSITION],"DF_INFUSION"])*1000 > ( database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "LOQ"] + fixedDeviation )){
           data[i,paste0("LOQ_",SUBT_PMOL_MS1x)] <- 1
          }
         else{
           data[i,paste0("LOQ_",SUBT_PMOL_MS1x)] <- 0
-          #print("UNDER THRESHOLD")
-          #print(SUBT_PMOL_MS1x)
-          #print("")
-          #print("")
         }
-
-        #print(paste0("Formula: ",data[1,SUBT_PMOL_MS1x]/database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION],"DISSOLVED_AMOUNT"]*(1/database[database$NAME == is[,dataColnames$SUM_COMPOSITION],"DF_INFUSION"])*1000))
-        #print(paste0("Bigger than: ",( database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "LOQ"] + fixedDeviation )))
-
 
 
 
       }
       # change SUBT_PMOL_MS1x to 0 if LOQ column == 0.
-      #data[data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] == 0 ,SUBT_PMOL_MS1x] <- 0
       data[data[1:nrow(exData),paste0("LOQ_",SUBT_PMOL_MS1x)] == 0 ,SUBT_PMOL_MS1x] <- 0
 
     }
