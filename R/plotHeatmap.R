@@ -4,6 +4,7 @@ library(circlize)
 #library(colorspace)
 library(GetoptLong)
 library(latex2exp)
+library(ggplot2)
 
 #getwd()
 #data <- read.csv("../heatmaps/FC_Cluster_CP.csv", row.names = 1)
@@ -21,7 +22,7 @@ library(latex2exp)
 #' @importFrom stats cor
 #' @importFrom ComplexHeatmap Heatmap HeatmapAnnotation
 #' @importFrom circlize colorRamp2
-plotHeatmap <- function(data, groupFile, filter = FALSE, threshold_logFC = 0, threshold_amountOfInsignificantLogFC = 0) {
+plotHeatmap <- function(data, groupFile, filter = FALSE, threshold_logFC = 0, threshold_amountOfInsignificantLogFC = 0, K = NULL) {
 
   # change long MS1.* name to MS1_xx, where xx is a number
   #MS1x_tmp <- data[,c(colnames(data)[grep(paste0("^",dataColnames$MS1x),colnames(data))])]
@@ -33,6 +34,7 @@ plotHeatmap <- function(data, groupFile, filter = FALSE, threshold_logFC = 0, th
   mol_pct_species_cols <- data[1:(nrow(data)-9),2:ncol(data)]
   print(data[1:(nrow(data)-9),])
   # TO BE CONTINUED ...LAV DET HER OM SÅ DEN SELV FINDER SPECIES-DELEN OG CLASSES-DELEN (BRUGER finalOut_molPct, så indeholder begge dele)
+
 
 
 
@@ -55,12 +57,6 @@ plotHeatmap <- function(data, groupFile, filter = FALSE, threshold_logFC = 0, th
     amountBelowThresholdPerRow <- sapply(1:nrow(data), FUN = function(x) sum(data[x,] < threshold_logFC & data[x,] > -threshold_logFC)/ncol(data))
     data <- data[amountBelowThresholdPerRow < threshold_amountOfInsignificantLogFC,] # filter data according to neglect option
   }
-
-
-
-
-
-
 
 
 
@@ -120,27 +116,38 @@ plotHeatmap <- function(data, groupFile, filter = FALSE, threshold_logFC = 0, th
   names(colors) <- unique(type)
 
 
+  # if K is not chosen, set K to the number of groups
+  if(is.null(K)){
+    K = length(unique(type))
+  }
+
   # type colors : Luminal A/B = blue, Her2 = purple, TNBC = red
   #ha = HeatmapAnnotation(df = data.frame(type = type), col = list(type = c("Lumi" =  "blue", "HER2" = "purple", "TNBC" = "red")))
-  ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
+
 
   #ha = rowAnnotation(df = df, col = list(type = c("a" = "red", "b" = "blue")),
   #heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Samples", column_title_side = "bottom", row_title = "Classes", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(min(dataMatrix, na.rm = TRUE), -max(dataMatrix, na.rm = TRUE)), 0, max(-min(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE))), c("blue", "white", "red")), show_row_dend = FALSE)
-  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Samples", column_title_side = "bottom", row_title = "Classes", row_title_side = "right", na_col = "black", col = colorRamp2(c(0, median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE)
-  ha + heat
-  # TO BE CONTINUED ... FIND OUT HOW TO SET UP SIDE GROUPS (type) IN STEAD OF ON TOP.
+
 
   #dataMatrix
 
-  }
+
+  ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
+  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(0, median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, cluster_rows = TRUE, km = K)
+
+
+  #ggsave(test, filename="/data/user/andre/lipidomics/lipidQuan/test.pdf", width = 14, height = 10, units = "cm")
+  png(file = "/data/user/andre/lipidomics/lipidQuan/test.png", height = 800, width = 1300)
+  draw(ha+heat)
+  dev.off()
+
+}
 
 
 
 
-#groups <- data.frame(group1 = c("1-2"), group2 = c("3-4"))
-#write.csv(groups, file = "inst/extdata/groups.csv", quote = FALSE, row.names = FALSE)
 
-groups <- read.csv("inst/extdata/groups.csv", as.is = TRUE)
+
 
 #groupIndexes <- data.frame()
 #for(col in colnames(groups)){
@@ -150,15 +157,16 @@ groups <- read.csv("inst/extdata/groups.csv", as.is = TRUE)
 #  colnames(groupIndexes[,col]) <- col
 #}
 
+#groups <- data.frame(group1 = c("1-2"), group2 = c("3-4"))
+#write.csv(groups, file = "inst/extdata/groups.csv", quote = FALSE, row.names = FALSE)
 
-groups
-
-
-
-
+groups <- read.csv("inst/extdata/groups.csv", as.is = TRUE)
 
 #data <- read.csv("results/dataTables/pmolCalculatedDataSet.csv")
 data <- read.csv("results/dataTables/finalOutput_molPct.csv")
 colnames(data)
 
 plotHeatmap(data = data, groupFile = groups)
+
+
+
