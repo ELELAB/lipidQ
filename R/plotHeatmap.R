@@ -15,12 +15,12 @@ library(ggplot2)
 #' @author André Vidas Olsen
 #' @description This function plots heatmaps of the data
 #' @param data bla bla
-#' @param groupFile file that associates column names of MS1 with groups
+#' @param groups file that associates column names of MS1 with groups
 #' @param K bla bla
 #' @importFrom stats cor
 #' @importFrom ComplexHeatmap Heatmap HeatmapAnnotation
 #' @importFrom circlize colorRamp2
-plotHeatmap <- function(data, groupFile, K = NULL) {
+plotHeatmap <- function(data, groups, K = NULL) {
 
   # select relevant columns in data (mol procent species & mol procent classes)
   mol_pct_species_cols <- data[grep(":",data$mol.),2:ncol(data)]
@@ -46,8 +46,11 @@ plotHeatmap <- function(data, groupFile, K = NULL) {
 
   # specify groups for the heatmap
   type <- character(length(colnames(mol_pct_species_cols)))
-  type[unlist(ranges[colnames(groups)[1]])] <- colnames(groups)[1]
-  type[unlist(ranges[colnames(groups)[2]])] <- colnames(groups)[2]
+  for(i in 1:ncol(groups)){
+    type[unlist(ranges[colnames(groups)[i]])] <- colnames(groups)[i]
+  }
+  #type[unlist(ranges[colnames(groups)[1]])] <- colnames(groups)[1]
+  #type[unlist(ranges[colnames(groups)[2]])] <- colnames(groups)[2]
   #print(type)
 
   #print(head(mol_pct_species_cols))
@@ -116,7 +119,7 @@ groups <- read.csv("inst/extdata/groups.csv", as.is = TRUE)
 data <- read.csv("results/dataTables/finalOutput_molPct.csv")
 colnames(data)
 
-plotHeatmap(data = data, groupFile = groups)
+plotHeatmap(data = data, groups = groups)
 
 
 
