@@ -1,21 +1,26 @@
 # adapted from /data/user/andre/NilsProject/SP21_NormalizedValues_LabRunInfo_2016-11-15/setupData.R
-rm(list=ls(all=TRUE))
-library(ggplot2)
+#rm(list=ls(all=TRUE))
+#library(ggplot2)
 
 # LipidQuan PCAplot
-library(factoextra)
+#library(factoextra)
 
 
-
-plotPCA <- function(data, groups){
+#' @title Plot Heatmap
+#' @author André Vidas Olsen
+#' @description This function plots the following PCA plots: screeplot and biplot
+#' @param data quantified data to be visualized
+#' @param groups file that associates column names of MS1 with groups
+#' @importFrom factoextra fviz_eig fviz_pca_biplot
+#' @export
+plotPCA <- function(data, groups, pathToOutput){
 
   # select relevant columns in data (mol procent species & mol procent classes)
   mol_pct_species_cols <- data[grep(":",data$mol.),2:ncol(data)]
   mol_pct_classes_cols <- data[-grep(":",data$mol.),2:ncol(data)]
 
   species <- data[grep(":",data$mol.),1]
-  #classes <- data[-grep(":",data$mol.),1]
-  #rownames(mol_pct_classes_cols) <- classes
+
 
 
   # specify start and end index for each group
@@ -32,15 +37,14 @@ plotPCA <- function(data, groups){
 
   rownames(mol_pct_species_cols) <- species
   colnames(mol_pct_species_cols) <- paste0(colnames(mol_pct_species_cols),"_",type)
-  #species_class <- sapply(species, FUN = function(x) unlist(strsplit(x, " "))[1])
+
 
 
   pca <- prcomp(mol_pct_species_cols, scale=TRUE, center= TRUE)
-  #pca <- prcomp(mol_pct_classes_cols, scale=TRUE, center= TRUE)
+
 
   screePlot <- fviz_eig(pca)
-  ggsave(screePlot, filename = "/data/user/andre/lipidomics/lipidQuan/screePlot.png", width = 40, height = 25, units = "cm")
-
+  ggsave(screePlot, filename=paste0(pathToOutput, "/screePlot.png"), width = 40, height = 25, units = "cm")
 
 
   biplot <-fviz_pca_biplot(pca, repel = TRUE,
@@ -48,9 +52,7 @@ plotPCA <- function(data, groups){
                   col.ind = "#696969"  # Individuals color
   )
 
-  ggsave(biplot, filename = "/data/user/andre/lipidomics/lipidQuan/PCA_biplot.png", width = 40, height = 25, units = "cm")
-
-
+  ggsave(biplot, filename=paste0(pathToOutput, "/PCA_biplot.png"), width = 40, height = 25, units = "cm")
 }
 
 
@@ -62,11 +64,11 @@ groups <- read.csv("inst/extdata/groups.csv", as.is = TRUE)
 
 
 data <- read.csv("results/dataTables/finalOutput_molPct.csv", stringsAsFactors = FALSE)
-colnames(data)
+#colnames(data)
 
 
 
-plotPCA(data, groups)
+plotPCA(data, groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/")
 
 
 
