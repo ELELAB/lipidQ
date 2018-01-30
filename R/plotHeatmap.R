@@ -50,12 +50,6 @@ plotHeatmap <- function(data, groups, K = NULL) {
   names(colors) <- unique(type)
 
 
-  # if K is not chosen, set K to the number of groups
-  if(is.null(K)){
-    K = length(unique(type))
-  }
-
-
   #### heatmap species
   dataMatrix <- data.matrix(mol_pct_species_cols)
   rownames(dataMatrix) <- data[1:nrow(mol_pct_species_cols),1]
@@ -109,7 +103,7 @@ plotHeatmap <- function(data, groups, K = NULL) {
 #data <- read.csv("results/dataTables/finalOutput_molPct.csv")
 #colnames(data)
 
-plotHeatmap(data = data, groups = groups)
+plotHeatmap(data = data, groups = groups, K = 2)
 
 
 
