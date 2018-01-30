@@ -1,10 +1,9 @@
-rm(list=ls(all=TRUE))
-library(ComplexHeatmap)
-library(circlize)
-#library(colorspace)
-library(GetoptLong)
-library(latex2exp)
-library(ggplot2)
+#rm(list=ls(all=TRUE))
+#library(ComplexHeatmap)
+#library(circlize)
+#library(GetoptLong)
+#library(latex2exp)
+#library(ggplot2)
 
 #getwd()
 #data <- read.csv("../heatmaps/FC_Cluster_CP.csv", row.names = 1)
@@ -26,14 +25,6 @@ plotHeatmap <- function(data, groups, K = NULL) {
   mol_pct_species_cols <- data[grep(":",data$mol.),2:ncol(data)]
   mol_pct_classes_cols <- data[-grep(":",data$mol.),2:ncol(data)]
 
-  #print(mol_pct_species_cols)
-  #print("")
-  #print(mol_pct_classes_cols)
-
-
-
-
-
 
 
   # classes - samples
@@ -49,11 +40,7 @@ plotHeatmap <- function(data, groups, K = NULL) {
   for(i in 1:ncol(groups)){
     type[unlist(ranges[colnames(groups)[i]])] <- colnames(groups)[i]
   }
-  #type[unlist(ranges[colnames(groups)[1]])] <- colnames(groups)[1]
-  #type[unlist(ranges[colnames(groups)[2]])] <- colnames(groups)[2]
-  #print(type)
 
-  #print(head(mol_pct_species_cols))
 
 
 
@@ -117,7 +104,7 @@ plotHeatmap <- function(data, groups, K = NULL) {
 groups <- read.csv("inst/extdata/groups.csv", as.is = TRUE)
 
 data <- read.csv("results/dataTables/finalOutput_molPct.csv")
-colnames(data)
+#colnames(data)
 
 plotHeatmap(data = data, groups = groups)
 
