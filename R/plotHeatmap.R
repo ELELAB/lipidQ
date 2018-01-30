@@ -64,7 +64,8 @@ plotHeatmap <- function(data, groups, K = NULL) {
   dataMatrix <- t(dataMatrix)
 
   #print(head(dataMatrix))
-  dataMatrix[dataMatrix == -Inf] <- 0
+  dataMatrix[dataMatrix == -Inf] <- NA
+  dataMatrix[dataMatrix == Inf] <- NA
   #dataMatrix[is.na(dataMatrix)] <- NA
 
 
@@ -87,7 +88,8 @@ plotHeatmap <- function(data, groups, K = NULL) {
   dataMatrix <- t(dataMatrix)
 
   #print(head(dataMatrix))
-  dataMatrix[dataMatrix == -Inf] <- 0
+  dataMatrix[dataMatrix == -Inf] <- NA
+  dataMatrix[dataMatrix == Inf] <- NA
   #dataMatrix[is.na(dataMatrix)] <- 0
 
 
