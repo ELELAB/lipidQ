@@ -14,7 +14,6 @@ server <- function(input, output, session){
       need(!is.null(input$userSpecifiedColnames), "Please select user specified column names file"),
       need(!is.na(input$spikeISTD), "Please specify spike ISTD"),
       need(as.numeric(input$spikeISTD) >= 1 | is.na(input$spikeISTD), "Spike ISTD has to greater than 0"),
-      # TO BE CONTINUED ... GIVER BEGGE MEDDELSER, SKAL KUN VAERE EN AD GANGEN. NAAR DET VIRKER, LAV DET SAA OGSAA VED OBSERVE_EVENT, SAA DEN KAN BLOKKE FOR START.
       need(input$dir != "", "Please select filepath for output folder")
     )
   })
@@ -242,7 +241,7 @@ server <- function(input, output, session){
     #
     #
     #
-    if(input$numberOfMS2ix != "" & as.numeric(input$numberOfMS2ix) <= 20 & input$dirColnamesTemplate != ""){
+    if(!is.na(input$numberOfMS2ix) & input$numberOfMS2ix <= 20 & input$dirColnamesTemplate != ""){
     progress <- Progress$new(session, min=0, max=1)
     on.exit(progress$close())
 
