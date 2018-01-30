@@ -1,9 +1,6 @@
 #rm(list=ls(all=TRUE))
 #library(ComplexHeatmap)
 #library(circlize)
-#library(GetoptLong)
-#library(latex2exp)
-#library(ggplot2)
 
 #getwd()
 #data <- read.csv("../heatmaps/FC_Cluster_CP.csv", row.names = 1)
@@ -16,11 +13,12 @@
 #' @param data quantified data to be visualized
 #' @param groups file that associates column names of MS1 with groups
 #' @param K number of K in the Kmeans algorithm.
+#' @param pathToOutput the directory path to save the plots
 #' @importFrom stats cor
 #' @importFrom ComplexHeatmap Heatmap HeatmapAnnotation
 #' @importFrom circlize colorRamp2
 #' @export
-plotHeatmap <- function(data, groups, K = NULL) {
+plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
 
   # select relevant columns in data (mol procent species & mol procent classes)
   mol_pct_species_cols <- data[grep(":",data$mol.),2:ncol(data)]
@@ -67,7 +65,7 @@ plotHeatmap <- function(data, groups, K = NULL) {
   heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(0, median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, cluster_rows = TRUE, km = K)
   heatPlot <- ha + heat
 
-  png(file = "/data/user/andre/lipidomics/lipidQuan/heatmapSpecies.png", height = 800, width = (22*nrow(mol_pct_species_cols)))
+  png(file = paste0(pathToOutput, "/heatmapSpecies.png"), height = 800, width = (22*nrow(mol_pct_species_cols)))
   draw(heatPlot)
   dev.off()
 
@@ -90,7 +88,7 @@ plotHeatmap <- function(data, groups, K = NULL) {
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
   heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(0, median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, cluster_rows = TRUE, km = K)
   heatPlot <- ha + heat
-  png(file = "/data/user/andre/lipidomics/lipidQuan/heatmapClasses.png", height = 800, width = (22*nrow(mol_pct_classes_cols)))
+  png(file = paste0(pathToOutput, "/heatmapClasses.png"), height = 800, width = (22*nrow(mol_pct_classes_cols)))
   draw(heatPlot)
   dev.off()
 
@@ -103,7 +101,12 @@ plotHeatmap <- function(data, groups, K = NULL) {
 #data <- read.csv("results/dataTables/finalOutput_molPct.csv")
 #colnames(data)
 
-plotHeatmap(data = data, groups = groups, K = 2)
+plotHeatmap(data = data, groups = groups, K = 2, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/")
 
+
+
+
+
+# test with
 
 
