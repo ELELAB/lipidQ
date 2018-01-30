@@ -59,7 +59,7 @@ ui <- fluidPage(
                           br(),
 
                           # spikeISTD
-                          numericInput("spikeISTD", "Spike ISTD (uL):", NULL, min = 1, max = 100),
+                          numericInput("spikeISTD", "Spike ISTD (uL):", NA, min = 1, max = 100),
 
                           # Threshold for rounding down to zero for mol% species
                           numericInput("zeroThresh", "Threshold for rounding down to zero for mol% species:", 0.001, min = 0, max = 10),
@@ -122,7 +122,7 @@ ui <- fluidPage(
 
                           h4("Create new user specified column names template"),
 
-                          textInput("numberOfMS2ix", "Number of MS2 columns in the input data", "7"),
+                          numericInput("numberOfMS2ix", "Number of MS2 columns in the input data", "7"),
 
                           #br(),
                           #textInput("numberOfDECONVOLUTION_x", "Write the number of DECONVOLUTION columns in the input data", "4"),

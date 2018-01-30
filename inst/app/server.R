@@ -12,8 +12,8 @@ server <- function(input, output, session){
       need(!is.null(input$endogene_lipid_db), "Please select endogene database"),
       need(!is.null(input$ISTD_lipid_db), "Please select ISTD database"),
       need(!is.null(input$userSpecifiedColnames), "Please select user specified column names file"),
-      need(input$spikeISTD != "", "Please specify spike ISTD"),
-      need(as.numeric(input$spikeISTD) >= 1 & input$spikeISTD != "", "Spike ISTD has to greater than 0"),
+      need(!is.na(input$spikeISTD), "Please specify spike ISTD"),
+      need(as.numeric(input$spikeISTD) >= 1 | is.na(input$spikeISTD), "Spike ISTD has to greater than 0"),
       # TO BE CONTINUED ... GIVER BEGGE MEDDELSER, SKAL KUN VAERE EN AD GANGEN. NAAR DET VIRKER, LAV DET SAA OGSAA VED OBSERVE_EVENT, SAA DEN KAN BLOKKE FOR START.
       need(input$dir != "", "Please select filepath for output folder")
     )
@@ -31,8 +31,8 @@ server <- function(input, output, session){
   # global options
   output$validateFields_globalOptions_userSpec <- renderText({
     validate(
-      need(input$numberOfMS2ix != "", "Please select number of MS2 columns (<= 20)"),
-      need(as.numeric(input$numberOfMS2ix) <= 20 | input$numberOfMS2ix == "", "The number of MS2 columns can not exceed 20"),
+      need(!is.na(input$numberOfMS2ix), "Please select number of MS2 columns (<= 20)"),
+      need(input$numberOfMS2ix <= 20 | is.na(input$numberOfMS2ix), "The number of MS2 columns can not exceed 20"),
       need(input$dirColnamesTemplate != "", "Please select filepath for output folder")
     )
   })
@@ -50,11 +50,11 @@ server <- function(input, output, session){
 
   observeEvent(input$runAnalysis, {
     #
-    # This function runs when then "Start Analysis" button is triggered by the user
+    # This function runs when then "Start Analysis" button in the quantification tab is triggered by the user
     #
 
-    if(!is.null(input$dataList) & !is.null(input$endogene_lipid_db) & !is.null(input$ISTD_lipid_db) & !is.null(input$userSpecifiedColnames) & input$dir != ""){
-
+    if(!is.null(input$dataList) & !is.null(input$endogene_lipid_db) & !is.null(input$ISTD_lipid_db) & !is.null(input$userSpecifiedColnames) & !is.na(input$spikeISTD)  & input$dir != ""){
+    print(input$spikeISTD)
 
 
     progress <- Progress$new(session, min=0, max=7)
@@ -176,7 +176,7 @@ server <- function(input, output, session){
     progress$set(value = 5)
 
     classPmol_molPctClass <- lipidQuan:::compactOutput_pmolCalc(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
-    write.csv(classPmol_molPctClass, file = paste0(input$dir,"/dataTables/classPmol_molPctClass.csv"), quote=F, row.names = F)
+    #write.csv(classPmol_molPctClass, file = paste0(input$dir,"/dataTables/classPmol_molPctClass.csv"), quote=F, row.names = F)
     progress$set(value = 6)
 
 
