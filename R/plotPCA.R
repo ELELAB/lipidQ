@@ -1,16 +1,9 @@
-# adapted from /data/user/andre/NilsProject/SP21_NormalizedValues_LabRunInfo_2016-11-15/setupData.R
-#rm(list=ls(all=TRUE))
-#library(ggplot2)
-
-# LipidQuan PCAplot
-#library(factoextra)
-
-
 #' @title Plot Heatmap
 #' @author André Vidas Olsen
 #' @description This function plots the following PCA plots: screeplot and biplot
-#' @param data quantified data to be visualized
+#' @param data quantified data to be visualized (finalOutput_molPct.csv)
 #' @param groups file that associates column names of MS1 with groups
+#' @param pathToOutput the directory path to save the plots
 #' @importFrom factoextra fviz_eig fviz_pca_biplot
 #' @export
 plotPCA <- function(data, groups, pathToOutput){
@@ -78,38 +71,17 @@ plotPCA <- function(data, groups, pathToOutput){
 
 
 
-groups <- read.csv("inst/extdata/groups.csv", as.is = TRUE)
+#groups <- read.csv("inst/extdata/groups.csv", as.is = TRUE)
 
 
-data <- read.csv("results/dataTables/finalOutput_molPct.csv", stringsAsFactors = FALSE)
+#data <- read.csv("results/dataTables/finalOutput_molPct.csv", stringsAsFactors = FALSE)
 #colnames(data)
 
 
 
-plotPCA(data, groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/")
+#plotPCA(data, groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/")
 
 
 
-
-
-
-
-
-#fviz_pca_ind(pca,
-#             col.ind = "cos2", # Color by the quality of representation
-#             gradient.cols = c("yellow", "red"),
-#             repel = TRUE,      # Avoid text overlapping
-#             axes = c(1,2)
-#)
-
-#fviz_pca_ind(pca, label="none", habillage=species_class,
-#             addEllipses=TRUE, ellipse.level=0.95, palette = "Dark2")
-
-
-#fviz_pca_var(pca,
-#             col.var = "contrib", # Color by contributions to the PC
-#             gradient.cols = c("yellow", "red"),
-#             repel = TRUE     # Avoid text overlapping
-#)
 
 
