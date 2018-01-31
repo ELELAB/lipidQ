@@ -7,10 +7,11 @@
 #dim(data)
 #head(data)
 
+
 #' @title Plot Heatmap
 #' @author André Vidas Olsen
 #' @description This function plots heatmaps of the data
-#' @param data quantified data to be visualized
+#' @param data quantified data to be visualized (finalOutput_molPct.csv)
 #' @param groups file that associates column names of MS1 with groups
 #' @param K number of K in the Kmeans algorithm.
 #' @param pathToOutput the directory path to save the plots
@@ -18,6 +19,7 @@
 #' @importFrom ComplexHeatmap Heatmap HeatmapAnnotation
 #' @importFrom circlize colorRamp2
 #' @importFrom NbClust NbClust
+#' @importFrom factoextra fviz_nbclust
 #' @export
 plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
 
@@ -42,44 +44,29 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
   }
 
 
-
-
   # make colors for groups
-  colors <- c("green", "blue", "yellow", "brown", "purple", "red", "black", "orange", "pink")[1:length(unique(type))]
+  colors <- c("green", "blue", "yellow", "brown", "purple", "red", "black", "orange", "grey", "pink")[1:length(unique(type))]
   names(colors) <- unique(type)
 
 
-  print(head(data))
   #### specify the optimal number of K
   if(is.null(K)){
-    nb <- NbClust(data[,2:ncol(data)], distance = "euclidean", min.nc = 2,
+    nb <- NbClust(data[,2:ncol(data)], distance = "euclidean",
                   max.nc = ncol(data[,2:ncol(data)]), method = "kmeans")
 
 
     t <- as.data.frame(table(nb$Best.nc[1,]), stringsAsFactors = FALSE)
-    #print(t)
     t <- t[1:(nrow(t)-1),] # remove highest cluster (K == number of samples) from the possible optimal cluster list, since ComplexHeatmap can't have same number of clusters as observations
-    #print(t)
     listOfK <- as.numeric(t[t$Freq == max(t$Freq), "Var1"])
-    #print(listOfK)
+
+    # plot results
+    nbclustResults <- fviz_nbclust(nb)
+    ggsave(nbclustResults, filename=paste0(pathToOutput, "/nbclustResults.png"), width = 40, height = 25, units = "cm")
 
 
-    # for test
-    #t <- as.data.frame(table(c(1,1,2,2,2,1,2,3,4,4,4,4)), stringsAsFactors = FALSE)
-    #t <- t[1:(nrow(t)-1),]
-    #print(t)
-    #listOfK <- as.numeric(t[t$Freq == max(t$Freq), "Var1"])
-    #print(listOfK)
-
-    # find next highest K, if K = number of samples in data (ComplexHeatmap can't have same number of clusters as observations)
-    #if(max(listOfK) == ncol(data[,2:ncol(data)])){
-    #  mostOptimalRemoved <- t[!(t$Var1 == max(t$Var1)),]
-    #  listOfK <- as.numeric(mostOptimalRemoved[mostOptimalRemoved$Freq == max(mostOptimalRemoved$Freq), "Var1"])
-    #}
   }else{
     listOfK <- K
   }
-  print(listOfK)
 
 
 
@@ -94,10 +81,8 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
   # transpose matrix
   dataMatrix <- t(dataMatrix)
 
-  #print(head(dataMatrix))
   dataMatrix[dataMatrix == -Inf] <- NA
   dataMatrix[dataMatrix == Inf] <- NA
-  #dataMatrix[is.na(dataMatrix)] <- NA
 
 
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
@@ -118,10 +103,8 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
   # transpose matrix
   dataMatrix <- t(dataMatrix)
 
-  #print(head(dataMatrix))
   dataMatrix[dataMatrix == -Inf] <- NA
   dataMatrix[dataMatrix == Inf] <- NA
-  #dataMatrix[is.na(dataMatrix)] <- 0
 
 
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
@@ -141,7 +124,7 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
 #data <- read.csv("results/dataTables/finalOutput_molPct.csv")
 #colnames(data)
 
-plotHeatmap(data = data, groups = groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/")
+#plotHeatmap(data = data, groups = groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/")
 
 
 
