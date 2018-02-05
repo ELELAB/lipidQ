@@ -79,6 +79,13 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSp
   sampleNames <- paste0("Sample_",1:(length(colnames(classes))-1))
   colnames(classes) <- c("pmol", sampleNames)
 
+  # remove numbers in the SUM_COMPOSITION column, so only the class name is used for SUM_COMPOSITION.
+  for(i in 1:nrow(classes)){
+    classes[i, "pmol"] <- unlist(strsplit(classes[i,"pmol"], " "))[[1]]
+  }
+
+  # remove rows containing duplicates of SUM_COMPOSITION
+  classes <- classes[!duplicated(classes[,"pmol"]),]
 
 
   output_pmol <- rbind(lipidSpecies, classes)
