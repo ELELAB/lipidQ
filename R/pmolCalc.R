@@ -1,7 +1,7 @@
 #' @title picomol Calculation
 #' @author André Vidas Olsen
 #' @description This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard
-#' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
+#' @param data input data to be used quantified
 #' @param endogene_lipid_db the endogene lipid database
 #' @param ISTD_lipid_db the ISTD lipid database
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.

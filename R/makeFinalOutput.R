@@ -23,7 +23,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet){
   classes <- classPmol_molPctClass[,c(1,grep("^CLASS_FILTERED*", colnames(classPmol_molPctClass)))]
   classes <- classes[-grep("^is",classes$NAME),]
 
-  # change colnames: NAME -> mol%, FILTERED* -> Sample_01
+  # change colnames: NAME -> mol%, CLASS_FILTERED* -> Sample_01
   sampleNames <- paste0("Sample_",1:(length(colnames(classes))-1))
   colnames(classes) <- c("mol%", sampleNames)
 
@@ -60,11 +60,22 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet){
   lipidSpecies <- pmolCalculatedDataSet[,c(1,grep("^SUBT_PMOL_SAMPLE*", colnames(pmolCalculatedDataSet)))]
   lipidSpecies <- lipidSpecies[-grep("^is",lipidSpecies$NAME),]
 
-  # change colnames: NAME -> mol%, FILTERED* -> Sample_01
+  # change colnames: NAME -> mol%, SUBT_PMOL_SAMPLE* -> Sample_01
   sampleNames <- paste0("Sample_",1:(length(colnames(lipidSpecies))-1))
   colnames(lipidSpecies) <- c("pmol", sampleNames)
 
-  output_pmol <- lipidSpecies
+
+  # take NAME from classPmol_molPctClass without using the is-rows
+  classes <- pmolCalculatedDataSet[,c(1,grep("^CLASS_PMOL_SUBT_PMOL*", colnames(pmolCalculatedDataSet)))]
+  classes <- classes[-grep("^is",classes$NAME),]
+
+  # change colnames: NAME -> mol%, CLASS_PMOL_SUBT_PMOL* -> Sample_01
+  sampleNames <- paste0("Sample_",1:(length(colnames(classes))-1))
+  colnames(classes) <- c("pmol", sampleNames)
+
+
+
+  output_pmol <- rbind(lipidSpecies, classes)
 
 
   # change classes/species with "O-": insert [SPACE] before "O-" and remove [SPACE] after "O-"

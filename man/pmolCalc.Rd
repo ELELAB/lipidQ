@@ -10,7 +10,7 @@ pmolCalc(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL,
   numberOfInstancesThreshold, thresholdValue)
 }
 \arguments{
-\item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
+\item{data}{input data to be used quantified}
 
 \item{endogene_lipid_db}{the endogene lipid database}
 

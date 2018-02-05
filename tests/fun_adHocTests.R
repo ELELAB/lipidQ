@@ -407,7 +407,11 @@ t <- pmolCalc(data = t,endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = IS
 
 t[t$NAME == "PC 38:6","SUBT_PMOL_SAMPLE_04" ]
 
-write.csv(t, file = "test_results.csv")
+subset(t, select = c("NAME","PREC_01", "PREC_02", "PREC_03"))
+
+#write.csv(t, file = "test_results.csv")
+
+t$CLASS_PMOL_SUBT_PMOL_SAMPLE_01
 
 head(t, n = 50)
 
