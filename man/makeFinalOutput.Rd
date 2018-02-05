@@ -4,12 +4,15 @@
 \alias{makeFinalOutput}
 \title{Make Final Output}
 \usage{
-makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet)
+makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet,
+  userSpecifiedColnames = NULL)
 }
 \arguments{
 \item{classPmol_molPctClass}{compact output file created by using the compactOutput_pmolCalc() script.}
 
 \item{pmolCalculatedDataSet}{data of pmol calculations made by using the pmolCalc() script.}
+
+\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
 }
 \description{
 This function creates the final output file of the results which consists of both all filtered pmol% species and filtered pmol% classes.
