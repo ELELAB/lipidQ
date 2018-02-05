@@ -3,14 +3,20 @@
 #' @description This function creates the final output file of the results which consists of both all filtered pmol% species and filtered pmol% classes.
 #' @param classPmol_molPctClass compact output file created by using the compactOutput_pmolCalc() script.
 #' @param pmolCalculatedDataSet data of pmol calculations made by using the pmolCalc() script.
+#' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @export
-makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet){
+makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSpecifiedColnames = NULL){
+
+  # get colnames for data
+  dataColnames <- getColnames(userSpecifiedColnames = userSpecifiedColnames)
+
+
 
   #### create finalOutput_molPct file
 
   # take all lipid species (NAME col) from pmolCalculatedDataSet without using the is-rows
   lipidSpecies <- pmolCalculatedDataSet[,c(1,grep("^FILTERED*", colnames(pmolCalculatedDataSet)))]
-  lipidSpecies <- lipidSpecies[-grep("^is",lipidSpecies$NAME),]
+  lipidSpecies <- lipidSpecies[-grep("^is",lipidSpecies[,dataColnames$SUM_COMPOSITION]),]
 
   # change colnames: NAME -> mol%, FILTERED* -> Sample_01
   sampleNames <- paste0("Sample_",1:(length(colnames(lipidSpecies))-1))
@@ -21,7 +27,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet){
 
   # take NAME from classPmol_molPctClass without using the is-rows
   classes <- classPmol_molPctClass[,c(1,grep("^CLASS_FILTERED*", colnames(classPmol_molPctClass)))]
-  classes <- classes[-grep("^is",classes$NAME),]
+  classes <- classes[-grep("^is",classes[, dataColnames$SUM_COMPOSITION]),]
 
   # change colnames: NAME -> mol%, CLASS_FILTERED* -> Sample_01
   sampleNames <- paste0("Sample_",1:(length(colnames(classes))-1))
@@ -58,7 +64,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet){
 
   # take all lipid species (NAME col) from pmolCalculatedDataSet without using the is-rows
   lipidSpecies <- pmolCalculatedDataSet[,c(1,grep("^SUBT_PMOL_SAMPLE*", colnames(pmolCalculatedDataSet)))]
-  lipidSpecies <- lipidSpecies[-grep("^is",lipidSpecies$NAME),]
+  lipidSpecies <- lipidSpecies[-grep("^is",lipidSpecies[, dataColnames$SUM_COMPOSITION]),]
 
   # change colnames: NAME -> mol%, SUBT_PMOL_SAMPLE* -> Sample_01
   sampleNames <- paste0("Sample_",1:(length(colnames(lipidSpecies))-1))
@@ -67,7 +73,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet){
 
   # take NAME from classPmol_molPctClass without using the is-rows
   classes <- pmolCalculatedDataSet[,c(1,grep("^CLASS_PMOL_SUBT_PMOL*", colnames(pmolCalculatedDataSet)))]
-  classes <- classes[-grep("^is",classes$NAME),]
+  classes <- classes[-grep("^is",classes[, dataColnames$SUM_COMPOSITION]),]
 
   # change colnames: NAME -> mol%, CLASS_PMOL_SUBT_PMOL* -> Sample_01
   sampleNames <- paste0("Sample_",1:(length(colnames(classes))-1))
