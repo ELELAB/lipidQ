@@ -212,6 +212,37 @@ test.makeIndex_OH_DB_C <- function() {
 }
 
 
+test.makeFinalOutput <- function() {
+  #DEACTIVATED('This function does not work at the moment...')
+
+  # make test data.frame and save
+  dataPathTest <- read.table("../inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
+  endogene_lipid_db <- read.table("../inst/extdata/LipidQ_DataBase/LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  ISTD_lipid_db <- read.table("../inst/extdata/LipidQ_DataBase/ISTD_LP_DB_MS1_v1.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  list <- read.table("../inst/extdata/LipidQ_DataBase/userSpecifiedColnames.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+
+  t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
+  t <- sort_is(t, userSpecifiedColnames = list)
+  t <- filterDataSet(data = t, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
+  t <- pmolCalc(data = t,endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list, spikeISTD = 2, zeroThresh = 0.25)
+  classPmol_molPctClass <- compactOutput_pmolCalc(data = t, list)
+  dataFrameTest <- makeFinalOutput(classPmol_molPctClass, t, userSpecifiedColnames = list)
+  write.csv(dataFrameTest[[1]], file = "../tests/data/test/finalOutput_molPct.csv", quote = FALSE, row.names = F)
+  write.csv(dataFrameTest[[2]], file = "../tests/data/test/finalOutput_pmol.csv", quote = FALSE, row.names = F)
+
+
+  # load test and validation data.frame
+  dataFrameTest1 <- read.table("../tests/data/test/finalOutput_molPct.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameTest2 <- read.table("../tests/data/test/finalOutput_pmol.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  dataFrameVali1 <- read.table("../tests/data/validation/finalOutput_molPct.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+  dataFrameVali2 <- read.table("../tests/data/validation/finalOutput_pmol.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+  # validate
+  checkEquals(dataFrameTest1, dataFrameVali1)
+  checkEquals(dataFrameTest2, dataFrameVali2)
+}
 
 
 test.mergeFinalOutputs <- function() {
