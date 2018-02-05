@@ -114,6 +114,31 @@ ui <- fluidPage(
                         mainPanel()
                       )
              ),
+             tabPanel("Visualization",
+                      sidebarLayout(
+                        sidebarPanel(
+                          # input data
+                          fileInput(inputId = "molPctFile", multiple = FALSE, label = "Choose a mol% final output file:",
+                                    accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
+                          ),
+
+                          fileInput(inputId = "groups", multiple = FALSE, label = "Choose a file containing group information for the data:",
+                                    accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
+                          ),
+
+
+                          checkboxInput("PCA_plot", "Create PCA plots of mol% classes and species", FALSE),
+
+                          checkboxInput("heatmap_plot", "Create heatmap plots of mol% classes and species", FALSE),
+                          numericInput("k", "Optional selection of k clusters for the heatmap", NULL, min = 0, max = 10),
+
+                          textInput("dirPlots", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/lipidQuan/results/plots"),
+                          actionButton("createPlots", "Create Plots"),
+                          textOutput("plotsDone")
+                        ),
+                        mainPanel()
+                      )
+             ),
              tabPanel("Global Options",
                       sidebarLayout(
                         sidebarPanel(
@@ -131,7 +156,7 @@ ui <- fluidPage(
                           textInput("dirColnamesTemplate", "Paste the filepath for the column template file to be saved.", "/data/user/andre/lipidomics/lipidQuan/"),
 
 
-                          actionButton("createColnamesTemplate", "Create column template file"),
+                          actionButton("createColnamesTemplate", "Create Column Template File"),
                           textOutput("validateFields_globalOptions_userSpec"),
                           textOutput("createColTemplateDone"),
 
@@ -153,7 +178,7 @@ ui <- fluidPage(
 
 
 
-                          actionButton("createDatabase", "Create database"),
+                          actionButton("createDatabase", "Create Database"),
                           textOutput("validateFields_globalOptions_db"),
                           textOutput("createDatabaseDone")
                         ),

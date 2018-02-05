@@ -236,6 +236,58 @@ server <- function(input, output, session){
     }
   })
 
+  observeEvent(input$createPlots, {
+    #
+    # This function runs when the "Create Plots" button is triggered by the user
+    #
+
+    #if(!is.null(input$finalOutputList) & input$dirFinalOutputs != ""){
+
+      progress <- Progress$new(session, min=0, max=3)
+      on.exit(progress$close())
+
+      progress$set(message = 'Calculation in progress',
+                   detail = 'This may take a while...')
+
+      # load mol% pct final output file
+      if(!is.null(input$molPctFile)){
+        molPctFile <- input$molPctFile
+        molPctFile <- read.table(molPctFile$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+      }
+
+      # load groups file
+      if(!is.null(input$groups)){
+        groups <- input$groups
+        groups <- read.table(groups$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+      }
+
+      # change NA -> NULL for convenience
+      k <- input$k
+      if(is.na(k)){
+        k <- NULL
+      }
+
+      progress$set(value = 1)
+
+
+      # final output merging start
+      if(input$PCA_plot){
+        lipidQuan:::plotPCA(data = molPctFile, groups = groups, pathToOutput = input$dirPlots)
+      }
+      progress$set(value = 2)
+
+      if(input$heatmap_plot){
+        lipidQuan:::plotHeatmap(data = molPctFile, groups = groups, K = k, pathToOutput = input$dirPlots)
+      }
+      progress$set(value = 3)
+
+      output$plotsDone <- renderText({
+        paste("Plots created!")
+      })
+    #}
+  })
+
+
 
   observeEvent(input$createColnamesTemplate, {
     #
