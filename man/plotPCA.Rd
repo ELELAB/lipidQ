@@ -4,7 +4,7 @@
 \alias{plotPCA}
 \title{Plot Heatmap}
 \usage{
-plotPCA(data, groups, pathToOutput)
+plotPCA(data, groups, pathToOutput, log2 = FALSE, pseudoCount = NULL)
 }
 \arguments{
 \item{data}{quantified data to be visualized (finalOutput_molPct.csv)}
@@ -12,6 +12,10 @@ plotPCA(data, groups, pathToOutput)
 \item{groups}{file that associates column names of MS1 with groups}
 
 \item{pathToOutput}{the directory path to save the plots}
+
+\item{log2}{logical argument that specifies whether or not data has to be log2 transformed}
+
+\item{pseudoCount}{pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data}
 }
 \description{
 This function plots the following PCA plots: screeplot and biplot

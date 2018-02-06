@@ -4,7 +4,8 @@
 \alias{plotHeatmap}
 \title{Plot Heatmap}
 \usage{
-plotHeatmap(data, groups, K = NULL, pathToOutput)
+plotHeatmap(data, groups, K = NULL, pathToOutput, log2 = FALSE,
+  pseudoCount = NULL)
 }
 \arguments{
 \item{data}{quantified data to be visualized (finalOutput_molPct.csv)}
@@ -14,6 +15,10 @@ plotHeatmap(data, groups, K = NULL, pathToOutput)
 \item{K}{number of K in the Kmeans algorithm.}
 
 \item{pathToOutput}{the directory path to save the plots}
+
+\item{log2}{logical argument that specifies whether or not data has to be log2 transformed}
+
+\item{pseudoCount}{pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data}
 }
 \description{
 This function plots heatmaps of the data
