@@ -270,14 +270,14 @@ server <- function(input, output, session){
       progress$set(value = 1)
 
 
-      # final output merging start
+      # plot start
       if(input$PCA_plot){
-        lipidQuan:::plotPCA(data = molPctFile, groups = groups, pathToOutput = input$dirPlots)
+        lipidQuan:::plotPCA(data = molPctFile, groups = groups, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = input$pseudoCount)
       }
       progress$set(value = 2)
 
       if(input$heatmap_plot){
-        lipidQuan:::plotHeatmap(data = molPctFile, groups = groups, K = k, pathToOutput = input$dirPlots)
+        lipidQuan:::plotHeatmap(data = molPctFile, groups = groups, K = k, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = input$pseudoCount)
       }
       progress$set(value = 3)
 

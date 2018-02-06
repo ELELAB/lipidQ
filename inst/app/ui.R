@@ -126,6 +126,9 @@ ui <- fluidPage(
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
 
+                          checkboxInput("log2Trans", "Use log2 transformation on the data", FALSE),
+                          numericInput("pseudoCount", "Pseudo count", NULL, min = 0, max = 1000),
+
 
                           checkboxInput("PCA_plot", "Create PCA plots of mol% classes and species", FALSE),
 
