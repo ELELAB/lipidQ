@@ -144,12 +144,12 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseu
 #data <- read.csv("results/dataTables/finalOutput_molPct.csv")
 #colnames(data)
 
-plotHeatmap(data = data, groups = groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/", log2 = FALSE, pseudoCount = 0.0001)
+#plotHeatmap(data = data, groups = groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/", log2 = FALSE, pseudoCount = 0.0001)
 
-data[1,2] <- Inf
-data[2,2] <- -Inf
-data[3,2] <- NA
-data[4,2] <- NaN
+#data[1,2] <- Inf
+#data[2,2] <- -Inf
+#data[3,2] <- NA
+#data[4,2] <- NaN
 
-any(data == Inf | data == -Inf | is.na(data))
+#any(data == Inf | data == -Inf | is.na(data))
 
