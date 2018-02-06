@@ -1,6 +1,8 @@
 #rm(list=ls(all=TRUE))
 #library(ComplexHeatmap)
 #library(circlize)
+#library(NbClust)
+#library(factoextra)
 
 #getwd()
 #data <- read.csv("../heatmaps/FC_Cluster_CP.csv", row.names = 1)
@@ -15,13 +17,29 @@
 #' @param groups file that associates column names of MS1 with groups
 #' @param K number of K in the Kmeans algorithm.
 #' @param pathToOutput the directory path to save the plots
+#' @param log2 logical argument that specifies whether or not data has to be log2 transformed
+#' @param pseudoCount pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data
 #' @importFrom stats cor
 #' @importFrom ComplexHeatmap Heatmap HeatmapAnnotation
 #' @importFrom circlize colorRamp2
 #' @importFrom NbClust NbClust
 #' @importFrom factoextra fviz_nbclust
 #' @export
-plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
+plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseudoCount = NULL) {
+
+  # check that no Inf/-Inf/NA exists in the data and throw an error message if the data contains these values.
+  if(any(data == Inf | data == -Inf | is.na(data))){
+    stop("ERROR!! The data contains NA/NaN or infinite values. Please remove these from the data set and try again.")
+  }
+
+
+  # log2 transformation of data if specified by the user
+  if(log2){
+    data[,2:ncol(data)] <- log2(data[,2:ncol(data)] + pseudoCount)
+  }
+
+
+
 
   # select relevant columns in data (mol procent species & mol procent classes)
   mol_pct_species_cols <- data[grep(":",data$"mol."),2:ncol(data)]
@@ -47,6 +65,7 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
   # make colors for groups
   colors <- c("green", "blue", "yellow", "brown", "purple", "red", "black", "orange", "grey", "pink")[1:length(unique(type))]
   names(colors) <- unique(type)
+
 
 
   #### specify the optimal number of K
@@ -81,19 +100,18 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
   # transpose matrix
   dataMatrix <- t(dataMatrix)
 
-  dataMatrix[dataMatrix == -Inf] <- NA
-  dataMatrix[dataMatrix == Inf] <- NA
+  #dataMatrix[dataMatrix == -Inf] <- 0
+  #dataMatrix[dataMatrix == Inf] <- 0
 
 
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
-  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(0, median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, cluster_rows = TRUE, km = K)
+  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, cluster_rows = TRUE, km = K)
   heatPlot <- ha + heat
-
   png(file = paste0(pathToOutput, "/heatmapSpecies_K_", K, ".png"), height = 800, width = (22*nrow(mol_pct_species_cols)))
   draw(heatPlot)
   dev.off()
 
-
+  print(dataMatrix)
 
 
   #### heatmap classes
@@ -103,16 +121,18 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
   # transpose matrix
   dataMatrix <- t(dataMatrix)
 
-  dataMatrix[dataMatrix == -Inf] <- NA
-  dataMatrix[dataMatrix == Inf] <- NA
+  #dataMatrix[dataMatrix == -Inf] <- NA
+  #dataMatrix[dataMatrix == Inf] <- NA
 
 
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
-  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(0, median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, cluster_rows = TRUE, km = K)
+  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, cluster_rows = TRUE, km = K)
   heatPlot <- ha + heat
   png(file = paste0(pathToOutput, "/heatmapClasses_K_", K, ".png"), height = 800, width = (22*nrow(mol_pct_classes_cols)))
   draw(heatPlot)
   dev.off()
+
+  print(dataMatrix)
 
   }
 }
@@ -124,8 +144,12 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput) {
 #data <- read.csv("results/dataTables/finalOutput_molPct.csv")
 #colnames(data)
 
-#plotHeatmap(data = data, groups = groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/")
+plotHeatmap(data = data, groups = groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/", log2 = FALSE, pseudoCount = 0.0001)
 
+data[1,2] <- Inf
+data[2,2] <- -Inf
+data[3,2] <- NA
+data[4,2] <- NaN
 
-
+any(data == Inf | data == -Inf | is.na(data))
 

@@ -4,9 +4,22 @@
 #' @param data quantified data to be visualized (finalOutput_molPct.csv)
 #' @param groups file that associates column names of MS1 with groups
 #' @param pathToOutput the directory path to save the plots
+#' @param log2 logical argument that specifies whether or not data has to be log2 transformed
+#' @param pseudoCount pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data
 #' @importFrom factoextra fviz_eig fviz_pca_biplot
 #' @export
-plotPCA <- function(data, groups, pathToOutput){
+plotPCA <- function(data, groups, pathToOutput, log2 = FALSE, pseudoCount = NULL){
+
+  # check that no Inf/-Inf/NA exists in the data and throw an error message if the data contains these values.
+  if(any(data == Inf | data == -Inf | is.na(data))){
+    stop("ERROR!! The data contains NA/NaN or infinite values. Please remove these from the data set and try again.")
+  }
+
+  # log2 transformation of data if specified by the user
+  if(log2){
+    data[,2:ncol(data)] <- log2(data[,2:ncol(data)] + pseudoCount)
+  }
+
 
   # select relevant columns in data (mol procent species & mol procent classes)
   mol_pct_species_cols <- data[grep(":",data$"mol."),2:ncol(data)]
