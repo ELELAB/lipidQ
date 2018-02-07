@@ -114,7 +114,7 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseu
   #print(pseudoCount)
   #print(pathToOutput)
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
-  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, cluster_rows = TRUE, km = K)
+  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, show_column_dend = FALSE, cluster_rows = TRUE, km = K)
   heatPlot <- ha + heat
   #heatPlot <- heat
   png(file = paste0(pathToOutput, "/heatmapSpecies_K_", K, ".png"), height = 800, width = (22*nrow(mol_pct_species_cols)))
@@ -138,7 +138,7 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseu
 
 
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
-  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, cluster_rows = TRUE, km = K)
+  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, show_column_dend = FALSE, cluster_rows = TRUE, km = K)
   heatPlot <- ha + heat
   png(file = paste0(pathToOutput, "/heatmapClasses_K_", K, ".png"), height = 800, width = (22*nrow(mol_pct_classes_cols)))
   draw(heatPlot)
