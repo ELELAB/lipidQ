@@ -4,13 +4,13 @@
 \alias{plotHeatmap}
 \title{Plot Heatmap}
 \usage{
-plotHeatmap(data, groups, K = NULL, pathToOutput, log2 = FALSE,
+plotHeatmap(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
   pseudoCount = NULL)
 }
 \arguments{
 \item{data}{quantified data to be visualized (finalOutput_molPct.csv)}
 
-\item{groups}{file that associates column names of MS1 with groups}
+\item{sampleTypes}{file that associates column names of MS1 with the sample types}
 
 \item{K}{number of K in the Kmeans algorithm.}
 

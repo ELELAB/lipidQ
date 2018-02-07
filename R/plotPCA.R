@@ -2,13 +2,13 @@
 #' @author André Vidas Olsen
 #' @description This function plots the following PCA plots: screeplot and biplot
 #' @param data quantified data to be visualized (finalOutput_molPct.csv)
-#' @param groups file that associates column names of MS1 with groups
+#' @param sampleTypes file that associates column names of MS1 with sampleTypes
 #' @param pathToOutput the directory path to save the plots
 #' @param log2 logical argument that specifies whether or not data has to be log2 transformed
 #' @param pseudoCount pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data
 #' @importFrom factoextra fviz_eig fviz_pca_biplot
 #' @export
-plotPCA <- function(data, groups, pathToOutput, log2 = FALSE, pseudoCount = NULL){
+plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount = NULL){
 
   # check that no Inf/-Inf/NA exists in the data and throw an error message if the data contains these values.
   if(any(data == Inf | data == -Inf | is.na(data))){
@@ -31,15 +31,15 @@ plotPCA <- function(data, groups, pathToOutput, log2 = FALSE, pseudoCount = NULL
 
 
   # specify start and end index for each group
-  groupIndexes <- lapply(groups[1,], FUN = function(x) as.numeric(unlist(strsplit(x, split = "-"))))
+  groupIndexes <- lapply(sampleTypes[1,], FUN = function(x) as.numeric(unlist(strsplit(x, split = "-"))))
 
   # evaluate the index range for each group
   ranges <- lapply(groupIndexes, FUN = function(x) x[1]:x[2])
 
-  # specify groups for the heatmap
+  # specify sampleTypes for the heatmap
   type <- character(length(colnames(mol_pct_species_cols)))
-  for(i in 1:ncol(groups)){
-    type[unlist(ranges[colnames(groups)[i]])] <- colnames(groups)[i]
+  for(i in 1:ncol(sampleTypes)){
+    type[unlist(ranges[colnames(sampleTypes)[i]])] <- colnames(sampleTypes)[i]
   }
 
   # insert row and col names to be used for the biplots
@@ -84,7 +84,7 @@ plotPCA <- function(data, groups, pathToOutput, log2 = FALSE, pseudoCount = NULL
 
 
 
-#groups <- read.csv("inst/extdata/groups.csv", as.is = TRUE)
+#sampleTypes <- read.csv("inst/extdata/sampleTypes.csv", as.is = TRUE)
 
 
 #data <- read.csv("results/dataTables/finalOutput_molPct.csv", stringsAsFactors = FALSE)
@@ -92,7 +92,7 @@ plotPCA <- function(data, groups, pathToOutput, log2 = FALSE, pseudoCount = NULL
 
 
 
-#plotPCA(data, groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/")
+#plotPCA(data, sampleTypes, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/")
 
 
 

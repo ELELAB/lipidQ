@@ -14,7 +14,7 @@
 #' @author André Vidas Olsen
 #' @description This function plots heatmaps of the data
 #' @param data quantified data to be visualized (finalOutput_molPct.csv)
-#' @param groups file that associates column names of MS1 with groups
+#' @param sampleTypes file that associates column names of MS1 with the sample types
 #' @param K number of K in the Kmeans algorithm.
 #' @param pathToOutput the directory path to save the plots
 #' @param log2 logical argument that specifies whether or not data has to be log2 transformed
@@ -25,7 +25,7 @@
 #' @importFrom NbClust NbClust
 #' @importFrom factoextra fviz_nbclust
 #' @export
-plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseudoCount = NULL) {
+plotHeatmap <- function(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE, pseudoCount = NULL) {
 
 
   print(K)
@@ -52,19 +52,19 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseu
   # classes - samples
 
   # specify start and end index for each group
-  groupIndexes <- lapply(groups[1,], FUN = function(x) as.numeric(unlist(strsplit(x, split = "-"))))
+  groupIndexes <- lapply(sampleTypes[1,], FUN = function(x) as.numeric(unlist(strsplit(x, split = "-"))))
 
   # evaluate the index range for each group
   ranges <- lapply(groupIndexes, FUN = function(x) x[1]:x[2])
 
-  # specify groups for the heatmap
+  # specify sampleTypes for the heatmap
   type <- character(length(colnames(mol_pct_species_cols)))
-  for(i in 1:ncol(groups)){
-    type[unlist(ranges[colnames(groups)[i]])] <- colnames(groups)[i]
+  for(i in 1:ncol(sampleTypes)){
+    type[unlist(ranges[colnames(sampleTypes)[i]])] <- colnames(sampleTypes)[i]
   }
 
 
-  # make colors for groups
+  # make colors for sampleTypes
   colors <- c("green", "blue", "yellow", "brown", "purple", "red", "black", "orange", "grey", "pink")[1:length(unique(type))]
   names(colors) <- unique(type)
 
@@ -109,7 +109,7 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseu
   #print(data)
   print("test")
   #print(K)
-  #print(groups)
+  #print(sampleTypes)
   #print(log2)
   #print(pseudoCount)
   #print(pathToOutput)
@@ -153,12 +153,12 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseu
 
 
 
-#groups <- read.csv("inst/extdata/groups.csv", as.is = TRUE)
+#sampleTypes <- read.csv("inst/extdata/sampleTypes.csv", as.is = TRUE)
 
 #data <- read.csv("results/dataTables/finalOutput_molPct.csv")
 #colnames(data)
 
-#plotHeatmap(data = data, groups = groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/", log2 = FALSE)
+#plotHeatmap(data = data, sampleTypes = sampleTypes, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/", log2 = FALSE)
 
 #data[1,2] <- Inf
 #data[2,2] <- -Inf

@@ -122,7 +122,7 @@ ui <- fluidPage(
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
 
-                          fileInput(inputId = "groups", multiple = FALSE, label = "Choose a file containing group information for the data:",
+                          fileInput(inputId = "sampleTypes", multiple = FALSE, label = "Choose a file containing sample type information for the data:",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
 

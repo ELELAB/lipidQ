@@ -4,12 +4,12 @@
 \alias{plotPCA}
 \title{Plot Heatmap}
 \usage{
-plotPCA(data, groups, pathToOutput, log2 = FALSE, pseudoCount = NULL)
+plotPCA(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount = NULL)
 }
 \arguments{
 \item{data}{quantified data to be visualized (finalOutput_molPct.csv)}
 
-\item{groups}{file that associates column names of MS1 with groups}
+\item{sampleTypes}{file that associates column names of MS1 with sampleTypes}
 
 \item{pathToOutput}{the directory path to save the plots}
 

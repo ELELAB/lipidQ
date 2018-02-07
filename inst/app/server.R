@@ -35,7 +35,7 @@ server <- function(input, output, session){
         test <- read.table(test$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
         need(ncol(test) > (input$k+1) | is.na(input$k), "k needs to be lower than the number of samples")
       },
-      need(!is.null(input$groups), "Please select a group information file"),
+      need(!is.null(input$sampleTypes), "Please select a sample type information file"),
       need(input$dirPlots != "", "Please select filepath for output folder"),
       need(input$PCA_plot == TRUE | input$heatmap_plot == TRUE, "Please at least one plot type")
     )
@@ -267,7 +267,7 @@ server <- function(input, output, session){
 
     #need(ncol(test) > (input$k+1) | is.na(input$k)
     # & ncol(molPctFile) > (input$k+1)
-    if(!is.null(input$molPctFile)  & !is.null(input$groups) & input$dirPlots != "" & ( (!is.na(input$k) & ncol(molPctFile) > (input$k+1)) | is.na(input$k) ) & (input$PCA_plot == TRUE | input$heatmap_plot == TRUE)){
+    if(!is.null(input$molPctFile)  & !is.null(input$sampleTypes) & input$dirPlots != "" & ( (!is.na(input$k) & ncol(molPctFile) > (input$k+1)) | is.na(input$k) ) & (input$PCA_plot == TRUE | input$heatmap_plot == TRUE)){
 
       progress <- Progress$new(session, min=0, max=3)
       on.exit(progress$close())
@@ -277,10 +277,10 @@ server <- function(input, output, session){
 
 
 
-      # load groups file
-      if(!is.null(input$groups)){
-        groups <- input$groups
-        groups <- read.table(groups$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+      # load sampleTypes file
+      if(!is.null(input$sampleTypes)){
+        sampleTypes <- input$sampleTypes
+        sampleTypes <- read.table(sampleTypes$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
       }
 
       # change NA -> NULL for convenience
@@ -299,12 +299,12 @@ server <- function(input, output, session){
 
       # plot start
       if(input$PCA_plot){
-        lipidQuan:::plotPCA(data = molPctFile, groups = groups, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
+        lipidQuan:::plotPCA(data = molPctFile, sampleTypes = sampleTypes, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
       }
       progress$set(value = 2)
 
       if(input$heatmap_plot){
-        lipidQuan:::plotHeatmap(data = molPctFile, groups = groups, K = k, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
+        lipidQuan:::plotHeatmap(data = molPctFile, sampleTypes = sampleTypes, K = k, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
       }
       progress$set(value = 3)
 
