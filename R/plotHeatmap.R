@@ -20,13 +20,15 @@
 #' @param log2 logical argument that specifies whether or not data has to be log2 transformed
 #' @param pseudoCount pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data
 #' @importFrom stats cor
-#' @importFrom ComplexHeatmap Heatmap HeatmapAnnotation
+#' @import ComplexHeatmap
 #' @importFrom circlize colorRamp2
 #' @importFrom NbClust NbClust
 #' @importFrom factoextra fviz_nbclust
 #' @export
 plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseudoCount = NULL) {
 
+
+  print(K)
   # check that no Inf/-Inf/NA exists in the data and throw an error message if the data contains these values.
   if(any(data == Inf | data == -Inf | is.na(data))){
     stop("ERROR!! The data contains NA/NaN or infinite values. Please remove these from the data set and try again.")
@@ -104,14 +106,24 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseu
   #dataMatrix[dataMatrix == Inf] <- 0
 
 
+  #print(data)
+  print("test")
+  #print(K)
+  #print(groups)
+  #print(log2)
+  #print(pseudoCount)
+  #print(pathToOutput)
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
   heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, cluster_rows = TRUE, km = K)
   heatPlot <- ha + heat
+  #heatPlot <- heat
   png(file = paste0(pathToOutput, "/heatmapSpecies_K_", K, ".png"), height = 800, width = (22*nrow(mol_pct_species_cols)))
   draw(heatPlot)
+  #draw("+.AdditiveUnit"(ha, heat))
+  #draw(AdditiveUnit(ha, heat))
   dev.off()
 
-  print(dataMatrix)
+
 
 
   #### heatmap classes
@@ -130,6 +142,8 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseu
   heatPlot <- ha + heat
   png(file = paste0(pathToOutput, "/heatmapClasses_K_", K, ".png"), height = 800, width = (22*nrow(mol_pct_classes_cols)))
   draw(heatPlot)
+  #draw("+.AdditiveUnit"(ha, heat))
+  #draw(AdditiveUnit(ha, heat))
   dev.off()
 
   print(dataMatrix)
@@ -144,7 +158,7 @@ plotHeatmap <- function(data, groups, K = NULL, pathToOutput, log2 = FALSE, pseu
 #data <- read.csv("results/dataTables/finalOutput_molPct.csv")
 #colnames(data)
 
-#plotHeatmap(data = data, groups = groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/", log2 = FALSE, pseudoCount = 0.0001)
+#plotHeatmap(data = data, groups = groups, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/", log2 = FALSE)
 
 #data[1,2] <- Inf
 #data[2,2] <- -Inf
