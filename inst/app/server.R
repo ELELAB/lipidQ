@@ -26,6 +26,20 @@ server <- function(input, output, session){
     )
   })
 
+  # visualization
+  output$validateFields_visualization <- renderText({
+    validate(
+      need(!is.null(input$molPctFile), "Please select a mol% final output file"),
+      if(!is.null(input$molPctFile)){
+        test <- input$molPctFile
+        test <- read.table(test$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+        need(ncol(test) > (input$k+1) | is.na(input$k), "k needs to be lower than the number of samples")
+      },
+      need(!is.null(input$groups), "Please select a group information file"),
+      need(input$dirPlots != "", "Please select filepath for output folder"),
+      need(input$PCA_plot == TRUE | input$heatmap_plot == TRUE, "Please at least one plot type")
+    )
+  })
 
   # global options
   output$validateFields_globalOptions_userSpec <- renderText({
@@ -187,7 +201,7 @@ server <- function(input, output, session){
 
 
 
-    finalOutput <- lipidQuan:::makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet)
+    finalOutput <- lipidQuan:::makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
     write.csv(finalOutput[1], file = paste0(input$dir,"/dataTables/finalOutput_molPct.csv"), quote = FALSE, row.names = FALSE)
     write.csv(finalOutput[2], file = paste0(input$dir,"/dataTables/finalOutput_pmol.csv"), quote = FALSE, row.names = FALSE)
     progress$set(value = 7)
@@ -240,8 +254,20 @@ server <- function(input, output, session){
     #
     # This function runs when the "Create Plots" button is triggered by the user
     #
+    # load mol% pct final output file
 
-    #if(!is.null(input$finalOutputList) & input$dirFinalOutputs != ""){
+    # load mol% pct data
+    molPctFile <- data.frame()
+    if(!is.null(input$molPctFile)){
+      molPctFile <- input$molPctFile
+      molPctFile <- read.table(molPctFile$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+    }
+
+
+
+    #need(ncol(test) > (input$k+1) | is.na(input$k)
+    # & ncol(molPctFile) > (input$k+1)
+    if(!is.null(input$molPctFile)  & !is.null(input$groups) & input$dirPlots != "" & ( (!is.na(input$k) & ncol(molPctFile) > (input$k+1)) | is.na(input$k) ) & (input$PCA_plot == TRUE | input$heatmap_plot == TRUE)){
 
       progress <- Progress$new(session, min=0, max=3)
       on.exit(progress$close())
@@ -249,11 +275,7 @@ server <- function(input, output, session){
       progress$set(message = 'Calculation in progress',
                    detail = 'This may take a while...')
 
-      # load mol% pct final output file
-      if(!is.null(input$molPctFile)){
-        molPctFile <- input$molPctFile
-        molPctFile <- read.table(molPctFile$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
-      }
+
 
       # load groups file
       if(!is.null(input$groups)){
@@ -266,25 +288,30 @@ server <- function(input, output, session){
       if(is.na(k)){
         k <- NULL
       }
+      pseudoCount <- input$pseudoCount
+      if(is.na(pseudoCount)){
+        pseudoCount <- NULL
+      }
+
 
       progress$set(value = 1)
 
 
       # plot start
       if(input$PCA_plot){
-        lipidQuan:::plotPCA(data = molPctFile, groups = groups, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = input$pseudoCount)
+        lipidQuan:::plotPCA(data = molPctFile, groups = groups, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
       }
       progress$set(value = 2)
 
       if(input$heatmap_plot){
-        lipidQuan:::plotHeatmap(data = molPctFile, groups = groups, K = k, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = input$pseudoCount)
+        lipidQuan:::plotHeatmap(data = molPctFile, groups = groups, K = k, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
       }
       progress$set(value = 3)
 
       output$plotsDone <- renderText({
         paste("Plots created!")
       })
-    #}
+    }
   })
 
 

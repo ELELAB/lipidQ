@@ -137,6 +137,7 @@ ui <- fluidPage(
 
                           textInput("dirPlots", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/lipidQuan/results/plots"),
                           actionButton("createPlots", "Create Plots"),
+                          textOutput("validateFields_visualization"),
                           textOutput("plotsDone")
                         ),
                         mainPanel()
