@@ -5,6 +5,10 @@
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
 #' @export
+#' @examples
+#' mergedDataSets <- read.table(system.file("extdata/dataTables", "mergedDataSets.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#' list <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#' sortedData <- sort_is(mergedDataSets, userSpecifiedColnames = list)
 sort_is<-function(data, userSpecifiedColnames = NULL){
 
   # get colnames for data

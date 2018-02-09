@@ -17,6 +17,27 @@ makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet,
 \description{
 This function creates the final output file of the results which consists of both all filtered pmol% species and filtered pmol% classes.
 }
+\examples{
+# load endo & ISTD databases as well as user specified column names file.
+endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+# load pmolCalculatedDataSet.csv made by using the pmolCalc() function
+pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+# make compact output from pmolCalculatedDataSet
+classPmol_molPctClass_compact <- compactOutput_pmolCalc(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+
+# make final outout
+finalOutput <- makeFinalOutput(classPmol_molPctClass_compact, pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+
+# print mol\% final output
+finalOutput[[1]]
+
+# print pmol final output
+finalOutput[[2]]
+}
 \author{
 André Vidas Olsen
 }

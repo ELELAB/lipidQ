@@ -23,6 +23,15 @@ plotHeatmap(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
 \description{
 This function plots heatmaps of the data
 }
+\examples{
+# load sample types file and data to be used for visualization
+sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+data <- read.csv(system.file("extdata/dataTables", "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+
+
+# create heatmap from log2 transformed data with 0.0001 added pseudo counts
+plotHeatmap(data = data, sampleTypes = sampleTypes, pathToOutput = system.file("extdata/dataTables", package = "lipidQuan"), log2 = TRUE, pseudoCount = 0.0001)
+}
 \author{
 André Vidas Olsen
 }

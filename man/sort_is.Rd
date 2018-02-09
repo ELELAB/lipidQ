@@ -15,6 +15,11 @@ sort_is(data, userSpecifiedColnames = NULL)
 This function orders all internal standards (is) in a given data set so that they appear as the last rows
 (after the normal species). The purpose for this is mainly to get a better overview of the data types when manually inspecting the data.
 }
+\examples{
+mergedDataSets <- read.table(system.file("extdata/dataTables", "mergedDataSets.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+list <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+sortedData <- sort_is(mergedDataSets, userSpecifiedColnames = list)
+}
 \author{
 André Vidas Olsen
 }

@@ -5,7 +5,11 @@
 #' as well as the output directory.
 #' @export
 #' @import shiny
+#' @examples
+#' # run lipidQuan
+#' runLipidQuan()
 runLipidQuan <- function(){
   #runApp("inst/app/") # for test purposes
   suppressMessages(shiny::runApp(system.file("app", package = "lipidQuan"),launch.browser=TRUE)) # for builds
 }
+

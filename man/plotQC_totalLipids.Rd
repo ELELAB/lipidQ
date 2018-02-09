@@ -16,6 +16,19 @@ plotQC_totalLipids(data, userSpecifiedColnames = NULL, pathToOutput)
 \description{
 This function creates QC plots of MS1 intensity data
 }
+\examples{
+# load user specified column names
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+# load pmolCalculatedDataSet.csv made by using the pmolCalc() function
+pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+# make compact output from pmolCalculatedDataSet
+classPmol_molPctClass_compact <- compactOutput_pmolCalc(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+
+# create QC plot of of total lipids
+plotQC_totalLipids(data = classPmol_molPctClass_compact, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = "results/QC/post")
+}
 \author{
 André Vidas Olsen
 }

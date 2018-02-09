@@ -14,6 +14,16 @@ makeDatabase(userSpecifiedColnames = NULL, DB_type)
 \description{
 This function creates a database based on the user specified column names template
 }
+\examples{
+# load user specified column names files
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+# make endo database
+makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = "endo")
+
+# make ISTD database
+makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = "ISTD")
+}
 \author{
 André Vidas Olsen
 }

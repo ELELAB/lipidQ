@@ -14,6 +14,21 @@ makeIndex_OH_DB_C(data, userSpecifiedColnames = NULL)
 \description{
 This function creates OH Index, DB Index and C-chain Index of data containing calculated %pmol values of samples.
 }
+\examples{
+# load user specified column names file.
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+# load pmolCalculatedDataSet.csv made by using the pmolCalc() function
+pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+# make data of OH, DB and C index
+indexData <- makeIndex_OH_DB_C(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+
+# print data
+indexData[[1]]
+indexData[[2]]
+indexData[[3]]
+}
 \author{
 André Vidas Olsen
 }

@@ -43,7 +43,7 @@ Start by open up LipidQuan. This can be done by doing these 3 steps:
 
 1. Open Rstudio
 
-2. Write "library(lipiqQuan)"
+2. Write "library(lipidQuan)"
 
 3. Write "runLipidQuan()"
 

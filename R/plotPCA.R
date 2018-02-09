@@ -7,7 +7,15 @@
 #' @param log2 logical argument that specifies whether or not data has to be log2 transformed
 #' @param pseudoCount pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data
 #' @importFrom factoextra fviz_eig fviz_pca_biplot
+#' @importFrom stats prcomp
 #' @export
+#' @examples
+#' # load sample types file and data to be used for visualization
+#' sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+#' data <- read.csv(system.file("extdata/dataTables", "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+#'
+#' # create pca scree and biplot from log2 transformed data with 0.0001 added pseudo counts
+#' plotPCA(data, sampleTypes, pathToOutput = system.file("extdata/dataTables", package = "lipidQuan"), log2 = TRUE, pseudoCount = 0.0001)
 plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount = NULL){
 
   # check that no Inf/-Inf/NA exists in the data and throw an error message if the data contains these values.

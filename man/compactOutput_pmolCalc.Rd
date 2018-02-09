@@ -12,8 +12,18 @@ compactOutput_pmolCalc(data, userSpecifiedColnames = NULL)
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
 }
 \description{
-compactOutput_pmolCalc saves a data.frame with only
+compactOutput_pmolCalc saves a compact version of data.frame
 NAME, CLASS_PMOL_SUBT_PMOL_*, and MOL_PCT_CLASS_SUBT_PMOL_* and FILTERED
+}
+\examples{
+# load user specified column names file.
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+# load pmolCalculatedDataSet.csv made by using the pmolCalc() function
+pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+# make compact output from pmolCalculatedDataSet
+compact_output <- compactOutput_pmolCalc(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
 }
 \author{
 André Vidas Olsen

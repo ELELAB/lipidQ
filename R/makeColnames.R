@@ -1,15 +1,12 @@
 #' @title Make column names
 #' @author André Vidas Olsen
-#' @description This function generates a new template file for standard column names (in the header) and with default column names as first row of the data.frame. These default column names
+#' @description This function generates a new template user specified column names file. This data file's first row can then be modified by the user so that each column match the users data columns.
 #' can be specified by the user. This function is useful if some error occur due to corruption of this file (for instance changes in the header section).
 #' @param numberOfMS2ix a parameter that specifies how many MS2 columns there is in the input data, since this number can vary depending on experiment setup.
 #' @export
 #' @examples
-#' # load user specified column names file
-#' userSpecifiedColnames <- read.csv(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
-#'
-#' # get colnames for data
-#' dataColnames <- getColnames(userSpecifiedColnames)
+#' # make a template user specified column names file.
+#' dataColnamesTemplate <- makeColnames(numberOfMS2ix = 9)
 makeColnames <- function(numberOfMS2ix = 7){
   # throw an error if numberOfMS2ix > 20.
   if(numberOfMS2ix > 20){

@@ -10,7 +10,7 @@ getColnames(userSpecifiedColnames = NULL)
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
 }
 \description{
-Auxiliary function to get colnames for the input data set. If no user specified column names is provided as an argument, default column names will be returned.
+Auxiliary function to get colnames for the input data set.
 }
 \author{
 André Vidas Olsen

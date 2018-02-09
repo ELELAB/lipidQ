@@ -11,6 +11,10 @@ runLipidQuan starts the graphical user interface (GUI) of Lipidomics Analysis To
 From this GUI, the user can specify different types of procedures, input data, different parameter
 as well as the output directory.
 }
+\examples{
+# run lipidQuan
+runLipidQuan()
+}
 \author{
 André Vidas Olsen
 }

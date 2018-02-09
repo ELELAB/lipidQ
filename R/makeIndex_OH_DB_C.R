@@ -4,6 +4,20 @@
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
 #' @export
+#' @examples
+#' # load user specified column names file.
+#' userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#'
+#' # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
+#' pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#'
+#' # make data of OH, DB and C index
+#' indexData <- makeIndex_OH_DB_C(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+#'
+#' # print data
+#' indexData[[1]]
+#' indexData[[2]]
+#' indexData[[3]]
 makeIndex_OH_DB_C <- function(data, userSpecifiedColnames = NULL){
 
   # get colnames for data

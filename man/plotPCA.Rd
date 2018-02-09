@@ -20,6 +20,14 @@ plotPCA(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount = NULL)
 \description{
 This function plots the following PCA plots: screeplot and biplot
 }
+\examples{
+# load sample types file and data to be used for visualization
+sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+data <- read.csv(system.file("extdata/dataTables", "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+
+# create pca scree and biplot from log2 transformed data with 0.0001 added pseudo counts
+plotPCA(data, sampleTypes, pathToOutput = system.file("extdata/dataTables", package = "lipidQuan"), log2 = TRUE, pseudoCount = 0.0001)
+}
 \author{
 André Vidas Olsen
 }
