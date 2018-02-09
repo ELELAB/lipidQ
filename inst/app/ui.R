@@ -118,7 +118,7 @@ ui <- fluidPage(
                       sidebarLayout(
                         sidebarPanel(
                           # input data
-                          fileInput(inputId = "molPctFile", multiple = FALSE, label = "Choose a mol% final output file:",
+                          fileInput(inputId = "molPctFile", multiple = FALSE, label = "Choose a mol% final output file (.csv-file):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
 
@@ -126,11 +126,11 @@ ui <- fluidPage(
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
 
-                          checkboxInput("log2Trans", "Use log2 transformation on the data", FALSE),
+                          checkboxInput("log2Trans", "log2 transformation of the data", FALSE),
                           numericInput("pseudoCount", "Pseudo count", NULL, min = 0, max = 1000),
 
 
-                          checkboxInput("PCA_plot", "Create PCA plots of mol% classes and species", FALSE),
+                          checkboxInput("PCA_plot", "Create PCA biplots of mol% classes and species", FALSE),
 
                           checkboxInput("heatmap_plot", "Create heatmap plots of mol% classes and species", FALSE),
                           numericInput("k", "Optional selection of k clusters for the heatmap", NULL, min = 0, max = 10),
