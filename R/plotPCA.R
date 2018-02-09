@@ -8,6 +8,7 @@
 #' @param pseudoCount pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data
 #' @importFrom factoextra fviz_eig fviz_pca_biplot
 #' @importFrom stats prcomp
+#' @return four plot images: a scree plots (screePlot_species.png & screePlot_classes.png) and a biplot (PCA_biplot_species.png & PCA_biplot_classes.png) for both species and classes.
 #' @export
 #' @examples
 #' # load sample types file and data to be used for visualization

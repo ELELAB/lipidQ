@@ -11,6 +11,9 @@ makeDatabase(userSpecifiedColnames = NULL, DB_type)
 
 \item{DB_type}{a string describing which of the two databases that is should be reset. "endo" for the endogene_lipid_db.csv database and "ISTD" for the ISTD_lipid_db.csv database.}
 }
+\value{
+a database template file in the form of either endogene or ISTD
+}
 \description{
 This function creates a database based on the user specified column names template
 }

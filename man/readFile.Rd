@@ -9,6 +9,9 @@ readFile(dataPath)
 \arguments{
 \item{dataPath}{a path referring to input data}
 }
+\value{
+data set
+}
 \description{
 Auxiliary function that reads a data set by using the destination stored in the dataPath parameter.
 }

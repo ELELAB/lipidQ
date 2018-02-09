@@ -18,6 +18,9 @@ filterReplicates(data, userSpecifiedColnames = NULL, numberOfReplicates = 1,
 
 \item{thresholdValue}{user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.}
 }
+\value{
+a data set filtered by a user specified threshold of pmol between replicates
+}
 \description{
 This function filter replicates for each specie based on a threshold value
 }

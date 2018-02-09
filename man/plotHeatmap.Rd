@@ -20,6 +20,9 @@ plotHeatmap(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
 
 \item{pseudoCount}{pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data}
 }
+\value{
+Two heatmap images: heatmap of species (heatmapSpecies_K_n.png) and heatmap of classes (heatmapClasses_K_n.png), where n indicates the amount of clusters K. If clusters are not chosen by the user, a majority vote chart will also be included called nbclustResults.png.
+}
 \description{
 This function plots heatmaps of the data
 }

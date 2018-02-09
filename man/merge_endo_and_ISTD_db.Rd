@@ -11,6 +11,9 @@ merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
 
 \item{ISTD_lipid_db}{the ISTD lipid database}
 }
+\value{
+a data set consisting of endogene and ISTD database merged together
+}
 \description{
 This function merges the two components of the reference databaes together: the endogene lipid database and the ISTD lipid database.
 }

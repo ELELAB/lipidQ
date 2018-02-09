@@ -7,6 +7,7 @@
 #' @import ggplot2
 #' @import reshape2
 #' @importFrom stats sd
+#' @return barplots of pmol for every lipid class as well as one barplot of the total amount of lipids for each sample
 #' @export
 #' @examples
 #' # load user specified column names

@@ -9,6 +9,9 @@ mergeFinalOutputs(dataList)
 \arguments{
 \item{dataList}{a list of paths referring to input data}
 }
+\value{
+a data set consisting of merged final output files
+}
 \description{
 This function merges final output files into one data file
 }

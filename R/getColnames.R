@@ -2,6 +2,7 @@
 #' @author André Vidas Olsen
 #' @description Auxiliary function to get colnames for the input data set.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
+#' @return a validated user specified column names data set
 getColnames <- function(userSpecifiedColnames = NULL){
   # user specified colnames
   if(!is.null(userSpecifiedColnames)){

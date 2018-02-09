@@ -34,6 +34,9 @@ pmolCalc(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL,
 
 \item{thresholdValue}{user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.}
 }
+\value{
+a data set containing pmol and pmol related columns
+}
 \description{
 This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard
 }

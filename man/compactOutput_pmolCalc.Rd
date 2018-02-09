@@ -11,6 +11,9 @@ compactOutput_pmolCalc(data, userSpecifiedColnames = NULL)
 
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
 }
+\value{
+a compact data output comprising of pmol and pmol related columns
+}
 \description{
 compactOutput_pmolCalc saves a compact version of data.frame
 NAME, CLASS_PMOL_SUBT_PMOL_*, and MOL_PCT_CLASS_SUBT_PMOL_* and FILTERED

@@ -2,6 +2,7 @@
 #' @author André Vidas Olsen
 #' @description This function merges final output files into one data file
 #' @param dataList a list of paths referring to input data
+#' @return a data set consisting of merged final output files
 #' @export
 mergeFinalOutputs <- function(dataList){
 

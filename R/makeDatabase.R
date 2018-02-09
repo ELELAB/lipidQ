@@ -4,6 +4,7 @@
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data. This file
 #' @param DB_type a string describing which of the two databases that is should be reset. "endo" for the endogene_lipid_db.csv database and "ISTD" for the ISTD_lipid_db.csv database.
 #' @export
+#' @return a database template file in the form of either endogene or ISTD
 #' @examples
 #' # load user specified column names files
 #' userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")

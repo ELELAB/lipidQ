@@ -24,6 +24,7 @@
 #' @importFrom circlize colorRamp2
 #' @importFrom NbClust NbClust
 #' @importFrom factoextra fviz_nbclust
+#' @return Two heatmap images: heatmap of species (heatmapSpecies_K_n.png) and heatmap of classes (heatmapClasses_K_n.png), where n indicates the amount of clusters K. If clusters are not chosen by the user, a majority vote chart will also be included called nbclustResults.png.
 #' @export
 #' @examples
 #' # load sample types file and data to be used for visualization

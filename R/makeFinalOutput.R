@@ -4,6 +4,7 @@
 #' @param classPmol_molPctClass compact output file created by using the compactOutput_pmolCalc() script.
 #' @param pmolCalculatedDataSet data of pmol calculations made by using the pmolCalc() script.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
+#' @return a final output file containing pmol and mol% of species
 #' @export
 #' @examples
 #' # load endo & ISTD databases as well as user specified column names file.

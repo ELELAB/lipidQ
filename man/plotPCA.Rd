@@ -17,6 +17,9 @@ plotPCA(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount = NULL)
 
 \item{pseudoCount}{pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data}
 }
+\value{
+four plot images: a scree plots (screePlot_species.png & screePlot_classes.png) and a biplot (PCA_biplot_species.png & PCA_biplot_classes.png) for both species and classes.
+}
 \description{
 This function plots the following PCA plots: screeplot and biplot
 }

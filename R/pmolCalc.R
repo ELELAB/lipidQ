@@ -13,6 +13,7 @@
 #' @param blnkReplicates logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.
 #' @param numberOfInstancesThreshold the number of replicates for a given sample that has to have values above the specified threshold value (thesholdValue)
 #' @param thresholdValue user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.
+#' @return a data set containing pmol and pmol related columns
 #' @export
 #' @examples
 #' # load endo & ISTD databases as well as user specified column names file.

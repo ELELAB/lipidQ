@@ -13,6 +13,9 @@ plotQC_totalLipids(data, userSpecifiedColnames = NULL, pathToOutput)
 
 \item{pathToOutput}{the directory path to save the plots}
 }
+\value{
+barplots of pmol for every lipid class as well as one barplot of the total amount of lipids for each sample
+}
 \description{
 This function creates QC plots of MS1 intensity data
 }

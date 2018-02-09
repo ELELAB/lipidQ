@@ -4,6 +4,7 @@
 #' NAME, CLASS_PMOL_SUBT_PMOL_*, and MOL_PCT_CLASS_SUBT_PMOL_* and FILTERED
 #' @param data data formatted by the use of the mergeDataSet function from LipidQuan.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
+#' @return a compact data output comprising of pmol and pmol related columns
 #' @export
 #' @examples
 #' # load user specified column names file.

@@ -23,6 +23,9 @@ plotQC_ISTD(data, endogene_lipid_db, ISTD_lipid_db,
 
 \item{numberOfReplicates}{the number of replicates for each sample}
 }
+\value{
+barplots of every ISTD which includes all samples as well as one barplot of all ISTD with median sample intensity value
+}
 \description{
 This function creates QC plots of MS1 intensity data
 }

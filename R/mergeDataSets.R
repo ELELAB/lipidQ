@@ -8,6 +8,7 @@
 #' is used to translate the user specified column names to the program, so that it uses the correct columns for the different analysis procedures.
 #' @param correctionList a file containing a list of sum compositions to be multiplied for in the MS1 column values (intensity values)
 #' @param multiply a parameter used to multiply intensity values in the MS1 column on selected sum compositions. The parameter is useful if lipidX is used to obtain the intensity data derived from overlapping MS scan ranges. The sum composition are selected by the user and should appear in a correction list file that is used as argument for the correctionList parameter.
+#' @return a data set consisting of merged input data
 #' @export
 mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, correctionList = NULL, multiply = NULL){
 

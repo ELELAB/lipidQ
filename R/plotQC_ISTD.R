@@ -11,6 +11,7 @@
 #' @import ggplot2
 #' @import reshape2
 #' @importFrom stats sd
+#' @return barplots of every ISTD which includes all samples as well as one barplot of all ISTD with median sample intensity value
 #' @export
 #' @examples
 #' # load endo & ISTD databases as well as user specified column names file.

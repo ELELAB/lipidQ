@@ -14,6 +14,9 @@ makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet,
 
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
 }
+\value{
+a final output file containing pmol and mol% of species
+}
 \description{
 This function creates the final output file of the results which consists of both all filtered pmol% species and filtered pmol% classes.
 }

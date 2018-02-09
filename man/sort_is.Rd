@@ -11,6 +11,9 @@ sort_is(data, userSpecifiedColnames = NULL)
 
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
 }
+\value{
+a sorted data set
+}
 \description{
 This function orders all internal standards (is) in a given data set so that they appear as the last rows
 (after the normal species). The purpose for this is mainly to get a better overview of the data types when manually inspecting the data.

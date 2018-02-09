@@ -6,6 +6,7 @@
 #' @param endogene_lipid_db the endogene lipid database
 #' @param ISTD_lipid_db the ISTD lipid database
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
+#' @return a filtered data set
 #' @export
 #' @examples
 #' # load endo & ISTD databases as well as user specified column names file.

@@ -16,6 +16,9 @@ filterDataSet(data, endogene_lipid_db, ISTD_lipid_db,
 
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
 }
+\value{
+a filtered data set
+}
 \description{
 filterDataSet selects relevants columns from a data set and remove species
 if the name does not exist in the global database.

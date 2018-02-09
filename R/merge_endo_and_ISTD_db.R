@@ -3,6 +3,7 @@
 #' @description This function merges the two components of the reference databaes together: the endogene lipid database and the ISTD lipid database.
 #' @param endogene_lipid_db the endogene lipid database
 #' @param ISTD_lipid_db the ISTD lipid database
+#' @return a data set consisting of endogene and ISTD database merged together
 merge_endo_and_ISTD_db <- function(endogene_lipid_db, ISTD_lipid_db){
 
   #### merge endogene_lipid_db and ISTD_lipid_db together

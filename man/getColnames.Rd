@@ -9,6 +9,9 @@ getColnames(userSpecifiedColnames = NULL)
 \arguments{
 \item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
 }
+\value{
+a validated user specified column names data set
+}
 \description{
 Auxiliary function to get colnames for the input data set.
 }

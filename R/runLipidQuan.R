@@ -5,6 +5,7 @@
 #' as well as the output directory.
 #' @export
 #' @import shiny
+#' @return start up lipidQuan graphical user interface
 #' @examples
 #' # run lipidQuan
 #' runLipidQuan()

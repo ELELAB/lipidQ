@@ -6,6 +6,9 @@
 \usage{
 runLipidQuan()
 }
+\value{
+start up lipidQuan graphical user interface
+}
 \description{
 runLipidQuan starts the graphical user interface (GUI) of Lipidomics Analysis Tool.
 From this GUI, the user can specify different types of procedures, input data, different parameter
