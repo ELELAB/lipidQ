@@ -6,7 +6,6 @@
 #' @param numberOfReplicates the number of replicates for each sample
 #' @param numberOfInstancesThreshold the number of replicates for a given sample that has to have values above the specified threshold value (thesholdValue)
 #' @param thresholdValue user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.
-#' @export
 filterReplicates <- function(data, userSpecifiedColnames = NULL, numberOfReplicates = 1, numberOfInstancesThreshold, thresholdValue){
 
 
