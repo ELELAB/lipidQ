@@ -37,7 +37,11 @@ server <- function(input, output, session){
       },
       need(!is.null(input$sampleTypes), "Please select a sample type information file"),
       need(input$dirPlots != "", "Please select filepath for output folder"),
-      need(input$PCA_plot == TRUE | input$heatmap_plot == TRUE, "Please at least one plot type")
+      need(input$PCA_plot == TRUE | input$heatmap_plot == TRUE, "Please at least one plot type"),
+
+      if(input$log2Trans){
+        need(!is.na(input$pseudoCount), "Please specify a pseudo count")
+      }
     )
   })
 
@@ -267,7 +271,7 @@ server <- function(input, output, session){
 
     #need(ncol(test) > (input$k+1) | is.na(input$k)
     # & ncol(molPctFile) > (input$k+1)
-    if(!is.null(input$molPctFile)  & !is.null(input$sampleTypes) & input$dirPlots != "" & ( (!is.na(input$k) & ncol(molPctFile) > (input$k+1)) | is.na(input$k) ) & (input$PCA_plot == TRUE | input$heatmap_plot == TRUE)){
+    if(!is.null(input$molPctFile)  & !is.null(input$sampleTypes) & input$dirPlots != "" & (input$log2Trans == FALSE | (input$log2Trans == TRUE & !is.na(input$pseudoCount)) )  & ( (!is.na(input$k) & ncol(molPctFile) > (input$k+1)) | is.na(input$k) ) & (input$PCA_plot == TRUE | input$heatmap_plot == TRUE)){
 
       progress <- Progress$new(session, min=0, max=3)
       on.exit(progress$close())
