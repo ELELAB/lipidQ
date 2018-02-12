@@ -1,0 +1,62 @@
+---
+title: "Visualization"
+author: "André Vidas Olsen"
+date: "`r Sys.Date()`"
+output: html_document
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+#Introduction
+This vignette will cover all the basic steps involved in lipidQuan visualization.
+
+
+#Data
+The visualization section is capable of visualizing the final output mol% files which are created in when doing the quantification procedure (See the visualization tutorial for an example).
+
+
+
+#Sample type file
+The visualization which comprises of both PCA biplots and heatmap plot, will also visualize the sample types of the different sample columns in the final output mol% files. Because of this, a small file containing information about the sample types is needed in this visualization process. By clicking on the "Browse..." button below "Choose a file containing sample type information for the data" the user can specify this sample type file. The file has the following structure:
+
+
+```{r echo = FALSE}
+library(knitr)
+data <- data.frame("sampleType1" = "start-end", "sampleType2" = "start-end", "sampleType3" = "start-end", "sampleType4" = "start-end", "sampleType5" = "start-end", "sampleType6" = "start-end")
+kable(data)
+```
+
+where, "sampleType" represent the sampel type and start-end represent the start and end column of sample columns in the final output mol% that has a given sample type. The following shows an exmaple of this sample type file:
+
+```{r echo = FALSE}
+library(knitr)
+data <- read.csv(system.file("extdata/sampleTypes.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+kable(data)
+```
+
+In this file, the user has specified that sample column 1 and 2 in the final output mol% file contains blood samples, while the sample column 3 and 4 contains plasma. Note that the user only specify the start and end column of the same sample type. For instance, if the first 3 samples in the final output mol% file had been blood, then the user should write 1-3 under the blood column in the sample type file. The same sample types therefore needs to be placed adjacent to each other in the data. A total of 10 different groups are allowed to be visualized in the same visalization.
+
+# log2 transformation
+The user can also specify whether the data should be log2 transformed before visualization by clicking on the checkbox "log2 transformation of the data". When lod2 transformation is enabled, the user also needs to specify pseudo counts, if the data contains zeros in order to avoid $-\infty$ values in the transformed data. This is done by specifying a small number in the "Pseudo count" field which will be added to every values prior to the log2 transformation.
+
+# Selection of plot types
+The user also needs to specify which plots to visualize. There are two types of plots:
+
+1. PCA
+2. Heatmap
+
+The PCA plot will create a scree plot and PCA biplot of the data. The heatmap plot will contain clustering of the data. For both types of plots there will be plots for both classes and species, which will be named accordingly (e.g. PCA_biplot_species.png and PCA_biplot_classes.png).
+
+
+#Clustering
+As mentioned in the "Selection of plot types" section, heatmap will cluster the data. This is done by using the k-means clustering algorithm. If user has some prior knowledge of the amount of clusters, the user can specify the amount of clusters $k$ in the "Optional selection of $k$ clusters for the heatmap" field. If no number of clusters is specified, LipidQuan will determine the most appropiate numbers of clusters $k$ by using the NbClust R package (Ref: https://cran.r-project.org/web/packages/NbClust/index.html). A plot called nbclustResults.png will be created in this instance, which illustrates a majority vote system of the different number of $k$ clusters to indicate the most appropiate choice of $k$.
+
