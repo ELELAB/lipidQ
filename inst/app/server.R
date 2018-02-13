@@ -315,7 +315,7 @@ server <- function(input, output, session){
       progress$set(value = 2)
 
       if(input$heatmap_plot){
-        lipidQuan:::plotHeatmap(data = molPctFile, sampleTypes = sampleTypes, K = k, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
+        lipidQuan:::plotHeatmap(data = molPctFile, sampleTypes = sampleTypes, k = k, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
       }
       progress$set(value = 3)
 

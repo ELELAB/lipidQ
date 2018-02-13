@@ -15,7 +15,7 @@
 #' @description This function plots heatmaps of the data
 #' @param data quantified data to be visualized (finalOutput_molPct.csv)
 #' @param sampleTypes file that associates column names of MS1 with the sample types
-#' @param K number of K in the Kmeans algorithm.
+#' @param k number of k in the k-means algorithm.
 #' @param pathToOutput the directory path to save the plots
 #' @param log2 logical argument that specifies whether or not data has to be log2 transformed
 #' @param pseudoCount pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data
@@ -24,7 +24,7 @@
 #' @importFrom circlize colorRamp2
 #' @importFrom NbClust NbClust
 #' @importFrom factoextra fviz_nbclust
-#' @return Two heatmap images: heatmap of species (heatmapSpecies_K_n.png) and heatmap of classes (heatmapClasses_K_n.png), where n indicates the amount of clusters K. If clusters are not chosen by the user, a majority vote chart will also be included called nbclustResults.png.
+#' @return Two heatmap images: heatmap of species (heatmapSpecies_k_n.png) and heatmap of classes (heatmapClasses_k_n.png), where n indicates the amount of clusters k. If clusters are not chosen by the user, a majority vote chart will also be included called nbclustResults.png.
 #' @export
 #' @examples
 #' # load sample types file and data to be used for visualization
@@ -34,7 +34,7 @@
 #'
 #' # create heatmap from log2 transformed data with 0.0001 added pseudo counts
 #' plotHeatmap(data = data, sampleTypes = sampleTypes, pathToOutput = system.file("extdata/dataTables", package = "lipidQuan"), log2 = TRUE, pseudoCount = 0.0001)
-plotHeatmap <- function(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE, pseudoCount = NULL) {
+plotHeatmap <- function(data, sampleTypes, k = NULL, pathToOutput, log2 = FALSE, pseudoCount = NULL) {
 
 
 
@@ -79,15 +79,15 @@ plotHeatmap <- function(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
 
 
 
-  #### specify the optimal number of K
-  if(is.null(K)){
+  #### specify the optimal number of k
+  if(is.null(k)){
     nb <- NbClust(data[,2:ncol(data)], distance = "euclidean",
                   max.nc = ncol(data[,2:ncol(data)]), method = "kmeans")
 
 
     t <- as.data.frame(table(nb$Best.nc[1,]), stringsAsFactors = FALSE)
-    t <- t[1:(nrow(t)-1),] # remove highest cluster (K == number of samples) from the possible optimal cluster list, since ComplexHeatmap can't have same number of clusters as observations
-    listOfK <- as.numeric(t[t$Freq == max(t$Freq), "Var1"])
+    t <- t[1:(nrow(t)-1),] # remove highest cluster (k == number of samples) from the possible optimal cluster list, since ComplexHeatmap can't have same number of clusters as observations
+    listOf_k <- as.numeric(t[t$Freq == max(t$Freq), "Var1"])
 
     # plot results
     nbclustResults <- fviz_nbclust(nb)
@@ -95,14 +95,14 @@ plotHeatmap <- function(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
 
 
   }else{
-    listOfK <- K
+    listOf_k <- k
   }
 
 
 
 
-  # make graphs for each optimal number of K's (there will be multiples if there are equally high number of choices for severeal K's)
-  for(K in listOfK){
+  # make graphs for each optimal number of k's (there will be multiples if there are equally high number of choices for severeal k's)
+  for(k in listOf_k){
 
   #### heatmap species
   dataMatrix <- data.matrix(mol_pct_species_cols)
@@ -117,10 +117,10 @@ plotHeatmap <- function(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
 
 
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
-  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, show_column_dend = FALSE, cluster_rows = TRUE, km = K)
+  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, show_column_dend = FALSE, cluster_rows = TRUE, km = k)
   heatPlot <- ha + heat
   #heatPlot <- heat
-  png(file = paste0(pathToOutput, "/heatmapSpecies_K_", K, ".png"), height = 800, width = (22*nrow(mol_pct_species_cols)))
+  png(file = paste0(pathToOutput, "/heatmapSpecies_k_", k, ".png"), height = 800, width = (22*nrow(mol_pct_species_cols)))
   draw(heatPlot)
   #draw("+.AdditiveUnit"(ha, heat))
   #draw(AdditiveUnit(ha, heat))
@@ -141,9 +141,9 @@ plotHeatmap <- function(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
 
 
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row", col = list(type = colors))
-  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, show_column_dend = FALSE, cluster_rows = TRUE, km = K)
+  heat <- Heatmap(dataMatrix, name = "mol pct.", column_title = "Classes", column_title_side = "bottom", row_title = "Samples", row_title_side = "right", na_col = "black", col = colorRamp2(c(min(dataMatrix, na.rm = TRUE), median(dataMatrix, na.rm = TRUE), max(dataMatrix, na.rm = TRUE)), c("white", "yellow", "red")), show_row_dend = FALSE, show_column_dend = FALSE, cluster_rows = TRUE, km = k)
   heatPlot <- ha + heat
-  png(file = paste0(pathToOutput, "/heatmapClasses_K_", K, ".png"), height = 800, width = (22*nrow(mol_pct_classes_cols)))
+  png(file = paste0(pathToOutput, "/heatmapClasses_k_", k, ".png"), height = 800, width = (22*nrow(mol_pct_classes_cols)))
   draw(heatPlot)
   #draw("+.AdditiveUnit"(ha, heat))
   #draw(AdditiveUnit(ha, heat))
@@ -157,10 +157,10 @@ plotHeatmap <- function(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
 
 #sampleTypes <- read.csv("inst/extdata/sampleTypes.csv", as.is = TRUE)
 
-#data <- read.csv("results/dataTables/finalOutput_molPct.csv")
+#data <- read.csv("inst/extdata/finalOutput_molPct.csv", as.is = TRUE)
 #colnames(data)
 
-#plotHeatmap(data = data, sampleTypes = sampleTypes, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/", log2 = FALSE)
+#plotHeatmap(data = data, sampleTypes = sampleTypes, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/", log2 = TRUE, pseudoCount = 0.0001)
 
 #data[1,2] <- Inf
 #data[2,2] <- -Inf

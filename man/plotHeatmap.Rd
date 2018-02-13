@@ -4,7 +4,7 @@
 \alias{plotHeatmap}
 \title{Plot Heatmap}
 \usage{
-plotHeatmap(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
+plotHeatmap(data, sampleTypes, k = NULL, pathToOutput, log2 = FALSE,
   pseudoCount = NULL)
 }
 \arguments{
@@ -12,7 +12,7 @@ plotHeatmap(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
 
 \item{sampleTypes}{file that associates column names of MS1 with the sample types}
 
-\item{K}{number of K in the Kmeans algorithm.}
+\item{k}{number of k in the k-means algorithm.}
 
 \item{pathToOutput}{the directory path to save the plots}
 
@@ -21,7 +21,7 @@ plotHeatmap(data, sampleTypes, K = NULL, pathToOutput, log2 = FALSE,
 \item{pseudoCount}{pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data}
 }
 \value{
-Two heatmap images: heatmap of species (heatmapSpecies_K_n.png) and heatmap of classes (heatmapClasses_K_n.png), where n indicates the amount of clusters K. If clusters are not chosen by the user, a majority vote chart will also be included called nbclustResults.png.
+Two heatmap images: heatmap of species (heatmapSpecies_k_n.png) and heatmap of classes (heatmapClasses_k_n.png), where n indicates the amount of clusters k. If clusters are not chosen by the user, a majority vote chart will also be included called nbclustResults.png.
 }
 \description{
 This function plots heatmaps of the data
