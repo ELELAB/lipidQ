@@ -22,7 +22,7 @@
 makeIndex_OH_DB_C <- function(data, userSpecifiedColnames = NULL){
 
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames)
 
   # only use experimental data (exclude all internal standards)
   exData <- data[-grep("^is",data[,dataColnames$SUM_COMPOSITION]),]

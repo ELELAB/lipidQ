@@ -26,7 +26,7 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedC
   database <- merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
 
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames)
 
 
   # for each row, check if either the NAME or SPECIE column begins with a [SPACE] and remove this [SPACE] if true. (TO BE CONTINUED ... Nodvendigt?)

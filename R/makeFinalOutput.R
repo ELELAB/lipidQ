@@ -29,7 +29,7 @@
 makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSpecifiedColnames = NULL){
 
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames = userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames = userSpecifiedColnames)
 
 
 

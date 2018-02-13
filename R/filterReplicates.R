@@ -11,7 +11,7 @@ filterReplicates <- function(data, userSpecifiedColnames = NULL, numberOfReplica
 
 
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames)
 
 
   # calculate number of samples

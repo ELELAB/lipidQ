@@ -27,7 +27,7 @@
 plotQC_ISTD <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, pathToOutput, blnkReplicates = FALSE, numberOfReplicates){
 
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames = userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames = userSpecifiedColnames)
 
   # merge endogene_lipid_db and ISTD_lipid_db together
   database <- merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
@@ -143,7 +143,7 @@ plotQC_ISTD <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedCol
 #source("R/mergeFinalOutputs.R")
 #source("R/readFile.R")
 #source("R/rmSpaceInBeginning.R")
-#source("R/getColnames.R")
+#source("R/checkColnames.R")
 #source("R/merge_endo_and_ISTD_db.R")
 #source("R/filterReplicates.R")
 #library(ggplot2)

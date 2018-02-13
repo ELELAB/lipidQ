@@ -13,7 +13,7 @@
 sort_is<-function(data, userSpecifiedColnames = NULL){
 
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames)
 
   # save all is-rows
   isTmp <- data[grep("^is",data[,dataColnames$SUM_COMPOSITION]),]

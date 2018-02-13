@@ -38,7 +38,7 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
 
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames)
 
 
 

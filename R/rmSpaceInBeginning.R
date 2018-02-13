@@ -7,7 +7,7 @@
 rmSpaceInBeginning <- function(data, userSpecifiedColnames = NULL){
 
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames)
 
   test_SUM_and_SPECIE_COMPOSITION_exists <- tryCatch(
     {

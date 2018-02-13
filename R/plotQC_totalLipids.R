@@ -23,7 +23,7 @@
 #' plotQC_totalLipids(data = classPmol_molPctClass_compact, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = "results/QC/post")
 plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL, pathToOutput){
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames = userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames = userSpecifiedColnames)
 
   # find MS1x columns and BLNK column (last MS1x column)
   #class_pmol_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
@@ -108,7 +108,7 @@ plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL, pathToOutput)
 #source("R/mergeFinalOutputs.R")
 #source("R/readFile.R")
 #source("R/rmSpaceInBeginning.R")
-#source("R/getColnames.R")
+#source("R/checkColnames.R")
 #source("R/merge_endo_and_ISTD_db.R")
 #source("R/filterReplicates.R")
 #source("R/compactOutput_pmolCalc.R")

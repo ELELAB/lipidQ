@@ -18,7 +18,7 @@
 compactOutput_pmolCalc <- function(data, userSpecifiedColnames = NULL){
 
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames)
 
 
   # create the new data set initialized with SUM_COMPOSITION

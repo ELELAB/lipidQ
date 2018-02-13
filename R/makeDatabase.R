@@ -17,7 +17,7 @@
 makeDatabase <- function(userSpecifiedColnames = NULL, DB_type){
 
   # get colnames for data
-  dataColnames <- getColnames(userSpecifiedColnames)
+  dataColnames <- checkColnames(userSpecifiedColnames)
 
   # find user specified columns of MS2ix column names -> MS2ix_userCols
   MS2ix_cols <- dataColnames[grep("^MS2",colnames(dataColnames))]
