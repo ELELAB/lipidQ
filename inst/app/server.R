@@ -35,9 +35,14 @@ server <- function(input, output, session){
         test <- read.table(test$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
         need(ncol(test) > (input$k+1) | is.na(input$k), "k needs to be lower than the number of samples")
       },
+      if(!is.null(input$sampleTypes)){
+        test <- input$sampleTypes
+        test <- read.table(test$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+        need(ncol(test) <= 10, "Number of sample types can not exceed 10")
+      },
       need(!is.null(input$sampleTypes), "Please select a sample type information file"),
       need(input$dirPlots != "", "Please select filepath for output folder"),
-      need(input$PCA_plot == TRUE | input$heatmap_plot == TRUE, "Please at least one plot type"),
+      need(input$PCA_plot == TRUE | input$heatmap_plot == TRUE, "Please select at least one plot type"),
 
       if(input$log2Trans){
         need(!is.na(input$pseudoCount), "Please specify a pseudo count")
@@ -267,11 +272,17 @@ server <- function(input, output, session){
       molPctFile <- read.table(molPctFile$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
     }
 
+    # load sampleTypes file
+    if(!is.null(input$sampleTypes)){
+      sampleTypes <- input$sampleTypes
+      sampleTypes <- read.table(sampleTypes$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
+    }
+
 
 
     #need(ncol(test) > (input$k+1) | is.na(input$k)
     # & ncol(molPctFile) > (input$k+1)
-    if(!is.null(input$molPctFile)  & !is.null(input$sampleTypes) & input$dirPlots != "" & (input$log2Trans == FALSE | (input$log2Trans == TRUE & !is.na(input$pseudoCount)) )  & ( (!is.na(input$k) & ncol(molPctFile) > (input$k+1)) | is.na(input$k) ) & (input$PCA_plot == TRUE | input$heatmap_plot == TRUE)){
+    if(!is.null(input$molPctFile)  & !is.null(input$sampleTypes) & input$dirPlots != "" & ncol(sampleTypes) <= 10 & (input$log2Trans == FALSE | (input$log2Trans == TRUE & !is.na(input$pseudoCount)) )  & ( (!is.na(input$k) & ncol(molPctFile) > (input$k+1)) | is.na(input$k) ) & (input$PCA_plot == TRUE | input$heatmap_plot == TRUE)){
 
       progress <- Progress$new(session, min=0, max=3)
       on.exit(progress$close())
@@ -281,11 +292,7 @@ server <- function(input, output, session){
 
 
 
-      # load sampleTypes file
-      if(!is.null(input$sampleTypes)){
-        sampleTypes <- input$sampleTypes
-        sampleTypes <- read.table(sampleTypes$datapath, stringsAsFactors = FALSE, header = TRUE, sep = ",")
-      }
+
 
       # change NA -> NULL for convenience
       k <- input$k
