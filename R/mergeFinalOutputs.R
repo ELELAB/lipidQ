@@ -7,16 +7,16 @@
 mergeFinalOutputs <- function(dataList){
 
 
-  # Find all unique "mol." values for all data sets
+  # Find all unique "molPct" values for all data sets
   uniqueRows <- vector("list", length(dataList))
   for(i in 1:length(dataList)){
     data<-readFile(dataList[i])
-    uniqueRows[[i]] <- data$"mol."
+    uniqueRows[[i]] <- data$"molPct"
   }
   uniqueRows <- unique(unlist(uniqueRows))
 
 
-  mergedOutput <- data.frame("mol." = uniqueRows)
+  mergedOutput <- data.frame("molPct" = uniqueRows)
 
 
   for(i in 1:length(dataList)){
@@ -29,14 +29,14 @@ mergeFinalOutputs <- function(dataList){
       colnames(mergedOutput)[ncol(mergedOutput)] <- colnames(data)[colIndex] # insert appropriate column name from data into new column in mergedOutput
 
       # match rows of incoming "final output" data sets with existing merged data set to ensure correct placement of rows.
-      mergedOutput[, ncol(mergedOutput)] <- data[match(mergedOutput$"mol.", data$"mol."), colIndex]
+      mergedOutput[, ncol(mergedOutput)] <- data[match(mergedOutput$"molPct", data$"molPct"), colIndex]
     }
 
   }
 
 
-  # change 1st column name from "mol." to "mol%" due to conversion of "%" -> "." when reading data into R
-  colnames(mergedOutput)[1] <- "mol%"
+  ## change 1st column name from "mol." to "mol%" due to conversion of "%" -> "." when reading data into R
+  #colnames(mergedOutput)[1] <- "mol%"
 
   return(mergedOutput)
 }

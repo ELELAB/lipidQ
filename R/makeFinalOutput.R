@@ -1,6 +1,6 @@
 #' @title Make Final Output
 #' @author André Vidas Olsen
-#' @description This function creates the final output file of the results which consists of both all filtered pmol% species and filtered pmol% classes.
+#' @description This function creates the final output file of the results which consists of both all filtered pmol species and filtered pmol classes.
 #' @param classPmol_molPctClass compact output file created by using the compactOutput_pmolCalc() script.
 #' @param pmolCalculatedDataSet data of pmol calculations made by using the pmolCalc() script.
 #' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
@@ -41,7 +41,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSp
 
   # change colnames: NAME -> mol%, FILTERED* -> Sample_01
   sampleNames <- paste0("Sample_",1:(length(colnames(lipidSpecies))-1))
-  colnames(lipidSpecies) <- c("mol%", sampleNames)
+  colnames(lipidSpecies) <- c("molPct", sampleNames)
 
 
 
@@ -52,7 +52,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSp
 
   # change colnames: NAME -> mol%, CLASS_FILTERED* -> Sample_01
   sampleNames <- paste0("Sample_",1:(length(colnames(classes))-1))
-  colnames(classes) <- c("mol%", sampleNames)
+  colnames(classes) <- c("molPct", sampleNames)
 
 
 
@@ -62,9 +62,9 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSp
 
 
   # change classes/species with "O-": insert [SPACE] before "O-" and remove [SPACE] after "O-"
-  namesWithOIndexes <- grep("O-",output_molPct$"mol%")
+  namesWithOIndexes <- grep("O-",output_molPct$"molPct")
   for(i in namesWithOIndexes){
-    nameWithO <- output_molPct$"mol%"[i]
+    nameWithO <- output_molPct$"molPct"[i]
     nameWithO <- strsplit(nameWithO," ")
 
     if(length(nameWithO[[1]]) == 2){ # used when name represents a specie (contains number specs.)
@@ -72,7 +72,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSp
     }else{ # used when name represents a class (without number specs.)
       nameWithO <- paste0(gsub("O-", " O-", nameWithO[[1]][1]))
     }
-    output_molPct$"mol%"[i] <- nameWithO
+    output_molPct$"molPct"[i] <- nameWithO
   }
 
 
@@ -87,7 +87,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSp
   lipidSpecies <- pmolCalculatedDataSet[,c(1,grep("^SUBT_PMOL_SAMPLE*", colnames(pmolCalculatedDataSet)))]
   lipidSpecies <- lipidSpecies[-grep("^is",lipidSpecies[, dataColnames$SUM_COMPOSITION]),]
 
-  # change colnames: NAME -> mol%, SUBT_PMOL_SAMPLE* -> Sample_01
+  # change colnames: NAME -> pmol, SUBT_PMOL_SAMPLE* -> Sample_01
   sampleNames <- paste0("Sample_",1:(length(colnames(lipidSpecies))-1))
   colnames(lipidSpecies) <- c("pmol", sampleNames)
 
@@ -96,7 +96,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSp
   classes <- pmolCalculatedDataSet[,c(1,grep("^CLASS_PMOL_SUBT_PMOL*", colnames(pmolCalculatedDataSet)))]
   classes <- classes[-grep("^is",classes[, dataColnames$SUM_COMPOSITION]),]
 
-  # change colnames: NAME -> mol%, CLASS_PMOL_SUBT_PMOL* -> Sample_01
+  # change colnames: NAME -> pmol, CLASS_PMOL_SUBT_PMOL* -> Sample_01
   sampleNames <- paste0("Sample_",1:(length(colnames(classes))-1))
   colnames(classes) <- c("pmol", sampleNames)
 
@@ -113,9 +113,9 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSp
 
 
   # change classes/species with "O-": insert [SPACE] before "O-" and remove [SPACE] after "O-"
-  namesWithOIndexes <- grep("O-",output_pmol$"mol%")
+  namesWithOIndexes <- grep("O-",output_pmol$"molPct")
   for(i in namesWithOIndexes){
-    nameWithO <- output_pmol$"mol%"[i]
+    nameWithO <- output_pmol$"molPct"[i]
     nameWithO <- strsplit(nameWithO," ")
 
     if(length(nameWithO[[1]]) == 2){ # used when name represents a specie (contains number specs.)
@@ -123,7 +123,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet, userSp
     }else{ # used when name represents a class (without number specs.)
       nameWithO <- paste0(gsub("O-", " O-", nameWithO[[1]][1]))
     }
-    output_pmol$"mol%"[i] <- nameWithO
+    output_pmol$"molPct"[i] <- nameWithO
   }
 
 

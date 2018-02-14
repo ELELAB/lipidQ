@@ -53,8 +53,8 @@ plotHeatmap <- function(data, sampleTypes, k = NULL, pathToOutput, log2 = FALSE,
 
 
   # select relevant columns in data (mol procent species & mol procent classes)
-  mol_pct_species_cols <- data[grep(":",data$"mol."),2:ncol(data)]
-  mol_pct_classes_cols <- data[-grep(":",data$"mol."),2:ncol(data)]
+  mol_pct_species_cols <- data[grep(":",data$"molPct"),2:ncol(data)]
+  mol_pct_classes_cols <- data[-grep(":",data$"molPct"),2:ncol(data)]
 
 
 
