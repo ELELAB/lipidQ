@@ -76,7 +76,6 @@ server <- function(input, output, session){
     #
 
     if(!is.null(input$dataList) & !is.null(input$endogene_lipid_db) & !is.null(input$ISTD_lipid_db) & !is.null(input$userSpecifiedColnames) & !is.na(input$spikeISTD)  & input$dir != ""){
-    print(input$spikeISTD)
 
 
     progress <- Progress$new(session, min=0, max=7)
