@@ -66,8 +66,12 @@ We now have to select the plot types that we want. In this analysis we're both i
 Since we chose to create a heatmap which contains clustering, a specification of the amount of clusters is needed. In our case we'll not let any prior knowledge about the sample types determine the amount of clusters, so we'll not write any number in the "Optional selection of k clusters for the heatmap". In this way we'll let the NbClust algortihm determine the most likely amount of clusters for the heatmap.
 
 #Step 7: Output folder
-Lastly, the folder where the output files should be saved to has to be defined. Here we'll write the filepath to where we wish to save the files. After this we'll press "Create Plots".
+Lastly, the folder where the output files should be saved to has to be defined. Here we'll write the filepath to where we wish to save the files. The following describes how to obtain the full path:
 
+From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on 'Copy "folder-name" as Pathname'. Go back to LipidQuan and paste the folder path (&#8984; Command button + V) into the output folder field.
 
+Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQuan and paste the full path (Ctrl + V) into the output folder field. Remember to change every "\\" in the path to "/". 
+
+After this we'll press "Create Plots".
 
 

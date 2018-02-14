@@ -26,6 +26,7 @@ knitr::opts_chunk$set(
 ### finalOutput.csv
 The finalOutput.csv file, contains mol percent of pmol (MESUT) for all samples. Every row that only contains 0's in all rows are removed.
 
+The finalOutput_pmol.csv file, contains the calculated pmol of all the lipids that is detected, whereas finalOutput_molPct.csv file, contains pmol values normalized mol% (total lipid pmol is 100% 100mol%)
 
 ### indexDataC, indexDataDB, and indexDataOH 
-
+The 3 index data output files contains information about the number of Carbons (indexDataC), double bonds (indexDataDB) and hydroxygroups (indexDataOH) within the lipid chains.

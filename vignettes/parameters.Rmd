@@ -41,9 +41,8 @@ Below the field of specifying the number of replicates, the user can also specif
 
 ### Multiply MS1 columns by a factor (for LipidX users)
 
-### Choose the list of classes to be multiplied (.csv-file):
+In cases where a low mass range and high mass range has overlapping parts, a multiplication factor will be needed for LipidX users. The reason is that LipidX takes the average of the overlapping and non-overlapping part of the low and high mass range, resulting in a division factor of 2 for some lipids, since they will not be in the overlapping part of those two overlaps. If this is the case, then the "Multiply MS1 columns by a factor (for LipidX users)" checkbox should be marked. A file containing every classes which intensity values needs to be multiplied should be included by using the "Browse..." button below "Choose the list of classes to be multiplied (.csv-file)" and selecting the file. Finally a multiplication factor should be selected in the "Set multiplication factor" field, which specify the number to multiply each classes with.
 
-### Set multiply factor
 
 
 

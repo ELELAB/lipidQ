@@ -84,7 +84,9 @@ The next section deals with the limit of quantification threshold, which are def
 
 
 ###Multiplication of MS1 columns
-In some cases, it is necessary to have a multiplication factor for some of the lipids if the data is preprocessed by LipidX (MESUT). If this is the case, then the "Multiply MS1 columns by a factor (for LipidX users)" checkbox should be marked. A file containing every classes which intensity values needs to be multiplied should be included by using the "Browse..." button below "Choose the list of classes to be multiplied (.csv-file)" and selecting the file. Finally a multiplication factor should be selected in the "Set multiplication factor" field, which specify the number to multiply each classes with. With our data set, we don't need this field, so we'll leave the "Multiply MS1 columns by a factor (for LipidX users)" checkbox unmarked.
+With our data set, we don't need to correct lipids with a multiplication factor, so we'll leave the "Multiply MS1 columns by a factor (for LipidX users)" checkbox unmarked.
+
+
 
 ###Spike ISTD
 In the next section, we'll specify parameters for spike ISTD. We'll set the value to 10.
@@ -97,7 +99,13 @@ The last parameter is a threshold for rounding to zero for mol% species (see the
 LipidQuan offers the possibility to create quality control (QC) plots both before and after quantification of the intensity data. Here we'll select both before (pre) and after (post) QC plots by marking the checkboxes "Create QC plots of MS1 intensity data" and "Create QC plots of class pmol data".
 
 #Output folder
-Lastly, the folder where the output files should be saved to has to be defined. Write here the filepath to where you wish to save the files and press "Run Analysis" to start the quantification.
+Lastly, the folder where the output files should be saved to has to be defined. Write here the filepath to where you wish to save the files. The following describes how to obtain the full path:
+
+From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on 'Copy "folder-name" as Pathname'. Go back to LipidQuan and paste the folder path (&#8984; Command button + V) into the output folder field.
+
+Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQuan and paste the full path (Ctrl + V) into the output folder field. Remember to change every "\\" in the path to "/". 
+
+After this is done, press "Run Analysis" to start the quantification.
 
 #Results
 After quantification, LipidQuan will write "Quantification done!" below the "Run Analysis" button. After this all output files will be available in the chosen folder. Let's have a look at it. 
@@ -111,9 +119,9 @@ filteredDataSet.csv: This data contains the merged data after filtering based on
 
 pmolCalculatedDataSet.csv: Contains relevant data with quantification columns.
 
-finalOutput.csv: Contains mol% of (MESUT) for each sample.
+finalOutput_molPct.csv: Contains mol% of (MESUT) for each sample.
 
-classPmol_molPctClass.csv (MAYBE NOT A GOOD NAME): Contains class pmol and mol pct class for each sample.
+finalOutput_pmol.csv:
 
 indexDataC.csv (MESUT)
 indexDataDB.csv (MESUT)

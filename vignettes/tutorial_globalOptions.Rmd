@@ -99,7 +99,11 @@ In this step we choose the datatype we wish to create. Since we want both, we wi
 Next, we need to load the user specified column names file we just created in part 1 of this tutorial. This is done by clicking on the "Browse..." button below the "Choose list of colnames (.csv-file)" text.
 
 ###Step 3: output folder
-Lastly, the folder where the databases should be saved to has to be defined. For convenience, we will save this file in the same folder as the userSpecified column names file. 
+Lastly, the folder where the databases should be saved to has to be defined. For convenience, we will save this file in the same folder as the userSpecified column names file. The following describes how to obtain the full path:
+
+From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on 'Copy "folder-name" as Pathname'. Go back to LipidQuan and paste the folder path (&#8984; Command button + V) into the output folder field.
+
+Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQuan and paste the full path (Ctrl + V) into the output folder field. Remember to change every "\\" in the path to "/". 
 
 ###Step 4: edit the database template files to make it usable within a project 
 Now that we have the two datbase templates, they need to be edited so that they fit the project (see the Input Data vignette for a complete explanation of each of the column names in each of the databases). (MESUT)

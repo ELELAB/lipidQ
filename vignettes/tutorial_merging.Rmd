@@ -45,4 +45,11 @@ system.file("app/", package = "lipidQuan")
 After opening LipidQuan, the operation tab will start at the Quantification tab. Instead of staying at this operation tab, click on the "Merging of Final Output Data Sets". In this section, the first field consists of choosing the input data, which in this case is the output files generated from multiple quantification runs with LipidQuan. Use the "Browse..." button to browse and select the desired input data for merging process. 
 
 #Step 3. Select ouput folder
-After selecting the data to be merged, you need to specify the output folder. This is done by writing or copy-pasting the path to the desired folder in the field below "Paste the filepath for the output files to be saved". After the folder path has been written, click on the "Merge Final Output Data Sets" to start the process.
+After selecting the data to be merged, you need to specify the output folder. This is done by writing or copy-pasting the path to the desired folder in the field below "Paste the filepath for the output files to be saved". The following describes how to obtain the full path:
+
+From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on 'Copy "folder-name" as Pathname'. Go back to LipidQuan and paste the folder path (&#8984; Command button + V) into the output folder field.
+
+Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQuan and paste the full path (Ctrl + V) into the output folder field. Remember to change every "\\" in the path to "/".
+
+
+After the folder path has been written, click on the "Merge Final Output Data Sets" to start the process.

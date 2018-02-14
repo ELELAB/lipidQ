@@ -18,7 +18,7 @@ makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet,
 a final output file containing pmol and mol% of species
 }
 \description{
-This function creates the final output file of the results which consists of both all filtered pmol% species and filtered pmol% classes.
+This function creates the final output file of the results which consists of both all filtered pmol species and filtered pmol classes.
 }
 \examples{
 # load endo & ISTD databases as well as user specified column names file.
