@@ -34,9 +34,5 @@ mergeFinalOutputs <- function(dataList){
 
   }
 
-
-  ## change 1st column name from "mol." to "mol%" due to conversion of "%" -> "." when reading data into R
-  #colnames(mergedOutput)[1] <- "mol%"
-
   return(mergedOutput)
 }
