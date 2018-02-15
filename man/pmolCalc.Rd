@@ -16,42 +16,68 @@ pmolCalc(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL,
 
 \item{ISTD_lipid_db}{the ISTD lipid database}
 
-\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
+\item{userSpecifiedColnames}{the column names template file containing user
+specified column names for the input data.}
 
 \item{spikeISTD}{internal standard spike amount in uL}
 
-\item{zeroThresh}{an optional threshold that determines if a given small value in mol pct. specie composition columns should be rounded down to zero.}
+\item{zeroThresh}{an optional threshold that determines if a given small
+value in mol pct. specie composition columns should be rounded down to zero.}
 
-\item{LOQ}{logical parameter to indicate whether or not limit of quantification (LOQ) threshold is activated.}
+\item{LOQ}{logical parameter to indicate whether or not limit of
+quantification (LOQ) threshold is activated.}
 
-\item{fixedDeviation}{the amount in percentages (-100 - 100) that values has to be above the LOQ threshold}
+\item{fixedDeviation}{the amount in percentages (-100 - 100) that values has
+to be above the LOQ threshold}
 
 \item{numberOfReplicates}{the number of replicates for each sample}
 
-\item{blnkReplicates}{logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.}
+\item{blnkReplicates}{logical parameter for specifying whether the blank
+sample contains replicates or not. FALSE: no replicates, TRUE: replicates.}
 
-\item{numberOfInstancesThreshold}{the number of replicates for a given sample that has to have values above the specified threshold value (thesholdValue)}
+\item{numberOfInstancesThreshold}{the number of replicates for a given sample
+that has to have values above the specified threshold value (thesholdValue)}
 
-\item{thresholdValue}{user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.}
+\item{thresholdValue}{user specified threshold value based on technical noise
+and/or other variation sources. This paramter will determine the threshold in
+which a replicate will be considered as having an observed value or not.}
 }
 \value{
 a data set containing pmol and pmol related columns
 }
 \description{
-This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard
+This function calculates pico mol (pmol) of species based on
+intensity from measurements (target specie + internal standard) and known
+quantity of internal standard
 }
 \examples{
 # load endo & ISTD databases as well as user specified column names file.
-endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables", "mergedDataSetsIsSorted.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+ "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ header = TRUE, sep = ",")
+
+ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+ "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ header = TRUE, sep = ",")
+
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
+ "userSpecifiedColnames.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables",
+ "mergedDataSetsIsSorted.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # load filtered data set made by using the filterDataSet() function
-filteredDatasets <- read.table(system.file("extdata/dataTables", "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+filteredDatasets <- read.table(system.file("extdata/dataTables",
+ "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ header = TRUE, sep = ",")
 
 # calculate pmol for data
-pmolCalculatedDataSet <- pmolCalc(data = filteredDatasets, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, spikeISTD = 2, zeroThresh = 0.25)
+pmolCalculatedDataSet <- pmolCalc(data = filteredDatasets,
+ endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db,
+ userSpecifiedColnames = userSpecifiedColnames, spikeISTD = 2,
+ zeroThresh = 0.25)
 }
 \author{
 André Vidas Olsen

@@ -1,25 +1,37 @@
 #' @title Plot Heatmap
 #' @author André Vidas Olsen
-#' @description This function plots the following PCA plots: screeplot and biplot
+#' @description This function plots the following PCA plots: screeplot and
+#' biplot
 #' @param data quantified data to be visualized (finalOutput_molPct.csv)
 #' @param sampleTypes file that associates column names of MS1 with sampleTypes
 #' @param pathToOutput the directory path to save the plots
-#' @param log2 logical argument that specifies whether or not data has to be log2 transformed
-#' @param pseudoCount pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data
+#' @param log2 logical argument that specifies whether or not data has to be
+#' log2 transformed
+#' @param pseudoCount pseudo count added to the data if the data is log2
+#' transformed in order to avoid negative infinite values in the data
 #' @importFrom factoextra fviz_eig fviz_pca_biplot
 #' @importFrom stats prcomp
-#' @return four plot images: a scree plots (screePlot_species.png & screePlot_classes.png) and a biplot (PCA_biplot_species.png & PCA_biplot_classes.png) for both species and classes.
+#' @return four plot images: a scree plots (screePlot_species.png &
+#' screePlot_classes.png) and a biplot (PCA_biplot_species.png &
+#' PCA_biplot_classes.png) for both species and classes.
 #' @export
 #' @examples
 #' # load sample types file and data to be used for visualization
-#' sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
-#' data <- read.csv(system.file("extdata/dataTables", "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+#' sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv",
+#'  package = "lipidQuan"), stringsAsFactors = FALSE)
 #'
-#' # create pca scree and biplot from log2 transformed data with 0.0001 added pseudo counts
-#' plotPCA(data, sampleTypes, pathToOutput = system.file("extdata/dataTables", package = "lipidQuan"), log2 = TRUE, pseudoCount = 0.0001)
-plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount = NULL){
+#' data <- read.csv(system.file("extdata/dataTables", "finalOutput_molPct.csv",
+#'  package = "lipidQuan"), stringsAsFactors = FALSE)
+#'
+#' # create pca scree and biplot from log2 transformed data with 0.0001 added
+#' # pseudo counts
+#' plotPCA(data, sampleTypes, pathToOutput = system.file("extdata/dataTables",
+#'  package = "lipidQuan"), log2 = TRUE, pseudoCount = 0.0001)
+plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE,
+                    pseudoCount = NULL){
 
-  # check that no Inf/-Inf/NA exists in the data and throw an error message if the data contains these values.
+  # check that no Inf/-Inf/NA exists in the data and throw an error message if
+  # the data contains these values.
   if(any(data == Inf | data == -Inf | is.na(data))){
     stop("ERROR!! The data contains NA/NaN or infinite values. Please remove these from the data set and try again.")
   }
@@ -40,7 +52,8 @@ plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount =
 
 
   # specify start and end index for each group
-  groupIndexes <- lapply(sampleTypes[1,], FUN = function(x) as.numeric(unlist(strsplit(x, split = "-"))))
+  groupIndexes <- lapply(sampleTypes[1,],
+                FUN = function(x) as.numeric(unlist(strsplit(x, split = "-"))))
 
   # evaluate the index range for each group
   ranges <- lapply(groupIndexes, FUN = function(x) x[1]:x[2])
@@ -53,10 +66,12 @@ plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount =
 
   # insert row and col names to be used for the biplots
   rownames(mol_pct_species_cols) <- species
-  colnames(mol_pct_species_cols) <- paste0(colnames(mol_pct_species_cols),"_",type)
+  colnames(mol_pct_species_cols) <-
+    paste0(colnames(mol_pct_species_cols),"_",type)
 
   rownames(mol_pct_classes_cols) <- classes
-  colnames(mol_pct_classes_cols) <- paste0(colnames(mol_pct_classes_cols),"_",type)
+  colnames(mol_pct_classes_cols) <-
+    paste0(colnames(mol_pct_classes_cols),"_",type)
 
 
 
@@ -66,10 +81,13 @@ plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount =
 
   #### scree plot for species and classes
   screePlot_species <- fviz_eig(pca_species)
-  ggsave(screePlot_species, filename=paste0(pathToOutput, "/screePlot_species.png"), width = 40, height = 25, units = "cm")
+  ggsave(screePlot_species,
+         filename=paste0(pathToOutput, "/screePlot_species.png"), width = 40,
+         height = 25, units = "cm")
 
   screePlot_classes <- fviz_eig(pca_classes)
-  ggsave(screePlot_classes, filename=paste0(pathToOutput, "/screePlot_classes.png"), width = 40, height = 25, units = "cm")
+  ggsave(screePlot_classes, filename=paste0(pathToOutput,
+            "/screePlot_classes.png"), width = 40, height = 25, units = "cm")
 
 
 
@@ -78,32 +96,17 @@ plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount =
                   col.var = "#2E9FDF", # Variables color
                   col.ind = "#696969"  # Individuals color
   )
-  ggsave(biplot_species, filename=paste0(pathToOutput, "/PCA_biplot_species.png"), width = 40, height = 25, units = "cm")
+  ggsave(biplot_species, filename=paste0(pathToOutput,
+              "/PCA_biplot_species.png"), width = 40, height = 25, units = "cm")
 
   biplot_classes <-fviz_pca_biplot(pca_classes, repel = TRUE,
                            col.var = "#2E9FDF", # Variables color
                            col.ind = "#696969"  # Individuals color
   )
-  ggsave(biplot_classes, filename=paste0(pathToOutput, "/PCA_biplot_classes.png"), width = 40, height = 25, units = "cm")
+  ggsave(biplot_classes, filename=paste0(pathToOutput,
+              "/PCA_biplot_classes.png"), width = 40, height = 25, units = "cm")
 
 }
-
-
-
-
-
-
-#sampleTypes <- read.csv("inst/extdata/sampleTypes.csv", as.is = TRUE)
-
-
-#data <- read.csv("results/dataTables/finalOutput_molPct.csv", stringsAsFactors = FALSE)
-#colnames(data)
-
-
-
-#plotPCA(data, sampleTypes, pathToOutput = "/data/user/andre/lipidomics/lipidQuan/")
-
-
 
 
 

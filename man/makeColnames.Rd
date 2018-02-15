@@ -7,14 +7,18 @@
 makeColnames(numberOfMS2ix = 7)
 }
 \arguments{
-\item{numberOfMS2ix}{a parameter that specifies how many MS2 columns there is in the input data, since this number can vary depending on experiment setup.}
+\item{numberOfMS2ix}{a parameter that specifies how many MS2 columns there is
+in the input data, since this number can vary depending on experiment setup.}
 }
 \value{
 a user specified column names template file
 }
 \description{
-This function generates a new template user specified column names file. This data file's first row can then be modified by the user so that each column match the users data columns.
-can be specified by the user. This function is useful if some error occur due to corruption of this file (for instance changes in the header section).
+This function generates a new template user specified column
+names file. This data file's first row can then be modified by the user so
+that each column match the users data columns.
+can be specified by the user. This function is useful if some error occur due
+to corruption of this file (for instance changes in the header section).
 }
 \examples{
 # make a template user specified column names file.

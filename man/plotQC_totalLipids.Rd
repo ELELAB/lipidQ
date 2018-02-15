@@ -7,30 +7,40 @@
 plotQC_totalLipids(data, userSpecifiedColnames = NULL, pathToOutput)
 }
 \arguments{
-\item{data}{data formatted by the use of the compactOutput_pmolCalc function from LipidQuan.}
+\item{data}{data formatted by the use of the compactOutput_pmolCalc function
+from LipidQuan.}
 
-\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
+\item{userSpecifiedColnames}{the column names template file containing user
+specified column names for the input data.}
 
 \item{pathToOutput}{the directory path to save the plots}
 }
 \value{
-barplots of pmol for every lipid class as well as one barplot of the total amount of lipids for each sample
+barplots of pmol for every lipid class as well as one barplot of the
+total amount of lipids for each sample
 }
 \description{
 This function creates QC plots of MS1 intensity data
 }
 \examples{
 # load user specified column names
-userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
+ "userSpecifiedColnames.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
-pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables",
+ "pmolCalculatedDataSet.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # make compact output from pmolCalculatedDataSet
-classPmol_molPctClass_compact <- compactOutput_pmolCalc(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+classPmol_molPctClass_compact <- compactOutput_pmolCalc(
+ pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
 
 # create QC plot of of total lipids
-plotQC_totalLipids(data = classPmol_molPctClass_compact, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = "results/QC/post")
+plotQC_totalLipids(data = classPmol_molPctClass_compact,
+ userSpecifiedColnames = userSpecifiedColnames,
+ pathToOutput = "results/QC/post")
 }
 \author{
 André Vidas Olsen

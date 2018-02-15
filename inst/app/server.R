@@ -307,6 +307,8 @@ server <- function(input, output, session){
       progress$set(value = 1)
 
 
+
+
       # plot start
       if(input$PCA_plot){
         lipidQuan:::plotPCA(data = molPctFile, sampleTypes = sampleTypes, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)

@@ -15,7 +15,8 @@ merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
 a data set consisting of endogene and ISTD database merged together
 }
 \description{
-This function merges the two components of the reference databaes together: the endogene lipid database and the ISTD lipid database.
+This function merges the two components of the reference
+database together: the endogene lipid database and the ISTD lipid database.
 }
 \author{
 André Vidas Olsen

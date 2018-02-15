@@ -7,25 +7,33 @@
 makeIndex_OH_DB_C(data, userSpecifiedColnames = NULL)
 }
 \arguments{
-\item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
+\item{data}{data formatted by the use of the mergeDataSet function from
+LipidQuan.}
 
-\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
+\item{userSpecifiedColnames}{the column names template file containing user
+specified column names for the input data.}
 }
 \value{
 a data set consisting of OH, DB, C indexes
 }
 \description{
-This function creates OH Index, DB Index and C-chain Index of data containing calculated %pmol values of samples.
+This function creates OH Index, DB Index and C-chain Index of
+data containing calculated %pmol values of samples.
 }
 \examples{
 # load user specified column names file.
-userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
+ "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors =
+ FALSE, header = TRUE, sep = ",")
 
 # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
-pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables",
+ "pmolCalculatedDataSet.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # make data of OH, DB and C indexes
-indexData <- makeIndex_OH_DB_C(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+indexData <- makeIndex_OH_DB_C(pmolCalculatedDataSet,
+ userSpecifiedColnames = userSpecifiedColnames)
 
 # print data
 indexData[[1]] # OH index

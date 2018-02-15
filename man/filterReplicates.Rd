@@ -8,21 +8,28 @@ filterReplicates(data, userSpecifiedColnames = NULL, numberOfReplicates = 1,
   numberOfInstancesThreshold, thresholdValue)
 }
 \arguments{
-\item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
+\item{data}{data formatted by the use of the mergeDataSet function from
+LipidQuan.}
 
-\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
+\item{userSpecifiedColnames}{the column names template file containing user
+specified column names for the input data. This file}
 
 \item{numberOfReplicates}{the number of replicates for each sample}
 
-\item{numberOfInstancesThreshold}{the number of replicates for a given sample that has to have values above the specified threshold value (thesholdValue)}
+\item{numberOfInstancesThreshold}{the number of replicates for a given sample
+that has to have values above the specified threshold value (thesholdValue)}
 
-\item{thresholdValue}{user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.}
+\item{thresholdValue}{user specified threshold value based on technical noise
+and/or other variation sources. This paramter will determine the threshold in
+which a replicate will be considered as having an observed value or not.}
 }
 \value{
-a data set filtered by a user specified threshold of pmol between replicates
+a data set filtered by a user specified threshold of pmol between
+replicates
 }
 \description{
-This function filter replicates for each specie based on a threshold value
+This function filter replicates for each specie based on a
+threshold value
 }
 \author{
 André Vidas Olsen

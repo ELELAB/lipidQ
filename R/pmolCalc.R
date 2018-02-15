@@ -1,39 +1,69 @@
 #' @title picomol Calculation
 #' @author André Vidas Olsen
-#' @description This function calculates pico mol (pmol) of species based on intensity from measurements (target specie + internal standard) and known quantity of internal standard
+#' @description This function calculates pico mol (pmol) of species based on
+#' intensity from measurements (target specie + internal standard) and known
+#' quantity of internal standard
 #' @param data input data to be used quantified
 #' @param endogene_lipid_db the endogene lipid database
 #' @param ISTD_lipid_db the ISTD lipid database
-#' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
+#' @param userSpecifiedColnames the column names template file containing user
+#' specified column names for the input data.
 #' @param spikeISTD internal standard spike amount in uL
-#' @param zeroThresh an optional threshold that determines if a given small value in mol pct. specie composition columns should be rounded down to zero.
-#' @param LOQ logical parameter to indicate whether or not limit of quantification (LOQ) threshold is activated.
-#' @param fixedDeviation the amount in percentages (-100 - 100) that values has to be above the LOQ threshold
+#' @param zeroThresh an optional threshold that determines if a given small
+#' value in mol pct. specie composition columns should be rounded down to zero.
+#' @param LOQ logical parameter to indicate whether or not limit of
+#' quantification (LOQ) threshold is activated.
+#' @param fixedDeviation the amount in percentages (-100 - 100) that values has
+#' to be above the LOQ threshold
 #' @param numberOfReplicates the number of replicates for each sample
-#' @param blnkReplicates logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.
-#' @param numberOfInstancesThreshold the number of replicates for a given sample that has to have values above the specified threshold value (thesholdValue)
-#' @param thresholdValue user specified threshold value based on technical noise and/or other variation sources. This paramter will determine the threshold in which a replicate will be considered as having an observed value or not.
+#' @param blnkReplicates logical parameter for specifying whether the blank
+#' sample contains replicates or not. FALSE: no replicates, TRUE: replicates.
+#' @param numberOfInstancesThreshold the number of replicates for a given sample
+#' that has to have values above the specified threshold value (thesholdValue)
+#' @param thresholdValue user specified threshold value based on technical noise
+#' and/or other variation sources. This paramter will determine the threshold in
+#' which a replicate will be considered as having an observed value or not.
 #' @return a data set containing pmol and pmol related columns
 #' @export
 #' @examples
 #' # load endo & ISTD databases as well as user specified column names file.
-#' endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-#' ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-#' userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-#' mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables", "mergedDataSetsIsSorted.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#' endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+#'  "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#'  header = TRUE, sep = ",")
+#'
+#' ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+#'  "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#'  header = TRUE, sep = ",")
+#'
+#' userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
+#'  "userSpecifiedColnames.csv", package = "lipidQuan"),
+#'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#'
+#' mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables",
+#'  "mergedDataSetsIsSorted.csv", package = "lipidQuan"),
+#'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' # load filtered data set made by using the filterDataSet() function
-#' filteredDatasets <- read.table(system.file("extdata/dataTables", "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+#' filteredDatasets <- read.table(system.file("extdata/dataTables",
+#'  "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#'  header = TRUE, sep = ",")
 #'
 #' # calculate pmol for data
-#' pmolCalculatedDataSet <- pmolCalc(data = filteredDatasets, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, spikeISTD = 2, zeroThresh = 0.25)
-pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, spikeISTD, zeroThresh, LOQ = FALSE, fixedDeviation = 0, numberOfReplicates = 1, blnkReplicates = FALSE, numberOfInstancesThreshold, thresholdValue){
+#' pmolCalculatedDataSet <- pmolCalc(data = filteredDatasets,
+#'  endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db,
+#'  userSpecifiedColnames = userSpecifiedColnames, spikeISTD = 2,
+#'  zeroThresh = 0.25)
+pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db,
+    userSpecifiedColnames = NULL, spikeISTD, zeroThresh, LOQ = FALSE,
+    fixedDeviation = 0, numberOfReplicates = 1, blnkReplicates = FALSE,
+    numberOfInstancesThreshold, thresholdValue){
 
   # merge endogene_lipid_db and ISTD_lipid_db together
   database <- merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
 
 
-  #### if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in database starts with a [SPACE], remove this row
+  #### if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION column in database
+  #### starts with a [SPACE], remove this row
   database <- rmSpaceInBeginning(database, userSpecifiedColnames)
 
 
@@ -47,15 +77,23 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
   # single blnk
   if(blnkReplicates == FALSE){
 
-    MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
-    BLNK <- MS1x_names[length(MS1x_names)] # name of BLNK column (last MS1x.* column)
-    MS1x_names <- MS1x_names[-length(MS1x_names)] # remove last column from MS1x_names since this is BLNK
+    MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names
+    # of all MS1x.* columns
+    BLNK <- MS1x_names[length(MS1x_names)] # name of BLNK column
+    # (last MS1x.* column)
+    MS1x_names <- MS1x_names[-length(MS1x_names)] # remove last column from
+    # MS1x_names since this is BLNK
   }
   # blnk replicates
   else{
-    MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names of all MS1x.* columns
-    BLNK <- MS1x_names[(length(MS1x_names)-numberOfReplicates+1):length(MS1x_names)] # name of BLNK column (last MS1x.* column)
-    MS1x_names <- MS1x_names[-((length(MS1x_names)-numberOfReplicates+1):length(MS1x_names))] # remove last column from MS1x_names since this is BLNK
+    MS1x_names <- colnames(data)[grep(dataColnames$MS1x,colnames(data))] # names
+    # of all MS1x.* columns
+    BLNK <- MS1x_names[(length(MS1x_names) -
+                          numberOfReplicates+1):length(MS1x_names)] # name of
+                          # BLNK column (last MS1x.* column)
+    MS1x_names <- MS1x_names[-((length(MS1x_names)-
+          numberOfReplicates+1):length(MS1x_names))] # remove last column
+          # from MS1x_names since this is BLNK
   }
 
 
@@ -80,7 +118,8 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
   MS2ix_userCols <- c()
   for(userCol in as.character(MS2ix_cols)){
-    MS2ix_userCols <- append(MS2ix_userCols, c(colnames(data)[grep(userCol,colnames(data))]))
+    MS2ix_userCols <- append(MS2ix_userCols,
+                             c(colnames(data)[grep(userCol,colnames(data))]))
   }
   MS2ix_userCols <- unique(MS2ix_userCols)
 
@@ -93,37 +132,43 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
 
 
 
-  # split data set into exData (all experimental classes) and isData (all internal classes)
+  # split data set into exData (all experimental classes) and isData
+  # (all internal classes)
   exData <- data[-grep("^is",data[,dataColnames$SUM_COMPOSITION]),]
   isData <- data[grep("^is",data[,dataColnames$SUM_COMPOSITION]),]
 
   # find all class names (without number) in exData
-  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",exData[,dataColnames$SUM_COMPOSITION])
+  classNames <- gsub("^(\\w+.)[[:space:]].*", "\\1",
+                     exData[,dataColnames$SUM_COMPOSITION])
 
-  #### pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION)   x   pmol(isSpecie) )
+  #### pmol calculation
+  #### ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION) x pmol(isSpecie) )
   for(MS1x in MS1x_names){
 
-
-
-
     for(i in 1:nrow(exData)){
-      # find and replace the MS1x part with the QUAN_SCAN character (e.g. MS1x = PREC_01, QUAN_SCAN = FRAG1: PREC_01 -> FRAG1_01)
+      # find and replace the MS1x part with the QUAN_SCAN character
+      # (e.g. MS1x = PREC_01, QUAN_SCAN = FRAG1: PREC_01 -> FRAG1_01)
       MS1x <- gsub(unlist(strsplit(MS1x, "_"))[1], exData[i, "QUAN_SCAN"], MS1x)
 
 
       # find corresponding internal standard for the current class name.
-      is <- isData[grep(paste0("is",classNames[i]," "),isData[,dataColnames$SUM_COMPOSITION]),]
+      is <- isData[grep(paste0("is",classNames[i]," "),
+                        isData[,dataColnames$SUM_COMPOSITION]),]
 
       # pmol_isSpecie = spikeISTD(uL) x ISTD_CONC
-      pmol_isSpecie <- spikeISTD * database[database[,dataColnames$SUM_COMPOSITION] == is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"]
+      pmol_isSpecie <- spikeISTD * database[
+        database[,dataColnames$SUM_COMPOSITION] ==
+        is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"]
       if(length(pmol_isSpecie) > 1){
         stop("ERROR: Check that no duplicates of lipids/ISTD's exists in both the endogene and ISTD database.")
       }
 
-      # pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION) x pmol(isSpecie) )
+      # pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION) x
+      # pmol(isSpecie) )
       pmol_calc <- tryCatch(
         {
-          as.numeric(exData[i,MS1x]) / as.numeric(is[,MS1x]) * as.numeric(pmol_isSpecie) # return statement
+          as.numeric(exData[i,MS1x]) / as.numeric(is[,MS1x]) *
+            as.numeric(pmol_isSpecie) # return statement
         },
         error=function(cond){
           message("ERROR: PROBLEMS WITH VALUES IN INTENSITY COLUMNS! Please check that all intensity columns only contain numbers and not text-based values like NA, Inf etc.")
@@ -133,7 +178,8 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnam
           message("Original R error message:")
           message(cond)
         })
-      # TO BE CONTINUED ... exData?? when does it merge exData + isData into data?
+      # TO BE CONTINUED ... exData?? when does it merge exData +
+      # isData into data?
       data[i,paste0("PMOL_SAMPLE_",unlist(strsplit(MS1x, "_"))[2])] <- pmol_calc
     }
   }

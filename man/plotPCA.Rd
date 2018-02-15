@@ -13,23 +13,33 @@ plotPCA(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount = NULL)
 
 \item{pathToOutput}{the directory path to save the plots}
 
-\item{log2}{logical argument that specifies whether or not data has to be log2 transformed}
+\item{log2}{logical argument that specifies whether or not data has to be
+log2 transformed}
 
-\item{pseudoCount}{pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data}
+\item{pseudoCount}{pseudo count added to the data if the data is log2
+transformed in order to avoid negative infinite values in the data}
 }
 \value{
-four plot images: a scree plots (screePlot_species.png & screePlot_classes.png) and a biplot (PCA_biplot_species.png & PCA_biplot_classes.png) for both species and classes.
+four plot images: a scree plots (screePlot_species.png &
+screePlot_classes.png) and a biplot (PCA_biplot_species.png &
+PCA_biplot_classes.png) for both species and classes.
 }
 \description{
-This function plots the following PCA plots: screeplot and biplot
+This function plots the following PCA plots: screeplot and
+biplot
 }
 \examples{
 # load sample types file and data to be used for visualization
-sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
-data <- read.csv(system.file("extdata/dataTables", "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv",
+ package = "lipidQuan"), stringsAsFactors = FALSE)
 
-# create pca scree and biplot from log2 transformed data with 0.0001 added pseudo counts
-plotPCA(data, sampleTypes, pathToOutput = system.file("extdata/dataTables", package = "lipidQuan"), log2 = TRUE, pseudoCount = 0.0001)
+data <- read.csv(system.file("extdata/dataTables", "finalOutput_molPct.csv",
+ package = "lipidQuan"), stringsAsFactors = FALSE)
+
+# create pca scree and biplot from log2 transformed data with 0.0001 added
+# pseudo counts
+plotPCA(data, sampleTypes, pathToOutput = system.file("extdata/dataTables",
+ package = "lipidQuan"), log2 = TRUE, pseudoCount = 0.0001)
 }
 \author{
 André Vidas Olsen

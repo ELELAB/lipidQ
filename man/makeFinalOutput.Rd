@@ -8,32 +8,49 @@ makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet,
   userSpecifiedColnames = NULL)
 }
 \arguments{
-\item{classPmol_molPctClass}{compact output file created by using the compactOutput_pmolCalc() script.}
+\item{classPmol_molPctClass}{compact output file created by using the
+compactOutput_pmolCalc() script.}
 
-\item{pmolCalculatedDataSet}{data of pmol calculations made by using the pmolCalc() script.}
+\item{pmolCalculatedDataSet}{data of pmol calculations made by using the
+pmolCalc() script.}
 
-\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
+\item{userSpecifiedColnames}{the column names template file containing user
+specified column names for the input data.}
 }
 \value{
 a final output file containing pmol and mol% of species
 }
 \description{
-This function creates the final output file of the results which consists of both all filtered pmol species and filtered pmol classes.
+This function creates the final output file of the results which
+consists of both all filtered pmol species and filtered pmol classes.
 }
 \examples{
 # load endo & ISTD databases as well as user specified column names file.
-endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+ "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ header = TRUE, sep = ",")
+
+ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+ "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ header = TRUE, sep = ",")
+
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
+ "userSpecifiedColnames.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
-pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables",
+ "pmolCalculatedDataSet.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # make compact output from pmolCalculatedDataSet
-classPmol_molPctClass_compact <- compactOutput_pmolCalc(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+classPmol_molPctClass_compact <-
+ compactOutput_pmolCalc(pmolCalculatedDataSet,
+ userSpecifiedColnames = userSpecifiedColnames)
 
 # make final outout
-finalOutput <- makeFinalOutput(classPmol_molPctClass_compact, pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+finalOutput <- makeFinalOutput(classPmol_molPctClass_compact,
+ pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
 
 # print mol\% final output
 finalOutput[[1]]

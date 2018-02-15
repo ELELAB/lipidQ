@@ -7,19 +7,25 @@
 makeDatabase(userSpecifiedColnames = NULL, DB_type)
 }
 \arguments{
-\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data. This file}
+\item{userSpecifiedColnames}{the column names template file containing user
+specified column names for the input data. This file}
 
-\item{DB_type}{a string describing which of the two databases that is should be reset. "endo" for the endogene_lipid_db.csv database and "ISTD" for the ISTD_lipid_db.csv database.}
+\item{DB_type}{a string describing which of the two databases that is should
+be reset. "endo" for the endogene_lipid_db.csv database and "ISTD" for the
+ISTD_lipid_db.csv database.}
 }
 \value{
 a database template file in the form of either endogene or ISTD
 }
 \description{
-This function creates a database based on the user specified column names template
+This function creates a database based on the user specified
+column names template
 }
 \examples{
 # load user specified column names files
-userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
+ "userSpecifiedColnames.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # make endo database
 makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = "endo")

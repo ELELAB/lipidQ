@@ -9,37 +9,55 @@ plotQC_ISTD(data, endogene_lipid_db, ISTD_lipid_db,
   numberOfReplicates)
 }
 \arguments{
-\item{data}{data formatted by the use of the mergeDataSet function from LipidQuan.}
+\item{data}{data formatted by the use of the mergeDataSet function from
+LipidQuan.}
 
 \item{endogene_lipid_db}{the endogene lipid database}
 
 \item{ISTD_lipid_db}{the ISTD lipid database}
 
-\item{userSpecifiedColnames}{the column names template file containing user specified column names for the input data.}
+\item{userSpecifiedColnames}{the column names template file containing user
+specified column names for the input data.}
 
 \item{pathToOutput}{the directory path to save the plots}
 
-\item{blnkReplicates}{logical parameter for specifying whether the blank sample contains replicates or not. FALSE: no replicates, TRUE: replicates.}
+\item{blnkReplicates}{logical parameter for specifying whether the blank
+sample contains replicates or not. FALSE: no replicates, TRUE: replicates.}
 
 \item{numberOfReplicates}{the number of replicates for each sample}
 }
 \value{
-barplots of every ISTD which includes all samples as well as one barplot of all ISTD with median sample intensity value
+barplots of every ISTD which includes all samples as well as one
+barplot of all ISTD with median sample intensity value
 }
 \description{
 This function creates QC plots of MS1 intensity data
 }
 \examples{
 # load endo & ISTD databases as well as user specified column names file.
-endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+ "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ header = TRUE, sep = ",")
+
+ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+ "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ header = TRUE, sep = ",")
+
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
+ "userSpecifiedColnames.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # load is sorted mergedDataSet made by using the mergeDataSets() function
-mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables", "mergedDataSetsIsSorted.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables",
+ "mergedDataSetsIsSorted.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # create QC plot of ISTD's
-plotQC_ISTD(data = mergedDataSetsIsSorted, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = "results/QC/pre", blnkReplicates = TRUE, numberOfReplicates = 1)
+plotQC_ISTD(data = mergedDataSetsIsSorted,
+ endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db,
+ userSpecifiedColnames = userSpecifiedColnames,
+ pathToOutput = "results/QC/pre", blnkReplicates = TRUE,
+ numberOfReplicates = 1)
 }
 \author{
 André Vidas Olsen

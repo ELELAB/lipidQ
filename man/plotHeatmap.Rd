@@ -10,30 +10,41 @@ plotHeatmap(data, sampleTypes, k = NULL, pathToOutput, log2 = FALSE,
 \arguments{
 \item{data}{quantified data to be visualized (finalOutput_molPct.csv)}
 
-\item{sampleTypes}{file that associates column names of MS1 with the sample types}
+\item{sampleTypes}{file that associates column names of MS1 with the sample
+types}
 
 \item{k}{number of k in the k-means algorithm.}
 
 \item{pathToOutput}{the directory path to save the plots}
 
-\item{log2}{logical argument that specifies whether or not data has to be log2 transformed}
+\item{log2}{logical argument that specifies whether or not data has to be
+log2 transformed}
 
-\item{pseudoCount}{pseudo count added to the data if the data is log2 transformed in order to avoid negative infinite values in the data}
+\item{pseudoCount}{pseudo count added to the data if the data is log2
+transformed in order to avoid negative infinite values in the data}
 }
 \value{
-Two heatmap images: heatmap of species (heatmapSpecies_k_n.png) and heatmap of classes (heatmapClasses_k_n.png), where n indicates the amount of clusters k. If clusters are not chosen by the user, a majority vote chart will also be included called nbclustResults.png.
+Two heatmap images: heatmap of species (heatmapSpecies_k_n.png) and
+heatmap of classes (heatmapClasses_k_n.png), where n indicates the amount of
+clusters k. If clusters are not chosen by the user, a majority vote chart
+will also be included called nbclustResults.png.
 }
 \description{
 This function plots heatmaps of the data
 }
 \examples{
 # load sample types file and data to be used for visualization
-sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
-data <- read.csv(system.file("extdata/dataTables", "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv",
+ package = "lipidQuan"), stringsAsFactors = FALSE)
+
+data <- read.csv(system.file("extdata/dataTables",
+ "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
 
 
 # create heatmap from log2 transformed data with 0.0001 added pseudo counts
-plotHeatmap(data = data, sampleTypes = sampleTypes, pathToOutput = system.file("extdata/dataTables", package = "lipidQuan"), log2 = TRUE, pseudoCount = 0.0001)
+plotHeatmap(data = data, sampleTypes = sampleTypes,
+ pathToOutput = system.file("extdata/dataTables", package = "lipidQuan"),
+ log2 = TRUE, pseudoCount = 0.0001)
 }
 \author{
 André Vidas Olsen

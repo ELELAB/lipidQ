@@ -24,12 +24,15 @@ mergeFinalOutputs <- function(dataList){
 
     for(colIndex in 2:ncol(data)){
 
-      mergedOutput$"newTmp" <- NA # create initial NA for new column to be merged
+      mergedOutput$"newTmp" <- NA #create initial NA for new column to be merged
 
-      colnames(mergedOutput)[ncol(mergedOutput)] <- colnames(data)[colIndex] # insert appropriate column name from data into new column in mergedOutput
+      #insert appropriate column name from data into new column in mergedOutput
+      colnames(mergedOutput)[ncol(mergedOutput)] <- colnames(data)[colIndex]
 
-      # match rows of incoming "final output" data sets with existing merged data set to ensure correct placement of rows.
-      mergedOutput[, ncol(mergedOutput)] <- data[match(mergedOutput$"molPct", data$"molPct"), colIndex]
+      # match rows of incoming "final output" data sets with existing merged
+      # data set to ensure correct placement of rows.
+      mergedOutput[, ncol(mergedOutput)] <-
+        data[match(mergedOutput$"molPct", data$"molPct"), colIndex]
     }
 
   }

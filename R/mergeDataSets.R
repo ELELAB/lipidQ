@@ -1,16 +1,26 @@
 #' @title Merge Data Sets
 #' @author André Vidas Olsen
-#' @description This function merges multiple data sets together. The data sets are listed in the dataList parameter.
+#' @description This function merges multiple data sets together. The data sets
+#' are listed in the dataList parameter.
 #' @param dataList a list of paths referring to input data
 #' @param endogene_lipid_db the endogene lipid database
 #' @param ISTD_lipid_db the ISTD lipid database
-#' @param userSpecifiedColnames the column names template file containing user specified column names for the input data.
-#' is used to translate the user specified column names to the program, so that it uses the correct columns for the different analysis procedures.
-#' @param correctionList a file containing a list of sum compositions to be multiplied for in the MS1 column values (intensity values)
-#' @param multiply a parameter used to multiply intensity values in the MS1 column on selected sum compositions. The parameter is useful if lipidX is used to obtain the intensity data derived from overlapping MS scan ranges. The sum composition are selected by the user and should appear in a correction list file that is used as argument for the correctionList parameter.
+#' @param userSpecifiedColnames the column names template file containing user
+#' specified column names for the input data.
+#' is used to translate the user specified column names to the program, so that
+#' it uses the correct columns for the different analysis procedures.
+#' @param correctionList a file containing a list of sum compositions to be
+#' multiplied for in the MS1 column values (intensity values)
+#' @param multiply a parameter used to multiply intensity values in the MS1
+#' column on selected sum compositions. The parameter is useful if lipidX is
+#' used to obtain the intensity data derived from overlapping MS scan ranges.
+#' The sum composition are selected by the user and should appear in a
+#' correction list file that is used as argument for the correctionList
+#' parameter.
 #' @return a data set consisting of merged input data
 #' @export
-mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = NULL, correctionList = NULL, multiply = NULL){
+mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db,
+          userSpecifiedColnames = NULL, correctionList = NULL, multiply = NULL){
 
   # merge endogene_lipid_db and ISTD_lipid_db together
   database <- merge_endo_and_ISTD_db(endogene_lipid_db, ISTD_lipid_db)
@@ -45,7 +55,8 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   MS2ix_cols <- dataColnames[grep("MS2",colnames(dataColnames))]
   MS2ix_userCols <- c()
   for(userCol in as.character(MS2ix_cols)){
-    MS2ix_userCols <- append(MS2ix_userCols, uniqueCols[grep(userCol,uniqueCols)])
+    MS2ix_userCols <-
+      append(MS2ix_userCols, uniqueCols[grep(userCol,uniqueCols)])
   }
   MS2ix_userCols <- gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",MS2ix_userCols)
   MS2ix_userCols <- unique(MS2ix_userCols)
@@ -56,7 +67,8 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   # select user specified columns of MS2ix columns from database
   MS2ix_userCols_database <- c()
   for(userCol in as.character(MS2ix_cols)){
-    MS2ix_userCols_database <- append(MS2ix_userCols_database, colnames(database)[grep(userCol,colnames(database))])
+    MS2ix_userCols_database <- append(MS2ix_userCols_database,
+                          colnames(database)[grep(userCol,colnames(database))])
   }
 
 
@@ -69,13 +81,16 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
     # load data from dataList
     data <- readFile(dataPath)
 
-    # if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION_COMPOSITION column starts with a [SPACE], remove this [SPACE]
+    # if a row in the SUM_COMPOSITION or SPECIE_COMPOSITION_COMPOSITION column
+    # starts with a [SPACE], remove this [SPACE]
     data <- rmSpaceInBeginning(data, userSpecifiedColnames)
 
     selectedCols <- tryCatch(
       {
-
-        data[, c(dataColnames$PPM, dataColnames$CLASS, dataColnames$C_CHAIN, dataColnames$DOUBLE_BOND, dataColnames$SUM_COMPOSITION, dataColnames$SPECIE_COMPOSITION, dataColnames$MASS_TO_CHARGE)] # return statement
+        # return statement
+        data[, c(dataColnames$PPM, dataColnames$CLASS, dataColnames$C_CHAIN,
+                 dataColnames$DOUBLE_BOND, dataColnames$SUM_COMPOSITION,
+                 dataColnames$SPECIE_COMPOSITION, dataColnames$MASS_TO_CHARGE)]
 
       },
       error=function(cond){
@@ -93,17 +108,21 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
 
 
-    # Insert values from OH col to selectedCols, if present in the data set or set value to NA.
+    # Insert values from OH col to selectedCols, if present in the data set or
+    # set value to NA.
     if(dataColnames$OH_GROUP %in% colnames(data)){
-      selectedCols[, dataColnames$OH_GROUP] <- data[,which(dataColnames$OH_GROUP == colnames(data))]
+      selectedCols[, dataColnames$OH_GROUP] <-
+        data[,which(dataColnames$OH_GROUP == colnames(data))]
     }else{
       selectedCols[, dataColnames$OH_GROUP] <- NA
     }
 
 
     # change long MS1.* name to MS1_xx, where xx is a number
-    MS1x_tmp <- data[,c(colnames(data)[grep(paste0("^",dataColnames$MS1x),colnames(data))])]
-    colnames(MS1x_tmp) <- gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",colnames(MS1x_tmp))
+    MS1x_tmp <- data[,c(colnames(data)[grep(paste0("^",dataColnames$MS1x),
+                colnames(data))])]
+    colnames(MS1x_tmp) <-
+                gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",colnames(MS1x_tmp))
 
     # insert new MS1_xx col names to selectedCols
     selectedCols <- cbind(selectedCols,MS1x_tmp)
@@ -111,7 +130,8 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
 
 
-    # insert mode column describing whether the measurements comes from POS or NEG measurements
+    # insert mode column describing whether the measurements comes from
+    # POS or NEG measurements
     if("POS" %in% colnames(data)){
       mode <- "POS"
     }else{
@@ -127,10 +147,13 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
 
 
-    # convert FA, FRAG and NLS col names in the input data (e.g. FAxxINTENS* name to FAxxINTENS_xx, where xx is a number), so they can be compared with the obtained colnames in FA_FRAG_NLS_cols.
+    # convert FA, FRAG and NLS col names in the input data (e.g. FAxxINTENS*
+    # name to FAxxINTENS_xx, where xx is a number), so they can be compared with
+    # the obtained colnames in FA_FRAG_NLS_cols.
     colnames(data) <- gsub("^(\\w+).*_(\\w+).raw", "\\1_\\2",colnames(data))
 
-    # insert FA, FRAG and NLS columns into selectedCols. If they do not exist in the given data set, the value = NA
+    # insert FA, FRAG and NLS columns into selectedCols. If they do not exist in
+    # the given data set, the value = NA
     dataNames <- colnames(data)
     for(col in MS2ix_userCols){
       if(col %in% dataNames){
@@ -142,11 +165,13 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
 
 
     # remove all rows where SUM_COMPOSITION == ""
-    selectedCols <- selectedCols[selectedCols[,dataColnames$SUM_COMPOSITION] != "",]
+    selectedCols <- selectedCols[
+                    selectedCols[,dataColnames$SUM_COMPOSITION] != "",]
 
 
     # merge all data sets into one data set (mergedDataSet).
-    if(firstRun == TRUE){ # only used on first run, since mergedDataSet is not defined yet
+    if(firstRun == TRUE){ # only used on first run, since mergedDataSet is not
+      # defined yet
       mergedDataSet <- selectedCols
       firstRun <- FALSE
     }else{ # used for all runs except first run.
@@ -155,14 +180,20 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   }
 
 
-  # convert different zero-symbols (e.g. " none" and NA) to the same symbol ("0").
-  mergedDataSet[mergedDataSet == "0.0" | mergedDataSet == "none" | mergedDataSet == " none" | mergedDataSet == "None" | mergedDataSet == " None" | mergedDataSet == "Keine" | is.na(mergedDataSet)] <- "0"
+  # convert different zero-symbols (e.g. " none" and NA) to the same symbol
+  # ("0").
+  mergedDataSet[mergedDataSet == "0.0" | mergedDataSet == "none" |
+    mergedDataSet == " none" | mergedDataSet == "None" |
+    mergedDataSet == " None" | mergedDataSet == "Keine" |
+    is.na(mergedDataSet)] <- "0"
 
 
   # multiply MS1x values if multiply is set to a value
   if(!is.null(multiply) && !is.null(correctionList)){
     for(MS1x in colnames(MS1x_tmp)){
-      mergedDataSet[,MS1x] <- ifelse(mergedDataSet[,dataColnames$SUM_COMPOSITION] %in% correctionList, mergedDataSet[,MS1x]*multiply, mergedDataSet[,MS1x])
+      mergedDataSet[,MS1x] <-
+        ifelse(mergedDataSet[,dataColnames$SUM_COMPOSITION] %in% correctionList,
+        mergedDataSet[,MS1x]*multiply, mergedDataSet[,MS1x])
 
     }
   }
@@ -174,25 +205,33 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecif
   MS1x_MS2x_cols <- c(colnames(MS1x_tmp), MS2ix_userCols)
 
   # select rows with internal standards
-  isData <- mergedDataSet[grep("^is",mergedDataSet[,dataColnames$SUM_COMPOSITION]),]
+  isData <-
+    mergedDataSet[grep("^is",mergedDataSet[,dataColnames$SUM_COMPOSITION]),]
   # remove all columns except from MS1x_MS2x_cols and SUM_COMPOSITION
   isData <- isData[, c(dataColnames$SUM_COMPOSITION,MS1x_MS2x_cols)]
 
 
 
-  # remove any non-MS1x and MS2ix columns (MASS columns) except from SUM_COMPOSITION, which is used for matching isData with ISTD_lipid_db
-  isData <- isData[, grep(paste0("^", dataColnames$SUM_COMPOSITION ,"|_"),colnames(isData))]
+  # remove any non-MS1x and MS2ix columns (MASS columns) except
+  # from SUM_COMPOSITION, which is used for matching isData with ISTD_lipid_db
+  isData <- isData[,
+        grep(paste0("^", dataColnames$SUM_COMPOSITION ,"|_"),colnames(isData))]
 
 
   # match isData with ISTD_lipid_db
-  ISTD_matched_w_isData <- ISTD_lipid_db[match(isData[, dataColnames$SUM_COMPOSITION], ISTD_lipid_db[, dataColnames$SUM_COMPOSITION]),]
+  ISTD_matched_w_isData <- ISTD_lipid_db[match(
+    isData[,dataColnames$SUM_COMPOSITION],
+    ISTD_lipid_db[, dataColnames$SUM_COMPOSITION]),]
 
   # remove all columns except MS1x and MS2ix
-  ISTD_matched_w_isData <- ISTD_matched_w_isData[, as.character(dataColnames[, grep("^MS1|^MS2", colnames(dataColnames))])]
+  ISTD_matched_w_isData <-
+    ISTD_matched_w_isData[, as.character(dataColnames[,
+    grep("^MS1|^MS2", colnames(dataColnames))])]
 
 
   for(col in colnames(ISTD_matched_w_isData)){
-    tmp_col <- ISTD_matched_w_isData[, grep(paste0("^",col),colnames(ISTD_matched_w_isData))]
+    tmp_col <- ISTD_matched_w_isData[, grep(paste0("^",col),
+                                            colnames(ISTD_matched_w_isData))]
     if(sum(tmp_col) != 0){
       if(!all(isData[tmp_col, grep(paste0("^", col), colnames(isData))] != 0)){
         stop(paste0("ERROR: One or more internal standards in the ", col ," column contains 0 in MS1/MS2 column(s). Please ensure that this column contains the right 1/0 status for each internal standard in the ISTD lipid database."))
