@@ -17,46 +17,87 @@ knitr::opts_chunk$set(
 ```
 
 #Introduction
-This vignette will cover all the basic steps involved in lipidQuan visualization.
+This vignette will cover all the basic steps involved in lipidQuan
+visualization.
 
 
 #Data
-The visualization section is capable of visualizing the final output mol% files which are created in when doing the quantification procedure (See the visualization tutorial for an example).
+The visualization procedure tab is capable of visualizing the final output mol%
+files which is created when doing the quantification procedure (see the
+visualization tutorial for an example).
 
 
 
 #Sample type file
-The visualization which comprises of both PCA biplots and heatmap plot, will also visualize the sample types of the different sample columns in the final output mol% files. Because of this, a small file containing information about the sample types is needed in this visualization process. By clicking on the "Browse..." button below "Choose a file containing sample type information for the data" the user can specify this sample type file. The file has the following structure:
+The visualization procedure tab which comprises of both PCA biplots and heatmap
+plots, will also visualize the sample types of the different sample columns in
+the final output mol% files. Because of this, a small file containing
+information about the sample types is needed in this visualization process. By
+clicking on the "Browse..." button below "Choose a file containing sample type
+information for the data" the user can specify this sample type file. The file
+has the following structure:
 
 
 ```{r echo = FALSE}
 library(knitr)
-data <- data.frame("sampleType1" = "start-end", "sampleType2" = "start-end", "sampleType3" = "start-end", "sampleType4" = "start-end", "sampleType5" = "start-end", "sampleType6" = "start-end")
+data <- data.frame("sampleType1" = "start-end", "sampleType2" = "start-end",
+                   "sampleType3" = "start-end", "sampleType4" = "start-end",
+                   "sampleType5" = "start-end", "sampleType6" = "start-end")
 kable(data)
 ```
 
-where, "sampleType" represent the sampel type and start-end represent the start and end column of sample columns in the final output mol% that has a given sample type. The following shows an exmaple of this sample type file:
+where, "sampleType" represent the sample type and start-end represent the start
+and end column of sample columns in the final output mol% that has a given
+sample type. The following shows an exmaple of this sample type file:
 
 ```{r echo = FALSE}
 library(knitr)
-data <- read.csv(system.file("extdata/sampleTypes.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+data <- read.csv(system.file("extdata/sampleTypes.csv", package = "lipidQuan"),
+                 stringsAsFactors = FALSE)
+data[,1] <- "1-4"
+data[,2] <- "5-8"
 kable(data)
 ```
 
-In this file, the user has specified that sample column 1 and 2 in the final output mol% file contains blood samples, while the sample column 3 and 4 contains plasma. Note that the user only specify the start and end column of the same sample type. For instance, if the first 3 samples in the final output mol% file had been blood, then the user should write 1-3 under the blood column in the sample type file. The same sample types therefore needs to be placed adjacent to each other in the data. A total of 10 different groups are allowed to be visualized in the same visalization.
+In this file, the user has specified that sample column 1, 2, 3, and 4 in the
+final output mol% file contains blood samples, while the sample column 5, 6, 7,
+and 8 contains plasma. Note that the user only specify the start and end column
+of the same sample type. The same sample types therefore needs to be placed 
+adjacent to each other in the data. A total of 10 different groups are allowed
+to be visualized in the same visalization.
 
 # log2 transformation
-The user can also specify whether the data should be log2 transformed before visualization by clicking on the checkbox "log2 transformation of the data". When log2 transformation is enabled, the user also needs to specify pseudo counts to avoid $-\infty$ values in the transformed data if the data contains zeros. This is done by specifying a small number in the "Pseudo count" field which will be added to every values prior to the log2 transformation. If the data does not contains zeros, the user can just write 0 in the pseudo count field, so that no pseudo count value will be added. 
+The user can also specify whether the data should be log2 transformed before
+visualization by clicking on the checkbox "log2 transformation of the data".
+When log2 transformation is enabled, the user also needs to specify pseudo
+counts to avoid $-\infty$ values in the transformed data if the data contains
+zeros. This is done by specifying a small number in the "Pseudo count" field
+which will be added to every values prior to the log2 transformation. If the
+data does not contains zeros, the user can just write 0 in the pseudo count
+field, so that no pseudo count value will be added. 
 
 # Selection of plot types
-The user also needs to specify which plots to visualize. There are two types of plots:
+The user also needs to specify which plots to visualize. There are two types of
+plots:
 
 1. PCA
 2. Heatmap
 
-The PCA plot will create a scree plot and PCA biplot of the data. The heatmap plot will contain clustering of the data. For both types of plots there will be plots for both classes and species, which will be named accordingly (e.g. PCA_biplot_species.png and PCA_biplot_classes.png).
+The PCA plot will create a scree plot and PCA biplot of the data. The heatmap
+plot will contain clustering of the data. For both types of plots there will be
+plots for both classes and species, which will be named accordingly (e.g.
+PCA_biplot_species.png and PCA_biplot_classes.png).
 
 
 #Clustering
-As mentioned in the "Selection of plot types" section, heatmap will cluster the data. This is done by using the k-means clustering algorithm. If user has some prior knowledge of the amount of clusters, the user can specify the amount of clusters $k$ in the "Optional selection of $k$ clusters for the heatmap" field. If no number of clusters is specified, LipidQuan will determine the most appropiate numbers of clusters $k$ by using the NbClust R package (Ref: https://cran.r-project.org/web/packages/NbClust/index.html). A plot called nbclustResults.png will be created in this instance, which illustrates a majority vote system of the different number of $k$ clusters to indicate the most appropiate choice of $k$.
+As mentioned in the "Selection of plot types" section, the heatmap will cluster
+the data. This is done by using the k-means clustering algorithm. If the user
+has some prior knowledge of the amount of clusters, the user can specify the
+amount of clusters $k$ in the "Optional selection of $k$ clusters for the
+heatmap" field. If no number of clusters is specified, LipidQuan will determine
+the most appropiate numbers of clusters $k$ by using the NbClust R package
+(Ref: https://cran.r-project.org/web/packages/NbClust/index.html). A plot called
+nbclustResults.png will be created in this instance, which illustrates a
+majority vote system of the different number of $k$ clusters to indicate the
+most appropiate choice of $k$.
 

@@ -11,7 +11,7 @@
 
 <meta name="author" content="André Vidas Olsen" />
 
-<meta name="date" content="2018-01-30" />
+<meta name="date" content="2018-02-15" />
 
 <title>Install LipidQuan</title>
 
@@ -121,31 +121,21 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Install LipidQuan</h1>
 <h4 class="author"><em>André Vidas Olsen</em></h4>
-<h4 class="date"><em>2018-01-30</em></h4>
+<h4 class="date"><em>2018-02-15</em></h4>
 
 </div>
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>This vignette will describe how to install LipidQuan on a computer. In order to install LipidQuan, the user needs to have installed R first on the computer. For convenience, it is also recommended to install R studio. The following packages needs to be installed in R in order for LipidQuan to work:</p>
-<p>ggplot2</p>
-<p>reshape2</p>
-<p>stats</p>
-<p>utils</p>
-<p>ComplexHeatmap</p>
-<p>circlize</p>
-<p>COMMENT: TIBERTI AND OTHERS: PLEASE CHECK TO SEE IF YOU ENCOUNTER REQUIREMENTS FOR OTHER PACKAGES TO BE INSTALLED AS WELL.</p>
+<p>This vignette will describe how to install LipidQuan on a computer. In order to install LipidQuan, the user needs to have installed R first on the computer. For convenience, it is also recommended to install R studio. The ComplexHeatmap package needs to be installed in R in order for LipidQuan to work. This can be done in R studio, by typing the following in the command line:</p>
+<p>source(“<a href="https://bioconductor.org/biocLite.R" class="uri">https://bioconductor.org/biocLite.R</a>”)</p>
+<p>biocLite(“ComplexHeatmap”)</p>
 <div id="install-lipidquan-from-bioconductor" class="section level3">
 <h3>Install LipidQuan from Bioconductor</h3>
-<p>COMMENT: (DOES NOT WORK AT THE MOMENT, SINCE THE PACKAGE IS NOT OUT AT BIOCONDUCTOR)</p>
 <p>The easist way to install LipidQuan is to open R/RStudio and type the following two commands in the command line:</p>
 <p>source(“<a href="https://bioconductor.org/biocLite.R" class="uri">https://bioconductor.org/biocLite.R</a>”)</p>
 <p>biocLite(“lipidQuan”)</p>
-</div>
-<div id="install-developmental-version-from-github" class="section level3">
-<h3>Install developmental version from GitHub</h3>
-<p>COMMENT: SINCE THIS THE GITHUB REPO IS AT THE MOMENT A PRIVATE REPO, THIS CAN NOT BE USED YET.</p>
 </div>
 <div id="install-lipidquan-from-binarysource-file" class="section level3">
 <h3>Install LipidQuan from binary/source file</h3>
