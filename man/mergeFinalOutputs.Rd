@@ -13,7 +13,20 @@ mergeFinalOutputs(dataList)
 a data set consisting of merged final output files
 }
 \description{
-This function merges final output files into one data file
+This function merges final output molPct files into one data file
+}
+\examples{
+# load final output molPct files
+finalOutput1 <- read.table(system.file("extdata/finalOutputFiles",
+ "finalOutput1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ header = TRUE, sep = ",")
+
+dataPathList <- c(system.file("extdata/finalOutputFiles",
+                  "finalOutput1.csv", package = "lipidQuan"),
+                 system.file("extdata/finalOutputFiles",
+                  "finalOutput2.csv", package = "lipidQuan") )
+
+mergeFinalOutputs(dataPathList)
 }
 \author{
 André Vidas Olsen

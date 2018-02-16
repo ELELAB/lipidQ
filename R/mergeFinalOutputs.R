@@ -1,9 +1,18 @@
 #' @title Merge Final Outputs
 #' @author André Vidas Olsen
-#' @description This function merges final output files into one data file
+#' @description This function merges final output molPct files into one data
+#' file
 #' @param dataList a list of paths referring to input data
 #' @return a data set consisting of merged final output files
 #' @export
+#' @examples
+#' # load final output molPct files
+#' dataPathList <- c(system.file("extdata/finalOutputFiles",
+#'                   "finalOutput1.csv", package = "lipidQuan"),
+#'                  system.file("extdata/finalOutputFiles",
+#'                   "finalOutput2.csv", package = "lipidQuan") )
+#'
+#' mergeFinalOutputs(dataPathList)
 mergeFinalOutputs <- function(dataList){
 
 
