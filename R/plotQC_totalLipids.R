@@ -31,7 +31,14 @@
 #'  userSpecifiedColnames = userSpecifiedColnames,
 #'  pathToOutput = "")
 plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL,
-                               pathToOutput){
+                               pathToOutput = ""){
+
+  # insert a "/" in the pathToOutput if used to ensure that the folder name is
+  # separated from the file name
+  if(pathToOutput != ""){
+    pathToOutput <- paste0(pathToOutput, "/")
+  }
+
   # get colnames for data
   dataColnames <- checkColnames(userSpecifiedColnames = userSpecifiedColnames)
 

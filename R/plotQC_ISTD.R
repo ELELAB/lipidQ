@@ -43,8 +43,14 @@
 #'  pathToOutput = "",
 #'  blnkReplicates = TRUE, numberOfReplicates = 1)
 plotQC_ISTD <- function(data, endogene_lipid_db, ISTD_lipid_db,
-          userSpecifiedColnames = NULL, pathToOutput, blnkReplicates = FALSE,
+          userSpecifiedColnames = NULL, pathToOutput = "", blnkReplicates = FALSE,
           numberOfReplicates){
+
+  # insert a "/" in the pathToOutput if used to ensure that the folder name is
+  # separated from the file name
+  if(pathToOutput != ""){
+    pathToOutput <- paste0(pathToOutput, "/")
+  }
 
   # get colnames for data
   dataColnames <- checkColnames(userSpecifiedColnames = userSpecifiedColnames)

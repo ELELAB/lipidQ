@@ -27,8 +27,15 @@
 #' # pseudo counts
 #' plotPCA(data, sampleTypes, pathToOutput = "", log2 = TRUE,
 #'  pseudoCount = 0.0001)
-plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE,
+plotPCA <- function(data, sampleTypes, pathToOutput = "", log2 = FALSE,
                     pseudoCount = NULL){
+
+  # insert a "/" in the pathToOutput if used to ensure that the folder name is
+  # separated from the file name
+  if(pathToOutput != ""){
+    pathToOutput <- paste0(pathToOutput, "/")
+  }
+
 
   # check that no Inf/-Inf/NA exists in the data and throw an error message if
   # the data contains these values.
