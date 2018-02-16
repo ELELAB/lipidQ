@@ -40,8 +40,8 @@
 #' plotQC_ISTD(data = mergedDataSetsIsSorted,
 #'  endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db,
 #'  userSpecifiedColnames = userSpecifiedColnames,
-#'  pathToOutput = "results/QC/pre", blnkReplicates = TRUE,
-#'  numberOfReplicates = 1)
+#'  pathToOutput = "",
+#'  blnkReplicates = TRUE, numberOfReplicates = 1)
 plotQC_ISTD <- function(data, endogene_lipid_db, ISTD_lipid_db,
           userSpecifiedColnames = NULL, pathToOutput, blnkReplicates = FALSE,
           numberOfReplicates){
@@ -113,7 +113,7 @@ plotQC_ISTD <- function(data, endogene_lipid_db, ISTD_lipid_db,
       isData[i, dataColnames$SUM_COMPOSITION], ")")) +
       geom_hline(aes(yintercept = median))
 
-    ggsave(g, filename=paste0(pathToOutput,"/",
+    ggsave(g, filename=paste0(pathToOutput,
       isData[i, dataColnames$SUM_COMPOSITION],".png"), width = 14, height = 10,
       units = "cm")
 
@@ -139,7 +139,7 @@ plotQC_ISTD <- function(data, endogene_lipid_db, ISTD_lipid_db,
     y = "Intensity") + scale_fill_discrete(guide = guide_legend(title =
     "Classes")) + ggtitle("Median sample intensity values for all ISTD")
 
-  ggsave(p, filename=paste0(pathToOutput, "/medianSampleIntensityAllISTDs.png"),
+  ggsave(p, filename=paste0(pathToOutput, "medianSampleIntensityAllISTDs.png"),
          width = 14, height = 10, units = "cm")
 
 }

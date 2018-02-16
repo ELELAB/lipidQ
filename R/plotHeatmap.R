@@ -38,13 +38,13 @@
 #' sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv",
 #'  package = "lipidQuan"), stringsAsFactors = FALSE)
 #'
-#' data <- read.csv(system.file("extdata/dataTables",
+#' data <- read.csv(system.file("extdata/",
 #'  "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
 #'
 #'
 #' # create heatmap from log2 transformed data with 0.0001 added pseudo counts
-#' plotHeatmap(data = data, sampleTypes = sampleTypes,
-#'  pathToOutput = system.file("extdata/dataTables", package = "lipidQuan"),
+#' plotHeatmap(data = data, sampleTypes = sampleTypes, k = 2,
+#'  pathToOutput = "",
 #'  log2 = TRUE, pseudoCount = 0.0001)
 plotHeatmap <- function(data, sampleTypes, k = NULL, pathToOutput, log2 = FALSE,
                         pseudoCount = NULL) {
@@ -147,7 +147,7 @@ plotHeatmap <- function(data, sampleTypes, k = NULL, pathToOutput, log2 = FALSE,
                   show_row_dend = FALSE, show_column_dend = FALSE,
                   cluster_rows = TRUE, km = k)
   heatPlot <- ha + heat
-  png(file = paste0(pathToOutput, "/heatmapSpecies_k_", k, ".png"),
+  png(filename = paste0(pathToOutput, "heatmapSpecies_k_", k, ".png"),
       height = 800, width = (22*nrow(mol_pct_species_cols)))
   draw(heatPlot)
   dev.off()
@@ -174,7 +174,7 @@ plotHeatmap <- function(data, sampleTypes, k = NULL, pathToOutput, log2 = FALSE,
                   show_row_dend = FALSE, show_column_dend = FALSE,
                   cluster_rows = TRUE, km = k)
   heatPlot <- ha + heat
-  png(file = paste0(pathToOutput, "/heatmapClasses_k_", k, ".png"),
+  png(filename = paste0(pathToOutput, "heatmapClasses_k_", k, ".png"),
       height = 800, width = (22*nrow(mol_pct_classes_cols)))
   draw(heatPlot)
   dev.off()

@@ -30,7 +30,7 @@
 #' # create QC plot of of total lipids
 #' plotQC_totalLipids(data = classPmol_molPctClass_compact,
 #'  userSpecifiedColnames = userSpecifiedColnames,
-#'  pathToOutput = "results/QC/post")
+#'  pathToOutput = "")
 plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL,
                                pathToOutput){
   # get colnames for data
@@ -67,7 +67,7 @@ plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL,
                     guide= guide_legend(title = "Classes")) +
                     ggtitle("Total amount of lipids per sample")
 
-  ggsave(p, filename=paste0(pathToOutput, "/totalAmountOfLipids.png"),
+  ggsave(p, filename=paste0(pathToOutput, "totalAmountOfLipids.png"),
          width = 14, height = 10, units = "cm")
 
 
@@ -94,7 +94,7 @@ plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL,
       ggtitle(paste0("Total amount of lipid per sample\n(", name, ")")) +
       geom_hline(aes(yintercept = median))
 
-    ggsave(g, filename=paste0(pathToOutput,"/", name,".png"), width = 14,
+    ggsave(g, filename=paste0(pathToOutput, name,".png"), width = 14,
            height = 10, units = "cm")
     count <- count + 1
   }

@@ -25,8 +25,8 @@
 #'
 #' # create pca scree and biplot from log2 transformed data with 0.0001 added
 #' # pseudo counts
-#' plotPCA(data, sampleTypes, pathToOutput = system.file("extdata/dataTables",
-#'  package = "lipidQuan"), log2 = TRUE, pseudoCount = 0.0001)
+#' plotPCA(data, sampleTypes, pathToOutput = "", log2 = TRUE,
+#'  pseudoCount = 0.0001)
 plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE,
                     pseudoCount = NULL){
 
@@ -82,12 +82,12 @@ plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE,
   #### scree plot for species and classes
   screePlot_species <- fviz_eig(pca_species)
   ggsave(screePlot_species,
-         filename=paste0(pathToOutput, "/screePlot_species.png"), width = 40,
+         filename=paste0(pathToOutput, "screePlot_species.png"), width = 40,
          height = 25, units = "cm")
 
   screePlot_classes <- fviz_eig(pca_classes)
   ggsave(screePlot_classes, filename=paste0(pathToOutput,
-            "/screePlot_classes.png"), width = 40, height = 25, units = "cm")
+            "screePlot_classes.png"), width = 40, height = 25, units = "cm")
 
 
 
@@ -97,14 +97,14 @@ plotPCA <- function(data, sampleTypes, pathToOutput, log2 = FALSE,
                   col.ind = "#696969"  # Individuals color
   )
   ggsave(biplot_species, filename=paste0(pathToOutput,
-              "/PCA_biplot_species.png"), width = 40, height = 25, units = "cm")
+              "PCA_biplot_species.png"), width = 40, height = 25, units = "cm")
 
   biplot_classes <-fviz_pca_biplot(pca_classes, repel = TRUE,
                            col.var = "#2E9FDF", # Variables color
                            col.ind = "#696969"  # Individuals color
   )
   ggsave(biplot_classes, filename=paste0(pathToOutput,
-              "/PCA_biplot_classes.png"), width = 40, height = 25, units = "cm")
+              "PCA_biplot_classes.png"), width = 40, height = 25, units = "cm")
 
 }
 
