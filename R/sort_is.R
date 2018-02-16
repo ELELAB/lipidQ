@@ -11,7 +11,7 @@
 #' @export
 #' @return a sorted data set
 #' @examples
-#' mergedDataSets <- read.table(system.file("extdata/dataTables",
+#' mergedDataSets <- read.table(system.file("extdata/dataTables/checks",
 #'  "mergedDataSets.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
@@ -21,7 +21,6 @@
 #'
 #' sortedData <- sort_is(mergedDataSets, userSpecifiedColnames = list)
 sort_is<-function(data, userSpecifiedColnames = NULL){
-
   # get colnames for data
   dataColnames <- checkColnames(userSpecifiedColnames)
 

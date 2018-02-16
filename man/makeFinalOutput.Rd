@@ -26,12 +26,12 @@ consists of both all filtered pmol species and filtered pmol classes.
 }
 \examples{
 # load endo & ISTD databases as well as user specified column names file.
-endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
- "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+endogene_lipid_db <- read.table(system.file("extdata/dataTables/checks",
+ "endogene_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
  header = TRUE, sep = ",")
 
-ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
- "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ISTD_lipid_db <- read.table(system.file("extdata/dataTables/checks",
+ "ISTD_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
  header = TRUE, sep = ",")
 
 userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
@@ -39,7 +39,7 @@ userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
-pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables",
+pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables/checks",
  "pmolCalculatedDataSet.csv", package = "lipidQuan"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 

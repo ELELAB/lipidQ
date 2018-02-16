@@ -29,10 +29,9 @@ userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
-pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables",
+pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables/checks",
  "pmolCalculatedDataSet.csv", package = "lipidQuan"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
-
 # make compact output from pmolCalculatedDataSet
 classPmol_molPctClass_compact <- compactOutput_pmolCalc(
  pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
@@ -40,7 +39,7 @@ classPmol_molPctClass_compact <- compactOutput_pmolCalc(
 # create QC plot of of total lipids
 plotQC_totalLipids(data = classPmol_molPctClass_compact,
  userSpecifiedColnames = userSpecifiedColnames,
- pathToOutput = "results/QC/post")
+ pathToOutput = "")
 }
 \author{
 André Vidas Olsen

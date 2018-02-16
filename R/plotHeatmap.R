@@ -38,7 +38,7 @@
 #' sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv",
 #'  package = "lipidQuan"), stringsAsFactors = FALSE)
 #'
-#' data <- read.csv(system.file("extdata/",
+#' data <- read.csv(system.file("extdata/dataTables/checks",
 #'  "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
 #'
 #'
@@ -46,7 +46,7 @@
 #' plotHeatmap(data = data, sampleTypes = sampleTypes, k = 2,
 #'  pathToOutput = "",
 #'  log2 = TRUE, pseudoCount = 0.0001)
-plotHeatmap <- function(data, sampleTypes, k = NULL, pathToOutput, log2 = FALSE,
+ plotHeatmap <- function(data, sampleTypes, k = NULL, pathToOutput, log2 = FALSE,
                         pseudoCount = NULL) {
 
 

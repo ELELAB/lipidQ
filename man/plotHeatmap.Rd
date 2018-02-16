@@ -37,13 +37,13 @@ This function plots heatmaps of the data
 sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv",
  package = "lipidQuan"), stringsAsFactors = FALSE)
 
-data <- read.csv(system.file("extdata/dataTables",
+data <- read.csv(system.file("extdata/dataTables/checks",
  "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
 
 
 # create heatmap from log2 transformed data with 0.0001 added pseudo counts
-plotHeatmap(data = data, sampleTypes = sampleTypes,
- pathToOutput = system.file("extdata/dataTables", package = "lipidQuan"),
+plotHeatmap(data = data, sampleTypes = sampleTypes, k = 2,
+ pathToOutput = "",
  log2 = TRUE, pseudoCount = 0.0001)
 }
 \author{

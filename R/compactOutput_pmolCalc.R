@@ -15,7 +15,7 @@
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
-#' pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables",
+#' pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables/checks",
 #'  "pmolCalculatedDataSet.csv", package = "lipidQuan"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'

@@ -27,29 +27,26 @@
 #' @export
 #' @examples
 #' # load endo & ISTD databases as well as user specified column names file.
-#' endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
-#'  "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#' endogene_lipid_db <- read.table(system.file("extdata/dataTables/checks",
+#'  "endogene_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
-#' ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
-#'  "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#' ISTD_lipid_db <- read.table(system.file("extdata/dataTables/checks",
+#'  "ISTD_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
 #' userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
 #'  "userSpecifiedColnames.csv", package = "lipidQuan"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
-#' mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables",
-#'  "mergedDataSetsIsSorted.csv", package = "lipidQuan"),
-#'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
-#' # load filtered data set made by using the filterDataSet() function
-#' filteredDatasets <- read.table(system.file("extdata/dataTables",
+#' # load a filtered data set made by using the filterDataSet() function
+#' filteredDataSet <- read.table(system.file("extdata/dataTables/checks",
 #'  "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
 #' # calculate pmol for data
-#' pmolCalculatedDataSet <- pmolCalc(data = filteredDatasets,
+#' pmolCalculatedDataSet <- pmolCalc(data = filteredDataSet,
 #'  endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db,
 #'  userSpecifiedColnames = userSpecifiedColnames, spikeISTD = 2,
 #'  zeroThresh = 0.25)
@@ -167,8 +164,8 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db,
       # pmol(isSpecie) )
       pmol_calc <- tryCatch(
         {
-          as.numeric(exData[i,MS1x]) / as.numeric(is[,MS1x]) *
-            as.numeric(pmol_isSpecie) # return statement
+          (as.numeric(exData[i,MS1x]) / as.numeric(is[,MS1x]) *
+            as.numeric(pmol_isSpecie) ) # return statement
         },
         error=function(cond){
           message("ERROR: PROBLEMS WITH VALUES IN INTENSITY COLUMNS! Please check that all intensity columns only contain numbers and not text-based values like NA, Inf etc.")

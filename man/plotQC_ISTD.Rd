@@ -35,12 +35,12 @@ This function creates QC plots of MS1 intensity data
 }
 \examples{
 # load endo & ISTD databases as well as user specified column names file.
-endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
- "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+endogene_lipid_db <- read.table(system.file("extdata/dataTables/checks",
+ "endogene_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
  header = TRUE, sep = ",")
 
-ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
- "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ISTD_lipid_db <- read.table(system.file("extdata/dataTables/checks",
+ "ISTD_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
  header = TRUE, sep = ",")
 
 userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
@@ -48,16 +48,16 @@ userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # load is sorted mergedDataSet made by using the mergeDataSets() function
-mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables",
- "mergedDataSetsIsSorted.csv", package = "lipidQuan"),
+mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables/checks",
+ "mergedDataSets.csv", package = "lipidQuan"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # create QC plot of ISTD's
 plotQC_ISTD(data = mergedDataSetsIsSorted,
  endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db,
  userSpecifiedColnames = userSpecifiedColnames,
- pathToOutput = "results/QC/pre", blnkReplicates = TRUE,
- numberOfReplicates = 1)
+ pathToOutput = "",
+ blnkReplicates = TRUE, numberOfReplicates = 1)
 }
 \author{
 André Vidas Olsen

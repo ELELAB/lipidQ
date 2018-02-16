@@ -20,7 +20,7 @@
 #' sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv",
 #'  package = "lipidQuan"), stringsAsFactors = FALSE)
 #'
-#' data <- read.csv(system.file("extdata/dataTables", "finalOutput_molPct.csv",
+#' data <- read.csv(system.file("extdata/dataTables/checks", "finalOutput_molPct.csv",
 #'  package = "lipidQuan"), stringsAsFactors = FALSE)
 #'
 #' # create pca scree and biplot from log2 transformed data with 0.0001 added

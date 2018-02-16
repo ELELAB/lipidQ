@@ -291,3 +291,65 @@ pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalcu
 sort_is <- sort_is(mergedDataSets, userSpecifiedColnames = list)
 filteredDatasets <- filterDataSet(data = mergedDataSetsIsSorted, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames)
 pmolCalculatedDataSet <- pmolCalc(data = filteredDatasets, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, spikeISTD = 2, zeroThresh = 0.25)
+
+
+
+#### Make small data sets for R CMD example checks
+mergedDataSets_exp <- read.table(system.file("extdata/dataTables",
+    "mergedDataSets.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    header = TRUE, sep = ",", nrows = 5)
+mergedDataSets_ISTD <- read.table(system.file("extdata/dataTables",
+    "mergedDataSets.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    header = FALSE, sep = ",", skip = (996-29), nrows = 1)
+colnames(mergedDataSets_ISTD) <- colnames(mergedDataSets_exp)
+mergedDataSets <- rbind(mergedDataSets_exp, mergedDataSets_ISTD)
+write.csv(mergedDataSets, file = "inst/extdata/dataTables/checks/mergedDataSets.csv", quote = FALSE, row.names = FALSE)
+
+filteredDataSet_exp <- read.table(system.file("extdata/dataTables",
+    "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    header = TRUE, sep = ",", nrows = 5)
+filteredDataSet_ISTD <- read.table(system.file("extdata/dataTables",
+    "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    header = FALSE, sep = ",", skip = (394-29), nrows = 1)
+colnames(filteredDataSet_ISTD) <- colnames(filteredDataSet_exp)
+filteredDataSet <- rbind(filteredDataSet_exp, filteredDataSet_ISTD)
+write.csv(filteredDataSet, file = "inst/extdata/dataTables/checks/filteredDataSet.csv", quote = FALSE, row.names = FALSE)
+
+dim(filteredDataset_ISTD)
+
+pmolCalculatedDataSet_exp <- read.table(system.file("extdata/dataTables",
+    "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    header = TRUE, sep = ",", nrows = 5)
+pmolCalculatedDataSet_ISTD <- read.table(system.file("extdata/dataTables",
+    "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    header = FALSE, sep = ",", skip = (367-29), nrows = 1)
+colnames(pmolCalculatedDataSet_ISTD) <- colnames(pmolCalculatedDataSet_exp)
+pmolCalculatedDataSet <- rbind(pmolCalculatedDataSet_exp, pmolCalculatedDataSet_ISTD)
+write.csv(pmolCalculatedDataSet, file = "inst/extdata/dataTables/checks/pmolCalculatedDataSet.csv", quote = FALSE, row.names = FALSE)
+
+
+
+finalOutput_molPct_exp <- read.table(system.file("extdata/dataTables",
+    "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    header = TRUE, sep = ",", nrows = 20)
+finalOutput_molPct_ISTD <- read.table(system.file("extdata/dataTables",
+    "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    header = FALSE, sep = ",", skip = (279-22))
+colnames(finalOutput_molPct_ISTD) <- colnames(finalOutput_molPct_exp)
+finalOutput_molPct <- rbind(finalOutput_molPct_exp, finalOutput_molPct_ISTD)
+write.csv(finalOutput_molPct, file = "inst/extdata/dataTables/checks/finalOutput_molPct.csv", quote = FALSE, row.names = FALSE)
+write.csv(finalOutput_molPct, file = "/home/andre/R/x86_64-pc-linux-gnu-library/3.4/lipidQuan/extdata/dataTables/checks/finalOutput_molPct.csv", quote = FALSE, row.names = FALSE)
+
+endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+    "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    header = TRUE, sep = ",")
+endogene_lipid_db <- endogene_lipid_db[208:267,]
+write.csv(endogene_lipid_db, file = "inst/extdata/dataTables/checks/endogene_lipid_db.csv", quote = FALSE, row.names = FALSE)
+
+
+ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+    "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    header = TRUE, sep = ",")
+ISTD_lipid_db <- ISTD_lipid_db[12,]
+write.csv(ISTD_lipid_db, file = "inst/extdata/dataTables/checks/ISTD_lipid_db.csv", quote = FALSE, row.names = FALSE)
+
