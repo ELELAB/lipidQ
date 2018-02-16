@@ -143,11 +143,12 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet,
   output_pmol <- rbind(lipidSpecies, classes)
 
 
+
   # change classes/species with "O-": insert [SPACE] before "O-" and remove
   # [SPACE] after "O-"
-  namesWithOIndexes <- grep("O-",output_pmol$"molPct")
+  namesWithOIndexes <- grep("O-",output_pmol$"pmol")
   for(i in namesWithOIndexes){
-    nameWithO <- output_pmol$"molPct"[i]
+    nameWithO <- output_pmol$"pmol"[i]
     nameWithO <- strsplit(nameWithO," ")
 
     if(length(nameWithO[[1]]) == 2){ # used when name represents a specie
@@ -156,7 +157,7 @@ makeFinalOutput <- function(classPmol_molPctClass, pmolCalculatedDataSet,
     }else{ # used when name represents a class (without number specs.)
       nameWithO <- paste0(gsub("O-", " O-",nameWithO[[1]][1]))
     }
-    output_pmol$"molPct"[i] <- nameWithO
+    output_pmol$"pmol"[i] <- nameWithO
   }
 
 
