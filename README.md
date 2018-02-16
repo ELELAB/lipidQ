@@ -18,7 +18,9 @@ biocLite("ComplexHeatmap")
 ```R
 
 #### Installation from source
+Go to Rstudio and write the following in the command line:
 install.packages("path_to_file", repos = NULL, type="source")
+, where "path_to_file" is the path to the source file. 
 ------------------------------------------------------------------------
 
 We provide a dataset to use as an example to apply the different functionalities of the tool, along with the package. 
