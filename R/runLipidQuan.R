@@ -8,7 +8,7 @@
 #' @return start up lipidQuan graphical user interface
 #' @examples
 #' # run lipidQuan
-#' runLipidQuan()
+#' #runLipidQuan()
 runLipidQuan <- function(){
   #runApp("inst/app/") # for test purposes
   suppressMessages(shiny::runApp(system.file("app", package = "lipidQuan"),launch.browser=TRUE)) # for builds

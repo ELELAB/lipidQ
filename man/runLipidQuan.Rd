@@ -16,7 +16,7 @@ as well as the output directory.
 }
 \examples{
 # run lipidQuan
-runLipidQuan()
+#runLipidQuan()
 }
 \author{
 André Vidas Olsen
