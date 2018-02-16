@@ -104,7 +104,8 @@ After this we'll press "Create Plots".
 From the visualization process is done, we can go and have a look at the plots
 in the folder that we saved these in.
 
+<!--
 ![PCA screeplot - classes](images/screePlot_classes.png)
 ![PCA biplot - classes](images/PCA_biplot_classes.png)
 ![heatmap - classes](images/heatmapClasses_k_2.png)
-
+--> 

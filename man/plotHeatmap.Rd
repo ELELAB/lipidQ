@@ -4,7 +4,7 @@
 \alias{plotHeatmap}
 \title{Plot Heatmap}
 \usage{
-plotHeatmap(data, sampleTypes, k = NULL, pathToOutput, log2 = FALSE,
+plotHeatmap(data, sampleTypes, k = NULL, pathToOutput = "", log2 = FALSE,
   pseudoCount = NULL)
 }
 \arguments{

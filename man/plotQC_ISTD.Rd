@@ -5,7 +5,7 @@
 \title{picomol Calculation}
 \usage{
 plotQC_ISTD(data, endogene_lipid_db, ISTD_lipid_db,
-  userSpecifiedColnames = NULL, pathToOutput, blnkReplicates = FALSE,
+  userSpecifiedColnames = NULL, pathToOutput = "", blnkReplicates = FALSE,
   numberOfReplicates)
 }
 \arguments{

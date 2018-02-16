@@ -4,7 +4,8 @@
 \alias{plotPCA}
 \title{Plot Heatmap}
 \usage{
-plotPCA(data, sampleTypes, pathToOutput, log2 = FALSE, pseudoCount = NULL)
+plotPCA(data, sampleTypes, pathToOutput = "", log2 = FALSE,
+  pseudoCount = NULL)
 }
 \arguments{
 \item{data}{quantified data to be visualized (finalOutput_molPct.csv)}

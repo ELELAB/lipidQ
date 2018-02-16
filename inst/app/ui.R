@@ -71,7 +71,7 @@ ui <- fluidPage(
                           br(),
                           br(),
                           # output folder
-                          textInput("dir", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/lipidQuan/results/"),
+                          textInput("dir", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/results/"),
 
 
                           br(),
@@ -100,7 +100,7 @@ ui <- fluidPage(
                           fileInput(inputId = "finalOutputList", multiple = TRUE, label = "Choose the final output data sets (.csv-files):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
                           ),
-                          textInput("dirFinalOutputs", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/lipidQuan/results/"),
+                          textInput("dirFinalOutputs", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/results/"),
 
                           br(),
 
@@ -135,7 +135,7 @@ ui <- fluidPage(
                           checkboxInput("heatmap_plot", "Create heatmap plots of mol% classes and species", FALSE),
                           numericInput("k", "Optional selection of k clusters for the heatmap", NULL, min = 0, max = 10),
 
-                          textInput("dirPlots", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/lipidQuan/results/plots"),
+                          textInput("dirPlots", "Paste the filepath for the output files to be saved.", "/data/user/andre/lipidomics/results/plots"),
                           actionButton("createPlots", "Create Plots"),
                           textOutput("validateFields_visualization"),
                           textOutput("plotsDone")

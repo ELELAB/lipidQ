@@ -4,7 +4,7 @@
 \alias{plotQC_totalLipids}
 \title{picomol Calculation}
 \usage{
-plotQC_totalLipids(data, userSpecifiedColnames = NULL, pathToOutput)
+plotQC_totalLipids(data, userSpecifiedColnames = NULL, pathToOutput = "")
 }
 \arguments{
 \item{data}{data formatted by the use of the compactOutput_pmolCalc function
