@@ -9,7 +9,7 @@ From Github:
 
 ```R
 devtools::install_github(repo = "ELELAB/LipidQ")
-```R
+```
 
 
 From Bioconductor:
@@ -18,7 +18,7 @@ From Bioconductor:
 ## try http:// if https:// URLs are not supported
 source("https://bioconductor.org/biocLite.R")
 biocLite("LipidQ")
-```R
+```
 
 
 From source:
@@ -30,13 +30,13 @@ repository on the local computer:
 install.packages("path_to_file", repos = NULL, type="source")
 
 , where "path_to_file" is the path to the source file. 
-```R
+```
 
 REQUIREMENTS:
 ```R
 Please refer to the DESCRIPTION file for details on the dependencies from other packages.
 The user will need to install some of the manually before installing LipidQ.
-```R
+```
 
 NOTES:
 
