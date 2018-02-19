@@ -22,7 +22,9 @@ rmSpaceInBeginning <- function(data, userSpecifiedColnames = NULL){
 
     },
     error=function(cond){
-      message(paste0("ERROR: PROBLEMS WITH COLUMN NAMES! Please check that ", dataColnames$SUM_COMPOSITION, " and ", dataColnames$SPECIE_COMPOSITION, " exists in all input data sets"))
+      message(paste0("ERROR: PROBLEMS WITH COLUMN NAMES! Please check that ",
+        dataColnames$SUM_COMPOSITION, " and ", dataColnames$SPECIE_COMPOSITION,
+        " exists in all input data sets"))
       message("")
       message("")
       message("")

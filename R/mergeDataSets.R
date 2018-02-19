@@ -69,7 +69,8 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db,
       uniqueCols # return statement
     },
     error=function(cond){
-      message("ERROR: NUMBER OF COLUMN NAMES IS NOT EQUAL TO NUMBER OF COLUMNS! Please make sure that every column has a column name.")
+      message(paste0("ERROR: NUMBER OF COLUMN NAMES IS NOT EQUAL TO NUMBER OF ",
+            "COLUMNS! Please make sure that every column has a column name."))
       message("")
       message("")
       message("")
@@ -122,7 +123,9 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db,
 
       },
       error=function(cond){
-        message("ERROR: PROBLEMS WITH COLUMN NAMES! Please check that all colnames are correctly named, both in the data set and in the userSpecifiedList, if it's used.")
+        message(paste0("ERROR: PROBLEMS WITH COLUMN NAMES! Please check that ",
+          "all colnames are correctly named, both in the data set and in the ",
+          "userSpecifiedList, if it's used."))
         message("")
         message("")
         message("")
@@ -166,7 +169,9 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db,
       if("NEG" %in% colnames(data)){
         mode <- "NEG"
       }else{
-        stop("ERROR: POS/NEG column is missing in the input data files. Please make sure that every input data file has a column describing the quan mode (POS or NEG).")
+        stop(paste0("ERROR: POS/NEG column is missing in the input data ",
+            "files. Please make sure that every input data file has a column ",
+            "describing the quan mode (POS or NEG)."))
       }
     }
 
@@ -262,7 +267,10 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db,
                                             colnames(ISTD_matched_w_isData))]
     if(sum(tmp_col) != 0){
       if(!all(isData[tmp_col, grep(paste0("^", col), colnames(isData))] != 0)){
-        stop(paste0("ERROR: One or more internal standards in the ", col ," column contains 0 in MS1/MS2 column(s). Please ensure that this column contains the right 1/0 status for each internal standard in the ISTD lipid database."))
+        stop(paste0("ERROR: One or more internal standards in the ", col ,
+          " column contains 0 in MS1/MS2 column(s). Please ensure that this ",
+          "column contains the right 1/0 status for each internal standard in ",
+          "the ISTD lipid database."))
       }
     }
   }

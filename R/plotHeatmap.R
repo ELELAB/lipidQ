@@ -46,8 +46,8 @@
 #' plotHeatmap(data = data, sampleTypes = sampleTypes, k = 2,
 #'  pathToOutput = "",
 #'  log2 = TRUE, pseudoCount = 0.0001)
- plotHeatmap <- function(data, sampleTypes, k = NULL, pathToOutput = "", log2 = FALSE,
-                        pseudoCount = NULL) {
+ plotHeatmap <- function(data, sampleTypes, k = NULL, pathToOutput = "",
+                         log2 = FALSE, pseudoCount = NULL) {
 
 
    # insert a "/" in the pathToOutput if used to ensure that the folder name is
@@ -59,7 +59,8 @@
   # check that no Inf/-Inf/NA exists in the data and throw an error message if
   # the data contains these values.
   if(any(data == Inf | data == -Inf | is.na(data))){
-    stop("ERROR!! The data contains NA/NaN or infinite values. Please remove these from the data set and try again.")
+    stop(paste0("ERROR!! The data contains NA/NaN or infinite values. Please ",
+        "remove these from the data set and try again."))
   }
 
 

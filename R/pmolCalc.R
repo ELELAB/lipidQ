@@ -157,7 +157,8 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db,
         database[,dataColnames$SUM_COMPOSITION] ==
         is[,dataColnames$SUM_COMPOSITION], "ISTD_CONC"]
       if(length(pmol_isSpecie) > 1){
-        stop("ERROR: Check that no duplicates of lipids/ISTD's exists in boththe endogene and ISTD database.")
+        stop(paste0("ERROR: Check that no duplicates of lipids/ISTD's exists ",
+          "in boththe endogene and ISTD database."))
       }
 
       # pmol calculation ( MS1x*(SUM_COMPOSITION)/MS1x*(isSUM_COMPOSITION) x
@@ -168,7 +169,9 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db,
             as.numeric(pmol_isSpecie) ) # return statement
         },
         error=function(cond){
-          message("ERROR: PROBLEMS WITH VALUES IN INTENSITY COLUMNS! Please check that all intensity columns only contain numbers and not text-based values like NA, Inf etc.")
+          message(paste0("ERROR: PROBLEMS WITH VALUES IN INTENSITY COLUMNS! ",
+            "Please check that all intensity columns only contain numbers and ",
+            "not text-based values like NA, Inf etc."))
           message("")
           message("")
           message("")

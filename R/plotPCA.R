@@ -40,7 +40,8 @@ plotPCA <- function(data, sampleTypes, pathToOutput = "", log2 = FALSE,
   # check that no Inf/-Inf/NA exists in the data and throw an error message if
   # the data contains these values.
   if(any(data == Inf | data == -Inf | is.na(data))){
-    stop("ERROR!! The data contains NA/NaN or infinite values. Please remove these from the data set and try again.")
+    stop(paste0("ERROR!! The data contains NA/NaN or infinite values. Please ",
+      "remove these from the data set and try again."))
   }
 
   # log2 transformation of data if specified by the user

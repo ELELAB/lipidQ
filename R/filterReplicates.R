@@ -28,7 +28,8 @@ filterReplicates <- function(data, userSpecifiedColnames = NULL,
 
   # check whether number of replicates is true or not
   if(!(numberOfSamples %% 1 == 0)){
-    stop("Please check that the number of replicates is true and check whether blank contains replicates or not.")
+    stop(paste0("Please check that the number of replicates is true and check ",
+        "whether blank contains replicates or not."))
   }
 
 
