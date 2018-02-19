@@ -43,8 +43,8 @@
 #'  pathToOutput = "",
 #'  blnkReplicates = TRUE, numberOfReplicates = 1)
 plotQC_ISTD <- function(data, endogene_lipid_db, ISTD_lipid_db,
-          userSpecifiedColnames = NULL, pathToOutput = "", blnkReplicates = FALSE,
-          numberOfReplicates){
+          userSpecifiedColnames = NULL, pathToOutput = "",
+          blnkReplicates = FALSE, numberOfReplicates){
 
   # insert a "/" in the pathToOutput if used to ensure that the folder name is
   # separated from the file name
@@ -91,13 +91,16 @@ plotQC_ISTD <- function(data, endogene_lipid_db, ISTD_lipid_db,
 
   for(i in 1:nrow(isData)){
 
-    MS1x_names <- gsub(unlist(strsplit(MS1x_names, "_"))[1], isData[i, "QUAN_SCAN"], MS1x_names)
+    MS1x_names <- gsub(unlist(strsplit(MS1x_names, "_"))[1],
+                       isData[i,"QUAN_SCAN"], MS1x_names)
 
     # find median of MS1x values for each is class
-    isData[i,paste0(dataColnames$MS1x,"_median")] <- median(as.numeric(isData[i, MS1x_names]))
+    isData[i,paste0(dataColnames$MS1x,"_median")] <-
+      median(as.numeric(isData[i, MS1x_names]))
 
     # find standard deviation of MS1x values for each is class
-    isData[i,paste0(dataColnames$MS1x,"_std")] <- sd(as.numeric(isData[i, MS1x_names]))
+    isData[i,paste0(dataColnames$MS1x,"_std")] <-
+      sd(as.numeric(isData[i, MS1x_names]))
 
 
 
