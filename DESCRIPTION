@@ -6,14 +6,9 @@ Depends: R (>= 3.4.1)
 biocViews: Lipidomics, Visualization
 Imports: shiny (>= 1.0.5), ggplot2, reshape2, stats, utils, ComplexHeatmap, circlize, factoextra, NbClust, grDevices
 Date: 2017-08-31
-Author: André Vidas Olsen, 
-Simo Mounir,
-Matteo Tiberti, 
-Antonio Colaprico,  
-Elena Papaleo
+Author: André Vidas Olsen, Simo Mounir, Matteo Tiberti, Antonio Colaprico, Elena Papaleo
 Maintainer: André Vidas Olsen <andre.v.olsen@gmail.com>, Elena Papaleo <elena.papaleo.78@gmail.com> Matteo Tiberti <matteo.tiberti@gmail.com>, Simo Mounir <mounir.mohamed92@gmail.com>
-Description: The package allow pre-processing, quantification and visualization of lipidomics 
-data from different platforms.
+Description: The package allow pre-processing, quantification and visualization of lipidomics data from different platforms.
 License: GPL (>=3)
 LazyData: TRUE
 RoxygenNote: 6.0.1
