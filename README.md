@@ -33,10 +33,8 @@ where `path_to_file` is the path to the repository.
 
 #### Requirements
 
-```R
-Please refer to the DESCRIPTION file for details on the dependencies from other packages.
+Please refer to the `DESCRIPTION` file for details on the dependencies from other packages.
 The user will need to install some of the manually before installing LipidQ.
-```
 
 #### Notes
 
