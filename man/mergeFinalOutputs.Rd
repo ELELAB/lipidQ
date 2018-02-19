@@ -17,12 +17,13 @@ This function merges final output molPct files into one data
 file
 }
 \examples{
-# load final output molPct files
+# make output molPct files data path list
 dataPathList <- c(system.file("extdata/finalOutputFiles",
                   "finalOutput1.csv", package = "lipidQuan"),
                  system.file("extdata/finalOutputFiles",
-                  "finalOutput2.csv", package = "lipidQuan") )
+                  "finalOutput2.csv", package = "lipidQuan"))
 
+# merge final output files to one file
 mergeFinalOutputs(dataPathList)
 }
 \author{

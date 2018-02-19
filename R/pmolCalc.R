@@ -245,8 +245,9 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db,
 
   # replicate filtering on BLNK
   if(blnkReplicates){
-    data[1:nrow(exData),paste0("PMOL_BLNK_",unlist(strsplit(blnk_rep, "_"))[2])]
-      <- filterReplicates(data = data[1:nrow(exData),paste0("PMOL_BLNK_",
+    data[1:nrow(exData),paste0("PMOL_BLNK_",
+      unlist(strsplit(blnk_rep, "_"))[2])] <-
+      filterReplicates(data = data[1:nrow(exData),paste0("PMOL_BLNK_",
       unlist(strsplit(blnk_rep, "_"))[2])], userSpecifiedColnames =
       userSpecifiedColnames, numberOfReplicates = numberOfReplicates,
       numberOfInstancesThreshold = numberOfInstancesThreshold, thresholdValue =
