@@ -44,6 +44,9 @@ mergeFinalOutputs <- function(dataList){
         data[match(mergedOutput$"molPct", data$"molPct"), colIndex]
     }
 
+    # change every NA to 0
+    mergedOutput[is.na(mergedOutput)] <- 0
+
   }
 
   return(mergedOutput)
