@@ -11,6 +11,7 @@
 #' #runLipidQuan()
 runLipidQuan <- function(){
   #runApp("inst/app/") # for test purposes
-  suppressMessages(shiny::runApp(system.file("app", package = "lipidQuan"),launch.browser=TRUE)) # for builds
+  suppressMessages(shiny::runApp(system.file("app", package = "lipidQuan"),
+                                 launch.browser=TRUE)) # for builds
 }
 
