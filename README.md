@@ -29,7 +29,7 @@ install.packages("path_to_dir", repos=NULL, type="source")
 
 ```
 
-where `path_to_file` is the path to the repository. 
+where `path_to_dir` is the path to the repository. 
 
 #### Requirements
 
