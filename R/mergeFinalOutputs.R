@@ -7,9 +7,9 @@
 #' @export
 #' @examples
 #' # make output molPct files data path list
-#' dataPathList <- c(system.file("extdata/finalOutputFiles",
+#' dataPathList <- c(system.file("extdata/",
 #'                   "finalOutput1.csv", package = "lipidQuan"),
-#'                  system.file("extdata/finalOutputFiles",
+#'                  system.file("extdata/",
 #'                   "finalOutput2.csv", package = "lipidQuan"))
 #'
 #' # merge final output files to one file
@@ -25,6 +25,16 @@ mergeFinalOutputs <- function(dataList){
   }
   uniqueRows <- unique(unlist(uniqueRows))
 
+  # sort species
+  species <- sort(uniqueRows[grep(":",uniqueRows)])
+
+
+  # sort classes
+  classes <- sort(uniqueRows[-grep(":",uniqueRows)])
+  print(classes)
+
+  # return sorted uniqueRows (first all sorted species, then all sorted classes)
+  uniqueRows <- c(species, classes)
 
   mergedOutput <- data.frame("molPct" = uniqueRows)
 
