@@ -30,11 +30,10 @@ install.packages("path_to_file", repos = NULL, type="source")
 
 ------------------------------------------------------------------------
 
-We provide a dataset to use as an example to apply the different functionalities of the tool, along with the package. 
+We provide a dataset to use as an example to apply the different functionalities of the tool, 
+along with the package. 
+This dataset contains biological replicates of mouse tissue and serum samples.
 
-When using LipidQuan for publication or presentations please cite:
-
-Andre Vidas Olsen, Matteo Tiberti, Antonio Colaprico, Kenji Maeda, Marja Jaattela, Mesut Bilgin, Elena Papaleo. LipidQuan – A standalone data processing software for quantification of multiple lipidomics based platforms, in preparation
 
 
 
