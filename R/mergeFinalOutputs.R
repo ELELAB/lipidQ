@@ -6,12 +6,13 @@
 #' @return a data set consisting of merged final output files
 #' @export
 #' @examples
-#' # load final output molPct files
+#' # make output molPct files data path list
 #' dataPathList <- c(system.file("extdata/finalOutputFiles",
 #'                   "finalOutput1.csv", package = "lipidQuan"),
 #'                  system.file("extdata/finalOutputFiles",
-#'                   "finalOutput2.csv", package = "lipidQuan") )
+#'                   "finalOutput2.csv", package = "lipidQuan"))
 #'
+#' # merge final output files to one file
 #' mergeFinalOutputs(dataPathList)
 mergeFinalOutputs <- function(dataList){
 
