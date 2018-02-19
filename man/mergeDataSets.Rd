@@ -36,6 +36,35 @@ a data set consisting of merged input data
 This function merges multiple data sets together. The data sets
 are listed in the dataList parameter.
 }
+\examples{
+# make input data path list
+dataPathList <- c(system.file("extdata/mE504_Data",
+                  "mE504_NEG_High-out.csv", package = "lipidQuan"),
+                 system.file("extdata/mE504_Data",
+                  "mE504_NEG_Low-out.csv", package = "lipidQuan"),
+                 system.file("extdata/mE504_Data",
+                  "mE504_POS_High-out.csv", package = "lipidQuan"),
+                 system.file("extdata/mE504_Data",
+                  "mE504_NEG_Low-out.csv", package = "lipidQuan"))
+
+# load endo & ISTD databases as well as user specified column names file.
+endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+ "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ header = TRUE, sep = ",")
+
+ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
+ "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ header = TRUE, sep = ",")
+
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
+ "userSpecifiedColnames.csv", package = "lipidQuan"),
+ stringsAsFactors = FALSE, header = TRUE, sep = ",")
+
+# merge input data sets into one file
+mergeDataSets(dataList = dataPathList, endogene_lipid_db = endogene_lipid_db,
+ ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames =
+ userSpecifiedColnames)
+}
 \author{
 André Vidas Olsen
 }
