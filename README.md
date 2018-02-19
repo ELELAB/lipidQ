@@ -1,34 +1,44 @@
-------------------------------------------------------------------------
+
 Computational Biology Laboratory, Danish Cancer Society Research Center, Strandboulevarden 49, 2100, Copenhagen, Denmark
 
-LipidQuan - An R/Bioconductor package quantification and visualization of lipidomics data
+LipidQ - An R/Bioconductor package quantification and visualization of lipidomics data
 
-### Installation ###
+INSTALLATION
 
-#### From GitHub
+From Github:
+
 ```R
-devtools::install_github(repo = "ELELAB/LipidQuan")
+devtools::install_github(repo = "ELELAB/LipidQ")
 ```
 
 
-#### From Bioconductor
+From Bioconductor:
+
 ```R
 ## try http:// if https:// URLs are not supported
 source("https://bioconductor.org/biocLite.R")
-biocLite("ComplexHeatmap")
+biocLite("LipidQ")
 ```R
 
 
-#### Installation from source
-If the user has a source file of the package, then the user can install it by 
-going to Rstudio and write the following in the command line:
+From source:
+
+```R
+Once the user has cloned the repository locally, the package can be installed providing the path of the LipidQ
+repository on the local computer:
 
 install.packages("path_to_file", repos = NULL, type="source")
 
 , where "path_to_file" is the path to the source file. 
+```R
 
+REQUIREMENTS:
+```R
+Please refer to the DESCRIPTION file for details on the dependencies from other packages.
+The user will need to install some of the manually before installing LipidQ.
+```R
 
-------------------------------------------------------------------------
+NOTES:
 
 We provide a dataset to use as an example to apply the different functionalities of the tool, 
 along with the package. 
