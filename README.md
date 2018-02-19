@@ -9,7 +9,7 @@ From Github:
 
 ```R
 devtools::install_github(repo = "ELELAB/LipidQ")
-```
+```R
 
 
 From Bioconductor:
