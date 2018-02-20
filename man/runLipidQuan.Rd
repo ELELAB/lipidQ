@@ -6,6 +6,10 @@
 \usage{
 runLipidQuan()
 }
+\arguments{
+\item{testMode}{logical argument to define whether or not the function is
+used for testing purposes.}
+}
 \value{
 start up lipidQuan graphical user interface
 }
@@ -16,8 +20,10 @@ of procedures, input data, different parameter as well as the output
 directory.
 }
 \examples{
-# run lipidQuan
-#runLipidQuan()
+# run lipidQuan, remove the testMode arguemnt when using the runLipidQuan
+# function.
+
+# runLipidQuan()
 }
 \author{
 André Vidas Olsen

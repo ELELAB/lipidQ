@@ -42,7 +42,6 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db,
   # get colnames for data
   dataColnames <- checkColnames(userSpecifiedColnames)
 
-
   # for each row, check if either the NAME or SPECIE column begins with a
   # [SPACE] and remove this [SPACE] if true.
   database[,dataColnames$SUM_COMPOSITION] <- ifelse(substring(
