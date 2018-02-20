@@ -29,6 +29,8 @@
 #' indexData[[3]] # C index
 makeIndex_OH_DB_C <- function(data, userSpecifiedColnames = NULL){
 
+
+
   # get colnames for data
   dataColnames <- checkColnames(userSpecifiedColnames)
 
@@ -61,52 +63,63 @@ makeIndex_OH_DB_C <- function(data, userSpecifiedColnames = NULL){
                  exData[,dataColnames$SUM_COMPOSITION]),]
 
 
-    # make OH index
-    uniqueOHs <- unique(tmpSubset[, dataColnames$OH_GROUP])
-    OHdata_tmp <- data.frame(CLASS = className, OH = uniqueOHs)
-    for(i in 1:length(filterCols)){
-      OHdata_tmp[,paste0("PMOL_PCT_",i)] <- NA
-    }
 
-    for(OH in uniqueOHs){
+    # make OH index
+    if("OH_GROUP" %in% colnames(dataColnames)){
+      uniqueOHs <- unique(tmpSubset[, dataColnames$OH_GROUP])
+      OHdata_tmp <- data.frame(CLASS = className, OH = uniqueOHs)
       for(i in 1:length(filterCols)){
-        OHdata_tmp[OHdata_tmp$OH == OH, paste0("PMOL_PCT_", i)] <-
-          sum(tmpSubset[tmpSubset$OH_GROUP == OH, filterCols[i]])
+        OHdata_tmp[,paste0("PMOL_PCT_",i)] <- NA
       }
-      OHdata <- rbind(OHdata, OHdata_tmp[OHdata_tmp$OH == OH,])
-    }
+
+      for(OH in uniqueOHs){
+        for(i in 1:length(filterCols)){
+          OHdata_tmp[OHdata_tmp$OH == OH, paste0("PMOL_PCT_", i)] <-
+            sum(tmpSubset[tmpSubset$OH_GROUP == OH, filterCols[i]])
+        }
+        OHdata <- rbind(OHdata, OHdata_tmp[OHdata_tmp$OH == OH,])
+      }
+    }else{OHdata <- data.frame()}
+
+
 
 
 
     # make DB index
-    uniqueDBs <- unique(tmpSubset[, dataColnames$DOUBLE_BOND])
-    DBdata_tmp <- data.frame(CLASS = className, DB = uniqueDBs)
-    for(i in 1:length(filterCols)){
-      DBdata_tmp[,paste0("PMOL_PCT_",i)] <- NA
-    }
-    for(DB in uniqueDBs){
+    if("DOUBLE_BOND" %in% colnames(dataColnames)){
+      uniqueDBs <- unique(tmpSubset[, dataColnames$DOUBLE_BOND])
+      DBdata_tmp <- data.frame(CLASS = className, DB = uniqueDBs)
       for(i in 1:length(filterCols)){
-        DBdata_tmp[DBdata_tmp$DB == DB, paste0("PMOL_PCT_", i)] <-
-          sum(tmpSubset[tmpSubset$DB == DB, filterCols[i]])
+        DBdata_tmp[,paste0("PMOL_PCT_",i)] <- NA
       }
-      DBdata <- rbind(DBdata, DBdata_tmp[DBdata_tmp$DB == DB,])
-    }
+      for(DB in uniqueDBs){
+        for(i in 1:length(filterCols)){
+          DBdata_tmp[DBdata_tmp$DB == DB, paste0("PMOL_PCT_", i)] <-
+            sum(tmpSubset[tmpSubset$DB == DB, filterCols[i]])
+        }
+        DBdata <- rbind(DBdata, DBdata_tmp[DBdata_tmp$DB == DB,])
+      }
+    }else{DBdata <- data.frame()}
+
 
 
     # make C index
-    uniqueCs <- unique(tmpSubset[, dataColnames$C_CHAIN])
-    Cdata_tmp <- data.frame(CLASS = className, C = uniqueCs)
-    for(i in 1:length(filterCols)){
-      Cdata_tmp[,paste0("PMOL_PCT_",i)] <- NA
-    }
-    for(C in uniqueCs){
+    if("C_CHAIN" %in% colnames(dataColnames)){
+      uniqueCs <- unique(tmpSubset[, dataColnames$C_CHAIN])
+      Cdata_tmp <- data.frame(CLASS = className, C = uniqueCs)
       for(i in 1:length(filterCols)){
-        Cdata_tmp[Cdata_tmp$C == C, paste0("PMOL_PCT_", i)] <-
-          sum(tmpSubset[tmpSubset$LENGTH == C, filterCols[i]])
-
+        Cdata_tmp[,paste0("PMOL_PCT_",i)] <- NA
       }
-      Cdata <- rbind(Cdata, Cdata_tmp[Cdata_tmp$C == C,])
-    }
+      for(C in uniqueCs){
+        for(i in 1:length(filterCols)){
+          Cdata_tmp[Cdata_tmp$C == C, paste0("PMOL_PCT_", i)] <-
+            sum(tmpSubset[tmpSubset$LENGTH == C, filterCols[i]])
+
+        }
+        Cdata <- rbind(Cdata, Cdata_tmp[Cdata_tmp$C == C,])
+      }
+    }else{Cdata <- data.frame()}
+
 
   }
 

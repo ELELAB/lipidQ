@@ -141,11 +141,13 @@ mergeDataSets <- function(dataList, endogene_lipid_db, ISTD_lipid_db,
 
     # Insert values from OH col to selectedCols, if present in the data set or
     # set value to NA.
-    if(dataColnames$OH_GROUP %in% colnames(data)){
-      selectedCols[, dataColnames$OH_GROUP] <-
-        data[,which(dataColnames$OH_GROUP == colnames(data))]
-    }else{
-      selectedCols[, dataColnames$OH_GROUP] <- NA
+    if(("OH_GROUP" %in% colnames(dataColnames))){
+      if(dataColnames$OH_GROUP %in% colnames(data)){
+        selectedCols[, dataColnames$OH_GROUP] <-
+          data[,which(dataColnames$OH_GROUP == colnames(data))]
+      }else{
+        selectedCols[, dataColnames$OH_GROUP] <- NA
+      }
     }
 
 
