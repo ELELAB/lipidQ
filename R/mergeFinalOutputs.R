@@ -31,7 +31,6 @@ mergeFinalOutputs <- function(dataList){
 
   # sort classes
   classes <- sort(uniqueRows[-grep(":",uniqueRows)])
-  print(classes)
 
   # return sorted uniqueRows (first all sorted species, then all sorted classes)
   uniqueRows <- c(species, classes)
