@@ -191,15 +191,15 @@ server <- function(input, output, session){
     progress$set(value = 4)
 
     indexData <- lipidQ:::makeIndex_OH_DB_C(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
-    #if(dim(indexData[[1]])[2] > 0){ # check data.frame for content before saving
+    if(dim(indexData[[1]])[2] > 0){ # check data.frame for content before saving
         write.csv(indexData[[1]], file = paste0(input$dir,"/dataTables/indexDataOH.csv"), quote = FALSE, row.names = F)
-    #}
-    #if(dim(indexData[[2]])[2] > 0){ # check data.frame for content before saving
+    }
+    if(dim(indexData[[2]])[2] > 0){ # check data.frame for content before saving
         write.csv(indexData[[2]], file = paste0(input$dir,"/dataTables/indexDataDB.csv"), quote = FALSE, row.names = F)
-    #}
-    #if(dim(indexData[[3]])[2] > 0){ # check data.frame for content before saving
+    }
+    if(dim(indexData[[3]])[2] > 0){ # check data.frame for content before saving
         write.csv(indexData[[3]], file = paste0(input$dir,"/dataTables/indexDataC.csv"), quote = FALSE, row.names = F)
-    #}
+    }
     progress$set(value = 5)
 
     classPmol_molPctClass <- lipidQ:::compactOutput_pmolCalc(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
