@@ -1,4 +1,4 @@
-setwd("/data/user/andre/lipidomics/lipidQuan/R")
+setwd("/data/user/andre/lipidomics/lipidQ/R")
 
 test.rmSpaceInBeginning <- function() {
   #DEACTIVATED('This function does not work at the moment...')

@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 
 #Introduction
-the quantification procedure in lipidQuan needs 4 types of input in order to
+the quantification procedure in lipidQ needs 4 types of input in order to
 work properly. In the following section, each of these 4 types of input data are
 described.
 
@@ -26,7 +26,7 @@ described.
 ### User specified colnames
 Since different classification tools and projects in general will contail
 different names for columns representing the same features, a text file will be
-needed as input for LipidQuan in order to translate the meaning of the columns
+needed as input for LipidQ in order to translate the meaning of the columns
 for the program. This translation file is called userSpecifiedColnames.txt and a
 template of it to be used by the user (see the global options vignette and the
 global options tutorial).
@@ -56,7 +56,7 @@ type in the users unique column names for all data sets which includes input
 data set and databases. The file contains multiples columns and one single row
 with the text "TYPE_NAME_HERE". The user will then replace the "TYPE_NAME_HERE"
 text with the users own unique column names that match a given column. The
-columns header name in the template is the default column name that LipidQuan
+columns header name in the template is the default column name that LipidQ
 uses for analysis. Only the "TYPE_NAME_HERE" text needs to be changed to the
 unique column name, and not the column header name itself. If changes do occur
 in the header column name, a new template file must be created by the three
@@ -110,7 +110,7 @@ contain any values in the rows. An example can be found in the each of the four
 files in the following folder:
 
 ```{r, echo=FALSE}
-system.file("extdata/", package = "lipidQuan")
+system.file("extdata/", package = "lipidQ")
 ```
 
 
@@ -119,7 +119,7 @@ system.file("extdata/", package = "lipidQuan")
 
 ### Databases
 Two types of databases called the endogene database and the internal standard
-(ISTD) database are used in LipidQuan. They are both used to validate the
+(ISTD) database are used in LipidQ. They are both used to validate the
 classified classes and species as well as specifying different modes, which
 stems from the way the mass spectrometry has monitored the sample content
 (MESUT). The mode is specified in the QUAN_MODE and the two possible modes to
@@ -139,7 +139,7 @@ endogene and ISTD database.
 
 #### Endogene database
 The endogene database contains validation for all endogene classes and species.
-Only classes and species found in this database will go through the lipidQuan
+Only classes and species found in this database will go through the lipidQ
 quantification analysis. A new template file of the endogene database can be
 generated if necessary (see the global options vignette and the global options
 tutorial).
@@ -149,7 +149,7 @@ tutorial).
 
 #### ISTD database
 The ISTD database contains multiple validation for all ISTD classes. Only
-classes found in this database will go through the lipidQuan quantification
+classes found in this database will go through the lipidQ quantification
 analysis. Besides the common columns mentioned Databases section, the ISTD
 database can also contain the following four columns: ISTD_CONC, LOQ,
 DISSOLVED_AMOUNT and DF_INFUSION. The column ISTD_CONC, which is mandatory,

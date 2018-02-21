@@ -1,7 +1,7 @@
 #' @author André Vidas Olsen
 #' @import shiny
 ui <- fluidPage(
-  titlePanel("LipidQuan"),
+  titlePanel("LipidQ"),
 
   navbarPage("CHOOSE OPERATION: ",
              tabPanel("Quantification",
@@ -157,7 +157,7 @@ ui <- fluidPage(
                           #textInput("numberOfDECONVOLUTION_x", "Write the number of DECONVOLUTION columns in the input data", "4"),
 
                           br(),
-                          textInput("dirColnamesTemplate", "Paste the filepath for the column template file to be saved.", "/data/user/andre/lipidomics/lipidQuan/"),
+                          textInput("dirColnamesTemplate", "Paste the filepath for the column template file to be saved.", "/data/user/andre/lipidomics/lipidQ/"),
 
 
                           actionButton("createColnamesTemplate", "Create Column Template File"),
@@ -178,7 +178,7 @@ ui <- fluidPage(
                           fileInput(inputId = "userSpecifiedColnamesCreateDatabase", label = "Choose list of colnames (.csv-file):",
                                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")),
 
-                          textInput("dirDatabase", "Paste the filepath for the database file to be saved.", "/data/user/andre/lipidomics/lipidQuan/"),
+                          textInput("dirDatabase", "Paste the filepath for the database file to be saved.", "/data/user/andre/lipidomics/lipidQ/"),
 
 
 

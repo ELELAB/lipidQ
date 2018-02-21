@@ -8,7 +8,7 @@ sort_is(data, userSpecifiedColnames = NULL)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from
-LipidQuan.}
+LipidQ.}
 
 \item{userSpecifiedColnames}{the column names template file containing user
 specified column names for the input data. This file}
@@ -24,11 +24,11 @@ overview of the data types when manually inspecting the data.
 }
 \examples{
 mergedDataSets <- read.table(system.file("extdata/dataTables/checks",
- "mergedDataSets.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ "mergedDataSets.csv", package = "lipidQ"), stringsAsFactors = FALSE,
  header = TRUE, sep = ",")
 
 list <- read.table(system.file("extdata/LipidQ_DataBase",
- "userSpecifiedColnames.csv", package = "lipidQuan"),
+ "userSpecifiedColnames.csv", package = "lipidQ"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 sortedData <- sort_is(mergedDataSets, userSpecifiedColnames = list)

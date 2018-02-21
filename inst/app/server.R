@@ -165,38 +165,44 @@ server <- function(input, output, session){
 
     # Analysis start
     dir.create(file.path(input$dir, "dataTables"))
-    mergedDataSets <- lipidQuan:::sort_is(lipidQuan:::mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, correctionList = list, multiply = input$multiplyPREC_value), userSpecifiedColnames = userSpecifiedColnames)
+    mergedDataSets <- lipidQ:::sort_is(lipidQ:::mergeDataSets(dataList, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, correctionList = list, multiply = input$multiplyPREC_value), userSpecifiedColnames = userSpecifiedColnames)
     write.csv(mergedDataSets, file = paste0(input$dir,"/dataTables/mergedDataSets.csv"), quote = FALSE, row.names = F)
 
     if(input$QC_plots_MS1){
       dir.create(file.path(input$dir, "QC"))
       dir.create(file.path(input$dir, "QC/pre"))
-      lipidQuan:::plotQC_ISTD(data = mergedDataSets, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC/pre/"), blnkReplicates = input$blnkReplicates, numberOfReplicates = input$numberOfReps)
+      lipidQ:::plotQC_ISTD(data = mergedDataSets, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC/pre/"), blnkReplicates = input$blnkReplicates, numberOfReplicates = input$numberOfReps)
     }
 
     #if(input$numberOfReps > 1){
-    #  mergedDataSets <- lipidQuan:::filterReplicates(mergedDataSets, userSpecifiedColnames = userSpecifiedColnames, numberOfReplicates = input$numberOfReps, blnkReplicates = input$blnkReplicates, numberOfInstancesThreshold = input$numberOfInstancesT, thresholdValue = input$thresholdValue)
+    #  mergedDataSets <- lipidQ:::filterReplicates(mergedDataSets, userSpecifiedColnames = userSpecifiedColnames, numberOfReplicates = input$numberOfReps, blnkReplicates = input$blnkReplicates, numberOfInstancesThreshold = input$numberOfInstancesT, thresholdValue = input$thresholdValue)
     #  write.csv(mergedDataSets, file = paste0(input$dir,"/mergedDataSets.csv"), quote = FALSE, row.names = F)
     #}
     progress$set(value = 2)
 
     # script to change file name in Shiny tmp folder https://groups.google.com/forum/#!topic/shiny-discuss/hGO4lC7BEI4
-    filteredDataSet <- lipidQuan:::filterDataSet(mergedDataSets, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames)
+    filteredDataSet <- lipidQ:::filterDataSet(mergedDataSets, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames)
     write.csv(filteredDataSet, file = paste0(input$dir,"/dataTables/filteredDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 3)
 
 
-    pmolCalculatedDataSet <- lipidQuan:::pmolCalc(filteredDataSet, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, input$spikeISTD, input$zeroThresh, input$LOQ, input$fixedDeviation,  numberOfReplicates = input$numberOfReps, blnkReplicates = input$blnkReplicates, numberOfInstancesThreshold = input$numberOfInstancesT, thresholdValue = input$thresholdValue)
+    pmolCalculatedDataSet <- lipidQ:::pmolCalc(filteredDataSet, endogene_lipid_db, ISTD_lipid_db, userSpecifiedColnames = userSpecifiedColnames, input$spikeISTD, input$zeroThresh, input$LOQ, input$fixedDeviation,  numberOfReplicates = input$numberOfReps, blnkReplicates = input$blnkReplicates, numberOfInstancesThreshold = input$numberOfInstancesT, thresholdValue = input$thresholdValue)
     write.csv(pmolCalculatedDataSet, file = paste0(input$dir,"/dataTables/pmolCalculatedDataSet.csv"), quote = FALSE, row.names = F)
     progress$set(value = 4)
 
-    indexData <- lipidQuan:::makeIndex_OH_DB_C(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
-    write.csv(indexData[1], file = paste0(input$dir,"/dataTables/indexDataOH.csv"), quote = FALSE, row.names = F)
-    write.csv(indexData[2], file = paste0(input$dir,"/dataTables/indexDataDB.csv"), quote = FALSE, row.names = F)
-    write.csv(indexData[3], file = paste0(input$dir,"/dataTables/indexDataC.csv"), quote = FALSE, row.names = F)
+    indexData <- lipidQ:::makeIndex_OH_DB_C(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+    #if(dim(indexData[[1]])[2] > 0){ # check data.frame for content before saving
+        write.csv(indexData[[1]], file = paste0(input$dir,"/dataTables/indexDataOH.csv"), quote = FALSE, row.names = F)
+    #}
+    #if(dim(indexData[[2]])[2] > 0){ # check data.frame for content before saving
+        write.csv(indexData[[2]], file = paste0(input$dir,"/dataTables/indexDataDB.csv"), quote = FALSE, row.names = F)
+    #}
+    #if(dim(indexData[[3]])[2] > 0){ # check data.frame for content before saving
+        write.csv(indexData[[3]], file = paste0(input$dir,"/dataTables/indexDataC.csv"), quote = FALSE, row.names = F)
+    #}
     progress$set(value = 5)
 
-    classPmol_molPctClass <- lipidQuan:::compactOutput_pmolCalc(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+    classPmol_molPctClass <- lipidQ:::compactOutput_pmolCalc(pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
     #write.csv(classPmol_molPctClass, file = paste0(input$dir,"/dataTables/classPmol_molPctClass.csv"), quote=F, row.names = F)
     progress$set(value = 6)
 
@@ -204,12 +210,12 @@ server <- function(input, output, session){
     if(input$QC_plots_pmol){
       dir.create(file.path(input$dir, "QC"))
       dir.create(file.path(input$dir, "QC/post"))
-      lipidQuan:::plotQC_totalLipids(data = classPmol_molPctClass, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC/post/"))
+      lipidQ:::plotQC_totalLipids(data = classPmol_molPctClass, userSpecifiedColnames = userSpecifiedColnames, pathToOutput = paste0(input$dir, "/QC/post/"))
     }
 
 
 
-    finalOutput <- lipidQuan:::makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
+    finalOutput <- lipidQ:::makeFinalOutput(classPmol_molPctClass, pmolCalculatedDataSet, userSpecifiedColnames = userSpecifiedColnames)
     write.csv(finalOutput[1], file = paste0(input$dir,"/dataTables/finalOutput_molPct.csv"), quote = FALSE, row.names = FALSE)
     write.csv(finalOutput[2], file = paste0(input$dir,"/dataTables/finalOutput_pmol.csv"), quote = FALSE, row.names = FALSE)
     progress$set(value = 7)
@@ -248,7 +254,7 @@ server <- function(input, output, session){
 
 
     # final output merging start
-    mergedFinalOutputs <- lipidQuan:::mergeFinalOutputs(finalOutputList)
+    mergedFinalOutputs <- lipidQ:::mergeFinalOutputs(finalOutputList)
     write.csv(mergedFinalOutputs, file = paste0(input$dirFinalOutputs,"/mergedFinalOutputs.csv"), quote = FALSE, row.names = F)
     progress$set(value = 1)
 
@@ -311,12 +317,12 @@ server <- function(input, output, session){
 
       # plot start
       if(input$PCA_plot){
-        lipidQuan:::plotPCA(data = molPctFile, sampleTypes = sampleTypes, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
+        lipidQ:::plotPCA(data = molPctFile, sampleTypes = sampleTypes, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
       }
       progress$set(value = 2)
 
       if(input$heatmap_plot){
-        lipidQuan:::plotHeatmap(data = molPctFile, sampleTypes = sampleTypes, k = k, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
+        lipidQ:::plotHeatmap(data = molPctFile, sampleTypes = sampleTypes, k = k, pathToOutput = input$dirPlots, log2 = input$log2Trans, pseudoCount = pseudoCount)
       }
       progress$set(value = 3)
 
@@ -343,8 +349,8 @@ server <- function(input, output, session){
 
 
     # create column names template
-    #newColnamesTemplate <- lipidQuan:::makeColnames(as.numeric(input$numberOfMS2ix), as.numeric(input$numberOfDECONVOLUTION_x))
-    newColnamesTemplate <- lipidQuan:::makeColnames(as.numeric(input$numberOfMS2ix))
+    #newColnamesTemplate <- lipidQ:::makeColnames(as.numeric(input$numberOfMS2ix), as.numeric(input$numberOfDECONVOLUTION_x))
+    newColnamesTemplate <- lipidQ:::makeColnames(as.numeric(input$numberOfMS2ix))
     write.csv(newColnamesTemplate, file = paste0(input$dirColnamesTemplate,"/userSpecifiedColnames.csv"), quote = FALSE, row.names = F)
     progress$set(value = 1)
 
@@ -377,15 +383,15 @@ server <- function(input, output, session){
 
 
       #print(input$DB_type)
-      #newDatabase <- lipidQuan::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = input$DB_type)
+      #newDatabase <- lipidQ::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = input$DB_type)
       #if(input$DB_type == "endo"){
       if(input$DB_type_endo){
-        newDatabase_endo <- lipidQuan::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = "endo")
+        newDatabase_endo <- lipidQ::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = "endo")
         write.csv(newDatabase_endo, file = paste0(input$dirDatabase,"/endogene_lipid_db.csv"), quote = FALSE, row.names = F)
       }
       #if(input$DB_type == "ISTD"){
       if(input$DB_type_ISTD){
-        newDatabase_ISTD <- lipidQuan::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = "ISTD")
+        newDatabase_ISTD <- lipidQ::makeDatabase(userSpecifiedColnames = userSpecifiedColnames, DB_type = "ISTD")
         write.csv(newDatabase_ISTD, file = paste0(input$dirDatabase,"/ISTD_lipid_db.csv"), quote = FALSE, row.names = F)
       }
       progress$set(value = 1)

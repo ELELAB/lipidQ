@@ -1,5 +1,5 @@
 ---
-title: "Install LipidQuan"
+title: "Install LipidQ"
 author: "André Vidas Olsen"
 date: "`r Sys.Date()`"
 output: html_document
@@ -18,10 +18,10 @@ knitr::opts_chunk$set(
 
 
 #Introduction
-This vignette will describe how to install LipidQuan on a computer. In order to
-install LipidQuan, the user needs to have installed R first on the computer.
+This vignette will describe how to install LipidQ on a computer. In order to
+install LipidQ, the user needs to have installed R first on the computer.
 For convenience, it is also recommended to install R studio. The ComplexHeatmap
-package needs to be installed in R in order for LipidQuan to work. This can be
+package needs to be installed in R in order for LipidQ to work. This can be
 done in R studio, by typing the following in the command line:
 
 source("https://bioconductor.org/biocLite.R")
@@ -29,25 +29,25 @@ source("https://bioconductor.org/biocLite.R")
 biocLite("ComplexHeatmap")
 
 
-###Install LipidQuan from Bioconductor
-The easist way to install LipidQuan is to open R/RStudio and type the following
+###Install LipidQ from Bioconductor
+The easist way to install LipidQ is to open R/RStudio and type the following
 two commands in the command line:
 
 source("https://bioconductor.org/biocLite.R")
 
-biocLite("lipidQuan")
+biocLite("lipidQ")
 
 
 
-###Install LipidQuan from binary/source file
-To install LipidQuan from source, open R/RStudio and type the following in the
+###Install LipidQ from binary/source file
+To install LipidQ from source, open R/RStudio and type the following in the
 command line:
 
 install.packages("path-to-file", repos = NULL, type="source")
 
 , where "path-to-file" is the path to the source file. For example:
 
-install.packages("../lipidQuan_0.1_R_x86_64-pc-linux-gnu.tar.gz", repos = NULL,
+install.packages("../lipidQ_0.1_R_x86_64-pc-linux-gnu.tar.gz", repos = NULL,
 type="source")
 
 

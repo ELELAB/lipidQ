@@ -11,7 +11,7 @@
 
 <meta name="author" content="André Vidas Olsen" />
 
-<meta name="date" content="2018-02-19" />
+<meta name="date" content="2018-02-21" />
 
 <title>Input Data</title>
 
@@ -121,17 +121,17 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Input Data</h1>
 <h4 class="author"><em>André Vidas Olsen</em></h4>
-<h4 class="date"><em>2018-02-19</em></h4>
+<h4 class="date"><em>2018-02-21</em></h4>
 
 </div>
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>the quantification procedure in lipidQuan needs 4 types of input in order to work properly. In the following section, each of these 4 types of input data are described.</p>
+<p>the quantification procedure in lipidQ needs 4 types of input in order to work properly. In the following section, each of these 4 types of input data are described.</p>
 <div id="user-specified-colnames" class="section level3">
 <h3>User specified colnames</h3>
-<p>Since different classification tools and projects in general will contail different names for columns representing the same features, a text file will be needed as input for LipidQuan in order to translate the meaning of the columns for the program. This translation file is called userSpecifiedColnames.txt and a template of it to be used by the user (see the global options vignette and the global options tutorial).</p>
+<p>Since different classification tools and projects in general will contail different names for columns representing the same features, a text file will be needed as input for LipidQ in order to translate the meaning of the columns for the program. This translation file is called userSpecifiedColnames.txt and a template of it to be used by the user (see the global options vignette and the global options tutorial).</p>
 <p>The following shows all the default column names and their meaning (MESUT):</p>
 <ul>
 <li>PPM: the error that</li>
@@ -145,7 +145,7 @@ $(document).ready(function () {
 <li>MS1x: MS1 intensity values for each sample (including replicates, if these are used in the experiment)</li>
 <li>MS2ix: MS2 intensity values for each sample (including replicates, if these are used in the experiment). Multiple MS2’s will be named MS2ax, MS2bx, MS2cx, etc.</li>
 </ul>
-<p>After the template has been saved, the user can go in the template file by using a data analysis program like Microsoft Excel, LibreOffice Calc or similar and type in the users unique column names for all data sets which includes input data set and databases. The file contains multiples columns and one single row with the text “TYPE_NAME_HERE”. The user will then replace the “TYPE_NAME_HERE” text with the users own unique column names that match a given column. The columns header name in the template is the default column name that LipidQuan uses for analysis. Only the “TYPE_NAME_HERE” text needs to be changed to the unique column name, and not the column header name itself. If changes do occur in the header column name, a new template file must be created by the three steps mentioned above to ensure that no errors occur during the analysis (see the global options vignette and the global options tutorial).</p>
+<p>After the template has been saved, the user can go in the template file by using a data analysis program like Microsoft Excel, LibreOffice Calc or similar and type in the users unique column names for all data sets which includes input data set and databases. The file contains multiples columns and one single row with the text “TYPE_NAME_HERE”. The user will then replace the “TYPE_NAME_HERE” text with the users own unique column names that match a given column. The columns header name in the template is the default column name that LipidQ uses for analysis. Only the “TYPE_NAME_HERE” text needs to be changed to the unique column name, and not the column header name itself. If changes do occur in the header column name, a new template file must be created by the three steps mentioned above to ensure that no errors occur during the analysis (see the global options vignette and the global options tutorial).</p>
 </div>
 <div id="intensity-data-set" class="section level3">
 <h3>Intensity data set</h3>
@@ -167,22 +167,22 @@ $(document).ready(function () {
 <div id="positivenegative-mode-specification" class="section level4">
 <h4>positive/negative mode specification</h4>
 <p>The intensity data should also contain one column that specifies whether the intensity data is created from positive or negative mode. The column should be written as simply POS (positive mode) or NEG (negative mode) and should not contain any values in the rows. An example can be found in the each of the four files in the following folder:</p>
-<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQuan/inst/extdata&quot;</code></pre>
+<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQ/inst/extdata&quot;</code></pre>
 <p>, where the last column in each of the four files specifies the mode.</p>
 </div>
 </div>
 <div id="databases" class="section level3">
 <h3>Databases</h3>
-<p>Two types of databases called the endogene database and the internal standard (ISTD) database are used in LipidQuan. They are both used to validate the classified classes and species as well as specifying different modes, which stems from the way the mass spectrometry has monitored the sample content (MESUT). The mode is specified in the QUAN_MODE and the two possible modes to choose is positive (POS) or negative (NEG) for each lipid, species, or ISTD’s. The two database also contains MS1 and MS2 columns specifying which columns are relevant and needed to be filtered for before the quantification. The filtering will check whether all relevant columns has values &gt; 0 for all species/ISTD’s, and if at least one column is below this threshold, all values will have 0 in the columns. Specifying which columns are relevant is done by typing either 1 or zero in the MS1 or MS2 columns for each lipid class/specie, where 1 means to include it in the filtering and 0 means to exclude it from the filtering. The QUAN_SCAN mode specify which column within MS1 and MS2 that is used for the quantification.</p>
+<p>Two types of databases called the endogene database and the internal standard (ISTD) database are used in LipidQ. They are both used to validate the classified classes and species as well as specifying different modes, which stems from the way the mass spectrometry has monitored the sample content (MESUT). The mode is specified in the QUAN_MODE and the two possible modes to choose is positive (POS) or negative (NEG) for each lipid, species, or ISTD’s. The two database also contains MS1 and MS2 columns specifying which columns are relevant and needed to be filtered for before the quantification. The filtering will check whether all relevant columns has values &gt; 0 for all species/ISTD’s, and if at least one column is below this threshold, all values will have 0 in the columns. Specifying which columns are relevant is done by typing either 1 or zero in the MS1 or MS2 columns for each lipid class/specie, where 1 means to include it in the filtering and 0 means to exclude it from the filtering. The QUAN_SCAN mode specify which column within MS1 and MS2 that is used for the quantification.</p>
 <p>The following to subsections describes the unique features for each of the endogene and ISTD database.</p>
 <div id="endogene-database" class="section level4">
 <h4>Endogene database</h4>
-<p>The endogene database contains validation for all endogene classes and species. Only classes and species found in this database will go through the lipidQuan quantification analysis. A new template file of the endogene database can be generated if necessary (see the global options vignette and the global options tutorial).</p>
+<p>The endogene database contains validation for all endogene classes and species. Only classes and species found in this database will go through the lipidQ quantification analysis. A new template file of the endogene database can be generated if necessary (see the global options vignette and the global options tutorial).</p>
 <p>(MESUT evaluate)</p>
 </div>
 <div id="istd-database" class="section level4">
 <h4>ISTD database</h4>
-<p>The ISTD database contains multiple validation for all ISTD classes. Only classes found in this database will go through the lipidQuan quantification analysis. Besides the common columns mentioned Databases section, the ISTD database can also contain the following four columns: ISTD_CONC, LOQ, DISSOLVED_AMOUNT and DF_INFUSION. The column ISTD_CONC, which is mandatory, represents the concentration of each ISTD in <span class="math">\(\mu\)</span>M.</p>
+<p>The ISTD database contains multiple validation for all ISTD classes. Only classes found in this database will go through the lipidQ quantification analysis. Besides the common columns mentioned Databases section, the ISTD database can also contain the following four columns: ISTD_CONC, LOQ, DISSOLVED_AMOUNT and DF_INFUSION. The column ISTD_CONC, which is mandatory, represents the concentration of each ISTD in <span class="math">\(\mu\)</span>M.</p>
 <p>The LOQ stands for Limit Of Quantification and is a threshold of the lowest amount of lipid that can be quantified. This value changes from mass spectrometer to mass spectrometer and therefore each user must make their own LOQ according to the properties of the mass spectrometer they use. DISSOLVED_AMOUNT is the amount of solvent used to reconstitute the dried lipid extract. DF_INFUSION is the factor that samples are diluted in ionization solvent before infusion to the samples into mass spectrometer. LOQ, DISSOLVED_AMOUNT, and DF_INFUSION are all used with the LOQ threshold filter which is optional (See section XXX for more info about this filter type). A new template file of the ISTD database can be generated if necessary (see the global options vignette and the global options tutorial).</p>
 </div>
 </div>

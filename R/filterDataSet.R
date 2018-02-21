@@ -3,7 +3,7 @@
 #' @description filterDataSet selects relevants columns from a data set and
 #' remove species if the name does not exist in the global database.
 #' @param data data formatted by the use of the mergeDataSet function from
-#' LipidQuan.
+#' LipidQ.
 #' @param endogene_lipid_db the endogene lipid database
 #' @param ISTD_lipid_db the ISTD lipid database
 #' @param userSpecifiedColnames the column names template file containing user
@@ -13,20 +13,20 @@
 #' @examples
 #' # load endo & ISTD databases as well as user specified column names file.
 #' endogene_lipid_db <- read.table(system.file("extdata/dataTables/checks",
-#'  "endogene_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#'  "endogene_lipid_db.csv", package = "lipidQ"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
 #' ISTD_lipid_db <- read.table(system.file("extdata/dataTables/checks",
-#'  "ISTD_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#'  "ISTD_lipid_db.csv", package = "lipidQ"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
 #' userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
-#'  "userSpecifiedColnames.csv", package = "lipidQuan"),
+#'  "userSpecifiedColnames.csv", package = "lipidQ"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' # load is sorted mergedDataSet made by using the mergeDataSets() function
 #' mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables/checks",
-#'  "mergedDataSets.csv", package = "lipidQuan"),
+#'  "mergedDataSets.csv", package = "lipidQ"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' # filter the data set

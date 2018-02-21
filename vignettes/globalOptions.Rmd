@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 ### Introduction
-The global options operation tab in the LipiqQuan GUI makes it possile to create
+The global options operation tab in the LipidQ GUI makes it possile to create
 both databases and user specified column names templates, when the user needs to
 have a new version. There can be several reasons why the user wishes to do so.
 Here are the two most common ones:
@@ -76,12 +76,12 @@ describes how to obtain the full path:
 
 From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of
 interest, right click on the folder, press the alt button + click on 'Copy
-"folder-name" as Pathname'. Go back to LipidQuan and paste the folder path
+"folder-name" as Pathname'. Go back to LipidQ and paste the folder path
 (&#8984; Command button + V) into the output folder field.
 
 Windows: Go to the folder of interest, right click on the folder, go to
 properties, find Location and copy the path there (Ctrl + C). Go back to
-LipidQuan and paste the full path (Ctrl + V) into the output folder field.
+LipidQ and paste the full path (Ctrl + V) into the output folder field.
 Remember to change every "\\" in the path to "/". 
 
 ####3. Press 'Create column template file'

@@ -22,25 +22,25 @@
 #' @examples
 #' # make input data path list
 #' dataPathList <- c(system.file("extdata/mE504_Data",
-#'                   "mE504_NEG_High-out.csv", package = "lipidQuan"),
+#'                   "mE504_NEG_High-out.csv", package = "lipidQ"),
 #'                  system.file("extdata/mE504_Data",
-#'                   "mE504_NEG_Low-out.csv", package = "lipidQuan"),
+#'                   "mE504_NEG_Low-out.csv", package = "lipidQ"),
 #'                  system.file("extdata/mE504_Data",
-#'                   "mE504_POS_High-out.csv", package = "lipidQuan"),
+#'                   "mE504_POS_High-out.csv", package = "lipidQ"),
 #'                  system.file("extdata/mE504_Data",
-#'                   "mE504_NEG_Low-out.csv", package = "lipidQuan"))
+#'                   "mE504_NEG_Low-out.csv", package = "lipidQ"))
 #'
 #' # load endo & ISTD databases as well as user specified column names file.
 #' endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
-#'  "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#'  "LP_DB_MS1_v1.csv", package = "lipidQ"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
 #' ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
-#'  "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#'  "ISTD_LP_DB_MS1_v1.csv", package = "lipidQ"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
 #' userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
-#'  "userSpecifiedColnames.csv", package = "lipidQuan"),
+#'  "userSpecifiedColnames.csv", package = "lipidQ"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' # merge input data sets into one file

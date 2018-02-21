@@ -1,5 +1,5 @@
 rm(list = ls())
-setwd("/data/user/andre/lipidomics/lipidQuan/R")
+setwd("/data/user/andre/lipidomics/lipidQ/R")
 library('RUnit')
 source('compactOutput_pmolCalc.R')
 source('filterDataSet.R')

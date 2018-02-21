@@ -28,7 +28,7 @@ checkColnames <- function(userSpecifiedColnames = NULL){
       stop(paste0("ERROR: The userSpecifiedColnames.csv does not have ",
           "correctly written reference column names (First line of the file). ",
           "Please create a new userSpecifiedColnames.csv template file in the ",
-          "lipidQuan GUI Global Option procedure tab."))
+          "lipidQ GUI Global Option procedure tab."))
     }
 
     dataColnames <- userSpecifiedColnames

@@ -9,7 +9,7 @@ filterDataSet(data, endogene_lipid_db, ISTD_lipid_db,
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from
-LipidQuan.}
+LipidQ.}
 
 \item{endogene_lipid_db}{the endogene lipid database}
 
@@ -28,20 +28,20 @@ remove species if the name does not exist in the global database.
 \examples{
 # load endo & ISTD databases as well as user specified column names file.
 endogene_lipid_db <- read.table(system.file("extdata/dataTables/checks",
- "endogene_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ "endogene_lipid_db.csv", package = "lipidQ"), stringsAsFactors = FALSE,
  header = TRUE, sep = ",")
 
 ISTD_lipid_db <- read.table(system.file("extdata/dataTables/checks",
- "ISTD_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ "ISTD_lipid_db.csv", package = "lipidQ"), stringsAsFactors = FALSE,
  header = TRUE, sep = ",")
 
 userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
- "userSpecifiedColnames.csv", package = "lipidQuan"),
+ "userSpecifiedColnames.csv", package = "lipidQ"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # load is sorted mergedDataSet made by using the mergeDataSets() function
 mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables/checks",
- "mergedDataSets.csv", package = "lipidQuan"),
+ "mergedDataSets.csv", package = "lipidQ"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # filter the data set

@@ -1,4 +1,4 @@
-setwd("/data/user/andre/lipidomics/lipidQuan")
+setwd("/data/user/andre/lipidomics/lipidQ")
 source("R/mergeDataSets.R")
 source("R/sort_is.R")
 source("R/filterDataSet.R")
@@ -183,7 +183,7 @@ t <- makeFinalOutput(classPmol_molPctClass, t, userSpecifiedColnames = list)
 
 
 
-setwd("/data/user/andre/lipidomics/lipidQuan")
+setwd("/data/user/andre/lipidomics/lipidQ")
 source("R/mergeDataSets.R")
 source("R/sort_is.R")
 source("R/filterDataSet.R")
@@ -227,7 +227,7 @@ subset(t, select = c(SUBT_PMOL_PREC_07,SUBT_PMOL_PREC_08,SUBT_PMOL_PREC_09))
 ################################################################################################################
 # user guide example
 ################################################################################################################
-setwd("/data/user/andre/lipidomics/lipidQuan")
+setwd("/data/user/andre/lipidomics/lipidQ")
 source("R/mergeDataSets.R")
 source("R/sort_is.R")
 source("R/filterDataSet.R")
@@ -242,7 +242,7 @@ source("R/makeIndex_OH_DB_C.R")
 source("R/compactOutput_pmolCalc.R")
 source("R/makeFinalOutput.R")
 
-data <- read.csv(system.file("extdata/LipidQ_DataBase/userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+data <- read.csv(system.file("extdata/LipidQ_DataBase/userSpecifiedColnames.csv", package = "lipidQ"), stringsAsFactors = FALSE)
 data[1,] <- "TYPE_NAME_HERE"
 
 dataPathTest <- read.table("inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
@@ -279,12 +279,12 @@ t <- makeFinalOutput(classPmol_molPctClass, t)
 #### FOR MANUALS IN THE R PACKAGE
 
 #dataPathTest <- read.table("inst/extdata/dataList.txt", stringsAsFactors = FALSE)[,1]
-endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables", "mergedDataSetsIsSorted.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-filteredDatasets <- read.table(system.file("extdata/dataTables", "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
-pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "LP_DB_MS1_v1.csv", package = "lipidQ"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase", "ISTD_LP_DB_MS1_v1.csv", package = "lipidQ"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase", "userSpecifiedColnames.csv", package = "lipidQ"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+mergedDataSetsIsSorted <- read.table(system.file("extdata/dataTables", "mergedDataSetsIsSorted.csv", package = "lipidQ"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+filteredDatasets <- read.table(system.file("extdata/dataTables", "filteredDataSet.csv", package = "lipidQ"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
+pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables", "pmolCalculatedDataSet.csv", package = "lipidQ"), stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 
 #t <- mergeDataSets(dataList = dataPathTest, endogene_lipid_db = endogene_lipid_db, ISTD_lipid_db = ISTD_lipid_db, userSpecifiedColnames = list)
@@ -296,20 +296,20 @@ pmolCalculatedDataSet <- pmolCalc(data = filteredDatasets, endogene_lipid_db = e
 
 #### Make small data sets for R CMD example checks
 mergedDataSets_exp <- read.table(system.file("extdata/dataTables",
-    "mergedDataSets.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    "mergedDataSets.csv", package = "lipidQ"), stringsAsFactors = FALSE,
     header = TRUE, sep = ",", nrows = 5)
 mergedDataSets_ISTD <- read.table(system.file("extdata/dataTables",
-    "mergedDataSets.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    "mergedDataSets.csv", package = "lipidQ"), stringsAsFactors = FALSE,
     header = FALSE, sep = ",", skip = (996-29), nrows = 1)
 colnames(mergedDataSets_ISTD) <- colnames(mergedDataSets_exp)
 mergedDataSets <- rbind(mergedDataSets_exp, mergedDataSets_ISTD)
 #write.csv(mergedDataSets, file = "inst/extdata/dataTables/checks/mergedDataSets.csv", quote = FALSE, row.names = FALSE)
 
 filteredDataSet_exp <- read.table(system.file("extdata/dataTables",
-    "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    "filteredDataSet.csv", package = "lipidQ"), stringsAsFactors = FALSE,
     header = TRUE, sep = ",", nrows = 5)
 filteredDataSet_ISTD <- read.table(system.file("extdata/dataTables",
-    "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    "filteredDataSet.csv", package = "lipidQ"), stringsAsFactors = FALSE,
     header = FALSE, sep = ",", skip = (394-29), nrows = 1)
 colnames(filteredDataSet_ISTD) <- colnames(filteredDataSet_exp)
 filteredDataSet <- rbind(filteredDataSet_exp, filteredDataSet_ISTD)
@@ -318,10 +318,10 @@ filteredDataSet <- rbind(filteredDataSet_exp, filteredDataSet_ISTD)
 dim(filteredDataset_ISTD)
 
 pmolCalculatedDataSet_exp <- read.table(system.file("extdata/dataTables",
-    "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    "pmolCalculatedDataSet.csv", package = "lipidQ"), stringsAsFactors = FALSE,
     header = TRUE, sep = ",", nrows = 5)
 pmolCalculatedDataSet_ISTD <- read.table(system.file("extdata/dataTables",
-    "pmolCalculatedDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    "pmolCalculatedDataSet.csv", package = "lipidQ"), stringsAsFactors = FALSE,
     header = FALSE, sep = ",", skip = (367-29), nrows = 1)
 colnames(pmolCalculatedDataSet_ISTD) <- colnames(pmolCalculatedDataSet_exp)
 pmolCalculatedDataSet <- rbind(pmolCalculatedDataSet_exp, pmolCalculatedDataSet_ISTD)
@@ -330,25 +330,25 @@ pmolCalculatedDataSet <- rbind(pmolCalculatedDataSet_exp, pmolCalculatedDataSet_
 
 
 finalOutput_molPct_exp <- read.table(system.file("extdata/dataTables",
-    "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    "finalOutput_molPct.csv", package = "lipidQ"), stringsAsFactors = FALSE,
     header = TRUE, sep = ",", nrows = 20)
 finalOutput_molPct_ISTD <- read.table(system.file("extdata/dataTables",
-    "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    "finalOutput_molPct.csv", package = "lipidQ"), stringsAsFactors = FALSE,
     header = FALSE, sep = ",", skip = (279-22))
 colnames(finalOutput_molPct_ISTD) <- colnames(finalOutput_molPct_exp)
 finalOutput_molPct <- rbind(finalOutput_molPct_exp, finalOutput_molPct_ISTD)
 #write.csv(finalOutput_molPct, file = "inst/extdata/dataTables/checks/finalOutput_molPct.csv", quote = FALSE, row.names = FALSE)
-#write.csv(finalOutput_molPct, file = "/home/andre/R/x86_64-pc-linux-gnu-library/3.4/lipidQuan/extdata/dataTables/checks/finalOutput_molPct.csv", quote = FALSE, row.names = FALSE)
+#write.csv(finalOutput_molPct, file = "/home/andre/R/x86_64-pc-linux-gnu-library/3.4/lipidQ/extdata/dataTables/checks/finalOutput_molPct.csv", quote = FALSE, row.names = FALSE)
 
 endogene_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
-    "LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    "LP_DB_MS1_v1.csv", package = "lipidQ"), stringsAsFactors = FALSE,
     header = TRUE, sep = ",")
 endogene_lipid_db <- endogene_lipid_db[208:267,]
 #write.csv(endogene_lipid_db, file = "inst/extdata/dataTables/checks/endogene_lipid_db.csv", quote = FALSE, row.names = FALSE)
 
 
 ISTD_lipid_db <- read.table(system.file("extdata/LipidQ_DataBase",
-    "ISTD_LP_DB_MS1_v1.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+    "ISTD_LP_DB_MS1_v1.csv", package = "lipidQ"), stringsAsFactors = FALSE,
     header = TRUE, sep = ",")
 ISTD_lipid_db <- ISTD_lipid_db[12,]
 #write.csv(ISTD_lipid_db, file = "inst/extdata/dataTables/checks/ISTD_lipid_db.csv", quote = FALSE, row.names = FALSE)

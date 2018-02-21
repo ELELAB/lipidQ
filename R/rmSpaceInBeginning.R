@@ -5,7 +5,7 @@
 #' some rows begins with a space for these two columns which can results in
 #' errors.
 #' @param data data formatted by the use of the mergeDataSet function from
-#' LipidQuan.
+#' LipidQ.
 #' @param userSpecifiedColnames the column names template file containing user
 #' specified column names for the input data. This file
 #' @return data set

@@ -11,7 +11,7 @@
 
 <meta name="author" content="André Vidas Olsen" />
 
-<meta name="date" content="2018-02-16" />
+<meta name="date" content="2018-02-21" />
 
 <title>Tutorial: Merging of Final Output Data Sets</title>
 
@@ -121,7 +121,7 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Tutorial: Merging of Final Output Data Sets</h1>
 <h4 class="author"><em>André Vidas Olsen</em></h4>
-<h4 class="date"><em>2018-02-16</em></h4>
+<h4 class="date"><em>2018-02-21</em></h4>
 
 </div>
 
@@ -134,30 +134,30 @@ $(document).ready(function () {
 <h1>Data</h1>
 <p>The data for this tutorial will consist of the following files:</p>
 <ul>
-<li>The final output files generated from multiple LipiqQuan quantification runs (see quantification tutorial for info on how to use the quantification procedure in the LipidQuan GUI).</li>
+<li>The final output files generated from multiple LipidQ quantification runs (see quantification tutorial for info on how to use the quantification procedure in the LipidQ GUI).</li>
 </ul>
 </div>
-<div id="step-1-open-lipidquan" class="section level1">
-<h1>Step 1: open LipidQuan</h1>
-<p>Start by open up LipidQuan. This can be done by doing these 3 steps:</p>
+<div id="step-1-open-lipidq" class="section level1">
+<h1>Step 1: open LipidQ</h1>
+<p>Start by open up LipidQ. This can be done by doing these 3 steps:</p>
 <ol style="list-style-type: decimal">
 <li><p>Open Rstudio</p></li>
-<li><p>Write “library(lipidQuan)”</p></li>
-<li><p>Write “runLipidQuan()”</p></li>
+<li><p>Write “library(lipidQ)”</p></li>
+<li><p>Write “runLipidQ()”</p></li>
 </ol>
-<p>If the web browser encounters problems doing any of the steps in the tutorial, LipidQuan can also be open by going to:</p>
-<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQuan/inst/app&quot;</code></pre>
+<p>If the web browser encounters problems doing any of the steps in the tutorial, LipidQ can also be open by going to:</p>
+<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQ/inst/app&quot;</code></pre>
 <p>, open either ui.R or server.R and hit the Run button at the right top corner of Rstudio.</p>
 </div>
-<div id="step-2.-load-data-into-lipidquan" class="section level1">
-<h1>Step 2. Load data into lipidQuan</h1>
-<p>After opening LipidQuan, the operation tab will start at the Quantification tab. Instead of staying at this operation tab, click on the “Merging of Final Output Data Sets”. In this section, the first field consists of choosing the input data, which in this case is the output files generated from multiple quantification runs with LipidQuan. Use the “Browse…” button to browse and select the desired input data for merging process.</p>
+<div id="step-2.-load-data-into-lipidq" class="section level1">
+<h1>Step 2. Load data into lipidQ</h1>
+<p>After opening LipidQ, the operation tab will start at the Quantification tab. Instead of staying at this operation tab, click on the “Merging of Final Output Data Sets”. In this section, the first field consists of choosing the input data, which in this case is the output files generated from multiple quantification runs with LipidQ. Use the “Browse…” button to browse and select the desired input data for merging process.</p>
 </div>
 <div id="step-3.-select-ouput-folder" class="section level1">
 <h1>Step 3. Select ouput folder</h1>
 <p>After selecting the data to be merged, you need to specify the output folder. This is done by writing or copy-pasting the path to the desired folder in the field below “Paste the filepath for the output files to be saved”. The following describes how to obtain the full path:</p>
-<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on ‘Copy “folder-name” as Pathname’. Go back to LipidQuan and paste the folder path (⌘ Command button + V) into the output folder field.</p>
-<p>Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQuan and paste the full path (Ctrl + V) into the output folder field. Remember to change every “\” in the path to “/”.</p>
+<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on ‘Copy “folder-name” as Pathname’. Go back to LipidQ and paste the folder path (⌘ Command button + V) into the output folder field.</p>
+<p>Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQ and paste the full path (Ctrl + V) into the output folder field. Remember to change every “\” in the path to “/”.</p>
 <p>After the folder path has been written, click on the “Merge Final Output Data Sets” to start the process.</p>
 </div>
 

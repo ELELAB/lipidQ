@@ -3,7 +3,7 @@
 #' @description This function creates OH Index, DB Index and C-chain Index of
 #' data containing calculated %pmol values of samples.
 #' @param data data formatted by the use of the mergeDataSet function from
-#' LipidQuan.
+#' LipidQ.
 #' @param userSpecifiedColnames the column names template file containing user
 #' specified column names for the input data.
 #' @return a data set consisting of OH, DB, C indexes
@@ -11,12 +11,12 @@
 #' @examples
 #' # load user specified column names file.
 #' userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
-#'  "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors =
+#'  "userSpecifiedColnames.csv", package = "lipidQ"), stringsAsFactors =
 #'  FALSE, header = TRUE, sep = ",")
 #'
 #' # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
 #' pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables/checks",
-#'  "pmolCalculatedDataSet.csv", package = "lipidQuan"),
+#'  "pmolCalculatedDataSet.csv", package = "lipidQ"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' # make data of OH, DB and C indexes

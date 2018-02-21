@@ -8,7 +8,7 @@ makeIndex_OH_DB_C(data, userSpecifiedColnames = NULL)
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from
-LipidQuan.}
+LipidQ.}
 
 \item{userSpecifiedColnames}{the column names template file containing user
 specified column names for the input data.}
@@ -23,12 +23,12 @@ data containing calculated %pmol values of samples.
 \examples{
 # load user specified column names file.
 userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
- "userSpecifiedColnames.csv", package = "lipidQuan"), stringsAsFactors =
+ "userSpecifiedColnames.csv", package = "lipidQ"), stringsAsFactors =
  FALSE, header = TRUE, sep = ",")
 
 # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
 pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables/checks",
- "pmolCalculatedDataSet.csv", package = "lipidQuan"),
+ "pmolCalculatedDataSet.csv", package = "lipidQ"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # make data of OH, DB and C indexes

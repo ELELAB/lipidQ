@@ -1,4 +1,4 @@
-Package: lipidQuan
+Package: lipidQ
 Type: Package
 Title: Lipidomics Analysis Tool
 Version: 0.99.0
@@ -18,5 +18,5 @@ Encoding: UTF-8
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr
-URL:https://github.com/ELELAB/LipidQuan
-BugReports: https://github.com/ELELAB/LipidQuan/issues
+URL:https://github.com/ELELAB/LipidQ
+BugReports: https://github.com/ELELAB/LipidQ/issues

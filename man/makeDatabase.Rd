@@ -24,7 +24,7 @@ column names template
 \examples{
 # load user specified column names files
  userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
- "userSpecifiedColnames.csv", package = "lipidQuan"),
+ "userSpecifiedColnames.csv", package = "lipidQ"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # make endo database

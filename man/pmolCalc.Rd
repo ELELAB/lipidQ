@@ -53,21 +53,21 @@ quantity of internal standard
 \examples{
 # load endo & ISTD databases as well as user specified column names file.
 endogene_lipid_db <- read.table(system.file("extdata/dataTables/checks",
- "endogene_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ "endogene_lipid_db.csv", package = "lipidQ"), stringsAsFactors = FALSE,
  header = TRUE, sep = ",")
 
 ISTD_lipid_db <- read.table(system.file("extdata/dataTables/checks",
- "ISTD_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ "ISTD_lipid_db.csv", package = "lipidQ"), stringsAsFactors = FALSE,
  header = TRUE, sep = ",")
 
 userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
- "userSpecifiedColnames.csv", package = "lipidQuan"),
+ "userSpecifiedColnames.csv", package = "lipidQ"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 
 # load a filtered data set made by using the filterDataSet() function
 filteredDataSet <- read.table(system.file("extdata/dataTables/checks",
- "filteredDataSet.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+ "filteredDataSet.csv", package = "lipidQ"), stringsAsFactors = FALSE,
  header = TRUE, sep = ",")
 
 # calculate pmol for data

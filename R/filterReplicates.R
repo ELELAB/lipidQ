@@ -3,7 +3,7 @@
 #' @description This function filter replicates for each specie based on a
 #' threshold value
 #' @param data data formatted by the use of the mergeDataSet function from
-#' LipidQuan.
+#' LipidQ.
 #' @param userSpecifiedColnames the column names template file containing user
 #' specified column names for the input data. This file
 #' @param numberOfReplicates the number of replicates for each sample

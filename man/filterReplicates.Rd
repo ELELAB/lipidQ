@@ -9,7 +9,7 @@ filterReplicates(data, userSpecifiedColnames = NULL, numberOfReplicates = 1,
 }
 \arguments{
 \item{data}{data formatted by the use of the mergeDataSet function from
-LipidQuan.}
+LipidQ.}
 
 \item{userSpecifiedColnames}{the column names template file containing user
 specified column names for the input data. This file}

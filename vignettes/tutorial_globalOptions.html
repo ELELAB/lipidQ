@@ -11,7 +11,7 @@
 
 <meta name="author" content="André Vidas Olsen" />
 
-<meta name="date" content="2018-02-16" />
+<meta name="date" content="2018-02-21" />
 
 <title>Tutorial: Global Options</title>
 
@@ -121,14 +121,14 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Tutorial: Global Options</h1>
 <h4 class="author"><em>André Vidas Olsen</em></h4>
-<h4 class="date"><em>2018-02-16</em></h4>
+<h4 class="date"><em>2018-02-21</em></h4>
 
 </div>
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>This tutorial will cover how to use the Global Options in order to create new user specified column names template files as well as new endogene and ISTD database templates. Once these templates are created, they can be used to make the required databases and user specified column names for a given quantification procedure in the LipidQuan GUI. The tutorial is divided into two parts:</p>
+<p>This tutorial will cover how to use the Global Options in order to create new user specified column names template files as well as new endogene and ISTD database templates. Once these templates are created, they can be used to make the required databases and user specified column names for a given quantification procedure in the LipidQ GUI. The tutorial is divided into two parts:</p>
 <ol style="list-style-type: decimal">
 <li><p>Creating a user specified column names file</p></li>
 <li><p>Creating an endogen &amp; ISTD database file</p></li>
@@ -139,20 +139,20 @@ $(document).ready(function () {
 <p>The data for this tutorial will consist of the following file:</p>
 <p>userSpecifiedColnames.csv</p>
 <p>, which is located in the following folder:</p>
-<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQuan/inst/extdata/LipidQ_DataBase&quot;</code></pre>
+<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQ/inst/extdata/LipidQ_DataBase&quot;</code></pre>
 </div>
 <div id="creating-a-user-specified-column-names-file" class="section level1">
 <h1>Creating a user specified column names file</h1>
-<div id="step-1-open-lipidquan" class="section level3">
-<h3>Step 1: open LipidQuan</h3>
-<p>Start by open up LipidQuan. This can be done by doing these 3 steps:</p>
+<div id="step-1-open-lipidq" class="section level3">
+<h3>Step 1: open LipidQ</h3>
+<p>Start by open up LipidQ. This can be done by doing these 3 steps:</p>
 <ol style="list-style-type: decimal">
 <li><p>Open Rstudio</p></li>
-<li><p>Write “library(lipidQuan)”</p></li>
-<li><p>Write “runLipidQuan()”</p></li>
+<li><p>Write “library(lipidQ)”</p></li>
+<li><p>Write “runLipidQ()”</p></li>
 </ol>
-<p>If the web browser encounters problems doing any of the steps in the tutorial, LipidQuan can also be open by going to:</p>
-<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQuan/inst/app&quot;</code></pre>
+<p>If the web browser encounters problems doing any of the steps in the tutorial, LipidQ can also be open by going to:</p>
+<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQ/inst/app&quot;</code></pre>
 <p>, open either ui.R or server.R and hit the Run button at the right top corner of Rstudio.</p>
 <p>After this go to the Global Options procedure tab and look at the “Create new user specified column names template” at the top of the field.</p>
 </div>
@@ -163,8 +163,8 @@ $(document).ready(function () {
 <div id="step-3-paste-the-filepath-for-the-column-template-file-to-be-saved" class="section level3">
 <h3>Step 3: paste the filepath for the column template file to be saved</h3>
 <p>Lastly, the folder where the user specified columns template file should be saved to has to be defined. Write here the filepath to where you wish to save the files. The following describes how to obtain the full path:</p>
-<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on ‘Copy “folder-name” as Pathname’. Go back to LipidQuan and paste the folder path (⌘ Command button + V) into the output folder field.</p>
-<p>Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQuan and paste the full path (Ctrl + V) into the output folder field. Remember to change every “\” in the path to “/”.</p>
+<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on ‘Copy “folder-name” as Pathname’. Go back to LipidQ and paste the folder path (⌘ Command button + V) into the output folder field.</p>
+<p>Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQ and paste the full path (Ctrl + V) into the output folder field. Remember to change every “\” in the path to “/”.</p>
 <p>After defining the output folder, click on the “Create column template file” to create the user specified columns template file. The file will by default be called userSpecifiedColnames.csv. Open this file to edit it. The file will consist of the following:</p>
 <table>
 <thead>
@@ -270,7 +270,7 @@ $(document).ready(function () {
 </tr>
 </tbody>
 </table>
-<p>This file can now be used within our project by loading it into LipidQuan GUI in the quantification procedure (see the quantification vignette and tutorial for detailed info of how to process quantification of lipidomics data)</p>
+<p>This file can now be used within our project by loading it into LipidQ GUI in the quantification procedure (see the quantification vignette and tutorial for detailed info of how to process quantification of lipidomics data)</p>
 </div>
 </div>
 <div id="creating-an-endogene-istd-database-template-file" class="section level1">
@@ -287,8 +287,8 @@ $(document).ready(function () {
 <div id="step-3-output-folder" class="section level3">
 <h3>Step 3: output folder</h3>
 <p>Lastly, the folder where the databases should be saved to has to be defined. For convenience, we will save this file in the same folder as the userSpecified column names file. The following describes how to obtain the full path:</p>
-<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on ‘Copy “folder-name” as Pathname’. Go back to LipidQuan and paste the folder path (⌘ Command button + V) into the output folder field.</p>
-<p>Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQuan and paste the full path (Ctrl + V) into the output folder field. Remember to change every “\” in the path to “/”.</p>
+<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on ‘Copy “folder-name” as Pathname’. Go back to LipidQ and paste the folder path (⌘ Command button + V) into the output folder field.</p>
+<p>Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQ and paste the full path (Ctrl + V) into the output folder field. Remember to change every “\” in the path to “/”.</p>
 <p>After inserting the full path, click on the “Create Database” button.</p>
 </div>
 <div id="step-4-edit-the-database-template-files-to-make-it-usable-within-a-project" class="section level3">

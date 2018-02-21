@@ -3,7 +3,7 @@
 #' @description compactOutput_pmolCalc saves a compact version of data.frame
 #' NAME, CLASS_PMOL_SUBT_PMOL_*, and MOL_PCT_CLASS_SUBT_PMOL_* and FILTERED
 #' @param data data formatted by the use of the mergeDataSet function from
-#' LipidQuan.
+#' LipidQ.
 #' @param userSpecifiedColnames the column names template file containing user
 #' specified column names for the input data.
 #' @return a compact data output comprising of pmol and pmol related columns
@@ -11,12 +11,12 @@
 #' @examples
 #' # load user specified column names file.
 #' userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
-#'  "userSpecifiedColnames.csv", package = "lipidQuan"),
+#'  "userSpecifiedColnames.csv", package = "lipidQ"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
 #' pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables/checks",
-#'  "pmolCalculatedDataSet.csv", package = "lipidQuan"),
+#'  "pmolCalculatedDataSet.csv", package = "lipidQ"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' # make compact output from pmolCalculatedDataSet

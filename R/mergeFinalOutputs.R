@@ -8,9 +8,9 @@
 #' @examples
 #' # make output molPct files data path list
 #' dataPathList <- c(system.file("extdata/",
-#'                   "finalOutput1.csv", package = "lipidQuan"),
+#'                   "finalOutput1.csv", package = "lipidQ"),
 #'                  system.file("extdata/",
-#'                   "finalOutput2.csv", package = "lipidQuan"))
+#'                   "finalOutput2.csv", package = "lipidQ"))
 #'
 #' # merge final output files to one file
 #' mergeFinalOutputs(dataPathList)

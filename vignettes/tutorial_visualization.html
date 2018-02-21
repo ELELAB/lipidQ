@@ -11,7 +11,7 @@
 
 <meta name="author" content="André Vidas Olsen" />
 
-<meta name="date" content="2018-02-16" />
+<meta name="date" content="2018-02-21" />
 
 <title>Tutorial: Visualization</title>
 
@@ -121,41 +121,41 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">Tutorial: Visualization</h1>
 <h4 class="author"><em>André Vidas Olsen</em></h4>
-<h4 class="date"><em>2018-02-16</em></h4>
+<h4 class="date"><em>2018-02-21</em></h4>
 
 </div>
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>This tutorial will cover all the basic steps involved in lipidQuan visualization.</p>
+<p>This tutorial will cover all the basic steps involved in lipidQ visualization.</p>
 </div>
 <div id="data" class="section level1">
 <h1>Data</h1>
 <p>The data for this tutorial will consist of the final output file containing the mol% pmol of species and classes.</p>
 </div>
-<div id="step-1-open-lipidquan" class="section level1">
-<h1>Step 1: open LipidQuan</h1>
-<p>Start by open up LipidQuan. This can be done by doing these 3 steps:</p>
+<div id="step-1-open-lipidq" class="section level1">
+<h1>Step 1: open LipidQ</h1>
+<p>Start by open up LipidQ. This can be done by doing these 3 steps:</p>
 <ol style="list-style-type: decimal">
 <li><p>Open Rstudio</p></li>
-<li><p>Write “library(lipidQuan)”</p></li>
-<li><p>Write “runLipidQuan()”</p></li>
+<li><p>Write “library(lipidQ)”</p></li>
+<li><p>Write “runLipidQ()”</p></li>
 </ol>
-<p>If the web browser encounters problems doing any of the steps in the tutorial, LipidQuan can also be open by going to:</p>
-<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQuan/inst/app&quot;</code></pre>
+<p>If the web browser encounters problems doing any of the steps in the tutorial, LipidQ can also be open by going to:</p>
+<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQ/inst/app&quot;</code></pre>
 <p>, open either ui.R or server.R and hit the Run button at the right top corner of Rstudio.</p>
 <p>After this go to the visualization procedure tab.</p>
 </div>
-<div id="step-2-load-data-into-lipidquan" class="section level1">
-<h1>Step 2: load data into LipidQuan</h1>
+<div id="step-2-load-data-into-lipidq" class="section level1">
+<h1>Step 2: load data into LipidQ</h1>
 <p>In the visualization procedure tab section, start by choosing the input file to be used by clicking on the “Browse…” button below “Choose a mol% final output file (.csv-file)”. For this tutorial we will be using the following two files:</p>
 <ol style="list-style-type: decimal">
 <li><p>finalOutput_molPct.csv</p></li>
 <li><p>sampleTypes.csv</p></li>
 </ol>
 <p>The two file is located in the following folder:</p>
-<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQuan/inst/extdata&quot;</code></pre>
+<pre><code>#&gt; [1] &quot;/data/user/andre/lipidomics/lipidQ/inst/extdata&quot;</code></pre>
 <p>Go to this folder and select the two files.</p>
 </div>
 <div id="step-3-choose-sample-type-file" class="section level1">
@@ -177,8 +177,8 @@ $(document).ready(function () {
 <div id="step-7-output-folder" class="section level1">
 <h1>Step 7: Output folder</h1>
 <p>Lastly, the folder where the output files should be saved to has to be defined. Here we’ll write the filepath to where we wish to save the files. The following describes how to obtain the full path:</p>
-<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on ‘Copy “folder-name” as Pathname’. Go back to LipidQuan and paste the folder path (⌘ Command button + V) into the output folder field.</p>
-<p>Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQuan and paste the full path (Ctrl + V) into the output folder field. Remember to change every “\” in the path to “/”.</p>
+<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of interest, right click on the folder, press the alt button + click on ‘Copy “folder-name” as Pathname’. Go back to LipidQ and paste the folder path (⌘ Command button + V) into the output folder field.</p>
+<p>Windows: Go to the folder of interest, right click on the folder, go to properties, find Location and copy the path there (Ctrl + C). Go back to LipidQ and paste the full path (Ctrl + V) into the output folder field. Remember to change every “\” in the path to “/”.</p>
 <p>After this we’ll press “Create Plots”.</p>
 </div>
 <div id="pca-plots" class="section level1">

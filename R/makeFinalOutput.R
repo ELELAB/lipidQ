@@ -13,20 +13,20 @@
 #' @examples
 #' # load endo & ISTD databases as well as user specified column names file.
 #' endogene_lipid_db <- read.table(system.file("extdata/dataTables/checks",
-#'  "endogene_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#'  "endogene_lipid_db.csv", package = "lipidQ"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
 #' ISTD_lipid_db <- read.table(system.file("extdata/dataTables/checks",
-#'  "ISTD_lipid_db.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#'  "ISTD_lipid_db.csv", package = "lipidQ"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
 #' userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
-#'  "userSpecifiedColnames.csv", package = "lipidQuan"),
+#'  "userSpecifiedColnames.csv", package = "lipidQ"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
 #' pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables/checks",
-#'  "pmolCalculatedDataSet.csv", package = "lipidQuan"),
+#'  "pmolCalculatedDataSet.csv", package = "lipidQ"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' # make compact output from pmolCalculatedDataSet

@@ -8,7 +8,7 @@ plotQC_totalLipids(data, userSpecifiedColnames = NULL, pathToOutput = "")
 }
 \arguments{
 \item{data}{data formatted by the use of the compactOutput_pmolCalc function
-from LipidQuan.}
+from LipidQ.}
 
 \item{userSpecifiedColnames}{the column names template file containing user
 specified column names for the input data.}
@@ -25,12 +25,12 @@ This function creates QC plots of MS1 intensity data
 \examples{
 # load user specified column names
 userSpecifiedColnames <- read.table(system.file("extdata/LipidQ_DataBase",
- "userSpecifiedColnames.csv", package = "lipidQuan"),
+ "userSpecifiedColnames.csv", package = "lipidQ"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 
 # load pmolCalculatedDataSet.csv made by using the pmolCalc() function
 pmolCalculatedDataSet <- read.table(system.file("extdata/dataTables/checks",
- "pmolCalculatedDataSet.csv", package = "lipidQuan"),
+ "pmolCalculatedDataSet.csv", package = "lipidQ"),
  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 # make compact output from pmolCalculatedDataSet
 classPmol_molPctClass_compact <- compactOutput_pmolCalc(

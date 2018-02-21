@@ -5,18 +5,18 @@
 #' (after the normal species). The purpose for this is mainly to get a better
 #' overview of the data types when manually inspecting the data.
 #' @param data data formatted by the use of the mergeDataSet function from
-#' LipidQuan.
+#' LipidQ.
 #' @param userSpecifiedColnames the column names template file containing user
 #' specified column names for the input data. This file
 #' @export
 #' @return a sorted data set
 #' @examples
 #' mergedDataSets <- read.table(system.file("extdata/dataTables/checks",
-#'  "mergedDataSets.csv", package = "lipidQuan"), stringsAsFactors = FALSE,
+#'  "mergedDataSets.csv", package = "lipidQ"), stringsAsFactors = FALSE,
 #'  header = TRUE, sep = ",")
 #'
 #' list <- read.table(system.file("extdata/LipidQ_DataBase",
-#'  "userSpecifiedColnames.csv", package = "lipidQuan"),
+#'  "userSpecifiedColnames.csv", package = "lipidQ"),
 #'  stringsAsFactors = FALSE, header = TRUE, sep = ",")
 #'
 #' sortedData <- sort_is(mergedDataSets, userSpecifiedColnames = list)

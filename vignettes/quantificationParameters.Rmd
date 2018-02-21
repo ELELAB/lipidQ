@@ -24,7 +24,7 @@ the quantification procedure in LidpiqQuan.
 
 
 ### Number of replicates
-LipiqQuan contains a section for specifying the number of replicates in the
+LipidQ contains a section for specifying the number of replicates in the
 input intensity data. If the input text is set to 1, this means that there is
 only the original sample extract, whereas setting the number to 2 means 2
 replicates, 3 means 3 replicates etc. Also, in this field, the user can specify
@@ -38,7 +38,7 @@ not. This is done by using the checkbox marked as 'Blank contains replicates'.
 Below the field of specifying the number of replicates, the user can also
 specify two parameters for filtering out unrealiable measurements. This is done
 by using the 'Threshold of instance' and 'Number of instances threshold' fields
-in LipiqQuan. In the 'Threshold of instance' the user can specify what level of
+in LipidQ. In the 'Threshold of instance' the user can specify what level of
 intensity will be considered as 'real signal'. In the 'Number of instances
 threshold' the user can specify how many of the replicates in a given sample
 that should have a value above the 'Threshold of instance' before the sample in

@@ -5,11 +5,11 @@ knitr::opts_chunk$set(
 )
 
 ## ---- echo=FALSE---------------------------------------------------------
-system.file("app/", package = "lipidQuan")
+system.file("app/", package = "lipidQ")
 
 ## ---- echo=FALSE---------------------------------------------------------
-system.file("extdata/mE504_Data/", package = "lipidQuan")
+system.file("extdata/mE504_Data/", package = "lipidQ")
 
 ## ---- echo=FALSE---------------------------------------------------------
-system.file("extdata/LipidQ_DataBase", package = "lipidQuan")
+system.file("extdata/LipidQ_DataBase", package = "lipidQ")
 

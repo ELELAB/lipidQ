@@ -5,5 +5,5 @@ knitr::opts_chunk$set(
 )
 
 ## ---- echo=FALSE---------------------------------------------------------
-system.file("extdata/", package = "lipidQuan")
+system.file("extdata/", package = "lipidQ")
 

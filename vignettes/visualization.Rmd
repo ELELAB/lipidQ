@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 #Introduction
-This vignette will cover all the basic steps involved in lipidQuan
+This vignette will cover all the basic steps involved in lipidQ
 visualization.
 
 
@@ -52,7 +52,7 @@ sample type. The following shows an exmaple of this sample type file:
 
 ```{r echo = FALSE}
 library(knitr)
-data <- read.csv(system.file("extdata/sampleTypes.csv", package = "lipidQuan"),
+data <- read.csv(system.file("extdata/sampleTypes.csv", package = "lipidQ"),
                  stringsAsFactors = FALSE)
 data[,1] <- "1-4"
 data[,2] <- "5-8"
@@ -94,7 +94,7 @@ As mentioned in the "Selection of plot types" section, the heatmap will cluster
 the data. This is done by using the k-means clustering algorithm. If the user
 has some prior knowledge of the amount of clusters, the user can specify the
 amount of clusters $k$ in the "Optional selection of $k$ clusters for the
-heatmap" field. If no number of clusters is specified, LipidQuan will determine
+heatmap" field. If no number of clusters is specified, LipidQ will determine
 the most appropiate numbers of clusters $k$ by using the NbClust R package
 (Ref: https://cran.r-project.org/web/packages/NbClust/index.html). A plot called
 nbclustResults.png will be created in this instance, which illustrates a

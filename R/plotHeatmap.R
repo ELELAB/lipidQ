@@ -36,10 +36,10 @@
 #' @examples
 #' # load sample types file and data to be used for visualization
 #' sampleTypes <- read.csv(system.file("extdata", "sampleTypes.csv",
-#'  package = "lipidQuan"), stringsAsFactors = FALSE)
+#'  package = "lipidQ"), stringsAsFactors = FALSE)
 #'
 #' data <- read.csv(system.file("extdata/dataTables/checks",
-#'  "finalOutput_molPct.csv", package = "lipidQuan"), stringsAsFactors = FALSE)
+#'  "finalOutput_molPct.csv", package = "lipidQ"), stringsAsFactors = FALSE)
 #'
 #'
 #' # create heatmap from log2 transformed data with 0.0001 added pseudo counts
