@@ -26,7 +26,14 @@ checkColnames <- function(userSpecifiedColnames = NULL){
 
     # check that mandatory column names exist: SUM_COMPOSITION, and either MS1
     # or MS2
-    #"SUM_COMPOSITION" %in% colnames(userSpecifiedColnames)
+    if( !("SUM_COMPOSITION" %in% colnames(userSpecifiedColnames) &
+       ("MS1" %in% colnames(userSpecifiedColnames) | numberOfMS2ix > 0)) ){
+
+      stop(paste0("ERROR: The user specified column names file does not contain"
+        ," mandatory column names (at least SUM_COMPOSITION, MS1 or MS2 is ",
+        "missing). Please create a new userSpecifiedColnames.csv template file "
+        , "in the lipidQ GUI Global Option procedure tab."))
+    }
 
 
     # check that all internal column names of userSpecifiedColnames are written
@@ -71,8 +78,6 @@ checkColnames <- function(userSpecifiedColnames = NULL){
 
   return(dataColnames)
 }
-
-
 
 
 
