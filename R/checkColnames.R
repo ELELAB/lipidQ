@@ -20,16 +20,35 @@ checkColnames <- function(userSpecifiedColnames = NULL){
 
     # check that all column names in userSpecifiedColnames.csv have the correct
     # reference names else throw an error message
-    #if(!all(c("PPM", "CLASS", "C_CHAIN", "DOUBLE_BOND", "OH_GROUP",
-    if(!all(c("PPM", "CLASS",
-              "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "MS1x",
-              MS2ix) %in% colnames(userSpecifiedColnames))){
+    #if(!all(c("PPM", "CLASS",
+    #          "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "MS1x",
+    #          MS2ix) %in% colnames(userSpecifiedColnames))){
 
-      stop(paste0("ERROR: The userSpecifiedColnames.csv does not have ",
+    # check that mandatory column names exist: SUM_COMPOSITION, and either MS1
+    # or MS2
+    #"SUM_COMPOSITION" %in% colnames(userSpecifiedColnames)
+
+
+    # check that all internal column names of userSpecifiedColnames are written
+    # correctly
+    if(!all(colnames(userSpecifiedColnames) %in% c("PPM", "CLASS", "C_CHAIN",
+      "DOUBLE_BOND", "OH_GROUP", "SUM_COMPOSITION", "SPECIE_COMPOSITION",
+      "MASS_TO_CHARGE", "MS1x", MS2ix)
+            )){
+      stop(paste0("ERROR: The user specified column names file does not have ",
           "correctly written reference column names (First line of the file). ",
           "Please create a new userSpecifiedColnames.csv template file in the ",
           "lipidQ GUI Global Option procedure tab."))
     }
+
+    # check that no duplicates exists among the internal column names
+    if(!all(!duplicated(colnames(userSpecifiedColnames)))){
+      stop(paste0("ERROR: The user specified column names file contains ",
+        "duplicates. Please remove this or create a new ",
+        "userSpecifiedColnames.csv template file in the ",
+        "lipidQ GUI Global Option procedure tab."))
+    }
+
 
     dataColnames <- userSpecifiedColnames
 
@@ -52,8 +71,6 @@ checkColnames <- function(userSpecifiedColnames = NULL){
 
   return(dataColnames)
 }
-
-
 
 
 
