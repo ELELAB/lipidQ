@@ -18,12 +18,6 @@ checkColnames <- function(userSpecifiedColnames = NULL){
     }
 
 
-    # check that all column names in userSpecifiedColnames.csv have the correct
-    # reference names else throw an error message
-    #if(!all(c("PPM", "CLASS",
-    #          "SUM_COMPOSITION", "SPECIE_COMPOSITION", "MASS_TO_CHARGE", "MS1x",
-    #          MS2ix) %in% colnames(userSpecifiedColnames))){
-
     # check that mandatory column names exist: SUM_COMPOSITION, and either MS1
     # or MS2
     if( !("SUM_COMPOSITION" %in% colnames(userSpecifiedColnames) &

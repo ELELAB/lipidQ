@@ -125,7 +125,7 @@ filterDataSet <- function(data, endogene_lipid_db, ISTD_lipid_db,
 
 
         if(nrow(selectedColRows) > 0){ # only check condition on column-row
-          #values if selectedColRows actually contains rows
+          # values if selectedColRows actually contains rows
           for(i in 1:nrow(selectedColRows)){
             # check that all relevant columns (selected by 1/0 in the database)
             # has a value > 0 for a given row. If at least one has a value <= 0,

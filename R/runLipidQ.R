@@ -11,7 +11,6 @@
 #' # run lipidQ
 #' #runLipidQ()
 runLipidQ <- function(){
-    #runApp("inst/app/") # for test purposes
     suppressMessages(runApp(system.file("app", package = "lipidQ"),
                           launch.browser=TRUE)) # for builds
 }

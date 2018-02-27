@@ -18,7 +18,7 @@ a compact data output comprising of pmol and pmol related columns
 }
 \description{
 compactOutput_pmolCalc saves a compact version of data.frame
-NAME, CLASS_PMOL_SUBT_PMOL_*, and MOL_PCT_CLASS_SUBT_PMOL_* and FILTERED
+NAME, CLASS_PMOL_SUBT_PMOL_*, and MOL_PCT_CLASS_SUBT_PMOL_* columns
 }
 \examples{
 # load user specified column names file.

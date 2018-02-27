@@ -127,9 +127,6 @@ ui <- fluidPage(
             actionButton("runAnalysis", "Run Analysis"),
 
 
-
-            # Button
-            #downloadButton("downloadData", "Download"), # TO BE CONTINUED
             br(),
             br(),
             textOutput(

@@ -43,14 +43,10 @@ plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL,
   dataColnames <- checkColnames(userSpecifiedColnames = userSpecifiedColnames)
 
   # single blnk
-  if(TRUE){
-    class_pmol_names <- colnames(data)[grep("^CLASS_PMOL_SUBT_PMOL_",
+  class_pmol_names <- colnames(data)[grep("^CLASS_PMOL_SUBT_PMOL_",
                   colnames(data))] # names of all CLASS_PMOL_SUBT_PMOL.* columns
-    BLNK <- class_pmol_names[length(class_pmol_names)] # name of
-    # BLNK column (last MS1x.* column)
-
-
-  }
+  BLNK <- class_pmol_names[length(class_pmol_names)] # name of
+  # BLNK column (last MS1x.* column)
 
 
   # find only species
@@ -83,9 +79,7 @@ plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL,
                         exData[grep("^CLASS_PMOL_SUBT_PMOL_",colnames(exData))])
 
 
-  count <- 0 # NECESSAY???
   for(name in exData_SUM_C_and_CLASS[,dataColnames$SUM_COMPOSITION]){
-    #print(name)
     data_pr_lipid <- melt(exData_SUM_C_and_CLASS[exData_SUM_C_and_CLASS[,
                       dataColnames$SUM_COMPOSITION] == name, class_pmol_names])
     median <- median(data_pr_lipid$value)
@@ -102,7 +96,6 @@ plotQC_totalLipids <- function(data, userSpecifiedColnames = NULL,
 
     ggsave(g, filename=paste0(pathToOutput, name,".png"), width = 14,
            height = 10, units = "cm")
-    count <- count + 1
   }
 
 }

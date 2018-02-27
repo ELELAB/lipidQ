@@ -178,8 +178,6 @@ pmolCalc <- function(data, endogene_lipid_db, ISTD_lipid_db,
           message("Original R error message:")
           message(cond)
         })
-      # TO BE CONTINUED ... exData?? when does it merge exData +
-      # isData into data?
       data[i,paste0("PMOL_SAMPLE_",unlist(strsplit(MS1x, "_"))[2])] <- pmol_calc
     }
   }

@@ -106,9 +106,6 @@ server <- function(input, output, session){
 
     # load list of file paths representing input data used by the
     # mergedDataSets() function
-
-
-
     dataList <- tryCatch(
       {
         dataList <- character(nrow(input$dataList))
@@ -179,7 +176,6 @@ server <- function(input, output, session){
 
 
     # load multiplyMS1 list
-    # TO BE CONTINUED ... MAYBE THE CHECKBOX FOR THIS FIELD IS NOT NECESSARY. IF THE BUTTON IS USED, THERE SHOULD AT LEAST BE IMPLEMENTED A WARNING, IF NO FILE IS CHOSEN, WHEN CHECKBOX = TRUE.
     if(input$multiplyMS1 == TRUE && !is.null(input$list)){
       list <- input$list
       list <- read.table(list$datapath, stringsAsFactors = FALSE,

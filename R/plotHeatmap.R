@@ -137,10 +137,6 @@
   # transpose matrix
   dataMatrix <- t(dataMatrix)
 
-  #dataMatrix[dataMatrix == -Inf] <- 0
-  #dataMatrix[dataMatrix == Inf] <- 0
-
-
 
   ha <- HeatmapAnnotation(df = data.frame(type = type), which = "row",
                           col = list(type = colors))
