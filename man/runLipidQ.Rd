@@ -16,8 +16,10 @@ of procedures, input data, different parameter as well as the output
 directory.
 }
 \examples{
-# run lipidQ
-#runLipidQ()
+info <- "Write the following command to run runLipidQ:"
+\donttest{
+runLipidQ()
+}
 }
 \author{
 André Vidas Olsen
