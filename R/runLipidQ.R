@@ -8,10 +8,11 @@
 #' @import shiny
 #' @return start up lipidQ graphical user interface
 #' @examples
-#' # run lipidQ
-#' #runLipidQ()
+#' info <- "Write the following command to run runLipidQ:"
+#' \donttest{
+#' runLipidQ()
+#' }
 runLipidQ <- function(){
     suppressMessages(runApp(system.file("app", package = "lipidQ"),
                           launch.browser=TRUE)) # for builds
 }
-
