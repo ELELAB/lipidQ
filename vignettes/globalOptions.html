@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Introduction</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h3>Introduction</h3>
+
+<p>The global options operation tab in the LipidQ GUI makes it possile to create
+both databases and user specified column names templates, when the user needs to
+have a new version. There can be several reasons why the user wishes to do so.
+Here are the two most common ones:</p>
+
+<ol>
+<li><p>If the file has been corrupted, e.g. by typing in errors in the templates,
+which makes them unusuable, the user can re-create a template and start over, if
+the source of the corruption can not be found by manual inspection.</p></li>
+<li><p>If the user has more than one project with different settings, the user can
+create a template for each project. It is recommended to save the files at
+different locations so that the template file is not overwritten. The best
+practice is to have a folder for each project. </p></li>
+</ol>
+
+<h3>Create Database templates</h3>
+
+<p>In order to create/reset a user specified column names template file, the user
+simply needs to do the following four steps:</p>
+
+<ol>
+<li><p>Specify which database type to create (endogene database or ISTD database)</p></li>
+<li><p>Import the user specified column names file for the project, so that the new
+database will have these column names.</p></li>
+<li><p>Specify the path to where the template file should be saved</p></li>
+<li><p>Press &#39;Create column template file&#39;</p></li>
+</ol>
+
+<h3>Create column names template file</h3>
+
+<p>In order to create/reset a user specified column names template file, the user
+simply needs to do the following three steps:</p>
+
+<p>####1. Specify the number of MS2 columns
+In order to specify the number of MS2 columns, the user needs to consider only
+the different MS2 names and not MS2 column names that belongs to a specific MS2
+name. For instance, for the following columns:</p>
+
+<p>&ldquo;MASSFRAG1&rdquo;, &ldquo;FRAG1.mE504_POS_01.raw&rdquo;, &ldquo;FRAG1.mE504_POS_02.raw&rdquo;</p>
+
+<p>&ldquo;MASSFRAG2&rdquo;, &ldquo;FRAG2.mE504_POS_01.raw&rdquo;, &ldquo;FRAG2.mE504_POS_02.raw&rdquo;</p>
+
+<p>&ldquo;MASSFA1&rdquo;, &ldquo;FA1.mE504_POS_01.raw&rdquo;, &ldquo;FA1.mE504_POS_02.raw&rdquo;</p>
+
+<p>&ldquo;MASSFA2&rdquo;, &ldquo;FA2.mE504_POS_01.raw&rdquo;, &ldquo;FA2.mE504_POS_02.raw&rdquo;</p>
+
+<p>, the number of MS2 columns is 4, since columns such as MASS<strong>FRAG1</strong>,
+<strong>FRAG1</strong>.mE504_POS_01.raw, and <strong>FRAG1</strong>.mE504_POS_02.raw all belongs to
+<strong>FRAG1</strong>, columns such as MASS<strong>FRAG2</strong>, <strong>FRAG2</strong>.mE504_POS_01.raw, and
+<strong>FRAG2</strong>.mE504_POS_02.raw all belongs to <strong>FRAG2</strong> and so on. The maximum
+numbers of MS2 columns defined in this way can not exceed 20. </p>
+
+<p>####2. Specify the path to where the template file should be saved
+next, the folder where the output files should be saved to has to be defined in
+the &ldquo;Paste the filepath for the column template file to be saved&rdquo; field. Here
+we&#39;ll write the filepath to where we wish to save the files. The following
+describes how to obtain the full path:</p>
+
+<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of
+interest, right click on the folder, press the alt button + click on &#39;Copy
+&ldquo;folder-name&rdquo; as Pathname&#39;. Go back to LipidQ and paste the folder path
+(&#8984; Command button + V) into the output folder field.</p>
+
+<p>Windows: Go to the folder of interest, right click on the folder, go to
+properties, find Location and copy the path there (Ctrl + C). Go back to
+LipidQ and paste the full path (Ctrl + V) into the output folder field.
+Remember to change every &ldquo;\&rdquo; in the path to &ldquo;/&rdquo;. </p>
+
+<p>####3. Press &#39;Create column template file&#39;
+Finally the user specified column template names file is created by clicking on
+the &#39;Create column template file&#39; button.</p>
+
+</body>
+
+</html>

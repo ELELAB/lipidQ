@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Introduction</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Introduction</h1>
+
+<p>This vigentte will focus on describing the different parameters in regards to
+the quantification procedure in LidpiqQuan.</p>
+
+<h3>Number of replicates</h3>
+
+<p>LipidQ contains a section for specifying the number of replicates in the
+input intensity data. If the input text is set to 1, this means that there is
+only the original sample extract, whereas setting the number to 2 means 2
+replicates, 3 means 3 replicates etc. Also, in this field, the user can specify
+whether the input intensity data contains replicates in the blank extracts or
+not. This is done by using the checkbox marked as &#39;Blank contains replicates&#39;.</p>
+
+<h3>Number of instances threshold &amp; Threshold of instance</h3>
+
+<p>Below the field of specifying the number of replicates, the user can also
+specify two parameters for filtering out unrealiable measurements. This is done
+by using the &#39;Threshold of instance&#39; and &#39;Number of instances threshold&#39; fields
+in LipidQ. In the &#39;Threshold of instance&#39; the user can specify what level of
+intensity will be considered as &#39;real signal&#39;. In the &#39;Number of instances
+threshold&#39; the user can specify how many of the replicates in a given sample
+that should have a value above the &#39;Threshold of instance&#39; before the sample in
+question will be considered to have a &#39;real&#39; signal. </p>
+
+<h3>Multiply MS1 columns by a factor (for LipidX users)</h3>
+
+<p>In cases where a low mass range and high mass range has overlapping parts, a
+multiplication factor will be needed for LipidX users. The reason is that LipidX
+takes the average of the overlapping and non-overlapping part of the low and
+high mass range, resulting in a division factor of 2 for some lipids, since they
+will not be in the overlapping part of those two overlaps. If this is the case,
+then the &ldquo;Multiply MS1 columns by a factor (for LipidX users)&rdquo; checkbox should
+be marked. A file containing every classes which intensity values needs to be
+multiplied should be included by using the &ldquo;Browse&hellip;&rdquo; button below &ldquo;Choose the
+list of classes to be multiplied (.csv-file)&rdquo; and selecting the file. Finally a
+multiplication factor should be selected in the &ldquo;Set multiplication factor&rdquo;
+field, which specify the number to multiply each classes with.</p>
+
+<h3>Spike ISTD</h3>
+
+<h3>Filter types</h3>
+
+<h4>LOQ</h4>
+
+<p>Limit of quantification (LOQ) is a threshold setting which specifies whether the
+quantification of a given lipid/species is high enough to be considered as
+measurable (see parameters vignette).</p>
+
+<h4>Threshold for rounding down to zero for mol% species:</h4>
+
+</body>
+
+</html>

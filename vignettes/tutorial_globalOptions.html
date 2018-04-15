@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title></title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<p>#Introduction
+This tutorial will cover how to use the Global Options in order to create new
+user specified column names template files as well as new endogene and ISTD
+database templates. Once these templates are created, they can be used to make
+the required databases and user specified column names for a given
+quantification procedure in the LipidQ GUI. The tutorial is divided into two
+parts:</p>
+
+<ol>
+<li><p>Creating a user specified column names file</p></li>
+<li><p>Creating an endogen &amp; ISTD database file</p></li>
+</ol>
+
+<p>#Data
+The data for this tutorial will consist of the following file:</p>
+
+<p>userSpecifiedColnames.csv</p>
+
+<p>, which is located in the following folder:</p>
+
+<pre><code>#&gt; [1] &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/lipidQ/extdata/LipidQ_DataBase&quot;
+</code></pre>
+
+<p>#Creating a user specified column names file</p>
+
+<p>###Step 1: open LipidQ
+Start by open up LipidQ. This can be done by doing these 3 steps:</p>
+
+<ol>
+<li><p>Open Rstudio</p></li>
+<li><p>Write &ldquo;library(lipidQ)&rdquo;</p></li>
+<li><p>Write &ldquo;runLipidQ()&rdquo;</p></li>
+</ol>
+
+<p>If the web browser encounters problems doing any of the steps in the tutorial,
+LipidQ can also be open by going to:</p>
+
+<pre><code>#&gt; [1] &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/lipidQ/app/&quot;
+</code></pre>
+
+<p>, open either ui.R or server.R and hit the Run button at the right top corner of
+Rstudio. </p>
+
+<p>After this go to the Global Options procedure tab and look at the &ldquo;Create new
+user specified column names template&rdquo; at the top of the field.</p>
+
+<p>###Step 2: set number of MS2 columns in the data
+In this field we have to specify how many MS2 columns our input data sets
+contain (see Global Options vignette for more info about how to properly set the
+number MS2 columns). Since we have six disctint MS2 columns for our data
+example, we&#39;ll set the number to 6.</p>
+
+<p>###Step 3: paste the filepath for the column template file to be saved
+Lastly, the folder where the user specified columns template file should be
+saved to has to be defined. Write here the filepath to where you wish to save
+the files. The following describes how to obtain the full path:</p>
+
+<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of
+interest, right click on the folder, press the alt button + click on &#39;Copy
+&ldquo;folder-name&rdquo; as Pathname&#39;. Go back to LipidQ and paste the folder path
+(&#8984; Command button + V) into the output folder field.</p>
+
+<p>Windows: Go to the folder of interest, right click on the folder, go to
+properties, find Location and copy the path there (Ctrl + C). Go back to
+LipidQ and paste the full path (Ctrl + V) into the output folder field.
+Remember to change every &ldquo;\&rdquo; in the path to &ldquo;/&rdquo;. </p>
+
+<p>After defining the output folder, click on the &ldquo;Create column template file&rdquo; to
+create the user specified columns template file. The file will by default be
+called userSpecifiedColnames.csv. Open this file to edit it. The file will
+consist of the following:</p>
+
+<table><thead>
+<tr>
+<th align="left">PPM</th>
+<th align="left">CLASS</th>
+<th align="left">C_CHAIN</th>
+<th align="left">DOUBLE_BOND</th>
+<th align="left">SUM_COMPOSITION</th>
+<th align="left">SPECIE_COMPOSITION</th>
+<th align="left">MASS_TO_CHARGE</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th align="left">OH_GROUP</th>
+<th align="left">MS1x</th>
+<th align="left">MS2ax</th>
+<th align="left">MS2bx</th>
+<th align="left">MS2cx</th>
+<th align="left">MS2dx</th>
+<th align="left">MS2ex</th>
+<th align="left">MS2fx</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+<td align="left">TYPE_NAME_HERE</td>
+</tr>
+</tbody></table>
+
+<p>###Step 4: edit the template file to make it usable within a project<br/>
+After creating the user specifed column names template file, we now specify our
+own column names that macthes the default column names in order to make it
+usable within our project (see the Global Options vignette for a complete
+explanation of each of the default column names). After doing this, we&#39;ll end up
+with the following table:</p>
+
+<table><thead>
+<tr>
+<th align="left">PPM</th>
+<th align="left">CLASS</th>
+<th align="left">C_CHAIN</th>
+<th align="left">DOUBLE_BOND</th>
+<th align="left">SUM_COMPOSITION</th>
+<th align="left">SPECIE_COMPOSITION</th>
+<th align="left">MASS_TO_CHARGE</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">ERROR</td>
+<td align="left">CLASS</td>
+<td align="left">LENGTH</td>
+<td align="left">DB</td>
+<td align="left">NAME</td>
+<td align="left">SPECIE</td>
+<td align="left">MASS</td>
+</tr>
+</tbody></table>
+
+<table><thead>
+<tr>
+<th align="left">OH_GROUP</th>
+<th align="left">MS1x</th>
+<th align="left">MS2ax</th>
+<th align="left">MS2bx</th>
+<th align="left">MS2cx</th>
+<th align="left">MS2dx</th>
+<th align="left">MS2ex</th>
+<th align="left">MS2fx</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">OH</td>
+<td align="left">PREC</td>
+<td align="left">FRAG1</td>
+<td align="left">FRAG2</td>
+<td align="left">FA1INTENS</td>
+<td align="left">FA2INTENS</td>
+<td align="left">NLS</td>
+<td align="left">FAOINTENS</td>
+</tr>
+</tbody></table>
+
+<p>This file can now be used within our project by loading it into LipidQ GUI in
+the quantification procedure (see the quantification vignette and tutorial for
+detailed info of how to process quantification of lipidomics data) </p>
+
+<p>#Creating an endogene &amp; ISTD database template file
+Now that we have a user specified column names file, we can use this file to
+create our two databases needed for the quantification procedure. This is done
+in the field called &ldquo;Create new database file&rdquo; in the lowest part of the Global
+Options field.</p>
+
+<p>###Step 1: choose database type
+In this step we choose the datatype we wish to create. Since we want both, we
+will mark both the endogene and the ISTD database checkbox. </p>
+
+<p>###Step 2: choose user specified column
+Next, we need to load the user specified column names file we just created in
+part 1 of this tutorial. This is done by clicking on the &ldquo;Browse&hellip;&rdquo; button
+below the &ldquo;Choose list of colnames (.csv-file)&rdquo; text and choosing the user
+specified column names file.</p>
+
+<p>###Step 3: output folder
+Lastly, the folder where the databases should be saved to has to be defined.
+For convenience, we will save this file in the same folder as the userSpecified
+column names file. The following describes how to obtain the full path:</p>
+
+<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of
+interest, right click on the folder, press the alt button + click on &#39;Copy
+&ldquo;folder-name&rdquo; as Pathname&#39;. Go back to LipidQ and paste the folder path
+(&#8984; Command button + V) into the output folder field.</p>
+
+<p>Windows: Go to the folder of interest, right click on the folder, go to
+properties, find Location and copy the path there (Ctrl + C). Go back to
+LipidQ and paste the full path (Ctrl + V) into the output folder field.
+Remember to change every &ldquo;\&rdquo; in the path to &ldquo;/&rdquo;. </p>
+
+<p>After inserting the full path, click on the &ldquo;Create Database&rdquo; button.</p>
+
+<p>###Step 4: edit the database template files to make it usable within a project 
+Now that we have the two datbase templates, they need to be edited so that they
+fit the project (see the Input Data vignette for a complete explanation of each
+of the column names in each of the databases). (MESUT)</p>
+
+</body>
+
+</html>

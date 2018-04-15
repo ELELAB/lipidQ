@@ -1,0 +1,70 @@
+---
+title: "Tutorial: Merging of Final Output Data Sets"
+author: "André Vidas Olsen"
+date: "2018-04-15"
+output: html_document
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+#Introduction
+This tutorial will cover how to merge multiple final output files into one file.
+
+
+#Data
+The data for this tutorial will consist of the following files:
+
+* The final output files generated from multiple LipidQ quantification runs
+(see quantification tutorial for info on how to use the quantification procedure
+in the LipidQ GUI).
+
+
+#Step 1: open LipidQ
+Start by open up LipidQ. This can be done by doing these 3 steps:
+
+1. Open Rstudio
+
+2. Write "library(lipidQ)"
+
+3. Write "runLipidQ()"
+
+If the web browser encounters problems doing any of the steps in the tutorial,
+LipidQ can also be open by going to:
+
+```
+#> [1] "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/lipidQ/app/"
+```
+, open either ui.R or server.R and hit the Run button at the right top corner of
+Rstudio. 
+
+#Step 2. Load data into lipidQ
+After opening LipidQ, the operation tab will start at the Quantification tab.
+Instead of staying at this operation tab, click on the "Merging of Final Output
+Data Sets". In this section, the first field consists of choosing the input
+data, which in this case is the output files generated from multiple
+quantification runs with LipidQ. Use the "Browse..." button to browse and
+select the desired input data for merging process. 
+
+#Step 3. Select ouput folder
+After selecting the data to be merged, you need to specify the output folder.
+This is done by writing or copy-pasting the path to the desired folder in the
+field below "Paste the filepath for the output files to be saved". The following
+describes how to obtain the full path:
+
+From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of
+interest, right click on the folder, press the alt button + click on 'Copy
+"folder-name" as Pathname'. Go back to LipidQ and paste the folder path
+(&#8984; Command button + V) into the output folder field.
+
+Windows: Go to the folder of interest, right click on the folder, go to
+properties, find Location and copy the path there (Ctrl + C). Go back to
+LipidQ and paste the full path (Ctrl + V) into the output folder field.
+Remember to change every "\\" in the path to "/".
+
+
+After the folder path has been written, click on the "Merge Final Output Data
+Sets" to start the process.

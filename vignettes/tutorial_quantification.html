@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title></title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<p>#Introduction
+This tutorial will cover all the basic steps involved in lipidQ
+quantification analysis of lipidomics data from loading the input data to the
+creation of the results.</p>
+
+<p>#Data
+The data for this tutorial will consist of the following files:</p>
+
+<ol>
+<li>Input data files</li>
+<li>Endgogene &amp; ISTD databases</li>
+<li>User specified column names file</li>
+</ol>
+
+<p>For convenience in tutorial, all these files are already made and ready to use.
+However, when a new project needs to be analysed, the user has to create both
+user specified column names files as well as endogene &amp; ISTD databases. See the
+Global Options tutorial to get a detailed description of how to create these
+files. </p>
+
+<p>#Step 1: open LipidQ
+Start by open up LipidQ. This can be done by doing these 3 steps:</p>
+
+<ol>
+<li><p>Open Rstudio</p></li>
+<li><p>Write &ldquo;library(lipidQ)&rdquo;</p></li>
+<li><p>Write &ldquo;runLipidQ()&rdquo;</p></li>
+</ol>
+
+<p>If the web browser encounters problems doing any of the steps in the tutorial,
+LipidQ can also be open by going to:</p>
+
+<pre><code>#&gt; [1] &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/lipidQ/app/&quot;
+</code></pre>
+
+<p>, open either ui.R or server.R and hit the Run button at the right top corner of
+Rstudio. </p>
+
+<p>#Step 2: load data into LipidQ
+After opening LipidQ, the operation tab will start at the Quantification tab.
+In this tab section, start by choosing the input file to be used by clicking on
+the &ldquo;Browse&hellip;&rdquo; button below &ldquo;Choose the input data sets (.csv-files)&rdquo;. For this
+tutorial we will be using the following files: </p>
+
+<p>mE504_NEG_High-out.csv</p>
+
+<p>mE504_NEG_Low-out.csv</p>
+
+<p>mE504_POS_High-out.csv</p>
+
+<p>mE504_POS_Low-out.csv</p>
+
+<p>These files are located in the following folder:  </p>
+
+<pre><code>#&gt; [1] &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/lipidQ/extdata/mE504_Data/&quot;
+</code></pre>
+
+<p>Go to this folder and select these 4 files and click &ldquo;Open&rdquo;.</p>
+
+<p>Next, the endogene and ISTD databases has to be chosen for the project. Click on
+the &ldquo;Browse&hellip;&rdquo; buttons below &ldquo;Choose the endogene lipid database (.csv-file)&rdquo;
+and &ldquo;Choose ISTD lipid database (.csv-file)&rdquo; to do so. The database files are
+located in the following folder:</p>
+
+<pre><code>#&gt; [1] &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/lipidQ/extdata/LipidQ_DataBase&quot;
+</code></pre>
+
+<p>The endogene database is called LP_DB_MS1_v1.csv and the ISTD database is called
+ISTD_LP_DB_MS1_v1.csv.</p>
+
+<p>Lastly, the user specified column names file called userSpecifiedColnames.csv
+also has to be chosen, by the clicking &ldquo;Browse&hellip;&rdquo; button below &ldquo;Choose user
+specified column names (.csv-file)&rdquo;. The user specified column names file is
+located in the same folder as the two database files.</p>
+
+<p>#Step 3: set parameters
+###Replicates
+The next step in the analysis is to set the parameters properly to the data. The
+first thing that we have to define is the number of replicates in the data. For
+this data, there is only one extract per sample, hence one replicate, which is
+the sample itself. Therefore we set the value to 1 (default). In this section we
+can also specify whether the blanks contains replicates under the &ldquo;Blank
+contains replicate&rdquo; box. We&#39;ll leave the box unchecked since the blank does not
+contain replicates. Since we don&#39;t have replicates, the last two fields in the
+replicate section (&ldquo;Number of instances threshold&rdquo; and &ldquo;Threshold of instance&rdquo;)
+will not affect the calculation, so we&#39;ll leave these unchanged as well.</p>
+
+<p>###LOQ
+The next section deals with the limit of quantification threshold, which are
+defined in the two databases. The field consists of a checkbox defining if we
+want LOQ to filter the data quantification results, and field for specifiyng if
+we want to have a fixed deviation on the defined LOQ which should be the new
+threshold. In this case we simply want LOQ without the fixed deviation, so we
+check the &ldquo;LOQ activated&rdquo; checkbox.</p>
+
+<p>###Multiplication of MS1 columns
+With our data set, we don&#39;t need to correct lipids with a multiplication factor,
+so we&#39;ll leave the &ldquo;Multiply MS1 columns by a factor (for LipidX users)&rdquo;
+checkbox unmarked.</p>
+
+<p>###Spike ISTD
+In this section, we&#39;ll specify the parameter for spike ISTD. We&#39;ll set the value
+to 10.</p>
+
+<p>###Zero threshold
+The last parameter is a threshold for rounding to zero for mol% species (see the
+parameter vignette for more info). We&#39;ll set that to 0.001 (default)</p>
+
+<p>#QC plots
+LipidQ offers the possibility to create quality control (QC) plots both
+before and after quantification of the intensity data. Here we&#39;ll select both
+before (pre) and after (post) QC plots by marking the checkboxes &ldquo;Create QC
+plots of MS1 intensity data&rdquo; and &ldquo;Create QC plots of class pmol data&rdquo;.</p>
+
+<p>#Output folder
+Lastly, the folder where the output files should be saved to has to be defined.
+Write here the filepath to where you wish to save the files. The following
+describes how to obtain the full path:</p>
+
+<p>From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of
+interest, right click on the folder, press the alt button + click on &#39;Copy
+&ldquo;folder-name&rdquo; as Pathname&#39;. Go back to LipidQ and paste the folder path
+(&#8984; Command button + V) into the output folder field.</p>
+
+<p>Windows: Go to the folder of interest, right click on the folder, go to
+properties, find Location and copy the path there (Ctrl + C). Go back to
+LipidQ and paste the full path (Ctrl + V) into the output folder field.
+Remember to change every &ldquo;\&rdquo; in the path to &ldquo;/&rdquo;. </p>
+
+<p>After this is done, press &ldquo;Run Analysis&rdquo; to start the quantification.</p>
+
+<p>#Results
+After quantification, LipidQ will write &ldquo;Quantification done!&rdquo; below the &ldquo;Run
+Analysis&rdquo; button. After this all output files will be available in the chosen
+folder. Let&#39;s have a look at it. </p>
+
+<p>###Data sets
+All the calculated data sets will be stored in folder named &ldquo;dataTables&rdquo; within
+the chosen output folder. This folder contains the following output files:</p>
+
+<p>mergedDataSets.csv: This file contains all the input data merged together into
+one file. Only relevant columns are put into this data, while unrelevant columns
+are discarded.</p>
+
+<p>filteredDataSet.csv: This data contains the merged data after filtering based on
+requirements from the two databases.</p>
+
+<p>pmolCalculatedDataSet.csv: Contains relevant data with quantification columns.</p>
+
+<p>finalOutput_molPct.csv: Contains mol% of (MESUT) for each sample.</p>
+
+<p>finalOutput_pmol.csv:</p>
+
+<p>indexDataC.csv (MESUT)
+indexDataDB.csv (MESUT)
+indexDataOH.csv (MESUT)</p>
+
+<p>###Plots
+The plots are saved into two folders: one called &ldquo;pre&rdquo; which contains intensity
+QC plots and one called &ldquo;post&rdquo; which contains quantification QC plots. (MAYBE
+CALL IN intensity_QC AND quantification_QC).</p>
+
+</body>
+
+</html>

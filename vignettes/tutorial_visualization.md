@@ -1,0 +1,108 @@
+---
+title: "Tutorial: Visualization"
+author: "André Vidas Olsen"
+date: "2018-04-15"
+output: html_document
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+#Introduction
+This tutorial will cover all the basic steps involved in lipidQ
+visualization.
+
+#Data
+The data for this tutorial will consist of the final output file containing the
+mol% pmol of species and classes.
+
+#Step 1: open LipidQ
+Start by open up LipidQ. This can be done by doing these 3 steps:
+
+1. Open Rstudio
+
+2. Write "library(lipidQ)"
+
+3. Write "runLipidQ()"
+
+If the web browser encounters problems doing any of the steps in the tutorial,
+LipidQ can also be open by going to:
+
+```
+#> [1] "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/lipidQ/app/"
+```
+, open either ui.R or server.R and hit the Run button at the right top corner of
+Rstudio. 
+
+After this go to the visualization procedure tab.
+
+
+#Step 2: load data into LipidQ
+In the visualization procedure tab section, start by choosing the input file to
+be used by clicking on the "Browse..." button below "Choose a mol% final output
+file (.csv-file)". For this tutorial we will be using the following two files:
+
+1. finalOutput_molPct.csv
+
+2. sampleTypes.csv
+
+The two file is located in the following folder:  
+
+```
+#> [1] "/Library/Frameworks/R.framework/Versions/3.4/Resources/library/lipidQ/extdata/"
+```
+Go to this folder and select the two files.
+
+#Step 3: choose sample type file
+Next, we need to select the file containing information about the sample types.
+This is done by clicking on the "Browse..." button below "Choose a file
+containing sample type information for the data".
+
+#Step 4: log2 transformation
+Next, we'll choose to log2 transform our data by clicking on the checkbox "log2
+transformation of the data". We'll also set the pseudo counts added before the
+transformation to 0.0001 to avoid $-\infty$ values in the transformed data.
+
+#Step 5: Select plot types
+We now have to select the plot types that we want. In this analysis we're both
+interested in a PCA biplot and a heatmap, so we click on both the "Create PCA
+biplots of mol% classes and species" and the "Create heatmap plots of mol%
+classes and species" checkboxes.
+
+#Step 6: clustering
+Since we chose to create a heatmap which contains clustering, a specification of
+the amount of clusters is needed. In our case we'll not let any prior knowledge
+about the sample types determine the amount of clusters, so we'll not write any
+number in the "Optional selection of k clusters for the heatmap" field. In this
+way we'll let the NbClust algortihm determine the most likely amount of clusters
+for the heatmap.
+
+#Step 7: Output folder
+Lastly, the folder where the output files should be saved to has to be defined.
+Here we'll write the filepath to where we wish to save the files. The following
+describes how to obtain the full path:
+
+From Mac OS X El Capitan 2015 onwards (As of February 2018): Go to the folder of
+interest, right click on the folder, press the alt button + click on 'Copy 
+"folder-name" as Pathname'. Go back to LipidQ and paste the folder path
+(&#8984; Command button + V) into the output folder field.
+
+Windows: Go to the folder of interest, right click on the folder, go to
+properties, find Location and copy the path there (Ctrl + C). Go back to
+LipidQ and paste the full path (Ctrl + V) into the output folder field.
+Remember to change every "\\" in the path to "/". 
+
+After this we'll press "Create Plots".
+
+# PCA plots
+From the visualization process is done, we can go and have a look at the plots
+in the folder that we saved these in.
+
+<!--
+![PCA screeplot - classes](images/screePlot_classes.png)
+![PCA biplot - classes](images/PCA_biplot_classes.png)
+![heatmap - classes](images/heatmapClasses_k_2.png)
+--> 

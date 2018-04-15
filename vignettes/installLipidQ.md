@@ -1,0 +1,48 @@
+---
+title: "Install LipidQ"
+author: "André Vidas Olsen"
+date: "2018-04-15"
+output: html_document
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+
+
+#Introduction
+This vignette will describe how to install LipidQ on a computer. In order to
+install LipidQ, the user needs to have installed R first on the computer.
+For convenience, it is also recommended to install R studio. The ComplexHeatmap
+package needs to be installed in R in order for LipidQ to work. This can be
+done in R studio, by typing the following in the command line:
+
+source("https://bioconductor.org/biocLite.R")
+
+biocLite("ComplexHeatmap")
+
+
+###Install LipidQ from Bioconductor
+The easist way to install LipidQ is to open R/RStudio and type the following
+two commands in the command line:
+
+source("https://bioconductor.org/biocLite.R")
+
+biocLite("lipidQ")
+
+
+
+###Install LipidQ from binary/source file
+To install LipidQ from source, open R/RStudio and type the following in the
+command line:
+
+install.packages("path-to-file", repos = NULL, type="source")
+
+, where "path-to-file" is the path to the source file. For example:
+
+install.packages("../lipidQ_0.1_R_x86_64-pc-linux-gnu.tar.gz", repos = NULL,
+type="source")
+
+
