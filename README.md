@@ -5,7 +5,7 @@ if you use lipidQ please cite: Comprehensive Evaluation of a Quantitative Shotgu
 Inger Ødum Nielsen, André Vidas Olsen, Jano Dicroce Giacobini, Elena Papaleo, Klaus Kaae Andersen, Marja Jäättelä, Kenji Maeda, and Mesut Bilgin J. Am. Soc. Mass Spectrom., Just Accepted Manuscript  DOI:
 10.1021/jasms.9b00136 
 
-correspondance on the tool: Elena Papaleo
+correspondance on the tool: Elena Papaleo, elenap-at-cancer.dk
 
 
 # LipidQ 
