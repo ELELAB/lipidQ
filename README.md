@@ -1,6 +1,13 @@
 
 *Computational Biology Laboratory, Danish Cancer Society Research Center, Strandboulevarden 49, 2100, Copenhagen, Denmark*
 
+if you use lipidQ please cite: Comprehensive Evaluation of a Quantitative Shotgun Lipidomics Platform for Mammalian Sample Analysis on a High-Resolution Mass Spectrometer.
+Inger Ødum Nielsen, André Vidas Olsen, Jano Dicroce Giacobini, Elena Papaleo, Klaus Kaae Andersen, Marja Jäättelä, Kenji Maeda, and Mesut Bilgin J. Am. Soc. Mass Spectrom., Just Accepted Manuscript  DOI:
+10.1021/jasms.9b00136 
+
+correspondance on the tool: Elena Papaleo
+
+
 # LipidQ 
 ### An R/Bioconductor package quantification and visualization of lipidomics data
 
